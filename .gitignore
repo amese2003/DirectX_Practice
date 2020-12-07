@@ -30,3 +30,6 @@
 *.exe
 *.out
 *.app
+/새 폴더/hw3d/.vs/hw3d/v16
+/새 폴더/hw3d/Debug
+/새 폴더/hw3d/hw3d/Debug
