@@ -1,4 +1,8 @@
 #include <Windows.h>
+#include <sstream>
+#include <string>
+
+using namespace std;
 
 LRESULT CALLBACK WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) {
 	switch (msg)
@@ -7,13 +11,26 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) {
 			PostQuitMessage(69);
 			break;
 		case WM_KEYDOWN:
-			if (wParam == 'F') {
-				SetWindowText(hWnd, "Changed");
-			}
+			if (wParam == 'F') 
+				SetWindowText(hWnd, "Changed");			
 			break;
 		case WM_KEYUP:
 			if (wParam == 'F')
 				SetWindowText(hWnd, "wow");
+			break;
+		case WM_CHAR: {
+			static string title;
+			title.push_back((char)wParam);
+			SetWindowText(hWnd, title.c_str());
+		}
+			break;
+		case WM_LBUTTONDOWN: {
+			POINTS pt = MAKEPOINTS(lParam);
+			stringstream oss;
+			oss << "(" << pt.x << "," << pt.y << ")";
+			SetWindowText(hWnd, oss.str().c_str());
+		}
+			break;
 		default:
 			break;
 	}
