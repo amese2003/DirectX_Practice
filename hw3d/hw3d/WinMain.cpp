@@ -19,6 +19,12 @@ int CALLBACK WinMain(
 	while ((gResult = GetMessage(&msg, nullptr, 0, 0)) > 0) {
 		TranslateMessage(&msg);
 		DispatchMessage(&msg);
+
+
+		if (wnd.kbd.KeyIsPressed(VK_MENU)) {
+			MessageBox(nullptr, "눌렸다!", "스페이스 눌림.", MB_OK);
+		}
+
 	}
 
 	if (gResult == -1)

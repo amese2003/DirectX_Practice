@@ -1,5 +1,5 @@
 #include "Window.h"
-
+#include <sstream>
 
 Window::WindowClass Window::WindowClass::wndClass;
 
@@ -83,11 +83,39 @@ LRESULT WINAPI Window::HandleMsgThunk(HWND hWnd, UINT msg, WPARAM wParam, LPARAM
 }
 
 LRESULT Window::HandleMsg(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) noexcept {
+	
 	switch (msg)
 	{
 	case WM_CLOSE:
 		PostQuitMessage(0);
 		return 0;
+	//키 스테이트 초기화 (while문으로 돌아가니, 행동을 하면 clear를 해줄 필요가 있음)
+	case WM_KILLFOCUS:
+		kbd.ClearState();
+		break;
+
+	case WM_KEYDOWN:
+		kbd.OnKeyPressed(static_cast<unsigned char>(wParam));
+		break;
+	case WM_SYSKEYDOWN:
+		if (!(lParam & 0x40000000) || kbd.AutorepeatIsEnabled()) {
+			kbd.OnKeyPressed(static_cast<unsigned char>(wParam));
+		}
+		break;
+	case WM_KEYUP:
+	case WM_SYSKEYUP:
+		kbd.OnKeyReleased(static_cast<unsigned char>(wParam));
+		break;
+
+	case WM_CHAR:
+		kbd.OnChar(static_cast<unsigned char>(wParam));
+		break;
+
+
+	case WM_LBUTTONDOWN:
+		const POINTS pt = MAKEPOINTS(lParam);
+		//mouse.OnLeftPressed(pt.x, pt.y);
+		break;
 	}
 
 	return DefWindowProc(hWnd, msg, wParam, lParam);
