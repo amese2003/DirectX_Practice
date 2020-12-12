@@ -61,6 +61,10 @@ Window::~Window() {
 	DestroyWindow(hWnd);
 }
 
+void Window::SetTitle(const std::string& title) {
+	SetWindowText(hWnd, title.c_str());
+}
+
 LRESULT WINAPI Window::HandleMsgSetup(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) noexcept {
 	if (msg == WM_NCCREATE) {
 
@@ -122,7 +126,7 @@ LRESULT Window::HandleMsg(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) noe
 		case WM_MOUSEMOVE:
 		{
 			POINTS pt = MAKEPOINTS(lParam);
-			mouse.OnMouseMove(1, 1);
+			mouse.OnMouseMove(pt.x, pt.y);
 		}
 
 		case WM_LBUTTONDOWN:
@@ -160,7 +164,8 @@ LRESULT Window::HandleMsg(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) noe
 				mouse.OnWheelDown(pt.x, pt.y);
 			}
 			break;
-		}
-		return DefWindowProc(hWnd, msg, wParam, lParam);
+		}		
 	}
+
+	return DefWindowProc(hWnd, msg, wParam, lParam);
 }
