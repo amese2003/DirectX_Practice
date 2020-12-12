@@ -6,7 +6,7 @@ std::pair<int, int> Mouse::GetPos() const noexcept {
 	return { x,y };
 }
 
-int Mouse :: GetPosX() const noexcept {
+int Mouse::GetPosX() const noexcept {
 	return x;
 }
 

@@ -35,7 +35,11 @@ HINSTANCE Window::WindowClass::GetInstance() noexcept {
 	return wndClass.hInst;
 }
 
-Window::Window(int width, int height, const char* name) noexcept {
+Window::Window(int width, int height, const char* name) noexcept
+	:
+	width(width),
+	height(height)
+{
 	RECT wr;
 
 	wr.left = 100;
@@ -95,7 +99,7 @@ LRESULT Window::HandleMsg(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) noe
 			break;
 
 
-			// 키보드
+		// 키보드
 		case WM_KEYDOWN:
 			kbd.OnKeyPressed(static_cast<unsigned char>(wParam));
 			break;
@@ -114,7 +118,7 @@ LRESULT Window::HandleMsg(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) noe
 			break;
 
 
-			//마우스
+		//마우스
 		case WM_MOUSEMOVE:
 		{
 			POINTS pt = MAKEPOINTS(lParam);
