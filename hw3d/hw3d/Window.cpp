@@ -86,76 +86,77 @@ LRESULT Window::HandleMsg(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) noe
 	
 	switch (msg)
 	{
-	case WM_CLOSE:
-		PostQuitMessage(0);
-		return 0;
-	//키 스테이트 초기화 (while문으로 돌아가니, 행동을 하면 clear를 해줄 필요가 있음)
-	case WM_KILLFOCUS:
-		kbd.ClearState();
-		break;
+		case WM_CLOSE:
+			PostQuitMessage(0);
+			return 0;
+			//키 스테이트 초기화 (while문으로 돌아가니, 행동을 하면 clear를 해줄 필요가 있음)
+		case WM_KILLFOCUS:
+			kbd.ClearState();
+			break;
 
 
-	// 키보드
-	case WM_KEYDOWN:
-		kbd.OnKeyPressed(static_cast<unsigned char>(wParam));
-		break;
-	case WM_SYSKEYDOWN:
-		if (!(lParam & 0x40000000) || kbd.AutorepeatIsEnabled()) {
+			// 키보드
+		case WM_KEYDOWN:
 			kbd.OnKeyPressed(static_cast<unsigned char>(wParam));
-		}
-		break;
-	case WM_KEYUP:
-	case WM_SYSKEYUP:
-		kbd.OnKeyReleased(static_cast<unsigned char>(wParam));
-		break;
+			break;
+		case WM_SYSKEYDOWN:
+			if (!(lParam & 0x40000000) || kbd.AutorepeatIsEnabled()) {
+				kbd.OnKeyPressed(static_cast<unsigned char>(wParam));
+			}
+			break;
+		case WM_KEYUP:
+		case WM_SYSKEYUP:
+			kbd.OnKeyReleased(static_cast<unsigned char>(wParam));
+			break;
 
-	case WM_CHAR:
-		kbd.OnChar(static_cast<unsigned char>(wParam));
-		break;
+		case WM_CHAR:
+			kbd.OnChar(static_cast<unsigned char>(wParam));
+			break;
 
 
-	//마우스
-	case WM_MOUSEMOVE:
-	{
-		POINTS pt = MAKEPOINTS(lParam);
-		mouse.OnMouseMove(1,1);
-	}
-
-	case WM_LBUTTONDOWN: 
-	{
-		const POINTS pt = MAKEPOINTS(lParam);
-		mouse.OnLeftPressed(pt.x, pt.y);
-		break;
-	}
-	case WM_RBUTTONDOWN: 
-	{		
-		const POINTS pt = MAKEPOINTS(lParam);
-		mouse.OnRightPressed(pt.x, pt.y);
-		break;
-	}
-	case WM_LBUTTONUP:
-	{
-		const POINTS pt = MAKEPOINTS(lParam);
-		mouse.OnLeftReleased(pt.x, pt.y);
-		break;
-	}
-	case WM_RBUTTONUP:
-	{
-		const POINTS pt = MAKEPOINTS(lParam);
-		mouse.OnRightReleased(pt.x, pt.y);
-		break;
-	}
-	case WM_MOUSEWHEEL: 
-	{
-		const POINTS pt = MAKEPOINTS(lParam);
-		if (GET_WHEEL_DELTA_WPARAM(wParam) > 0) {
-			mouse.OnWheelUp(pt.x, pt.y);
+			//마우스
+		case WM_MOUSEMOVE:
+		{
+			POINTS pt = MAKEPOINTS(lParam);
+			mouse.OnMouseMove(1, 1);
 		}
 
-		else if (GET_WHEEL_DELTA_WPARAM(wParam) < 0) {
-			mouse.OnWheelDown(pt.x, pt.y);
+		case WM_LBUTTONDOWN:
+		{
+			const POINTS pt = MAKEPOINTS(lParam);
+			mouse.OnLeftPressed(pt.x, pt.y);
+			break;
 		}
-		break;
+		case WM_RBUTTONDOWN:
+		{
+			const POINTS pt = MAKEPOINTS(lParam);
+			mouse.OnRightPressed(pt.x, pt.y);
+			break;
+		}
+		case WM_LBUTTONUP:
+		{
+			const POINTS pt = MAKEPOINTS(lParam);
+			mouse.OnLeftReleased(pt.x, pt.y);
+			break;
+		}
+		case WM_RBUTTONUP:
+		{
+			const POINTS pt = MAKEPOINTS(lParam);
+			mouse.OnRightReleased(pt.x, pt.y);
+			break;
+		}
+		case WM_MOUSEWHEEL:
+		{
+			const POINTS pt = MAKEPOINTS(lParam);
+			if (GET_WHEEL_DELTA_WPARAM(wParam) > 0) {
+				mouse.OnWheelUp(pt.x, pt.y);
+			}
+
+			else if (GET_WHEEL_DELTA_WPARAM(wParam) < 0) {
+				mouse.OnWheelDown(pt.x, pt.y);
+			}
+			break;
+		}
+		return DefWindowProc(hWnd, msg, wParam, lParam);
 	}
-	return DefWindowProc(hWnd, msg, wParam, lParam);
 }
