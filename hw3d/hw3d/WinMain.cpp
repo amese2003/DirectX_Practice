@@ -30,6 +30,24 @@ int CALLBACK WinMain(
 			}
 		}*/
 
+		/*while (!wnd.mouse.IsEmpty()) {
+			const auto e = wnd.mouse.Read();
+
+				switch (e.GetType())
+				{
+				case Mouse::Event::Type::Leave:
+					wnd.SetTitle("Gone.");
+					break;
+				case Mouse::Event::Type::Enter:
+				{
+					std::ostringstream oss;
+					oss << "Mouse moved To (" << e.GetPosX() << "," << e.GetPosY() << ")";
+					wnd.SetTitle(oss.str());
+					break;
+				}
+			}
+		}*/
+
 
 		/*if (wnd.kbd.KeyIsPressed(VK_MENU)) {
 			MessageBox(nullptr, "눌렸다!", "스페이스 눌림.", MB_OK);
