@@ -1,5 +1,7 @@
 #include <Windows.h>
 #include "Window.h"
+#include "App.h"
+#include "CustomException.h"
 #include <sstream>
 #include <string>
 
@@ -11,53 +13,19 @@ int CALLBACK WinMain(
 	LPSTR     lpCmdLine,
 	int       nCmdShow
 ) {
-	Window wnd(800, 300, "Custom!");
-
-	MSG msg;
-	BOOL gResult;
-
-	while ((gResult = GetMessage(&msg, nullptr, 0, 0)) > 0) {
-		TranslateMessage(&msg);
-		DispatchMessage(&msg);
-
-		/*while (!wnd.mouse.IsEmpty()) {
-			const auto e = wnd.mouse.Read();
-
-			if (e.GetType() == Mouse::Event::Type::Move) {
-				std::ostringstream oss;
-				oss << "Mouse Position : (" << e.GetPosX() << "," << e.GetPosY() << ")";
-				wnd.SetTitle(oss.str());
-			}
-		}*/
-
-		/*while (!wnd.mouse.IsEmpty()) {
-			const auto e = wnd.mouse.Read();
-
-				switch (e.GetType())
-				{
-				case Mouse::Event::Type::Leave:
-					wnd.SetTitle("Gone.");
-					break;
-				case Mouse::Event::Type::Enter:
-				{
-					std::ostringstream oss;
-					oss << "Mouse moved To (" << e.GetPosX() << "," << e.GetPosY() << ")";
-					wnd.SetTitle(oss.str());
-					break;
-				}
-			}
-		}*/
-
-
-		/*if (wnd.kbd.KeyIsPressed(VK_MENU)) {
-			MessageBox(nullptr, "눌렸다!", "스페이스 눌림.", MB_OK);
-		}*/
-
+	
+	try {
+		return App().Go();
+	}
+	catch (const CustomException& e) {
+		MessageBox(nullptr, e.what(), "커스텀 에러창", MB_OK);
+	}
+	catch (const std::exception& e) {
+		MessageBox(nullptr, e.what(), "에러창", MB_OK);
+	}
+	catch (...) {
+		MessageBox(nullptr, "데이터 없음", "확인 불가", MB_OK);
 	}
 
-	if (gResult == -1)
-		return -1;
-
-
-	return msg.wParam;
+	return -1;
 }
