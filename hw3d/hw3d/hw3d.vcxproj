@@ -161,6 +161,7 @@
   <ItemGroup>
     <ClCompile Include="App.cpp" />
     <ClCompile Include="CustomException.cpp" />
+    <ClCompile Include="CustomTimer.cpp" />
     <ClCompile Include="Keyboard.cpp" />
     <ClCompile Include="Mouse.cpp" />
     <ClCompile Include="Window.cpp" />
@@ -169,6 +170,7 @@
   <ItemGroup>
     <ClInclude Include="App.h" />
     <ClInclude Include="CustomException.h" />
+    <ClInclude Include="CustomTimer.h" />
     <ClInclude Include="CustomWin.h" />
     <ClInclude Include="Keyboard.h" />
     <ClInclude Include="Mouse.h" />
