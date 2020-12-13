@@ -11,9 +11,10 @@ int App::Go() {
 	MSG msg;
 	BOOL gResult;
 
-	while ((gResult = GetMessage(&msg, nullptr, 0, 0) > 0)) {
-		TranslateMessage(&msg);
-		DispatchMessage(&msg);
+	while (1) {
+		if (const auto ecode = Window::ProcessMessage()) {
+			return *ecode;
+		}
 
 		DoFrame();
 	}
