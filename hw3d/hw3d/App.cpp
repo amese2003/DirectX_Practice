@@ -31,5 +31,7 @@ void App::DoFrame() {
 	oss << "Time Elapsed: " << std::setprecision(1) << std::fixed << t;
 	wnd.SetTitle(oss.str());*/
 
+	const float c = sin(timer.Peek()) / 2.0f + 0.5f;
+	wnd.Gfx().ClearBuffer(c, c, 1.0f);
 	wnd.Gfx().EndFrame();
 }
