@@ -1,11 +1,5 @@
-#include <Windows.h>
-#include "Window.h"
 #include "App.h"
-#include "CustomException.h"
-#include <sstream>
-#include <string>
 
-using namespace std;
 
 int CALLBACK WinMain(
 	HINSTANCE hInstance,

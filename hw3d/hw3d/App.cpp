@@ -1,6 +1,6 @@
 #include "App.h"
-#include <sstream>
-#include <iomanip>
+//#include <sstream>
+//#include <iomanip>
 
 App::App()
 	:
@@ -8,8 +8,8 @@ App::App()
 {}
 
 int App::Go() {
-	MSG msg;
-	BOOL gResult;
+	/*MSG msg;
+	BOOL gResult;*/
 
 	while (1) {
 		if (const auto ecode = Window::ProcessMessage()) {
@@ -19,15 +19,17 @@ int App::Go() {
 		DoFrame();
 	}
 
-	if (gResult == -1)
+	/*if (gResult == -1)
 		return -1;
 
-	return msg.wParam;
+	return msg.wParam;*/
 }
 
 void App::DoFrame() {
-	const float t = timer.Peek();
+	/*const float t = timer.Peek();
 	std::stringstream oss;
 	oss << "Time Elapsed: " << std::setprecision(1) << std::fixed << t;
-	wnd.SetTitle(oss.str());
+	wnd.SetTitle(oss.str());*/
+
+	wnd.Gfx().EndFrame();
 }

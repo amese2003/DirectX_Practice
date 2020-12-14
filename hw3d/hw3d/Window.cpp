@@ -1,6 +1,7 @@
 #include "Window.h"
 #include <sstream>
 
+//윈도우 클래스
 Window::WindowClass Window::WindowClass::wndClass;
 
 Window::WindowClass::WindowClass() noexcept
@@ -35,18 +36,19 @@ HINSTANCE Window::WindowClass::GetInstance() noexcept {
 	return wndClass.hInst;
 }
 
-Window::Window(int width, int height, const char* name) noexcept
+Window::Window(int width, int height, const char* name)
 	:
 	width(width),
 	height(height)
 {
 	RECT wr;
-
 	wr.left = 100;
 	wr.right = width + wr.left;
 	wr.top = 100;
 	wr.bottom = height + wr.top;
-	AdjustWindowRect(&wr, WS_CAPTION | WS_MINIMIZEBOX | WS_SYSMENU, FALSE);
+	if (AdjustWindowRect(&wr, WS_CAPTION | WS_MINIMIZEBOX | WS_SYSMENU, FALSE) == 0) {
+		throw CUSTOM_LAST_EXCEPT();
+	}
 
 	hWnd = CreateWindow(
 		WindowClass::GetName(), name,
@@ -54,7 +56,16 @@ Window::Window(int width, int height, const char* name) noexcept
 		CW_USEDEFAULT, CW_USEDEFAULT, wr.right - wr.left, wr.bottom - wr.top,
 		nullptr, nullptr, WindowClass::GetInstance(), this
 	);
+
+	if (hWnd == nullptr)
+	{
+		throw CUSTOM_LAST_EXCEPT();
+	}
+
 	ShowWindow(hWnd, SW_SHOWDEFAULT);
+
+	//그래픽 오브젝트 생성
+	pGfx = std::make_unique<Graphics>(hWnd);
 }
 
 Window::~Window() {
@@ -63,6 +74,11 @@ Window::~Window() {
 
 void Window::SetTitle(const std::string& title) {
 	SetWindowText(hWnd, title.c_str());
+}
+
+Graphics& Window::Gfx()
+{
+	return *pGfx;
 }
 
 LRESULT WINAPI Window::HandleMsgSetup(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) noexcept {
@@ -193,4 +209,59 @@ std::optional<int> Window::ProcessMessage() {
 	}
 
 	return {};
+}
+
+// 윈도우 에러
+Window::Exception::Exception(int line, const char* file, HRESULT hr) noexcept
+	:
+	CustomException(line, file),
+	hr(hr)
+{}
+
+const char* Window::Exception::what() const noexcept
+{
+	std::ostringstream oss;
+	oss << GetType() << std::endl
+		<< "[Error Code] " << GetErrorCode() << std::endl
+		<< "[Description] " << GetErrorString() << std::endl
+		<< GetOriginString();
+	whatBuffer = oss.str();
+	return whatBuffer.c_str();
+}
+
+const char* Window::Exception::GetType() const noexcept
+{
+	return "Custom Window Exception";
+}
+
+std::string Window::Exception::TranslateErrorCode(HRESULT hr) noexcept
+{
+	char* pMsgBuf = nullptr;
+	// 윈도우가 에러 문자열에 메모리 할당후에 포인터로 가르키도록 설정
+	DWORD nMsgLen = FormatMessage(
+		FORMAT_MESSAGE_ALLOCATE_BUFFER |
+		FORMAT_MESSAGE_FROM_SYSTEM | FORMAT_MESSAGE_IGNORE_INSERTS,
+		nullptr, hr, MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT),
+		reinterpret_cast<LPSTR>(&pMsgBuf), 0, nullptr
+	);
+	// 문자열 길이가 0이 반환되면 실패
+	if (nMsgLen == 0)
+	{
+		return "Unidentified error code";
+	}
+	// 윈도우 할당 버퍼에서 string으로 오류 문자 복사
+	std::string errorString = pMsgBuf;
+	// 할당된 윈도우 버퍼 Release
+	LocalFree(pMsgBuf);
+	return errorString;
+}
+
+HRESULT Window::Exception::GetErrorCode() const noexcept
+{
+	return hr;
+}
+
+std::string Window::Exception::GetErrorString() const noexcept
+{
+	return TranslateErrorCode(hr);
 }
