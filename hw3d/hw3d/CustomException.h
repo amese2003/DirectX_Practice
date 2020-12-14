@@ -2,20 +2,17 @@
 #include <exception>
 #include <string>
 
-using namespace std;
-
-class CustomException : public exception {
+class CustomException : public std::exception {
 public:
 	CustomException(int line, const char* file) noexcept;
 	const char* what() const noexcept override;
 	virtual const char* GetType() const noexcept;
 	int GetLine() const noexcept;
-	const string& GetFile() const noexcept;
-	string GetOriginString() const noexcept;
-
+	const std::string& GetFile() const noexcept;
+	std::string GetOriginString() const noexcept;
 private:
 	int line;
-	string file;
+	std::string file;
 protected:
-	mutable string whatBuffer;
+	mutable std::string whatBuffer;
 };
