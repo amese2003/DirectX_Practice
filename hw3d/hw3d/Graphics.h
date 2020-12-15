@@ -25,7 +25,7 @@ public:
 		using HrException::HrException;
 	public:
 		const char* GetType() const noexcept override;
-	};
+	};	
 
 	Graphics(HWND hWnd);
 	Graphics(const Graphics&) = delete;

@@ -216,13 +216,13 @@ std::optional<int> Window::ProcessMessage() {
 }
 
 // 윈도우 에러
-Window::Exception::Exception(int line, const char* file, HRESULT hr) noexcept
+Window::HrException::HrException(int line, const char* file, HRESULT hr) noexcept
 	:
-	CustomException(line, file),
+	Exception(line, file),
 	hr(hr)
 {}
 
-const char* Window::Exception::what() const noexcept
+const char* Window::HrException::what() const noexcept
 {
 	std::ostringstream oss;
 	oss << GetType() << std::endl
@@ -233,12 +233,12 @@ const char* Window::Exception::what() const noexcept
 	return whatBuffer.c_str();
 }
 
-const char* Window::Exception::GetType() const noexcept
+const char* Window::HrException::GetType() const noexcept
 {
 	return "Custom Window Exception";
 }
 
-std::string Window::Exception::TranslateErrorCode(HRESULT hr) noexcept
+std::string Window::HrException::TranslateErrorCode(HRESULT hr) noexcept
 {
 	char* pMsgBuf = nullptr;
 	// 윈도우가 에러 문자열에 메모리 할당후에 포인터로 가르키도록 설정
@@ -260,12 +260,17 @@ std::string Window::Exception::TranslateErrorCode(HRESULT hr) noexcept
 	return errorString;
 }
 
-HRESULT Window::Exception::GetErrorCode() const noexcept
+HRESULT Window::HrException::GetErrorCode() const noexcept
 {
 	return hr;
 }
 
-std::string Window::Exception::GetErrorString() const noexcept
+std::string Window::HrException::GetErrorString() const noexcept
 {
 	return TranslateErrorCode(hr);
+}
+
+const char* Window::NoGfxException::GetType() const noexcept
+{
+	return "Custom Window Exception [No Graphics]";
 }
