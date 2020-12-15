@@ -78,6 +78,10 @@ void Window::SetTitle(const std::string& title) {
 
 Graphics& Window::Gfx()
 {
+	if (!pGfx) {
+		throw CUSTOM_NOGFX_EXCEPT();
+	}
+
 	return *pGfx;
 }
 
