@@ -144,12 +144,12 @@ void Graphics::DrawTestTriangle() {
 
 
 
-	//wrl::ComPtr<ID3D11PixelShader>  pPixelShader;
-	//GFX_THROW_INFO(D3DReadFileToBlob(L"PixelShader.cso", &pBlob));
-	//GFX_THROW_INFO(pDevice->CreatePixelShader(pBlob->GetBufferPointer(), pBlob->GetBufferSize(), nullptr, &pPixelShader));
+	wrl::ComPtr<ID3D11PixelShader>  pPixelShader;
+	GFX_THROW_INFO(D3DReadFileToBlob(L"PixelShader.cso", &pBlob));
+	GFX_THROW_INFO(pDevice->CreatePixelShader(pBlob->GetBufferPointer(), pBlob->GetBufferSize(), nullptr, &pPixelShader));
 
 	////PixelShade ¹­±â
-	//pContext->PSSetShader(pPixelShader.Get(), nullptr, 0u);
+	pContext->PSSetShader(pPixelShader.Get(), nullptr, 0u);
 
 
 	GFX_THROW_INFO_ONLY(pContext->Draw((UINT)std::size( vertices ), 0u));
