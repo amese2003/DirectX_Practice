@@ -3,11 +3,10 @@
 #include <sstream>
 #include <d3dcompiler.h>
 
-
 namespace wrl = Microsoft::WRL;
 
 #pragma comment(lib,"d3d11.lib")
-#pragma comment(lib, "D3DCompiler.lib")
+#pragma comment(lib,"D3DCompiler.lib")
 
 // 그래픽 오류 체크 및 throw (Dxgi 정보랑 같이)
 #define GFX_EXCEPT_NOINFO(hr) Graphics::HrException( __LINE__,__FILE__,(hr) )
@@ -40,7 +39,7 @@ Graphics::Graphics(HWND hWnd)
 	sd.SampleDesc.Quality = 0;
 	sd.BufferUsage = DXGI_USAGE_RENDER_TARGET_OUTPUT;
 	sd.BufferCount = 1;
-	sd.OutputWindow = (HWND)696969;
+	sd.OutputWindow = hWnd;
 	sd.Windowed = TRUE;
 	sd.SwapEffect = DXGI_SWAP_EFFECT_DISCARD;
 	sd.Flags = 0;
@@ -142,6 +141,16 @@ void Graphics::DrawTestTriangle() {
 
 	//Vertex shader 묶기
 	pContext->VSSetShader(pVertexShader.Get(), nullptr, 0u);
+
+
+
+	//wrl::ComPtr<ID3D11PixelShader>  pPixelShader;
+	//GFX_THROW_INFO(D3DReadFileToBlob(L"PixelShader.cso", &pBlob));
+	//GFX_THROW_INFO(pDevice->CreatePixelShader(pBlob->GetBufferPointer(), pBlob->GetBufferSize(), nullptr, &pPixelShader));
+
+	////PixelShade 묶기
+	//pContext->PSSetShader(pPixelShader.Get(), nullptr, 0u);
+
 
 	GFX_THROW_INFO_ONLY(pContext->Draw((UINT)std::size( vertices ), 0u));
 }
