@@ -12,10 +12,10 @@ int CALLBACK WinMain(
 		return App().Go();
 	}
 	catch (const CustomException& e) {
-		MessageBox(nullptr, e.what(), "커스텀 에러창", MB_OK);
+		MessageBox(nullptr, e.what(), e.GetType(), MB_OK);
 	}
 	catch (const std::exception& e) {
-		MessageBox(nullptr, e.what(), "에러창", MB_OK);
+		MessageBox(nullptr, e.what(), "기본 에러", MB_OK);
 	}
 	catch (...) {
 		MessageBox(nullptr, "데이터 없음", "확인 불가", MB_OK);
