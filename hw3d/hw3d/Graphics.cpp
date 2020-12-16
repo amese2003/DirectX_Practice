@@ -108,6 +108,7 @@ void Graphics::DrawTestTriangle() {
 	};
 
 	// vertex 버퍼 생성
+	// primative topology 참고하면 좋을듯...
 	const Vertex vertices[] = {
 		{ 0.0f, 0.5f },
 		{ 0.5f, -0.5f },
@@ -129,28 +130,59 @@ void Graphics::DrawTestTriangle() {
 	//Vertex 버퍼를 Pipeline에 바인드
 	const UINT stride = sizeof(Vertex);
 	const UINT offset = 0u;
-
-	pContext->IASetVertexBuffers(0u, 1u, &pVertexBuffer, &stride, &offset);
-
-
-	// vertex Shader 생성
-	wrl::ComPtr<ID3D11VertexShader> pVertexShader;
-	wrl::ComPtr<ID3DBlob> pBlob;
-	GFX_THROW_INFO(D3DReadFileToBlob(L"VertexShader.cso", &pBlob));
-	GFX_THROW_INFO(pDevice->CreateVertexShader(pBlob->GetBufferPointer(), pBlob->GetBufferSize(), nullptr, &pVertexShader));
-
-	//Vertex shader 묶기
-	pContext->VSSetShader(pVertexShader.Get(), nullptr, 0u);
+	pContext->IASetVertexBuffers(0u, 1u, pVertexBuffer.GetAddressOf(), &stride, &offset);
 
 
-
+	// pixel shader 생성
 	wrl::ComPtr<ID3D11PixelShader>  pPixelShader;
+	wrl::ComPtr<ID3DBlob> pBlob;
 	GFX_THROW_INFO(D3DReadFileToBlob(L"PixelShader.cso", &pBlob));
 	GFX_THROW_INFO(pDevice->CreatePixelShader(pBlob->GetBufferPointer(), pBlob->GetBufferSize(), nullptr, &pPixelShader));
 
 	////PixelShade 묶기
 	pContext->PSSetShader(pPixelShader.Get(), nullptr, 0u);
+	
+	// vertex Shader 생성
+	wrl::ComPtr<ID3D11VertexShader> pVertexShader;	
+	GFX_THROW_INFO(D3DReadFileToBlob(L"VertexShader.cso", &pBlob));
+	GFX_THROW_INFO(pDevice->CreateVertexShader(pBlob->GetBufferPointer(), pBlob->GetBufferSize(), nullptr, &pVertexShader));
 
+	//Vertex shader 묶기
+	pContext->VSSetShader(pVertexShader.Get(), nullptr, 0u);
+	
+
+	// Input vertex layout (2d만)
+	wrl::ComPtr<ID3D11InputLayout> pInputLayout;
+	const D3D11_INPUT_ELEMENT_DESC ied[] = {
+		{"Position", 0, DXGI_FORMAT_R32G32_FLOAT, 0,0,D3D11_INPUT_PER_VERTEX_DATA, 0},
+	};
+
+	GFX_THROW_INFO(pDevice->CreateInputLayout(
+		ied, (UINT)std::size(ied),
+		pBlob->GetBufferPointer(),
+		pBlob->GetBufferSize(),
+		&pInputLayout
+	));
+
+	// bind vertex layout
+	pContext->IASetInputLayout(pInputLayout.Get());
+
+	// render Target 바인드
+	pContext->OMSetRenderTargets(1u, pTarget.GetAddressOf(), nullptr);
+
+
+	// primative topology에 의한 삼각형 설정
+	pContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY::D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+
+	//뷰포트 설정
+	D3D11_VIEWPORT vp;
+	vp.Width = 800;
+	vp.Height = 600;
+	vp.MinDepth = 0;
+	vp.MaxDepth = 1;
+	vp.TopLeftX = 0;
+	vp.TopLeftY = 0;
+	pContext->RSSetViewports(1u, &vp);
 
 	GFX_THROW_INFO_ONLY(pContext->Draw((UINT)std::size( vertices ), 0u));
 }
