@@ -97,7 +97,7 @@ void Graphics::ClearBuffer(float red, float green, float blue) noexcept {
 	pContext->ClearRenderTargetView(pTarget.Get(), color);
 }
 
-void Graphics::DrawTestTriangle() {
+void Graphics::DrawTestTriangle(float angle) {
 	namespace wrl = Microsoft::WRL;
 	HRESULT hr;
 
@@ -125,8 +125,7 @@ void Graphics::DrawTestTriangle() {
 		{ -0.3f, 0.3f , 0, 255, 0, 0 },
 		{ 0.3f, 0.3f , 0, 0, 255, 0 },
 		{ 0.0f, -0.8f , 255, 0, 0, 0},
-	};
-
+	};	
 
 	wrl::ComPtr<ID3D11Buffer> pVertexBuffer;
 	D3D11_BUFFER_DESC bd = {};
@@ -167,6 +166,40 @@ void Graphics::DrawTestTriangle() {
 	// Bind vertex buffer to pipeline
 	pContext->IASetIndexBuffer(pIndexBuffer.Get(), DXGI_FORMAT_R16_UINT, 0u);
 
+	struct ConstantBuffer {
+		struct {
+			float element[4][4];
+		} transformation;
+	};
+
+
+	// 알아보니 CPU와 GPU가 읽어들이는 좌표가 서로 다르더라...
+	const ConstantBuffer cb = {
+		{
+			(3.0f / 4.0f) * std::cos(angle),  std::sin(angle), 0.0f, 0.0f,
+			(3.0f / 4.0f) * -std::sin(angle), std::cos(angle), 0.0f, 0.0f,
+			0.0f,             0.0f,            1.0f, 0.0f,
+			0.0f,			  0.0f,			   0.0f, 1.0f,
+		}
+	};
+
+	wrl::ComPtr<ID3D11Buffer> pConstantBuffer;
+	D3D11_BUFFER_DESC cbd;
+	cbd.BindFlags = D3D11_BIND_CONSTANT_BUFFER;
+	cbd.Usage = D3D11_USAGE_DYNAMIC;
+	// 다이나믹 사용할려면 매 프레임마다 Cpu를 업데이트 해줘야함.
+	cbd.CPUAccessFlags = D3D10_CPU_ACCESS_WRITE;
+	cbd.MiscFlags = 0u;
+	cbd.ByteWidth = sizeof(cb);
+	cbd.StructureByteStride = 0u;
+	D3D11_SUBRESOURCE_DATA csd = {};
+	csd.pSysMem = &cb;
+	GFX_THROW_INFO(pDevice->CreateBuffer(&cbd, &csd, &pConstantBuffer));
+
+	//bind constant buffer to vertex shader
+	pContext->VSSetConstantBuffers(0u, 1u, pConstantBuffer.GetAddressOf());
+
+	
 
 	// pixel shader 생성
 	wrl::ComPtr<ID3D11PixelShader>  pPixelShader;
