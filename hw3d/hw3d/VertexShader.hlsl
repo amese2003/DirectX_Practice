@@ -4,8 +4,7 @@ struct VSOut {
 };
 
 cbuffer CBuf {
-	//cpu gpu ¹è¿­ ±Øº¹
-	row_major matrix transform;
+	matrix transform;
 };
 
 VSOut main(float2 pos : Position, float3 color : Color)

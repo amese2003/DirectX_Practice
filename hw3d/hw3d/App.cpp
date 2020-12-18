@@ -14,7 +14,9 @@ int App::Go() {
 	while (1) {
 		if (const auto ecode = Window::ProcessMessage()) {
 			return *ecode;
-		}
+		}	
+
+		
 
 		DoFrame();
 	}
@@ -35,6 +37,9 @@ void App::DoFrame() {
 	wnd.Gfx().ClearBuffer(c, c, 1.0f);
 
 	//회전 시켜야하니까 타이머 사용
-	wnd.Gfx().DrawTestTriangle(timer.Peek());
+	wnd.Gfx().DrawTestTriangle(timer.Peek(), 
+		wnd.mouse.GetPosX() / 400.0 - 1.0f,
+		~wnd.mouse.GetPosY()/ 300.0 + 1.0f
+	);
 	wnd.Gfx().EndFrame();
 }
