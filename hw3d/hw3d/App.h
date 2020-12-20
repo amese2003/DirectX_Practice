@@ -5,6 +5,7 @@
 class App {
 public:
 	App();
+	~App();
 	// 마스터 프레임, 메시지 루프
 	int Go();
 
@@ -13,4 +14,5 @@ private:
 private:
 	Window wnd;
 	CustomTimer timer;
+	std::vector<std::unique_ptr<class Box>> boxes;
 };
