@@ -37,6 +37,9 @@
     <Filter Include="헤더 파일\Geometry">
       <UniqueIdentifier>{dd919264-7ce0-41af-a7c3-814eebf5f93f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\Geometry">
+      <UniqueIdentifier>{2d6cbaae-1c24-477a-9137-29d2ae9f6236}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="WinMain.cpp">
@@ -101,6 +104,12 @@
     </ClCompile>
     <ClCompile Include="Drawable.cpp">
       <Filter>소스 파일\Drawable</Filter>
+    </ClCompile>
+    <ClCompile Include="Pyramid.cpp">
+      <Filter>소스 파일\Geometry</Filter>
+    </ClCompile>
+    <ClCompile Include="Melon.cpp">
+      <Filter>소스 파일\Geometry</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -203,6 +212,12 @@
     <ClInclude Include="Sphere.h">
       <Filter>헤더 파일\Geometry</Filter>
     </ClInclude>
+    <ClInclude Include="Pyramid.h">
+      <Filter>헤더 파일\Geometry</Filter>
+    </ClInclude>
+    <ClInclude Include="Melon.h">
+      <Filter>헤더 파일\Geometry</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="DXGetErrorDescription.inl">
@@ -216,11 +231,17 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <FxCompile Include="VertexShader.hlsl">
-      <Filter>Shader</Filter>
+    <FxCompile Include="ColorIndexPS.hlsl">
+      <Filter>리소스 파일</Filter>
     </FxCompile>
-    <FxCompile Include="PixelShader.hlsl">
-      <Filter>Shader</Filter>
+    <FxCompile Include="ColorIndexVS.hlsl">
+      <Filter>리소스 파일</Filter>
+    </FxCompile>
+    <FxCompile Include="ColorBlendVS.hlsl">
+      <Filter>리소스 파일</Filter>
+    </FxCompile>
+    <FxCompile Include="ColorBlendPS.hlsl">
+      <Filter>리소스 파일</Filter>
     </FxCompile>
   </ItemGroup>
 </Project>

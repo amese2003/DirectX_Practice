@@ -15,45 +15,49 @@ public:
 
 		//∫£¿ÃΩ∫ ≤¿¡˛¡°
 		std::vector<V> vertices;
-		for (int iLong = 0; iLong < longDiv; iLong++) {
+		for (int iLong = 0; iLong < longDiv; iLong++)
+		{
 			vertices.emplace_back();
 			auto v = dx::XMVector3Transform(
 				base,
 				dx::XMMatrixRotationZ(longitudeAngle * iLong)
 			);
-			dx::XMStoreFloat(&vertices.back().pos, v);
+			dx::XMStoreFloat3(&vertices.back().pos, v);
 		}
 
 		// ¡ﬂæ”
 		vertices.emplace_back();
-		vertices.back().pos = (0.0f, 0.0f, -1.0f);
+		vertices.back().pos = { 0.0f,0.0f,-1.0f };
 		const auto iCenter = (unsigned short)(vertices.size() - 1);
 
 		vertices.emplace_back();
-		vertices.back().pos = (0.0f, 0.0f, 1.0f);
+		vertices.back().pos = { 0.0f,0.0f,1.0f };
 		const auto iTip = (unsigned short)(vertices.size() - 1);
 
 
 		// base index;
 		std::vector<unsigned short> indices;
-		for (unsigned short iLong = 0; iLong < longDiv; iLong++) {
+		for (unsigned short iLong = 0; iLong < longDiv; iLong++)
+		{
 			indices.push_back(iCenter);
 			indices.push_back((iLong + 1) % longDiv);
 			indices.push_back(iLong);
 		}
 
 		// cone index
-		for (unsigned short iLong = 0; iLong < longDiv; iLong++) {
+		for (unsigned short iLong = 0; iLong < longDiv; iLong++)
+		{
 			indices.push_back(iLong);
 			indices.push_back((iLong + 1) % longDiv);
 			indices.push_back(iTip);
 		}
 
-		return (std::move(vertices), std::move(indices));
+		return { std::move(vertices),std::move(indices) };
 	}
 
 	template<class V>
-	static IndexedTriangleList<V> Make() {
+	static IndexedTriangleList<V> Make()
+	{
 		return MakeTesselated<V>(24);
 	}
 };
