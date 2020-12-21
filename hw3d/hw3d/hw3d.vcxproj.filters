@@ -34,6 +34,9 @@
     <Filter Include="소스 파일\Drawable">
       <UniqueIdentifier>{f0b84fab-07ac-4f97-aea4-1ecb1d103a88}</UniqueIdentifier>
     </Filter>
+    <Filter Include="헤더 파일\Geometry">
+      <UniqueIdentifier>{dd919264-7ce0-41af-a7c3-814eebf5f93f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="WinMain.cpp">
@@ -178,6 +181,27 @@
     </ClInclude>
     <ClInclude Include="DrawableBase.h">
       <Filter>헤더 파일\Drawable</Filter>
+    </ClInclude>
+    <ClInclude Include="IndexedTriangleList.h">
+      <Filter>헤더 파일\Geometry</Filter>
+    </ClInclude>
+    <ClInclude Include="CustomMath.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Cone.h">
+      <Filter>헤더 파일\Geometry</Filter>
+    </ClInclude>
+    <ClInclude Include="Cube.h">
+      <Filter>헤더 파일\Geometry</Filter>
+    </ClInclude>
+    <ClInclude Include="Plane.h">
+      <Filter>헤더 파일\Geometry</Filter>
+    </ClInclude>
+    <ClInclude Include="Prism.h">
+      <Filter>헤더 파일\Geometry</Filter>
+    </ClInclude>
+    <ClInclude Include="Sphere.h">
+      <Filter>헤더 파일\Geometry</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
