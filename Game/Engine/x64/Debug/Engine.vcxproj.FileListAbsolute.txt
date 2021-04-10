@@ -1,0 +1,3 @@
+D:\Project\DirectX_Practice\Game\x64\Debug\Engine.pdb
+D:\Project\DirectX_Practice\Game\Engine\x64\Debug\Engine.pdb
+D:\Project\DirectX_Practice\Game\Output\Engine.pdb
