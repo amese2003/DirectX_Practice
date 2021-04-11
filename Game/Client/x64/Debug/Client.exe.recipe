@@ -2,7 +2,7 @@
 <Project>
   <ProjectOutputs>
     <ProjectOutput>
-      <FullPath>D:\Project\DirectX_Practice\Game\x64\Debug\Client.exe</FullPath>
+      <FullPath>D:\Project\DirectX_Practice\Game\Output\Client.exe</FullPath>
     </ProjectOutput>
   </ProjectOutputs>
   <ContentFiles />
