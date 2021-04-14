@@ -1,3 +1,2 @@
-D:\Project\DirectX_Practice\Game\x64\Debug\Engine.pdb
-D:\Project\DirectX_Practice\Game\Output\Engine.pdb
-D:\Project\DirectX_Practice\Game\Engine\x64\Debug\Engine.pdb
+C:\Users\jshho\Desktop\ConstantBuffer_소스코드\Output\Engine.pdb
+C:\Users\jshho\Desktop\ConstantBuffer_소스코드\Engine\x64\Debug\Engine.pdb

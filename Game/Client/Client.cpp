@@ -60,15 +60,14 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
             if (msg.message == WM_QUIT)
                 break;
 
-            if (!TranslateAccelerator(msg.hwnd, hAccelTable, &msg))
-            {
-                TranslateMessage(&msg);
-                DispatchMessage(&msg);
-            }
+			if (!TranslateAccelerator(msg.hwnd, hAccelTable, &msg))
+			{
+				TranslateMessage(&msg);
+				DispatchMessage(&msg);
+			}
         }
 
-
-        // TODO
+		// TODO
         game->Update();
     }
 
