@@ -1,6 +1,7 @@
 #pragma once
 
 class SwapChain;
+class DescriptorHeap;
 
 class CommandQueue
 {
@@ -14,7 +15,7 @@ public:
 	void RenderEnd();
 
 	ComPtr<ID3D12CommandQueue> GetCmdQueue() { return _cmdQueue; }
-	ComPtr<ID3D12GraphicsCommandList> GetCmdList() { return _cmdList; }
+	ComPtr<ID3D12GraphicsCommandList> GetCmdList() { return	_cmdList; }
 
 private:
 	// CommandQueue : DX12ø° µÓ¿Â

@@ -1,5 +1,6 @@
 #pragma once
 
+
 // 교환 사슬
 // [외주 과정]
 // - 현재 게임 세상에 있는 상황을 묘사
@@ -20,9 +21,10 @@
 
 // - [0] [1]
 // 현재 화면 [1]  <-> GPU 작업중 [1] BackBuffer
+
 class SwapChain
 {
-public:	
+public:
 	void Init(const WindowInfo& info, ComPtr<ID3D12Device> device, ComPtr<IDXGIFactory> dxgi, ComPtr<ID3D12CommandQueue> cmdQueue);
 	void Present();
 	void SwapIndex();
@@ -36,13 +38,14 @@ public:
 private:
 	void CreateSwapChain(const WindowInfo& info, ComPtr<IDXGIFactory> dxgi, ComPtr<ID3D12CommandQueue> cmdQueue);
 	void CreateRTV(ComPtr<ID3D12Device> device);
-private:
-	ComPtr<IDXGISwapChain> _swapChain;
 
-	ComPtr<ID3D12Resource>          _rtvBuffer[SWAP_CHAIN_BUFFER_COUNT];
+private:
+	ComPtr<IDXGISwapChain>	_swapChain;
+	
+	ComPtr<ID3D12Resource>			_rtvBuffer[SWAP_CHAIN_BUFFER_COUNT];
 	ComPtr<ID3D12DescriptorHeap>	_rtvHeap;
 	D3D12_CPU_DESCRIPTOR_HANDLE		_rtvHandle[SWAP_CHAIN_BUFFER_COUNT];
 
-	uint32                 _backBufferIndex = 0;
+	uint32					_backBufferIndex = 0;
 };
 

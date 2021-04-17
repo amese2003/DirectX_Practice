@@ -1,14 +1,26 @@
 #include "pch.h"
 #include "SwapChain.h"
 
+
 void SwapChain::Init(const WindowInfo& info, ComPtr<ID3D12Device> device, ComPtr<IDXGIFactory> dxgi, ComPtr<ID3D12CommandQueue> cmdQueue)
 {
-	
 	CreateSwapChain(info, dxgi, cmdQueue);
 	CreateRTV(device);
 }
 
-void SwapChain::CreateSwapChain(const WindowInfo& info, ComPtr<IDXGIFactory> dxgi, ComPtr<ID3D12CommandQueue> cmdQueue) {
+void SwapChain::Present()
+{
+	// Present the frame.
+	_swapChain->Present(0, 0);
+}
+
+void SwapChain::SwapIndex()
+{
+	_backBufferIndex = (_backBufferIndex + 1) % SWAP_CHAIN_BUFFER_COUNT;
+}
+
+void SwapChain::CreateSwapChain(const WindowInfo& info, ComPtr<IDXGIFactory> dxgi, ComPtr<ID3D12CommandQueue> cmdQueue)
+{
 	// 이전에 만든 정보 날린다
 	_swapChain.Reset();
 
@@ -34,19 +46,6 @@ void SwapChain::CreateSwapChain(const WindowInfo& info, ComPtr<IDXGIFactory> dxg
 	for (int32 i = 0; i < SWAP_CHAIN_BUFFER_COUNT; i++)
 		_swapChain->GetBuffer(i, IID_PPV_ARGS(&_rtvBuffer[i]));
 }
-
-
-void SwapChain::Present()
-{
-	// Present the frame.
-	_swapChain->Present(0, 0);
-}
-
-void SwapChain::SwapIndex()
-{
-	_backBufferIndex = (_backBufferIndex + 1) % SWAP_CHAIN_BUFFER_COUNT;
-}
-
 
 void SwapChain::CreateRTV(ComPtr<ID3D12Device> device)
 {
