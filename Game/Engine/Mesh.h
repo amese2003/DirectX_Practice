@@ -11,8 +11,6 @@ public:
 	void Init(const vector<Vertex>& vertexBuffer, const vector<uint32>& indexbuffer);
 	void Render();
 
-	void SetTransform(const Transform& t) { _transform = t; }
-	void SetMaterial(shared_ptr<Material> mat) { _mat = mat; }
 
 private:
 	void CreateVertexBuffer(const vector<Vertex>& buffer);
@@ -26,8 +24,5 @@ private:
 	ComPtr<ID3D12Resource>		_indexBuffer;
 	D3D12_INDEX_BUFFER_VIEW		_indexBufferView;
 	uint32 _indexCount = 0;
-
-	Transform _transform = {};
-	shared_ptr<Material> _mat = {};
 };
 
