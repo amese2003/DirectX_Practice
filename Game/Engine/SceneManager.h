@@ -6,9 +6,10 @@ class SceneManager
 
 public:
 	void Update();
+	void Render();
 	void LoadScene(wstring sceneName);
 
-private:
+public:
 	shared_ptr<Scene> GetActiveScene() { return _activeScene; }
 
 private:
