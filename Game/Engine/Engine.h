@@ -11,13 +11,12 @@
 #include "Texture.h"
 #include "DepthStencilBuffer.h"
 
-
 class Engine
 {
 public:
+
 	void Init(const WindowInfo& info);
 	void Update();
-
 
 public:
 	const WindowInfo& GetWindow() { return _window; }
@@ -29,16 +28,17 @@ public:
 	shared_ptr<DepthStencilBuffer> GetDepthStencilBuffer() { return _depthStencilBuffer; }
 
 	shared_ptr<ConstantBuffer> GetConstantBuffer(CONSTANT_BUFFER_TYPE type) { return _constantBuffers[static_cast<uint8>(type)]; }
+
 public:
 	void Render();
 	void RenderBegin();
 	void RenderEnd();
 
 	void ResizeWindow(int32 width, int32 height);
-	void CreateConstantBuffer(CBV_REGISTER reg, uint32 bufferSize, uint32 count);
 
 private:
 	void ShowFps();
+	void CreateConstantBuffer(CBV_REGISTER reg, uint32 bufferSize, uint32 count);
 
 private:
 	// 그려질 화면 크기 관련
@@ -52,7 +52,6 @@ private:
 	shared_ptr<RootSignature> _rootSignature = make_shared<RootSignature>();
 	shared_ptr<TableDescriptorHeap> _tableDescHeap = make_shared<TableDescriptorHeap>();
 	shared_ptr<DepthStencilBuffer> _depthStencilBuffer = make_shared<DepthStencilBuffer>();
-
 
 	vector<shared_ptr<ConstantBuffer>> _constantBuffers;
 };

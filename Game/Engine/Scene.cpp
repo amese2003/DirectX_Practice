@@ -46,8 +46,10 @@ void Scene::FinalUpdate()
 	}
 }
 
-void Scene::Render() 
+void Scene::Render()
 {
+	PushLightData();
+
 	for (auto& gameObject : _gameObjects)
 	{
 		if (gameObject->GetCamera() == nullptr)
@@ -57,7 +59,7 @@ void Scene::Render()
 	}
 }
 
-void Scene::PushLightData() 
+void Scene::PushLightData()
 {
 	LightParams lightParams = {};
 

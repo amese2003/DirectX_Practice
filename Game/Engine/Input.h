@@ -1,4 +1,5 @@
-#pragma once0
+#pragma once
+
 enum class KEY_TYPE
 {
 	UP = VK_UP,
@@ -12,7 +13,7 @@ enum class KEY_TYPE
 	D = 'D',
 
 	Q = 'Q',
-	E = 'E'
+	E = 'E',
 };
 
 enum class KEY_STATE

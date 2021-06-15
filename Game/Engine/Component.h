@@ -44,8 +44,6 @@ private:
 	friend class GameObject;
 	void SetGameObject(shared_ptr<GameObject> gameObject) { _gameObject = gameObject; }
 
-
-
 protected:
 	COMPONENT_TYPE _type;
 	weak_ptr<GameObject> _gameObject;

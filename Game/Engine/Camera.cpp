@@ -10,7 +10,6 @@
 Matrix Camera::S_MatView;
 Matrix Camera::S_MatProjection;
 
-
 Camera::Camera() : Component(COMPONENT_TYPE::CAMERA)
 {
 }

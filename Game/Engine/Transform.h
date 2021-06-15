@@ -1,7 +1,6 @@
 #pragma once
 #include "Component.h"
 
-
 class Transform : public Component
 {
 public:
@@ -18,7 +17,7 @@ public:
 	const Vec3& GetLocalScale() { return _localScale; }
 
 	const Matrix& GetLocalToWorldMatrix() { return _matWorld; }
-	const Vec3& GetWorldPosition() { return _matWorld.Translation(); }
+	Vec3 GetWorldPosition() { return _matWorld.Translation(); }
 
 	Vec3 GetRight() { return _matWorld.Right(); }
 	Vec3 GetUp() { return _matWorld.Up(); }
@@ -33,13 +32,12 @@ public:
 	weak_ptr<Transform> GetParent() { return _parent; }
 
 private:
-	// TODO : World 위치 관련
-
+	// Parent 기준
 	Vec3 _localPosition = {};
 	Vec3 _localRotation = {};
 	Vec3 _localScale = { 1.f, 1.f, 1.f };
 
-	Matrix _matLocal = {};
+	Matrix _matLocal= {};
 	Matrix _matWorld = {};
 
 	weak_ptr<Transform> _parent;

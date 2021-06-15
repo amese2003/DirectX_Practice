@@ -1,6 +1,6 @@
 #pragma once
 
-enum class CONSTANT_BUFFER_TYPE : uint8 
+enum class CONSTANT_BUFFER_TYPE : uint8
 {
 	GLOBAL,
 	TRANSFORM,
@@ -8,7 +8,7 @@ enum class CONSTANT_BUFFER_TYPE : uint8
 	END
 };
 
-enum 
+enum
 {
 	CONSTANT_BUFFER_COUNT = static_cast<uint8>(CONSTANT_BUFFER_TYPE::END)
 };
@@ -45,6 +45,6 @@ private:
 
 	uint32					_currentIndex = 0;
 
-	CBV_REGISTER _reg = {};
+	CBV_REGISTER			_reg = {};
 };
 

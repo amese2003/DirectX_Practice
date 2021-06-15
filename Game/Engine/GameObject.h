@@ -4,10 +4,9 @@
 
 class Transform;
 class MeshRenderer;
-class MonoBehaviour;
-class Light;
 class Camera;
-
+class Light;
+class MonoBehaviour;
 
 class GameObject : public Object, public enable_shared_from_this<GameObject>
 {
@@ -20,7 +19,7 @@ public:
 	void Update();
 	void LateUpdate();
 	void FinalUpdate();
-	
+
 	shared_ptr<Component> GetFixedComponent(COMPONENT_TYPE type);
 
 	shared_ptr<Transform> GetTransform();
@@ -29,6 +28,7 @@ public:
 	shared_ptr<Light> GetLight();
 
 	void AddComponent(shared_ptr<Component> component);
+
 private:
 	array<shared_ptr<Component>, FIXED_COMPONENT_COUNT> _components;
 	vector<shared_ptr<MonoBehaviour>> _scripts;

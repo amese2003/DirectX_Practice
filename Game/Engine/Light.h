@@ -8,15 +8,15 @@ enum class LIGHT_TYPE : uint8
 	SPOT_LIGHT,
 };
 
-
-
-struct LightColor {
+struct LightColor
+{
 	Vec4	diffuse;
 	Vec4	ambient;
 	Vec4	specular;
 };
 
-struct LightInfo {
+struct LightInfo
+{
 	LightColor	color;
 	Vec4		position;
 	Vec4		direction;
@@ -26,7 +26,8 @@ struct LightInfo {
 	int32		padding;
 };
 
-struct LightParams {
+struct LightParams
+{
 	uint32		lightCount;
 	Vec3		padding;
 	LightInfo	lights[50];
