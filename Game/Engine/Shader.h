@@ -8,6 +8,7 @@ enum class SHADER_TYPE : uint8
 	LIGHTING,
 	PARTICLE,
 	COMPUTE,
+	SHADOW,
 };
 
 
