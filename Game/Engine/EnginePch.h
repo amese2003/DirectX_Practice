@@ -33,6 +33,8 @@ using namespace Microsoft::WRL;
 #include <DirectXTex/DirectXTex.h>
 #include <DirectXTex/DirectXTex.inl>
 
+#include "FBX/fbxsdk.h"
+
 // 각종 lib
 #pragma comment(lib, "d3d12")
 #pragma comment(lib, "dxgi")
@@ -45,19 +47,29 @@ using namespace Microsoft::WRL;
 #pragma comment(lib, "DirectXTex\\DirectXTex.lib")
 #endif
 
+#ifdef _DEBUG
+#pragma comment(lib, "FBX\\debug\\libfbxsdk-md.lib")
+#pragma comment(lib, "FBX\\debug\\libxml2-md.lib")
+#pragma comment(lib, "FBX\\debug\\zlib-md.lib")
+#else
+#pragma comment(lib, "FBX\\release\libfbxsdk-md.lib")
+#pragma comment(lib, "FBX\\release\libxml2-md.lib")
+#pragma comment(lib, "FBX\\release\\zlib-md.lib")
+#endif
+
 // 각종 typedef
-using int8		= __int8;
-using int16		= __int16;
-using int32		= __int32;
-using int64		= __int64;
-using uint8		= unsigned __int8;
-using uint16	= unsigned __int16;
-using uint32	= unsigned __int32;
-using uint64	= unsigned __int64;
-using Vec2		= DirectX::SimpleMath::Vector2;
-using Vec3		= DirectX::SimpleMath::Vector3;
-using Vec4		= DirectX::SimpleMath::Vector4;
-using Matrix	= DirectX::SimpleMath::Matrix;
+using int8 = __int8;
+using int16 = __int16;
+using int32 = __int32;
+using int64 = __int64;
+using uint8 = unsigned __int8;
+using uint16 = unsigned __int16;
+using uint32 = unsigned __int32;
+using uint64 = unsigned __int64;
+using Vec2 = DirectX::SimpleMath::Vector2;
+using Vec3 = DirectX::SimpleMath::Vector3;
+using Vec4 = DirectX::SimpleMath::Vector4;
+using Matrix = DirectX::SimpleMath::Matrix;
 
 enum class CBV_REGISTER : uint8
 {
@@ -107,7 +119,6 @@ enum
 	TOTAL_REGISTER_COUNT = CBV_SRV_REGISTER_COUNT + UAV_REGISTER_COUNT
 };
 
-
 struct WindowInfo
 {
 	HWND	hwnd; // 출력 윈도우
@@ -129,6 +140,8 @@ struct Vertex
 	Vec2 uv;
 	Vec3 normal;
 	Vec3 tangent;
+	Vec4 weights;
+	Vec4 indices;
 };
 
 #define DECLARE_SINGLE(type)		\
@@ -145,7 +158,7 @@ public:								\
 #define GET_SINGLE(type)	type::GetInstance()
 
 #define DEVICE				GEngine->GetDevice()->GetDevice()
-#define GRAPHICS_CMD_LIST	GEngine->GetGraphicsCmdQueue()->GetComputeCmdList()
+#define GRAPHICS_CMD_LIST	GEngine->GetGraphicsCmdQueue()->GetGraphicsCmdList()
 #define RESOURCE_CMD_LIST	GEngine->GetGraphicsCmdQueue()->GetResourceCmdList()
 #define COMPUTE_CMD_LIST	GEngine->GetComputeCmdQueue()->GetComputeCmdList()
 
@@ -168,3 +181,7 @@ struct TransformParams
 };
 
 extern unique_ptr<class Engine> GEngine;
+
+// Utils
+wstring s2ws(const string& s);
+string ws2s(const wstring& s);
