@@ -52,7 +52,6 @@ PS_OUT PS_DirLight(VS_OUT input)
 
     LightColor color = CalculateLightColor(g_int_0, viewNormal, viewPos);
 
-
     // ±×¸²ÀÚ
     if (length(color.diffuse) != 0)
     {

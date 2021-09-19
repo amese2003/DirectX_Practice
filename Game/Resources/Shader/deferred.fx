@@ -2,6 +2,7 @@
 #define _DEFAULT_FX_
 
 #include "params.fx"
+#include "utils.fx"
 
 struct VS_IN
 {
@@ -9,6 +10,8 @@ struct VS_IN
     float2 uv : TEXCOORD;
     float3 normal : NORMAL;
     float3 tangent : TANGENT;
+    float4 weight : WEIGHT;
+    float4 indices : INDICES;
 
     row_major matrix matWorld : W;
     row_major matrix matWV : WV;
@@ -32,6 +35,9 @@ VS_OUT VS_Main(VS_IN input)
 
     if (g_int_0 == 1)
     {
+        if (g_int_1 == 1)
+            Skinning(input.pos, input.normal, input.tangent, input.weight, input.indices);
+
         output.pos = mul(float4(input.pos, 1.f), input.matWVP);
         output.uv = input.uv;
 
@@ -42,6 +48,9 @@ VS_OUT VS_Main(VS_IN input)
     }
     else
     {
+        if (g_int_1 == 1)
+            Skinning(input.pos, input.normal, input.tangent, input.weight, input.indices);
+
         output.pos = mul(float4(input.pos, 1.f), g_matWVP);
         output.uv = input.uv;
 
@@ -49,7 +58,7 @@ VS_OUT VS_Main(VS_IN input)
         output.viewNormal = normalize(mul(float4(input.normal, 0.f), g_matWV).xyz);
         output.viewTangent = normalize(mul(float4(input.tangent, 0.f), g_matWV).xyz);
         output.viewBinormal = normalize(cross(output.viewTangent, output.viewNormal));
-    }
+    }   
 
     return output;
 }
@@ -66,7 +75,7 @@ PS_OUT PS_Main(VS_OUT input)
     PS_OUT output = (PS_OUT)0;
 
     float4 color = float4(1.f, 1.f, 1.f, 1.f);
-    if (g_tex_on_0)
+    if (g_tex_on_0 == 1)
         color = g_tex_0.Sample(g_sam_0, input.uv);
 
     float3 viewNormal = input.viewNormal;
