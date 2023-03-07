@@ -1,2 +1,0 @@
-C:\Users\jshho\Desktop\ConstantBuffer_소스코드\Output\Engine.pdb
-C:\Users\jshho\Desktop\ConstantBuffer_소스코드\Engine\x64\Debug\Engine.pdb
