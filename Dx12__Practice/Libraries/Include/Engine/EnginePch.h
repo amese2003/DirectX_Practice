@@ -57,17 +57,25 @@ using namespace Microsoft::WRL;
 //#include "TimeManager.h"
 //#include "ResourceManager.h"
 
-#define CHECK(p)	assert(SUCCEEDED(p))
-#define GAME		GET_SINGLE(Game)		
-#define GRAPHICS	GET_SINGLE(Graphics)
-#define DEVICE		GRAPHICS->GetDevice()
-#define DC			GRAPHICS->GetDeviceContext()
-#define INPUT		GET_SINGLE(InputManager)
-#define TIME		GET_SINGLE(TimeManager)
-#define DT			TIME->GetDeltaTime()
-#define RESOURCES	GET_SINGLE(ResourceManager)
+#define CHECK(p)		assert(SUCCEEDED(p))
+#define GAME			GET_SINGLE(Game)		
+#define GRAPHICS		GET_SINGLE(Graphics)
+#define DEVICE			GRAPHICS->GetDevice()->GetDevice()
+#define CMD_LIST		GRAPHICS->GetCommandQueue()->GetCmdList()
+#define ROOT_SIGNATURE	GRAPHICS->GetRootsignature()->GetSignature()
+#define INPUT			GET_SINGLE(InputManager)
+#define TIME			GET_SINGLE(TimeManager)
+#define DT				TIME->GetDeltaTime()
+#define RESOURCES		GET_SINGLE(ResourceManager)
 
 // Engine
+#include "Device.h"
+#include "SwapChain.h"
+#include "RootSignature.h"
+#include "CommandQueue.h"
+
+
+#include "ResourceBase.h"
 //#include "VertexData.h"
 //#include "VertexBuffer.h"
 //#include "IndexBuffer.h"
@@ -80,11 +88,9 @@ using namespace Microsoft::WRL;
 //#include "Texture.h"
 //#include "Mesh.h"
 
+#include "Shader.h"
+#include "VertexData.h"
 
-enum
-{
-	SWAP_CHAIN_BUFFER_COUNT = 2
-};
 
 struct WindowInfo
 {

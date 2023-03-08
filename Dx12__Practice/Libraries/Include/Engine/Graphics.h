@@ -1,4 +1,10 @@
 #pragma once
+
+class Device;
+class CommandQueue;
+class SwapChain;
+class RootSignature;
+
 class Graphics
 {
 	DECLARE_SINGLE(Graphics);
@@ -9,25 +15,27 @@ public:
 	void RenderBegin();
 	void RenderEnd();
 
-	ComPtr<IDXGIFactory> GetDXGI() { return _dxgi; }
-	ComPtr<ID3D12Device> GetDevice() { return _device; }
+public:
+	shared_ptr<Device>			GetDevice() { return _device; }
+	shared_ptr<CommandQueue>	GetCommandQueue() { return _cmdQueue; }
+	shared_ptr<SwapChain>		GetSwapChain() { return _swapChain; }
+	shared_ptr<RootSignature>	GetRootsignature() { return _rootSignature; }
+
 
 private:
-	void CreateDevice();
-	void CreateRenderTargetView();
+
 	void SetViewport();
 
 private:
 	HWND _hwnd = {};
-	// COM(Component Object Model)
-	// - DX의 프로그래밍 언어 독립성과 하위 호환성을 가능하게 하는 기술
-	// - COM 객체(COM 인터페이스)를 사용. 세부사항은 우리한테 숨겨짐
-	// - ComPtr 일종의 스마트 포인터
-	ComPtr<ID3D12Debug>			_debugController;
-	ComPtr<IDXGIFactory>		_dxgi; // 화면 관련 기능들
-	ComPtr<ID3D12Device>		_device; // 각종 객체 생성
-	ComPtr<IDXGISwapChain>		_swapChain = nullptr;
+
+
+	shared_ptr<Device>			_device;
+	shared_ptr<CommandQueue>	_cmdQueue;
+	shared_ptr<SwapChain>		_swapChain;
+	shared_ptr<RootSignature>	_rootSignature;
 
 	D3D12_VIEWPORT _viewport = { 0 };
+	D3D12_RECT		_scissorRect = {};
 };
 

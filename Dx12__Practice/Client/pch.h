@@ -1,5 +1,4 @@
 #pragma once
 
-#pragma comment(lib, "Engine.lib")
-
-#include "EnginePch.h"
+#pragma comment(lib, "Engine/Engine.lib")
+#include "Engine/EnginePch.h"

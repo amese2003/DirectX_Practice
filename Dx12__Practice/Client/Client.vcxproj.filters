@@ -11,6 +11,12 @@
     <Filter Include="Utils">
       <UniqueIdentifier>{51c3cf2e-774c-45c1-8033-6054248a1d29}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Shader">
+      <UniqueIdentifier>{73cb9d79-a4be-4df1-9689-33977fee8627}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Main">
+      <UniqueIdentifier>{7f18e093-d604-4a76-be11-0c71f55d7b97}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -26,6 +32,9 @@
       <Filter>Utils</Filter>
     </ClInclude>
     <ClInclude Include="Main.h">
+      <Filter>Main</Filter>
+    </ClInclude>
+    <ClInclude Include="RectangleDemo.h">
       <Filter>Game</Filter>
     </ClInclude>
   </ItemGroup>
@@ -47,7 +56,15 @@
       <Filter>Utils</Filter>
     </ClCompile>
     <ClCompile Include="Main.cpp">
+      <Filter>Main</Filter>
+    </ClCompile>
+    <ClCompile Include="RectangleDemo.cpp">
       <Filter>Game</Filter>
     </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <FxCompile Include="..\Shaders\default.fx">
+      <Filter>Shader</Filter>
+    </FxCompile>
   </ItemGroup>
 </Project>

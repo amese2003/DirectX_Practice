@@ -16,6 +16,18 @@
     <Filter Include="00. Engine">
       <UniqueIdentifier>{0a3510d4-14ac-4458-958f-808523b7d80d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="01. Graphics">
+      <UniqueIdentifier>{b25694d0-fa6a-4dcb-b30b-4e6fb3d5fc50}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03. Resources">
+      <UniqueIdentifier>{7e84f68c-4d44-436d-b75c-7f17f4beabab}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. Graphics\Pipeline">
+      <UniqueIdentifier>{4a16406c-0356-4b6b-b125-f6a43d853b00}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. Graphics\Pipeline\00. Geometry">
+      <UniqueIdentifier>{310989fa-53cc-4107-bbc2-dc378fe66bf4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h">
@@ -51,11 +63,38 @@
     <ClInclude Include="IExecute.h">
       <Filter>00. Engine</Filter>
     </ClInclude>
+    <ClInclude Include="SwapChain.h">
+      <Filter>00. Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="Device.h">
+      <Filter>00. Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="CommandQueue.h">
+      <Filter>00. Engine</Filter>
+    </ClInclude>
     <ClInclude Include="Graphics.h">
       <Filter>02. Managers</Filter>
     </ClInclude>
-    <ClInclude Include="SwapChain.h">
+    <ClInclude Include="RootSignature.h">
       <Filter>00. Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="ResourceBase.h">
+      <Filter>03. Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="Shader.h">
+      <Filter>03. Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="GeometryHelper.h">
+      <Filter>01. Graphics\Pipeline\00. Geometry</Filter>
+    </ClInclude>
+    <ClInclude Include="Geometry.h">
+      <Filter>01. Graphics\Pipeline\00. Geometry</Filter>
+    </ClInclude>
+    <ClInclude Include="VertexData.h">
+      <Filter>01. Graphics\Pipeline\00. Geometry</Filter>
+    </ClInclude>
+    <ClInclude Include="Mesh.h">
+      <Filter>03. Resources</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -80,11 +119,38 @@
     <ClCompile Include="IExecute.cpp">
       <Filter>00. Engine</Filter>
     </ClCompile>
+    <ClCompile Include="SwapChain.cpp">
+      <Filter>00. Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="Device.cpp">
+      <Filter>00. Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="CommandQueue.cpp">
+      <Filter>00. Engine</Filter>
+    </ClCompile>
     <ClCompile Include="Graphics.cpp">
       <Filter>02. Managers</Filter>
     </ClCompile>
-    <ClCompile Include="SwapChain.cpp">
+    <ClCompile Include="RootSignature.cpp">
       <Filter>00. Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="ResourceBase.cpp">
+      <Filter>03. Resources</Filter>
+    </ClCompile>
+    <ClCompile Include="Shader.cpp">
+      <Filter>03. Resources</Filter>
+    </ClCompile>
+    <ClCompile Include="GeometryHelper.cpp">
+      <Filter>01. Graphics\Pipeline\00. Geometry</Filter>
+    </ClCompile>
+    <ClCompile Include="Geometry.cpp">
+      <Filter>01. Graphics\Pipeline\00. Geometry</Filter>
+    </ClCompile>
+    <ClCompile Include="VertexData.cpp">
+      <Filter>01. Graphics\Pipeline\00. Geometry</Filter>
+    </ClCompile>
+    <ClCompile Include="Mesh.cpp">
+      <Filter>03. Resources</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
