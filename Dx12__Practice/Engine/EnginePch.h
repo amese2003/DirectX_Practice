@@ -53,6 +53,7 @@ using namespace Microsoft::WRL;
 // Managers
 #include "Game.h"
 #include "Graphics.h"
+#include "Geometry.h"
 //#include "InputManager.h"
 //#include "TimeManager.h"
 //#include "ResourceManager.h"
@@ -76,11 +77,11 @@ using namespace Microsoft::WRL;
 
 
 #include "ResourceBase.h"
-//#include "VertexData.h"
-//#include "VertexBuffer.h"
+#include "VertexData.h"
+#include "VertexBuffer.h"
 //#include "IndexBuffer.h"
 //#include "ConstantBuffer.h"
-//#include "Shader.h"
+#include "Shader.h"
 //#include "IExecute.h"
 //
 //#include "GameObject.h"
@@ -88,8 +89,6 @@ using namespace Microsoft::WRL;
 //#include "Texture.h"
 //#include "Mesh.h"
 
-#include "Shader.h"
-#include "VertexData.h"
 
 
 struct WindowInfo

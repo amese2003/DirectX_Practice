@@ -10,11 +10,7 @@ void RectangleDemo::Init()
 	//_meshBuffer = make_shared<Mesh>();
 
 	_meshBuffer = make_shared<Mesh>();
-	vector<VertexColorData> vec(3);
-	vec[0].position = Vec3(0.f, 0.5f, 0.5f);
-	vec[1].position = Vec3(0.5f, -0.5f, 0.5f);
-	vec[2].position = Vec3(-0.5f, -0.5f, 0.5f);
-	_meshBuffer->Init(vec);
+	_meshBuffer->Init();
 
 	GRAPHICS->GetCommandQueue()->WaitSync();
 }

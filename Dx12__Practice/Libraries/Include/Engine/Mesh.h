@@ -1,6 +1,8 @@
 #pragma once
 #include "VertexData.h"
 
+class VertexBuffer;
+
 class Mesh : public ResourceBase
 {
 	using Super = ResourceBase;
@@ -9,12 +11,15 @@ public:
 	Mesh();
 	virtual ~Mesh();
 
-	void Init(vector<VertexColorData>& vec);
+	void Init();
+	void CreateDefaultRectangle();
+
 	void Render();
 
 private:
-	ComPtr<ID3D12Resource>		_vertexBuffer;
-	D3D12_VERTEX_BUFFER_VIEW	_vertexBufferView = {};
-	uint32 _vertexCount = 0;
+	ComPtr<ID3D12Device> _device;
+
+	shared_ptr<Geometry<VertexColorData>> _geometry;
+	shared_ptr<VertexBuffer> _vertexBuffer;
 };
 

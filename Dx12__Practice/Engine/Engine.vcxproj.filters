@@ -28,6 +28,9 @@
     <Filter Include="01. Graphics\Pipeline\00. Geometry">
       <UniqueIdentifier>{310989fa-53cc-4107-bbc2-dc378fe66bf4}</UniqueIdentifier>
     </Filter>
+    <Filter Include="01. Graphics\Pipeline\01. InputAssembler">
+      <UniqueIdentifier>{7d68a414-154d-4acc-b605-5506a8388de3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h">
@@ -96,6 +99,9 @@
     <ClInclude Include="Mesh.h">
       <Filter>03. Resources</Filter>
     </ClInclude>
+    <ClInclude Include="VertexBuffer.h">
+      <Filter>01. Graphics\Pipeline\01. InputAssembler</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine.cpp">
@@ -151,6 +157,9 @@
     </ClCompile>
     <ClCompile Include="Mesh.cpp">
       <Filter>03. Resources</Filter>
+    </ClCompile>
+    <ClCompile Include="VertexBuffer.cpp">
+      <Filter>01. Graphics\Pipeline\01. InputAssembler</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

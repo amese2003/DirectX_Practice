@@ -10,38 +10,34 @@ Mesh::~Mesh()
 {
 }
 
-void Mesh::Init(vector<VertexColorData>& vec)
+void Mesh::Init()
 {
-	_vertexCount = static_cast<uint32>(vec.size());
-	uint32 bufferSize = _vertexCount * sizeof(VertexColorData);
+	_device = DEVICE;
 
-	D3D12_HEAP_PROPERTIES heapProperty = CD3DX12_HEAP_PROPERTIES(D3D12_HEAP_TYPE_UPLOAD);
-	D3D12_RESOURCE_DESC desc = CD3DX12_RESOURCE_DESC::Buffer(bufferSize);
+	_geometry = make_shared<Geometry<VertexColorData>>();
+	_vertexBuffer = make_shared<VertexBuffer>(_device);
 
-	DEVICE->CreateCommittedResource(
-		&heapProperty,
-		D3D12_HEAP_FLAG_NONE,
-		&desc,
-		D3D12_RESOURCE_STATE_GENERIC_READ,
-		nullptr,
-		IID_PPV_ARGS(&_vertexBuffer));
-
-	// Copy the triangle data to the vertex buffer.
-	void* vertexDataBuffer = nullptr;
-	CD3DX12_RANGE readRange(0, 0); // We do not intend to read from this resource on the CPU.
-	_vertexBuffer->Map(0, &readRange, &vertexDataBuffer);
-	::memcpy(vertexDataBuffer, &vec[0], bufferSize);
-	_vertexBuffer->Unmap(0, nullptr);
-
-	// Initialize the vertex buffer view.
-	_vertexBufferView.BufferLocation = _vertexBuffer->GetGPUVirtualAddress();
-	_vertexBufferView.StrideInBytes = sizeof(VertexColorData); // 정점 1개 크기
-	_vertexBufferView.SizeInBytes = bufferSize; // 버퍼의 크기	
+	CreateDefaultRectangle();
 }
+
+void Mesh::CreateDefaultRectangle()
+{
+	vector<VertexColorData> vec(3);
+	vec[0].position = Vec3(0.f, 0.5f, 0.5f);
+	vec[0].color = Color(1.f, 0.f, 0.f, 1.f);
+	vec[1].position = Vec3(0.5f, -0.5f, 0.5f);
+	vec[1].color = Color(0.f, 1.f, 0.f, 1.f);
+	vec[2].position = Vec3(-0.5f, -0.5f, 0.5f);
+	vec[2].color = Color(0.f, 0.f, 1.f, 1.f);
+
+	_geometry->SetVertices(vec);
+	_vertexBuffer->Create(vec);
+}
+
 
 void Mesh::Render()
 {
 	CMD_LIST->IASetPrimitiveTopology(D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
-	CMD_LIST->IASetVertexBuffers(0, 1, &_vertexBufferView); // Slot: (0~15)
-	CMD_LIST->DrawInstanced(_vertexCount, 1, 0, 0);
+	CMD_LIST->IASetVertexBuffers(0, 1, &_vertexBuffer->_vertexBufferView); // Slot: (0~15)
+	CMD_LIST->DrawInstanced(_vertexBuffer->_count, 1, 0, 0);
 }
