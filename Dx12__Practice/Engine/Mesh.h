@@ -21,5 +21,6 @@ private:
 
 	shared_ptr<Geometry<VertexColorData>> _geometry;
 	shared_ptr<VertexBuffer> _vertexBuffer;
+	shared_ptr<IndexBuffer> _indexBuffer;
 };
 

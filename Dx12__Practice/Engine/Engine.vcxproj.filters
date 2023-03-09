@@ -102,6 +102,9 @@
     <ClInclude Include="VertexBuffer.h">
       <Filter>01. Graphics\Pipeline\01. InputAssembler</Filter>
     </ClInclude>
+    <ClInclude Include="IndexBuffer.h">
+      <Filter>01. Graphics\Pipeline\01. InputAssembler</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine.cpp">
@@ -159,6 +162,9 @@
       <Filter>03. Resources</Filter>
     </ClCompile>
     <ClCompile Include="VertexBuffer.cpp">
+      <Filter>01. Graphics\Pipeline\01. InputAssembler</Filter>
+    </ClCompile>
+    <ClCompile Include="IndexBuffer.cpp">
       <Filter>01. Graphics\Pipeline\01. InputAssembler</Filter>
     </ClCompile>
   </ItemGroup>

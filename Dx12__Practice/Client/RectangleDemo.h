@@ -6,7 +6,7 @@ class Shader;
 class VertexColorData;
 class Mesh;
 
-class RectangleDemo : public IExecute
+class TriangleDemo : public IExecute
 {
 public:
 	void Init() override;
@@ -15,6 +15,6 @@ public:
 
 	shared_ptr<Shader> _shader;
 	vector<VertexColorData> _vertices;
-	shared_ptr<Mesh> _meshBuffer;
+	shared_ptr<Mesh> _mesh;
 };
 

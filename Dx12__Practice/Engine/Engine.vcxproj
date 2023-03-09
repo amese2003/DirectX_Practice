@@ -176,6 +176,7 @@ xcopy /Y "$(SolutionDir)Engine\*.inl" "$(SolutionDir)Libraries\Include\Engine"</
     <ClInclude Include="GeometryHelper.h" />
     <ClInclude Include="Graphics.h" />
     <ClInclude Include="IExecute.h" />
+    <ClInclude Include="IndexBuffer.h" />
     <ClInclude Include="Mesh.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="ResourceBase.h" />
@@ -201,6 +202,7 @@ xcopy /Y "$(SolutionDir)Engine\*.inl" "$(SolutionDir)Libraries\Include\Engine"</
     <ClCompile Include="GeometryHelper.cpp" />
     <ClCompile Include="Graphics.cpp" />
     <ClCompile Include="IExecute.cpp" />
+    <ClCompile Include="IndexBuffer.cpp" />
     <ClCompile Include="Mesh.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>

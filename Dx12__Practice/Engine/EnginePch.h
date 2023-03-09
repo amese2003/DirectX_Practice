@@ -79,7 +79,7 @@ using namespace Microsoft::WRL;
 #include "ResourceBase.h"
 #include "VertexData.h"
 #include "VertexBuffer.h"
-//#include "IndexBuffer.h"
+#include "IndexBuffer.h"
 //#include "ConstantBuffer.h"
 #include "Shader.h"
 //#include "IExecute.h"

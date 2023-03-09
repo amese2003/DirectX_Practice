@@ -2,29 +2,29 @@
 #include "RectangleDemo.h"
 #include "Mesh.h"
 
-void RectangleDemo::Init()
+void TriangleDemo::Init()
 {
 	_shader = make_shared<Shader>();
 	_shader->Init(L"..\\Shaders\\default.fx");
 
 	//_meshBuffer = make_shared<Mesh>();
 
-	_meshBuffer = make_shared<Mesh>();
-	_meshBuffer->Init();
+	_mesh = make_shared<Mesh>();
+	_mesh->Init();
 
 	GRAPHICS->GetCommandQueue()->WaitSync();
 }
 
-void RectangleDemo::Update()
+void TriangleDemo::Update()
 {
 }
 
-void RectangleDemo::Render()
+void TriangleDemo::Render()
 {
 	GRAPHICS->RenderBegin();
 
 	_shader->Update();
-	_meshBuffer->Render();
+	_mesh->Render();
 
 	GRAPHICS->RenderEnd();
 }
