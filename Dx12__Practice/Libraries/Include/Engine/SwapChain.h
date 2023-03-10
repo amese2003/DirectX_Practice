@@ -1,10 +1,5 @@
 #pragma once
 
-enum
-{
-	SWAP_CHAIN_BUFFER_COUNT = 2
-};
-
 class SwapChain
 {
 public:

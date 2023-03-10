@@ -63,6 +63,13 @@ void CommandQueue::RenderBegin(const D3D12_VIEWPORT* vp, const D3D12_RECT* rect)
 		D3D12_RESOURCE_STATE_PRESENT, // 화면 출력
 		D3D12_RESOURCE_STATE_RENDER_TARGET); // 외주 결과물
 
+	_cmdList->SetGraphicsRootSignature(ROOT_SIGNATURE.Get());
+	GRAPHICS->GetConstantBuffer()->Clear();
+	GRAPHICS->GetTableDescHeap()->Clear();
+
+	ID3D12DescriptorHeap* descHeap = GRAPHICS->GetTableDescHeap()->GetDescriptorHeap().Get();
+	_cmdList->SetDescriptorHeaps(1, &descHeap);
+
 	_cmdList->ResourceBarrier(1, &barrier);
 
 	// Set the viewport and scissor rect.  This needs to be reset whenever the command list is reset.

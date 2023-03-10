@@ -2,7 +2,7 @@
 #include "RectangleDemo.h"
 #include "Mesh.h"
 
-void TriangleDemo::Init()
+void RectangleDemo::Init()
 {
 	_shader = make_shared<Shader>();
 	_shader->Init(L"..\\Shaders\\default.fx");
@@ -15,11 +15,11 @@ void TriangleDemo::Init()
 	GRAPHICS->GetCommandQueue()->WaitSync();
 }
 
-void TriangleDemo::Update()
+void RectangleDemo::Update()
 {
 }
 
-void TriangleDemo::Render()
+void RectangleDemo::Render()
 {
 	GRAPHICS->RenderBegin();
 

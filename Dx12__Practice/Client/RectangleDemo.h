@@ -6,7 +6,7 @@ class Shader;
 class VertexColorData;
 class Mesh;
 
-class TriangleDemo : public IExecute
+class RectangleDemo : public IExecute
 {
 public:
 	void Init() override;

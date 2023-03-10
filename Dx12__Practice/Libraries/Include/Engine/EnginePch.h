@@ -69,27 +69,23 @@ using namespace Microsoft::WRL;
 #define DT				TIME->GetDeltaTime()
 #define RESOURCES		GET_SINGLE(ResourceManager)
 
-// Engine
-#include "Device.h"
-#include "SwapChain.h"
-#include "RootSignature.h"
-#include "CommandQueue.h"
+enum class CBV_REGISTER
+{
+	b0,
+	b1,
+	b2,
+	b3,
+	b4,
 
+	END
+};
 
-#include "ResourceBase.h"
-#include "VertexData.h"
-#include "VertexBuffer.h"
-#include "IndexBuffer.h"
-//#include "ConstantBuffer.h"
-#include "Shader.h"
-//#include "IExecute.h"
-//
-//#include "GameObject.h"
-//#include "Transform.h"
-//#include "Texture.h"
-//#include "Mesh.h"
-
-
+enum
+{
+	SWAP_CHAIN_BUFFER_COUNT = 2,
+	CBV_REGISTER_COUNT = CBV_REGISTER::END,
+	REGISTER_COUNT = CBV_REGISTER::END,
+};
 
 struct WindowInfo
 {
@@ -98,3 +94,31 @@ struct WindowInfo
 	int32	height; // 높이
 	bool	windowed; // 창모드 or 전체화면
 };
+
+struct Transform
+{
+	Vec4 offset;
+};
+
+// Engine
+#include "Device.h"
+#include "SwapChain.h"
+#include "RootSignature.h"
+#include "CommandQueue.h"
+#include "TableDescriptionHeap.h"
+
+
+#include "ResourceBase.h"
+#include "VertexData.h"
+#include "VertexBuffer.h"
+#include "IndexBuffer.h"
+#include "ConstantBuffer.h"
+#include "Shader.h"
+//#include "IExecute.h"
+//
+//#include "GameObject.h"
+//#include "Component.h"
+//#include "Transform.h"
+//#include "Texture.h"
+//#include "Mesh.h"
+

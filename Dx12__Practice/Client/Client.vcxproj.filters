@@ -37,6 +37,9 @@
     <ClInclude Include="RectangleDemo.h">
       <Filter>Game</Filter>
     </ClInclude>
+    <ClInclude Include="ConstantBufferDemo.h">
+      <Filter>Game</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Client.rc">
@@ -61,9 +64,15 @@
     <ClCompile Include="RectangleDemo.cpp">
       <Filter>Game</Filter>
     </ClCompile>
+    <ClCompile Include="ConstantBufferDemo.cpp">
+      <Filter>Game</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="..\Shaders\default.fx">
+      <Filter>Shader</Filter>
+    </FxCompile>
+    <FxCompile Include="..\Shaders\ConstantBufferDemo.fx">
       <Filter>Shader</Filter>
     </FxCompile>
   </ItemGroup>

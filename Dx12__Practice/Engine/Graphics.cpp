@@ -11,12 +11,18 @@ void Graphics::Init(HWND hwnd)
 	_cmdQueue = make_shared<CommandQueue>();
 	_swapChain = make_shared<SwapChain>();
 	_rootSignature = make_shared<RootSignature>();
+	_tableDescHeap = make_shared<TableDescriptionHeap>();
+	_constantBuffer = make_shared<ConstantBuffer>();
+
+	
 
 
 	_device->Init();
 	_cmdQueue->Init(_device->GetDevice(), _swapChain);
 	_swapChain->Init(hwnd, _device->GetDevice(), _device->GetDXGI(), _cmdQueue->GetCmdQueue());
 	_rootSignature->Init(_device->GetDevice());
+	_tableDescHeap->Init(256);
+	_constantBuffer->Init(sizeof(Transform), 256);
 }
 
 void Graphics::RenderBegin()
