@@ -36,7 +36,7 @@ public:
 	}
 
 private:
-	friend class Mesh;
+	friend class MeshRenderer;
 	ComPtr<ID3D12Resource> _indexBuffer;
 	D3D12_INDEX_BUFFER_VIEW _indexBufferView = {};
 

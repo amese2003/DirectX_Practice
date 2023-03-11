@@ -24,7 +24,7 @@ void RectangleDemo::Render()
 	GRAPHICS->RenderBegin();
 
 	_shader->Update();
-	_mesh->Render();
+	//_mesh->Render();
 
 	GRAPHICS->RenderEnd();
 }

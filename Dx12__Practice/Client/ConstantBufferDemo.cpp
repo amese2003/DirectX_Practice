@@ -12,9 +12,9 @@ void ConstantBufferDemo::Init()
 	_mesh = make_shared<Mesh>();
 	_mesh->Init();
 
-	Transform transform;
+	/*Transform transform;
 	transform.offset = Vec4(1, 0, 0, 0);
-	_mesh->SetTransform(transform);
+	_mesh->SetTransform(transform);*/
 
 	GRAPHICS->GetCommandQueue()->WaitSync();
 }
@@ -28,7 +28,7 @@ void ConstantBufferDemo::Render()
 	GRAPHICS->RenderBegin();
 
 	_shader->Update();
-	_mesh->Render();
+	//_mesh->Render();
 
 	GRAPHICS->RenderEnd();
 }

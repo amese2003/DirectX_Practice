@@ -14,10 +14,10 @@ public:
 
 	void Init();
 	void CreateDefaultRectangle();
-	void Render();
 
-	//void SetTransform(const ConstTransform& t) { _transform = t; }
-	void SetTransform(const Transform& t);
+	shared_ptr<VertexBuffer> GetVertexBuffer() { return _vertexBuffer; }
+	shared_ptr<IndexBuffer> GetIndexBuffer() { return _indexBuffer; }
+
 
 private:
 	ComPtr<ID3D12Device> _device;
@@ -25,7 +25,5 @@ private:
 	shared_ptr<Geometry<VertexColorData>> _geometry;
 	shared_ptr<VertexBuffer> _vertexBuffer;
 	shared_ptr<IndexBuffer> _indexBuffer;
-
-	Transform _transform = {};
 };
 

@@ -40,6 +40,9 @@
     <ClInclude Include="ConstantBufferDemo.h">
       <Filter>Game</Filter>
     </ClInclude>
+    <ClInclude Include="GameObjectDemo.h">
+      <Filter>Game</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Client.rc">
@@ -65,6 +68,9 @@
       <Filter>Game</Filter>
     </ClCompile>
     <ClCompile Include="ConstantBufferDemo.cpp">
+      <Filter>Game</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObjectDemo.cpp">
       <Filter>Game</Filter>
     </ClCompile>
   </ItemGroup>

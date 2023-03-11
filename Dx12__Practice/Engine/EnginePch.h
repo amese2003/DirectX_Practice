@@ -95,10 +95,6 @@ struct WindowInfo
 	bool	windowed; // 창모드 or 전체화면
 };
 
-struct Transform
-{
-	Vec4 offset;
-};
 
 // Engine
 #include "Device.h"
@@ -116,9 +112,11 @@ struct Transform
 #include "Shader.h"
 //#include "IExecute.h"
 //
-//#include "GameObject.h"
-//#include "Component.h"
-//#include "Transform.h"
+#include "Component.h"
+#include "GameObject.h"
+#include "Transform.h"
+#include "Mesh.h"
+#include "MeshRenderer.h"
 //#include "Texture.h"
-//#include "Mesh.h"
+
 

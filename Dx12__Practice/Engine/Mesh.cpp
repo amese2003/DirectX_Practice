@@ -35,9 +35,6 @@ void Mesh::CreateDefaultRectangle()
 
 	vector<uint32> indecies{0, 1, 2, 0, 2, 3};
 
-	
-
-
 	_geometry->SetVertices(vec);
 	_geometry->SetIndices(indecies);
 
@@ -46,24 +43,3 @@ void Mesh::CreateDefaultRectangle()
 }
 
 
-void Mesh::Render()
-{
-	CMD_LIST->IASetPrimitiveTopology(D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
-	CMD_LIST->IASetVertexBuffers(0, 1, &_vertexBuffer->_vertexBufferView); // Slot: (0~15)
-	CMD_LIST->IASetIndexBuffer(&_indexBuffer->_indexBufferView);
-
-
-	{
-		D3D12_CPU_DESCRIPTOR_HANDLE handle = GRAPHICS->GetConstantBuffer()->PushData(0, &_transform, sizeof(_transform));
-		GRAPHICS->GetTableDescHeap()->SetConstantBuffer(handle, CBV_REGISTER::b0);
-	}
-
-	//CMD_LIST->DrawInstanced(_vertexBuffer->_count, 1, 0, 0);
-	GRAPHICS->GetTableDescHeap()->CommitTable();
-	CMD_LIST->DrawIndexedInstanced(_indexBuffer->_count, 1, 0, 0, 0);
-}
-
-void Mesh::SetTransform(const Transform& t)
-{
-	_transform = t;
-}
