@@ -43,6 +43,9 @@
     <ClInclude Include="GameObjectDemo.h">
       <Filter>Game</Filter>
     </ClInclude>
+    <ClInclude Include="CameraDemo.h">
+      <Filter>Game</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Client.rc">
@@ -71,6 +74,9 @@
       <Filter>Game</Filter>
     </ClCompile>
     <ClCompile Include="GameObjectDemo.cpp">
+      <Filter>Game</Filter>
+    </ClCompile>
+    <ClCompile Include="CameraDemo.cpp">
       <Filter>Game</Filter>
     </ClCompile>
   </ItemGroup>

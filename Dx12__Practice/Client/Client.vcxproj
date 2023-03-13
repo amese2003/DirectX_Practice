@@ -153,6 +153,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="CameraDemo.h" />
     <ClInclude Include="ConstantBufferDemo.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="GameObjectDemo.h" />
@@ -163,6 +164,7 @@
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="CameraDemo.cpp" />
     <ClCompile Include="ConstantBufferDemo.cpp" />
     <ClCompile Include="GameObjectDemo.cpp" />
     <ClCompile Include="Main.cpp" />

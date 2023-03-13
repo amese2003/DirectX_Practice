@@ -132,6 +132,9 @@
     <ClInclude Include="MeshRenderer.h">
       <Filter>05. Component</Filter>
     </ClInclude>
+    <ClInclude Include="Camera.h">
+      <Filter>05. Component</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine.cpp">
@@ -210,6 +213,9 @@
       <Filter>05. Component</Filter>
     </ClCompile>
     <ClCompile Include="MeshRenderer.cpp">
+      <Filter>05. Component</Filter>
+    </ClCompile>
+    <ClCompile Include="Camera.cpp">
       <Filter>05. Component</Filter>
     </ClCompile>
   </ItemGroup>
