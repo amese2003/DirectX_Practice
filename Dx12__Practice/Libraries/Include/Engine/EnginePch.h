@@ -50,6 +50,25 @@ using namespace Microsoft::WRL;
 #pragma comment(lib, "DirectXTex\\DirectXTex.lib")
 #endif
 
+// Managers
+#include "Game.h"
+#include "Graphics.h"
+#include "Geometry.h"
+//#include "InputManager.h"
+//#include "TimeManager.h"
+//#include "ResourceManager.h"
+
+#define CHECK(p)		assert(SUCCEEDED(p))
+#define GAME			GET_SINGLE(Game)		
+#define GRAPHICS		GET_SINGLE(Graphics)
+#define DEVICE			GRAPHICS->GetDevice()->GetDevice()
+#define CMD_LIST		GRAPHICS->GetCommandQueue()->GetCmdList()
+#define ROOT_SIGNATURE	GRAPHICS->GetRootsignature()->GetSignature()
+#define INPUT			GET_SINGLE(InputManager)
+#define TIME			GET_SINGLE(TimeManager)
+#define DT				TIME->GetDeltaTime()
+#define RESOURCES		GET_SINGLE(ResourceManager)
+
 enum class CBV_REGISTER
 {
 	b0,
@@ -76,28 +95,6 @@ struct WindowInfo
 	bool	windowed; // 창모드 or 전체화면
 };
 
-// Managers
-#include "Game.h"
-#include "Graphics.h"
-#include "Geometry.h"
-#include "InputManager.h"
-#include "TimeManager.h"
-#include "RenderHelper.h"
-//#include "ResourceManager.h"
-
-#define CHECK(p)		assert(SUCCEEDED(p))
-#define GAME			GET_SINGLE(Game)		
-#define GRAPHICS		GET_SINGLE(Graphics)
-#define DEVICE			GRAPHICS->GetDevice()->GetDevice()
-#define CMD_LIST		GRAPHICS->GetCommandQueue()->GetCmdList()
-#define ROOT_SIGNATURE	GRAPHICS->GetRootsignature()->GetSignature()
-#define INPUT			GET_SINGLE(InputManager)
-#define TIME			GET_SINGLE(TimeManager)
-#define DT				TIME->GetDeltaTime()
-#define RESOURCES		GET_SINGLE(ResourceManager)
-
-
-
 
 // Engine
 #include "Device.h"
@@ -116,12 +113,10 @@ struct WindowInfo
 //#include "IExecute.h"
 //
 #include "Component.h"
-#include "MonoBehaviour.h"
 #include "GameObject.h"
 #include "Transform.h"
 #include "Mesh.h"
 #include "MeshRenderer.h"
 //#include "Texture.h"
-
 
 

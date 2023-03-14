@@ -6,7 +6,7 @@
 void GameObjectDemo::Init()
 {
 	shared_ptr<Shader> shader = make_shared<Shader>();
-	shader->Init(L"..\\Shaders\\02. ConstantBufferDemo.fx");
+	shader->Init(L"..\\Shaders\\ConstantBufferDemo.fx");
 
 	shared_ptr<Mesh> mesh = make_shared<Mesh>();
 	mesh->Init();

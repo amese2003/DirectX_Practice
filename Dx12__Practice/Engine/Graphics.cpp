@@ -12,8 +12,7 @@ void Graphics::Init(HWND hwnd)
 	_swapChain = make_shared<SwapChain>();
 	_rootSignature = make_shared<RootSignature>();
 	_tableDescHeap = make_shared<TableDescriptionHeap>();
-
-	_constantBuffer = vector<shared_ptr<ConstantBuffer>>(static_cast<uint8>(CBV_REGISTER_COUNT));
+	_constantBuffer = make_shared<ConstantBuffer>();
 
 	
 
@@ -23,13 +22,7 @@ void Graphics::Init(HWND hwnd)
 	_swapChain->Init(hwnd, _device->GetDevice(), _device->GetDXGI(), _cmdQueue->GetCmdQueue());
 	_rootSignature->Init(_device->GetDevice());
 	_tableDescHeap->Init(256);
-
-	_constantBuffer[static_cast<uint8>(CBV_REGISTER::b0)] = make_shared<ConstantBuffer>();
-	_constantBuffer[static_cast<uint8>(CBV_REGISTER::b0)]->Init(CBV_REGISTER::b0, sizeof(CameraData), 256);
-
-	_constantBuffer[static_cast<uint8>(CBV_REGISTER::b1)] = make_shared<ConstantBuffer>();
-	_constantBuffer[static_cast<uint8>(CBV_REGISTER::b1)]->Init(CBV_REGISTER::b1, sizeof(TransformData), 256);
-
+	_constantBuffer->Init(sizeof(Transform), 256);
 }
 
 void Graphics::RenderBegin()
