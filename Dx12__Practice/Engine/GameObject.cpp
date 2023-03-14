@@ -1,5 +1,6 @@
 #include "pch.h"
 #include "GameObject.h"
+#include "Camera.h"
 
 GameObject::GameObject()
 {
@@ -16,6 +17,11 @@ void GameObject::Awake()
 		if (component)
 			component->Awake();
 	}
+
+	for (shared_ptr<MonoBehaviour>& script : _scripts)
+	{
+		script->Awake();
+	}
 }
 
 void GameObject::Start()
@@ -24,6 +30,11 @@ void GameObject::Start()
 	{
 		if (component)
 			component->Start();
+	}
+
+	for (shared_ptr<MonoBehaviour>& script : _scripts)
+	{
+		script->Start();
 	}
 }
 
@@ -34,6 +45,11 @@ void GameObject::Update()
 		if (component)
 			component->Update();
 	}
+
+	for (shared_ptr<MonoBehaviour>& script : _scripts)
+	{
+		script->Update();
+	}
 }
 
 void GameObject::LateUpdate()
@@ -43,6 +59,11 @@ void GameObject::LateUpdate()
 		if (component)
 			component->LateUpdate();
 	}
+
+	for (shared_ptr<MonoBehaviour>& script : _scripts)
+	{
+		script->LateUpdate();
+	}
 }
 
 void GameObject::FixedUpdate()
@@ -51,6 +72,11 @@ void GameObject::FixedUpdate()
 	{
 		if (component)
 			component->FixedUpdate();
+	}
+
+	for (shared_ptr<MonoBehaviour>& script : _scripts)
+	{
+		script->FixedUpdate();
 	}
 }
 
@@ -73,6 +99,13 @@ shared_ptr<MeshRenderer> GameObject::GetMeshRenderer()
 	return static_pointer_cast<MeshRenderer>(component);
 }
 
+shared_ptr<Camera> GameObject::GetCamera()
+{
+	shared_ptr<Component> component = GetFixedComponent(ComponentType::Camera);
+	return static_pointer_cast<Camera>(component);
+}
+
+
 shared_ptr<Transform> GameObject::GetOrAddTransform()
 {
 	if (GetTransform() == nullptr)
@@ -92,5 +125,9 @@ void GameObject::AddComponent(shared_ptr<Component> component)
 	if (index < FIXED_COMPONENT_COUNT)
 	{
 		_components[index] = component;
+	}
+	else
+	{
+		_scripts.push_back(dynamic_pointer_cast<MonoBehaviour>(component));
 	}
 }

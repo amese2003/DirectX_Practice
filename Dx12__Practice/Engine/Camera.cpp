@@ -30,4 +30,10 @@ void Camera::UpdateMatrix()
 	//S_MatView = GetTransform()->GetWorldMatrix().Invert();
 
 	S_MatProjection = ::XMMatrixPerspectiveFovLH(_fov, _width / _height, _near, _far);
+
+	CameraData cameraData;
+	cameraData.matView = S_MatView;
+	cameraData.matProjection = S_MatProjection;
+
+	GRAPHICS->GetConstantBuffer(CBV_REGISTER::b0)->PushData(&cameraData, sizeof(cameraData));
 }

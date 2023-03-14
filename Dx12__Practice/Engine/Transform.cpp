@@ -17,6 +17,10 @@ void Transform::Awake()
 
 void Transform::Update()
 {
+	TransformData transformData;
+	transformData.matWorld = GetWorldMatrix();
+	D3D12_CPU_DESCRIPTOR_HANDLE handle = GRAPHICS->GetConstantBuffer(CBV_REGISTER::b1)->PushData(&transformData, sizeof(TransformData));
+	GRAPHICS->GetTableDescHeap()->SetConstantBuffer(handle, CBV_REGISTER::b1);
 }
 
 Vec3 ToEulerAngles(Quaternion q)

@@ -135,6 +135,18 @@
     <ClInclude Include="Camera.h">
       <Filter>05. Component</Filter>
     </ClInclude>
+    <ClInclude Include="MonoBehaviour.h">
+      <Filter>05. Component</Filter>
+    </ClInclude>
+    <ClInclude Include="InputManager.h">
+      <Filter>02. Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="TimeManager.h">
+      <Filter>02. Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderHelper.h">
+      <Filter>02. Managers</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine.cpp">
@@ -217,6 +229,18 @@
     </ClCompile>
     <ClCompile Include="Camera.cpp">
       <Filter>05. Component</Filter>
+    </ClCompile>
+    <ClCompile Include="MonoBehaviour.cpp">
+      <Filter>05. Component</Filter>
+    </ClCompile>
+    <ClCompile Include="InputManager.cpp">
+      <Filter>02. Managers</Filter>
+    </ClCompile>
+    <ClCompile Include="TimeManager.cpp">
+      <Filter>02. Managers</Filter>
+    </ClCompile>
+    <ClCompile Include="RenderHelper.cpp">
+      <Filter>02. Managers</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
