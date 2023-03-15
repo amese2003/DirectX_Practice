@@ -9,5 +9,5 @@ struct CameraData
 
 struct TransformData
 {
-	Vec3 offset;
+	Matrix offset;
 };
