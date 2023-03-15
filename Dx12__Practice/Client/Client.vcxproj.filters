@@ -34,16 +34,16 @@
     <ClInclude Include="Main.h">
       <Filter>Main</Filter>
     </ClInclude>
-    <ClInclude Include="RectangleDemo.h">
+    <ClInclude Include="01. RectangleDemo.h">
       <Filter>Game</Filter>
     </ClInclude>
-    <ClInclude Include="ConstantBufferDemo.h">
+    <ClInclude Include="02. ConstantBufferDemo.h">
       <Filter>Game</Filter>
     </ClInclude>
     <ClInclude Include="GameObjectDemo.h">
       <Filter>Game</Filter>
     </ClInclude>
-    <ClInclude Include="CameraDemo.h">
+    <ClInclude Include="03. CameraDemo.h">
       <Filter>Game</Filter>
     </ClInclude>
   </ItemGroup>
@@ -67,24 +67,27 @@
     <ClCompile Include="Main.cpp">
       <Filter>Main</Filter>
     </ClCompile>
-    <ClCompile Include="RectangleDemo.cpp">
+    <ClCompile Include="01. RectangleDemo.cpp">
       <Filter>Game</Filter>
     </ClCompile>
-    <ClCompile Include="ConstantBufferDemo.cpp">
+    <ClCompile Include="02. ConstantBufferDemo.cpp">
       <Filter>Game</Filter>
     </ClCompile>
     <ClCompile Include="GameObjectDemo.cpp">
       <Filter>Game</Filter>
     </ClCompile>
-    <ClCompile Include="CameraDemo.cpp">
+    <ClCompile Include="03. CameraDemo.cpp">
       <Filter>Game</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <FxCompile Include="..\Shaders\default.fx">
+    <FxCompile Include="..\Shaders\01. Rectangle.fx">
       <Filter>Shader</Filter>
     </FxCompile>
-    <FxCompile Include="..\Shaders\ConstantBufferDemo.fx">
+    <FxCompile Include="..\Shaders\02. ConstantBuffer.fx">
+      <Filter>Shader</Filter>
+    </FxCompile>
+    <FxCompile Include="..\Shaders\03. World.fx">
       <Filter>Shader</Filter>
     </FxCompile>
   </ItemGroup>

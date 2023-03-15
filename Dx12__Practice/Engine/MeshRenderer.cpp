@@ -23,9 +23,10 @@ void MeshRenderer::Render()
 
 
 	{
-		auto worldPos = GetGameObject()->GetTransform()->GetPosition();
+		TransformData cbuffer;
+		cbuffer.offset = GetGameObject()->GetTransform()->GetPosition();
 
-		D3D12_CPU_DESCRIPTOR_HANDLE handle = GRAPHICS->GetConstantBuffer()->PushData(0, &worldPos, sizeof(worldPos));
+		D3D12_CPU_DESCRIPTOR_HANDLE handle = GRAPHICS->GetConstantBuffer(CBV_REGISTER::b0)->PushData(&cbuffer, sizeof(cbuffer));
 		GRAPHICS->GetTableDescHeap()->SetConstantBuffer(handle, CBV_REGISTER::b0);
 	}
 

@@ -77,7 +77,7 @@ void ConstantBuffer::Clear()
 	_currentIndex = 0;
 }
 
-D3D12_CPU_DESCRIPTOR_HANDLE ConstantBuffer::PushData(int32 rootParamIndex, void* buffer, uint32 size)
+D3D12_CPU_DESCRIPTOR_HANDLE ConstantBuffer::PushData(void* buffer, uint32 size)
 {
 	assert(_currentIndex < _elementSize);
 

@@ -7,10 +7,13 @@
   </ProjectOutputs>
   <ContentFiles>
     <ContentFile>
-      <FullPath>D:\Project\DirectX_Practice\Dx12__Practice\Binaries\ConstantBufferDemo.cso</FullPath>
+      <FullPath>D:\Project\DirectX_Practice\Dx12__Practice\Binaries\02. ConstantBuffer.cso</FullPath>
     </ContentFile>
     <ContentFile>
-      <FullPath>D:\Project\DirectX_Practice\Dx12__Practice\Binaries\default.cso</FullPath>
+      <FullPath>D:\Project\DirectX_Practice\Dx12__Practice\Binaries\01. Rectangle.cso</FullPath>
+    </ContentFile>
+    <ContentFile>
+      <FullPath>D:\Project\DirectX_Practice\Dx12__Practice\Binaries\03. World.cso</FullPath>
     </ContentFile>
   </ContentFiles>
   <SatelliteDlls />

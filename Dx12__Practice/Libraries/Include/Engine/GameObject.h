@@ -21,6 +21,7 @@ public:
 
 protected:
 	array<shared_ptr<Component>, FIXED_COMPONENT_COUNT> _components;
+	vector<shared_ptr<MonoBehaviour>> _scripts;
 
 };
 

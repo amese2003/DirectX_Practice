@@ -93,4 +93,8 @@ void GameObject::AddComponent(shared_ptr<Component> component)
 	{
 		_components[index] = component;
 	}
+	else
+	{
+		_scripts.push_back(dynamic_pointer_cast<MonoBehaviour>(component));
+	}
 }

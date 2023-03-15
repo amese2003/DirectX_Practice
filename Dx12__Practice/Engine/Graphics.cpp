@@ -12,7 +12,10 @@ void Graphics::Init(HWND hwnd)
 	_swapChain = make_shared<SwapChain>();
 	_rootSignature = make_shared<RootSignature>();
 	_tableDescHeap = make_shared<TableDescriptionHeap>();
-	_constantBuffer = make_shared<ConstantBuffer>();
+	_constantBuffer = vector<shared_ptr<ConstantBuffer>>(CBV_REGISTER_COUNT);
+
+
+	
 
 	
 
@@ -22,7 +25,9 @@ void Graphics::Init(HWND hwnd)
 	_swapChain->Init(hwnd, _device->GetDevice(), _device->GetDXGI(), _cmdQueue->GetCmdQueue());
 	_rootSignature->Init(_device->GetDevice());
 	_tableDescHeap->Init(256);
-	_constantBuffer->Init(sizeof(Transform), 256);
+
+	_constantBuffer[static_cast<uint8>(CBV_REGISTER::b0)] = make_shared<ConstantBuffer>();
+	_constantBuffer[static_cast<uint8>(CBV_REGISTER::b0)]->Init(sizeof(TransformData), 256);
 }
 
 void Graphics::RenderBegin()

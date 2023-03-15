@@ -10,13 +10,13 @@ enum class ComponentType : uint8
 	MeshRenderer,
 	Camera,
 
-
+	Script,
 	End
 };
 
 enum
 {
-	FIXED_COMPONENT_COUNT = static_cast<uint8>(ComponentType::End)
+	FIXED_COMPONENT_COUNT = static_cast<uint8>(ComponentType::End) - 1
 };
 
 class Component
