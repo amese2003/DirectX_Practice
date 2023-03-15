@@ -16,6 +16,13 @@ void GameObject::Awake()
 		if (component)
 			component->Awake();
 	}
+
+	for (shared_ptr<MonoBehaviour>& script : _scripts)
+	{
+		script->Awake();
+	}
+
+	GetOrAddTransform();
 }
 
 void GameObject::Start()
@@ -24,6 +31,11 @@ void GameObject::Start()
 	{
 		if (component)
 			component->Start();
+	}
+
+	for (shared_ptr<MonoBehaviour>& script : _scripts)
+	{
+		script->Start();
 	}
 }
 
@@ -34,6 +46,11 @@ void GameObject::Update()
 		if (component)
 			component->Update();
 	}
+
+	for (shared_ptr<MonoBehaviour>& script : _scripts)
+	{
+		script->Update();
+	}
 }
 
 void GameObject::LateUpdate()
@@ -43,6 +60,11 @@ void GameObject::LateUpdate()
 		if (component)
 			component->LateUpdate();
 	}
+
+	for (shared_ptr<MonoBehaviour>& script : _scripts)
+	{
+		script->LateUpdate();
+	}
 }
 
 void GameObject::FixedUpdate()
@@ -51,6 +73,11 @@ void GameObject::FixedUpdate()
 	{
 		if (component)
 			component->FixedUpdate();
+	}
+
+	for (shared_ptr<MonoBehaviour>& script : _scripts)
+	{
+		script->FixedUpdate();
 	}
 }
 

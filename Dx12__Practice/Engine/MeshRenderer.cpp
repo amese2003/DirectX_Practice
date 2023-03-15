@@ -22,13 +22,7 @@ void MeshRenderer::Render()
 	CMD_LIST->IASetIndexBuffer(&_mesh->GetIndexBuffer()->_indexBufferView);
 
 
-	{
-		TransformData cbuffer;
-		cbuffer.offset = GetGameObject()->GetTransform()->GetPosition();
-
-		D3D12_CPU_DESCRIPTOR_HANDLE handle = GRAPHICS->GetConstantBuffer(CBV_REGISTER::b1)->PushData(&cbuffer, sizeof(cbuffer));
-		GRAPHICS->GetTableDescHeap()->SetConstantBuffer(handle, CBV_REGISTER::b1);
-	}
+	
 
 	//CMD_LIST->DrawInstanced(_vertexBuffer->_count, 1, 0, 0);
 	GRAPHICS->GetTableDescHeap()->CommitTable();

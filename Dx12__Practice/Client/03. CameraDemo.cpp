@@ -1,6 +1,7 @@
 #include "pch.h"
 #include "03. CameraDemo.h"
 #include "Camera.h"
+#include "CameraScript.h"
 
 void CameraDemo::Init()
 {
@@ -20,6 +21,7 @@ void CameraDemo::Init()
 	_camera = make_shared<GameObject>();
 	_camera->GetOrAddTransform();
 	_camera->AddComponent(make_shared<Camera>());
+	_camera->AddComponent(make_shared<CameraScript>());
 
 	GRAPHICS->GetCommandQueue()->WaitSync();
 }

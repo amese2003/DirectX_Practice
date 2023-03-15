@@ -17,6 +17,13 @@ void Transform::Awake()
 
 void Transform::Update()
 {
+	
+	TransformData cbuffer;
+	cbuffer.offset = GetPosition();
+
+	D3D12_CPU_DESCRIPTOR_HANDLE handle = GRAPHICS->GetConstantBuffer(CBV_REGISTER::b1)->PushData(&cbuffer, sizeof(cbuffer));
+	GRAPHICS->GetTableDescHeap()->SetConstantBuffer(handle, CBV_REGISTER::b1);
+	
 }
 
 Vec3 ToEulerAngles(Quaternion q)

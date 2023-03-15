@@ -17,6 +17,9 @@
     <Filter Include="Main">
       <UniqueIdentifier>{7f18e093-d604-4a76-be11-0c71f55d7b97}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Main\Camera">
+      <UniqueIdentifier>{e14e8df1-7cb6-493b-abee-9c14927f4286}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -45,6 +48,9 @@
     </ClInclude>
     <ClInclude Include="03. CameraDemo.h">
       <Filter>Game</Filter>
+    </ClInclude>
+    <ClInclude Include="CameraScript.h">
+      <Filter>Main\Camera</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -78,6 +84,9 @@
     </ClCompile>
     <ClCompile Include="03. CameraDemo.cpp">
       <Filter>Game</Filter>
+    </ClCompile>
+    <ClCompile Include="CameraScript.cpp">
+      <Filter>Main\Camera</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
