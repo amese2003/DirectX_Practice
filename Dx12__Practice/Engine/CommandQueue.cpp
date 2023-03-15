@@ -65,6 +65,7 @@ void CommandQueue::RenderBegin(const D3D12_VIEWPORT* vp, const D3D12_RECT* rect)
 
 	_cmdList->SetGraphicsRootSignature(ROOT_SIGNATURE.Get());
 	GRAPHICS->GetConstantBuffer(CBV_REGISTER::b0)->Clear();
+	GRAPHICS->GetConstantBuffer(CBV_REGISTER::b1)->Clear();
 	GRAPHICS->GetTableDescHeap()->Clear();
 
 	ID3D12DescriptorHeap* descHeap = GRAPHICS->GetTableDescHeap()->GetDescriptorHeap().Get();
