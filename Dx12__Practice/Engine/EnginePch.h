@@ -79,6 +79,7 @@ struct WindowInfo
 // Managers
 #include "Game.h"
 #include "Graphics.h"
+#include "VertexData.h"
 #include "Geometry.h"
 #include "RenderHelper.h"
 #include "InputManager.h"
@@ -108,7 +109,6 @@ struct WindowInfo
 
 
 #include "ResourceBase.h"
-#include "VertexData.h"
 #include "VertexBuffer.h"
 #include "IndexBuffer.h"
 #include "ConstantBuffer.h"

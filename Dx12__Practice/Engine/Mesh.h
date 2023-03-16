@@ -4,6 +4,7 @@
 class VertexBuffer;
 class ConstTransform;
 
+
 class Mesh : public ResourceBase
 {
 	using Super = ResourceBase;

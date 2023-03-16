@@ -15,13 +15,17 @@ void Shader::Init(const wstring& path)
 	CreateVertexShader(path, "VS_Main", "vs_5_0");
 	CreatePixelShader(path, "PS_Main", "ps_5_0");
 
-	D3D12_INPUT_ELEMENT_DESC desc[] =
+	/*D3D12_INPUT_ELEMENT_DESC desc[] =
 	{
 		{ "POSITION", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 0, D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA, 0 },
 		{ "COLOR", 0, DXGI_FORMAT_R32G32B32A32_FLOAT, 0, 12, D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA, 0 }
-	};
+	};*/
 
-	_pipelineDesc.InputLayout = { desc, _countof(desc)};
+
+	vector<D3D12_INPUT_ELEMENT_DESC> desc = VertexColorData::descs;
+
+	//_pipelineDesc.InputLayout = { desc, _countof(desc)};
+	_pipelineDesc.InputLayout = { desc.data(), static_cast<UINT>(desc.size())};
 	_pipelineDesc.pRootSignature = ROOT_SIGNATURE.Get();
 
 	_pipelineDesc.RasterizerState = CD3DX12_RASTERIZER_DESC(D3D12_DEFAULT);

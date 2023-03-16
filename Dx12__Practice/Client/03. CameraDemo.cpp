@@ -10,6 +10,7 @@ void CameraDemo::Init()
 
 	shared_ptr<Mesh> mesh = make_shared<Mesh>();
 	mesh->Init();
+	mesh->CreateDefaultRectangle();
 
 	_gameObject = make_shared<GameObject>();
 	_gameObject->GetOrAddTransform();
