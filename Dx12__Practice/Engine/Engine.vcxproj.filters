@@ -147,6 +147,9 @@
     <ClInclude Include="MonoBehaviour.h">
       <Filter>05. Component</Filter>
     </ClInclude>
+    <ClInclude Include="Texture.h">
+      <Filter>03. Resources</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine.cpp">
@@ -241,6 +244,9 @@
     </ClCompile>
     <ClCompile Include="MonoBehaviour.cpp">
       <Filter>05. Component</Filter>
+    </ClCompile>
+    <ClCompile Include="Texture.cpp">
+      <Filter>03. Resources</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

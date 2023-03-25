@@ -15,7 +15,7 @@ void Mesh::Init()
 {
 	_device = DEVICE;
 
-	_geometry = make_shared<Geometry<VertexColorData>>();
+	_geometry = make_shared<Geometry<VertexTextureNormalData>>();
 	_vertexBuffer = make_shared<VertexBuffer>(_device);
 	_indexBuffer = make_shared<IndexBuffer>(_device);
 
@@ -46,11 +46,13 @@ void Mesh::Init()
 
 void Mesh::CreateDefaultRectangle()
 {
-	vector<VertexColorData> vec(4);
-	GeometryHelper::CreateRectangle(_geometry, Color(0.5f, 0.5f, 0.5f, 1.f));
+	vector<VertexTextureNormalData> vec(4);
+	//GeometryHelper::CreateRectangle(_geometry, Color(0.5f, 0.5f, 0.5f, 1.f));
 
-	_vertexBuffer->Create(_geometry->GetVertices());
-	_indexBuffer->Create(_geometry->GetIndices());
+	GeometryHelper::CreateRectangle(_geometry);
+
+	_vertexBuffer->CreateTexture(_geometry->GetVertices());
+	_indexBuffer->CreateTexture(_geometry->GetIndices());
 
 	/*vec[0].position = Vec3(-0.5f, 0.5f, 0.5f);
 	vec[0].color = Color(1.f, 0.f, 0.f, 1.f);

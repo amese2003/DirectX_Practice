@@ -23,6 +23,10 @@ void CommandQueue::Init(ComPtr<ID3D12Device> device, shared_ptr<SwapChain> chain
 	device->CreateCommandAllocator(D3D12_COMMAND_LIST_TYPE_DIRECT, IID_PPV_ARGS(&_cmdAlloc));
 	device->CreateCommandList(0, D3D12_COMMAND_LIST_TYPE_DIRECT, _cmdAlloc.Get(), nullptr, IID_PPV_ARGS(&_cmdList));
 
+
+	device->CreateCommandAllocator(D3D12_COMMAND_LIST_TYPE_DIRECT, IID_PPV_ARGS(&_resourceCmdAlloc));
+	device->CreateCommandList(0, D3D12_COMMAND_LIST_TYPE_DIRECT, _resourceCmdAlloc.Get(), nullptr, IID_PPV_ARGS(&_resourceCmdList));
+
 	// CommandList는 Close / Open 상태가 있는데
 	// Open 상태에서 Command를 넣다가 Close한 다음 제출하는 개념
 	_cmdList->Close();
@@ -105,4 +109,17 @@ void CommandQueue::RenderEnd()
 	WaitSync();
 
 	_swapChain->SwapIndex();
+}
+
+void CommandQueue::FlushResourceCommandQueue()
+{
+	_resourceCmdList->Close();
+
+	ID3D12CommandList* cmdListArr[] = { _resourceCmdList.Get() };
+	_cmdQueue->ExecuteCommandLists(_countof(cmdListArr), cmdListArr);
+
+	WaitSync();
+
+	_resourceCmdAlloc->Reset();
+	_resourceCmdList->Reset(_resourceCmdAlloc.Get(), nullptr);
 }

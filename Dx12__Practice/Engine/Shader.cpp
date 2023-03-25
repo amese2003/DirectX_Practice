@@ -22,7 +22,7 @@ void Shader::Init(const wstring& path)
 	};*/
 
 
-	vector<D3D12_INPUT_ELEMENT_DESC> desc = VertexColorData::descs;
+	vector<D3D12_INPUT_ELEMENT_DESC> desc = VertexTextureNormalData::descs;
 
 	//_pipelineDesc.InputLayout = { desc, _countof(desc)};
 	_pipelineDesc.InputLayout = { desc.data(), static_cast<UINT>(desc.size())};

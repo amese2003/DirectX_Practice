@@ -8,7 +8,7 @@ public:
 	ComPtr<ID3D12Resource> GetComPtr() { return _indexBuffer; }
 
 	template<typename T>
-	void Create(const vector<T>& vertices)
+	void CreateTexture(const vector<T>& vertices)
 	{
 		_count = static_cast<uint32>(vertices.size());
 		uint32 bufferSize = _count * sizeof(uint32);

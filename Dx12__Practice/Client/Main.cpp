@@ -1,6 +1,7 @@
 #include "pch.h"
 #include "Main.h"
 #include "03. CameraDemo.h"
+#include "04. TextureDemo.h"
 
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nShowCmd)
 {
