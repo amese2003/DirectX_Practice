@@ -23,7 +23,7 @@ public:
 private:
 	ComPtr<ID3D12Device> _device;
 
-	shared_ptr<Geometry<VertexTextureNormalData>> _geometry;
+	shared_ptr<Geometry<VertexTextureNormalTangentData>> _geometry;
 	shared_ptr<VertexBuffer> _vertexBuffer;
 	shared_ptr<IndexBuffer> _indexBuffer;
 };

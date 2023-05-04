@@ -108,5 +108,8 @@
     <FxCompile Include="..\Shaders\04. Texture.fx">
       <Filter>Shader</Filter>
     </FxCompile>
+    <FxCompile Include="..\Shaders\00. Common.fx">
+      <Filter>Shader</Filter>
+    </FxCompile>
   </ItemGroup>
 </Project>

@@ -1,3 +1,6 @@
+#include "00. Common.fx"
+
+
 
 cbuffer TEST_B0 : register(b0)
 {
@@ -10,33 +13,20 @@ cbuffer TEST_B1 : register(b1)
     row_major matrix world;
 };
 
-struct VS_IN
+MeshOutput VS_Main(VertexTextureNormalTangent input)
 {
-    float3 pos : POSITION;
-    float4 color : COLOR;
-};
+    MeshOutput output = (MeshOutput)0;
 
-struct VS_OUT
-{
-    float4 pos : SV_Position;
-    float4 color : COLOR;
-};
-
-VS_OUT VS_Main(VS_IN input)
-{
-    VS_OUT output = (VS_OUT)0;
-
-    output.pos = float4(input.pos, 1.f);
-    //output.pos += float4(offset1._41, offset1._42, offset1._43, 1.f);
-    output.pos = mul(output.pos, world);
-    output.pos = mul(output.pos, view);
-    output.pos = mul(output.pos, projection);
-    output.color = input.color;
+    output.position = float4(input.position, 1.f);
+    output.position = mul(output.position, world);
+    output.position = mul(output.position, view);
+    output.position = mul(output.position, projection);
+    output.normal = input.normal;
 
     return output;
 }
 
-float4 PS_Main(VS_OUT input) : SV_Target
+float4 PS_Main(MeshOutput input) : SV_Target
 {
-    return input.color;
+    return float4(input.normal, 1.f);
 }

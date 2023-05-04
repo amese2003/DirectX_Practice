@@ -15,14 +15,7 @@ void Shader::Init(const wstring& path)
 	CreateVertexShader(path, "VS_Main", "vs_5_0");
 	CreatePixelShader(path, "PS_Main", "ps_5_0");
 
-	/*D3D12_INPUT_ELEMENT_DESC desc[] =
-	{
-		{ "POSITION", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 0, D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA, 0 },
-		{ "COLOR", 0, DXGI_FORMAT_R32G32B32A32_FLOAT, 0, 12, D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA, 0 }
-	};*/
-
-
-	vector<D3D12_INPUT_ELEMENT_DESC> desc = VertexTextureNormalData::descs;
+	vector<D3D12_INPUT_ELEMENT_DESC> desc = MeshVertex::VertexDesc;
 
 	//_pipelineDesc.InputLayout = { desc, _countof(desc)};
 	_pipelineDesc.InputLayout = { desc.data(), static_cast<UINT>(desc.size())};
@@ -71,3 +64,4 @@ void Shader::CreatePixelShader(const wstring& path, const string& name, const st
 {
 	CreateShader(path, name, version, _psBlob, _pipelineDesc.PS);
 }
+
