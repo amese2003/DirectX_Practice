@@ -9,8 +9,10 @@ void CameraDemo::Init()
 	shader->Init(L"..\\Shaders\\03. World.fx");
 
 	shared_ptr<Mesh> mesh = make_shared<Mesh>();
-	mesh->Init();
-	mesh->CreateDefaultRectangle();
+	{
+		mesh->Init();
+		mesh->CreateRectangle();
+	}
 
 	_gameObject = make_shared<GameObject>();
 	_gameObject->GetOrAddTransform();

@@ -64,3 +64,12 @@ struct MeshOutput
 	float3 normal : NORMAL;
 	float3 tangent : TANGENT;
 };
+
+
+
+
+cbuffer CAMERA_B0 : register(b0)
+{
+	row_major matrix view;
+	row_major matrix projection;
+};

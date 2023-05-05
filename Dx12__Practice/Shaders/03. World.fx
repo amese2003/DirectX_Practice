@@ -2,12 +2,6 @@
 
 
 
-cbuffer TEST_B0 : register(b0)
-{
-    row_major matrix view;
-    row_major matrix projection;
-};
-
 cbuffer TEST_B1 : register(b1)
 {
     row_major matrix world;
@@ -19,8 +13,8 @@ MeshOutput VS_Main(VertexTextureNormalTangent input)
 
     output.position = float4(input.position, 1.f);
     output.position = mul(output.position, world);
-    output.position = mul(output.position, view);
-    output.position = mul(output.position, projection);
+    //output.position = mul(output.position, view);
+    //output.position = mul(output.position, projection);
     output.normal = input.normal;
 
     return output;

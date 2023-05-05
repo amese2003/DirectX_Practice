@@ -1,48 +1,28 @@
-
-cbuffer TEST_B0 : register(b0)
-{
-    row_major matrix view;
-    row_major matrix projection;
-};
+#include "00. Common.fx"
 
 cbuffer TEST_B1 : register(b1)
 {
     row_major matrix world;
 };
 
-Texture2D tex_0 : register(t0);
-SamplerState sam_0 : register(s0);
+Texture2D Texture0 : register(t0);
+SamplerState Sampler0 : register(s0);
 
-struct VS_IN
+MeshOutput VS_Main(VertexTextureNormalTangent input)
 {
-    float3 pos : POSITION;
-    float2 uv : TEXCOORD;
-    //float4 normal : NORMAL;
-};
+    MeshOutput output = (MeshOutput)0;
 
-struct VS_OUT
-{
-    float4 pos : SV_Position;
-    float2 uv : TEXCOORD;
-    //float4 normal : NORMAL;
-};
-
-VS_OUT VS_Main(VS_IN input)
-{
-    VS_OUT output = (VS_OUT)0;
-
-    output.pos = float4(input.pos, 1.f);
-    output.pos = mul(output.pos, world);
-    output.pos = mul(output.pos, view);
-    output.pos = mul(output.pos, projection);
-    output.uv = input.uv;
-    //output.normal = input.normal;
+    output.position = float4(input.position, 1.f);
+    output.position = mul(output.position, world);
+    output.position = mul(output.position, view);
+    output.position = mul(output.position, projection);
+    output.normal = input.normal;
 
     return output;
 }
 
-float4 PS_Main(VS_OUT input) : SV_Target
+float4 PS_Main(MeshOutput input) : SV_Target
 {
-    float4 color = tex_0.Sample(sam_0, input.uv);
+    float4 color = Texture0.Sample(Sampler0, input.uv);
     return color;
 }

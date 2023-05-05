@@ -23,7 +23,7 @@ void Graphics::Init(HWND hwnd)
 	_device->Init();
 	_cmdQueue->Init(_device->GetDevice(), _swapChain);
 	_swapChain->Init(hwnd, _device->GetDevice(), _device->GetDXGI(), _cmdQueue->GetCmdQueue());
-	_rootSignature->Init(_device->GetDevice());
+	_rootSignature->Init();
 	_tableDescHeap->Init(256);
 
 	_constantBuffer[static_cast<uint8>(CBV_REGISTER::b0)] = make_shared<ConstantBuffer>();

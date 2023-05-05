@@ -9,8 +9,10 @@ void TextureDemo::Init()
 	shader->Init(L"..\\Shaders\\04. Texture.fx");
 
 	shared_ptr<Mesh> mesh = make_shared<Mesh>();
-	mesh->Init();
-	mesh->CreateDefaultRectangle();
+	{
+		mesh->Init();
+		mesh->CreateCube();
+	}
 
 	shared_ptr<Texture> texture = make_shared<Texture>();
 	texture->Init(L"..\\Resources\\Aris.png");

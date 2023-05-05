@@ -6,8 +6,8 @@ Matrix Camera::S_MatProjection = Matrix::Identity;
 
 Camera::Camera() : Super(ComponentType::Camera)
 {
-	_width = static_cast<float>(GAME->GetGameDesc().width);
-	_height = static_cast<float>(GAME->GetGameDesc().height);
+	_width = static_cast<float>(GAME->GetGameDesc().height);
+	_height = static_cast<float>(GAME->GetGameDesc().width);
 }
 
 Camera::~Camera()
@@ -27,8 +27,7 @@ void Camera::UpdateMatrix()
 	Vec3 upDirection = GetTransform()->GetUp();
 	S_MatView = ::XMMatrixLookAtLH(eyePosition, focusPosition, upDirection);
 
-	//S_MatView = GetTransform()->GetWorldMatrix().Invert();
-
+	S_MatView = GetTransform()->GetWorldMatrix().Invert();
 	S_MatProjection = ::XMMatrixPerspectiveFovLH(_fov, _width / _height, _near, _far);
 
 	CameraData cbuffer;

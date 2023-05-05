@@ -31,9 +31,6 @@
     <Filter Include="01. Graphics\Pipeline\01. InputAssembler">
       <UniqueIdentifier>{7d68a414-154d-4acc-b605-5506a8388de3}</UniqueIdentifier>
     </Filter>
-    <Filter Include="01. Graphics\Pipeline\02. VertexBuffer">
-      <UniqueIdentifier>{d7192cac-f814-49e4-b30e-e2e1a7f9afe0}</UniqueIdentifier>
-    </Filter>
     <Filter Include="04. GameObject">
       <UniqueIdentifier>{01fd8b17-3c4b-4c55-913e-086c61beb316}</UniqueIdentifier>
     </Filter>
@@ -117,9 +114,6 @@
     <ClInclude Include="TableDescriptionHeap.h">
       <Filter>00. Engine</Filter>
     </ClInclude>
-    <ClInclude Include="ConstantBuffer.h">
-      <Filter>01. Graphics\Pipeline\02. VertexBuffer</Filter>
-    </ClInclude>
     <ClInclude Include="GameObject.h">
       <Filter>04. GameObject</Filter>
     </ClInclude>
@@ -149,6 +143,9 @@
     </ClInclude>
     <ClInclude Include="Texture.h">
       <Filter>03. Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="ConstantBuffer.h">
+      <Filter>00. Engine</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -215,9 +212,6 @@
     <ClCompile Include="TableDescriptionHeap.cpp">
       <Filter>00. Engine</Filter>
     </ClCompile>
-    <ClCompile Include="ConstantBuffer.cpp">
-      <Filter>01. Graphics\Pipeline\02. VertexBuffer</Filter>
-    </ClCompile>
     <ClCompile Include="GameObject.cpp">
       <Filter>04. GameObject</Filter>
     </ClCompile>
@@ -247,6 +241,9 @@
     </ClCompile>
     <ClCompile Include="Texture.cpp">
       <Filter>03. Resources</Filter>
+    </ClCompile>
+    <ClCompile Include="ConstantBuffer.cpp">
+      <Filter>00. Engine</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
