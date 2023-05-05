@@ -6,8 +6,8 @@ Matrix Camera::S_MatProjection = Matrix::Identity;
 
 Camera::Camera() : Super(ComponentType::Camera)
 {
-	_width = static_cast<float>(GAME->GetGameDesc().height);
-	_height = static_cast<float>(GAME->GetGameDesc().width);
+	_width = static_cast<float>(GAME->GetGameDesc().width);
+	_height = static_cast<float>(GAME->GetGameDesc().height);
 }
 
 Camera::~Camera()

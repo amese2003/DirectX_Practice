@@ -30,7 +30,7 @@ void Mesh::CreateRectangle()
 
 void Mesh::CreateCube()
 {
-	GeometryHelper::CreateSphere(_geometry);
+	GeometryHelper::CreateCube(_geometry);
 
 	_vertexBuffer->CreateTexture(_geometry->GetVertices());
 	_indexBuffer->CreateTexture(_geometry->GetIndices());

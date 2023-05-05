@@ -35,7 +35,7 @@ public:
 
 		// Initialize the vertex buffer view.
 		_vertexBufferView.BufferLocation = _vertexBuffer->GetGPUVirtualAddress();
-		_vertexBufferView.StrideInBytes = sizeof(VertexColorData); // 정점 1개 크기
+		_vertexBufferView.StrideInBytes = sizeof(VertexTextureNormalTangentData); // 정점 1개 크기
 		_vertexBufferView.SizeInBytes = bufferSize; // 버퍼의 크기	
 	}
 

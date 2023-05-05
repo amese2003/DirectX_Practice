@@ -59,13 +59,9 @@ void Transform::UpdateTransform()
 	_matLocal = matScale * matRotation * matTranslation;
 
 	if (HasParent())
-	{
 		_matWorld = _matLocal * _parent->GetWorldMatrix();
-	}
 	else
-	{
 		_matWorld = _matLocal;
-	}
 
 	Quaternion quat;
 	_matWorld.Decompose(_scale, quat, _position);
