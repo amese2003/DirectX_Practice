@@ -15,11 +15,11 @@ void TextureDemo::Init()
 	}
 
 	shared_ptr<Texture> texture = make_shared<Texture>();
-	texture->Init(L"..\\Resources\\Aris.png");
+	texture->Init(L"..\\Resources\\Hoshino.png");
 
 	_gameObject = make_shared<GameObject>();
 	_gameObject->GetOrAddTransform();
-	_gameObject->GetTransform()->SetPosition(Vec3(0.5f, 0.f, 0.f));
+	_gameObject->GetTransform()->SetPosition(Vec3(0.5f, 0.f, 10.f));
 	_gameObject->AddComponent(make_shared<MeshRenderer>());
 	_gameObject->GetMeshRenderer()->SetMesh(mesh);
 	_gameObject->GetMeshRenderer()->SetShader(shader);
