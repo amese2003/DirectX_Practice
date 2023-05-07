@@ -52,7 +52,7 @@ void Texture::CreateTexture(const wstring& path)
 
 	CHECK(hr);
 
-	::UpdateSubresources(CMD_LIST.Get(),
+	::UpdateSubresources(RESOURCE_CMD_LIST.Get(),
 		_texture2D.Get(),
 		textureUploadHeap.Get(),
 		0, 0,

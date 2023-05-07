@@ -77,7 +77,7 @@ enum
 	SWAP_CHAIN_BUFFER_COUNT = 2,
 	CBV_REGISTER_COUNT = CBV_REGISTER::END,
 	SRV_REGISTER_COUNT = static_cast<uint8>(SRV_REGISTER::END) - CBV_REGISTER_COUNT,
-	REGISTER_COUNT = CBV_REGISTER::END,
+	REGISTER_COUNT = CBV_REGISTER_COUNT + SRV_REGISTER_COUNT,
 };
 
 struct WindowInfo
@@ -98,16 +98,17 @@ struct WindowInfo
 #include "TimeManager.h"
 //#include "ResourceManager.h"
 
-#define CHECK(p)		assert(SUCCEEDED(p))
-#define GAME			GET_SINGLE(Game)		
-#define GRAPHICS		GET_SINGLE(Graphics)
-#define DEVICE			GRAPHICS->GetDevice()->GetDevice()
-#define CMD_LIST		GRAPHICS->GetCommandQueue()->GetCmdList()
-#define ROOT_SIGNATURE	GRAPHICS->GetRootsignature()->GetSignature()
-#define INPUT			GET_SINGLE(InputManager)
-#define TIME			GET_SINGLE(TimeManager)
-#define DT				TIME->GetDeltaTime()
-#define RESOURCES		GET_SINGLE(ResourceManager)
+#define CHECK(p)				assert(SUCCEEDED(p))
+#define GAME					GET_SINGLE(Game)		
+#define GRAPHICS				GET_SINGLE(Graphics)
+#define DEVICE					GRAPHICS->GetDevice()->GetDevice()
+#define CMD_LIST				GRAPHICS->GetCommandQueue()->GetCmdList()
+#define RESOURCE_CMD_LIST		GRAPHICS->GetCommandQueue()->GetResourceCmdList()
+#define ROOT_SIGNATURE			GRAPHICS->GetRootsignature()->GetSignature()
+#define INPUT					GET_SINGLE(InputManager)
+#define TIME					GET_SINGLE(TimeManager)
+#define DT						TIME->GetDeltaTime()
+#define RESOURCES				GET_SINGLE(ResourceManager)
 
 
 

@@ -16,13 +16,22 @@ MeshOutput VS_Main(VertexTextureNormalTangent input)
     output.position = mul(output.position, world);
     output.position = mul(output.position, view);
     output.position = mul(output.position, projection);
+
+    output.uv = input.uv;
     output.normal = input.normal;
+    output.tangent = input.tangent;
 
     return output;
 }
 
 float4 PS_Main(MeshOutput input) : SV_Target
 {
+    /*float4 color = float4(1.f, 1.f, 1.f, 1.f);
+    color = Texture0.Sample(Sampler0, input.uv);*/
     float4 color = Texture0.Sample(Sampler0, input.uv);
+
+    /*if (!Texture0)
+        discard;*/
+
     return color;
 }
