@@ -55,6 +55,9 @@
     <ClInclude Include="04. TextureDemo.h">
       <Filter>Game</Filter>
     </ClInclude>
+    <ClInclude Include="05. HillsDemo.h">
+      <Filter>Game</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Client.rc">
@@ -94,6 +97,9 @@
     <ClCompile Include="04. TextureDemo.cpp">
       <Filter>Game</Filter>
     </ClCompile>
+    <ClCompile Include="05. HillsDemo.cpp">
+      <Filter>Game</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="..\Shaders\01. Rectangle.fx">
@@ -109,6 +115,9 @@
       <Filter>Shader</Filter>
     </FxCompile>
     <FxCompile Include="..\Shaders\00. Common.fx">
+      <Filter>Shader</Filter>
+    </FxCompile>
+    <FxCompile Include="..\Shaders\05. Color.fx">
       <Filter>Shader</Filter>
     </FxCompile>
   </ItemGroup>

@@ -33,6 +33,7 @@ struct VertexTextureNormalTangent
 	float2 uv : TEXCOORD;
 	float3 normal : NORMAL;
 	float3 tangent : TANGENT;
+	float4 color : COLOR;
 };
 
 struct VertexTextureNormalTangentBlend
@@ -63,6 +64,12 @@ struct MeshOutput
 	float2 uv : TEXCOORD;
 	float3 normal : NORMAL;
 	float3 tangent : TANGENT;
+};
+
+struct VertexColorOutput
+{
+	float4 position : SV_POSITION;
+	float4 color : COLOR;
 };
 
 

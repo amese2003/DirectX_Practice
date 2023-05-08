@@ -22,6 +22,7 @@ void GeometryHelper::CreateRectangle(shared_ptr<Geometry<VertexColorData>> geome
 }
 
 
+
 void GeometryHelper::CreateGrid(shared_ptr<Geometry<VertexTextureData>> geometry, int32 sizeX, int32 sizeZ)
 {
 	vector<VertexTextureData> vtx;
@@ -782,5 +783,107 @@ void GeometryHelper::CreateSphere(shared_ptr<Geometry<VertexTextureNormalTangent
 		idx.push_back(lastRingStartIndex + i + 1);
 	}
 
+	geometry->SetIndices(idx);
+}
+
+void GeometryHelper::CreateGrid(shared_ptr<Geometry<VertexTextureNormalTangentData>> geometry, float width, float depth, uint32 m, uint32 n)
+{
+	uint32 vertexCount = m * n;
+	uint32 faceCount = (m - 1) * (n - 1) * 2;
+
+	float halfWidth = 0.5f * width;
+	float halfDepth = 0.5f * depth;
+
+	float dx = width / (n - 1);
+	float dz = depth / (m - 1);
+
+	float du = 1.0f / (n - 1);
+	float dv = 1.0f / (m - 1);
+
+	vector<VertexTextureNormalTangentData> vtx;
+	vtx.resize(vertexCount);
+
+	for (uint32 i = 0; i < m; i++)
+	{
+		float z = halfDepth - i * dz;
+
+		for (uint32 j = 0; j < n; j++)
+		{
+			float x = -halfWidth + j * dx;
+
+			vtx[i * n + j].position = XMFLOAT3(x, 0.0f, z);
+			vtx[i * n + j].normal = XMFLOAT3(0.0f, 1.0f, 0.0f);
+			vtx[i * n + j].tangent = XMFLOAT3(1.0f, 0.0f, 0.0f);
+
+			// Stretch texture over grid.
+			vtx[i * n + j].uv.x = j * du;
+			vtx[i * n + j].uv.y = i * dv;
+		}
+	}
+
+	for (size_t i = 0; i < vtx.size(); i++)
+	{
+		Vec3 position = vtx[i].position;
+		position.y = GetHeight(position.x, position.z);
+		vtx[i].position = position;
+
+		// Color the vertex based on its height.
+		if (position.y < -10.0f)
+		{
+			// Sandy beach color.
+			vtx[i].Color = XMFLOAT4(1.0f, 0.96f, 0.62f, 1.0f);
+		}
+		else if (position.y < 5.0f)
+		{
+			// Light yellow-green.
+			vtx[i].Color = XMFLOAT4(0.48f, 0.77f, 0.46f, 1.0f);
+		}
+		else if (position.y < 12.0f)
+		{
+			// Dark yellow-green.
+			vtx[i].Color = XMFLOAT4(0.1f, 0.48f, 0.19f, 1.0f);
+		}
+		else if (position.y < 20.0f)
+		{
+			// Dark brown.
+			vtx[i].Color = XMFLOAT4(0.45f, 0.39f, 0.34f, 1.0f);
+		}
+		else
+		{
+			// White snow.
+			vtx[i].Color = XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f);
+		}
+	}
+
+
+	vector<uint32> idx(faceCount * 3);
+
+	// Iterate over each quad and compute indices.
+	uint32 k = 0;
+	for (uint32 i = 0; i < m - 1; ++i)
+	{
+		for (uint32 j = 0; j < n - 1; ++j)
+		{
+			//  [1]
+			//   |	\
+			//  [0] - [2]
+			idx[k] = i * n + j;
+			idx[k + 1] = i * n + j + 1;
+			idx[k + 2] = (i + 1) * n + j;
+
+			//  [4] - [5]
+			//      \  |
+			//		  [3]
+			idx[k + 3] = (i + 1) * n + j;
+			idx[k + 4] = i * n + j + 1;
+			idx[k + 5] = (i + 1) * n + j + 1;
+
+			k += 6; // next quad
+		}
+	}
+
+
+
+	geometry->SetVertices(vtx);
 	geometry->SetIndices(idx);
 }

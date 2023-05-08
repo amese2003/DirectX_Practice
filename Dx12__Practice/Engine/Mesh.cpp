@@ -35,3 +35,11 @@ void Mesh::CreateCube()
 	_vertexBuffer->CreateTexture(_geometry->GetVertices());
 	_indexBuffer->CreateTexture(_geometry->GetIndices());
 }
+
+void Mesh::CreateGrid()
+{
+	GeometryHelper::CreateGrid(_geometry, 160.0f, 160.0f, 50, 50);
+
+	_vertexBuffer->CreateTexture(_geometry->GetVertices());
+	_indexBuffer->CreateTexture(_geometry->GetIndices());
+}

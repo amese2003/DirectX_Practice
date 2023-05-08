@@ -21,6 +21,9 @@
     <ContentFile>
       <FullPath>D:\Project\DirectX_Practice\Dx12__Practice\Binaries\04. Texture.cso</FullPath>
     </ContentFile>
+    <ContentFile>
+      <FullPath>D:\Project\DirectX_Practice\Dx12__Practice\Binaries\05. Color.cso</FullPath>
+    </ContentFile>
   </ContentFiles>
   <SatelliteDlls />
   <NonRecipeFileRefs />

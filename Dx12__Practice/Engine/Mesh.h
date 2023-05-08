@@ -16,6 +16,7 @@ public:
 	void Init();
 	void CreateRectangle();
 	void CreateCube();
+	void CreateGrid();
 
 	shared_ptr<VertexBuffer> GetVertexBuffer() { return _vertexBuffer; }
 	shared_ptr<IndexBuffer> GetIndexBuffer() { return _indexBuffer; }

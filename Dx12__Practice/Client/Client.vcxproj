@@ -156,6 +156,7 @@
     <ClInclude Include="03. CameraDemo.h" />
     <ClInclude Include="02. ConstantBufferDemo.h" />
     <ClInclude Include="04. TextureDemo.h" />
+    <ClInclude Include="05. HillsDemo.h" />
     <ClInclude Include="CameraScript.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="GameObjectDemo.h" />
@@ -169,6 +170,7 @@
     <ClCompile Include="03. CameraDemo.cpp" />
     <ClCompile Include="02. ConstantBufferDemo.cpp" />
     <ClCompile Include="04. TextureDemo.cpp" />
+    <ClCompile Include="05. HillsDemo.cpp" />
     <ClCompile Include="CameraScript.cpp" />
     <ClCompile Include="GameObjectDemo.cpp" />
     <ClCompile Include="Main.cpp" />
@@ -227,6 +229,16 @@
       <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">5.0</ShaderModel>
     </FxCompile>
     <FxCompile Include="..\Shaders\04. Texture.fx">
+      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+      </EntryPointName>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Effect</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">5.0</ShaderModel>
+      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+      </EntryPointName>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Effect</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">5.0</ShaderModel>
+    </FxCompile>
+    <FxCompile Include="..\Shaders\05. Color.fx">
       <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
       </EntryPointName>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Effect</ShaderType>

@@ -18,7 +18,10 @@ void RootSignature::CreateRootSignature()
 	CD3DX12_ROOT_PARAMETER param[1];
 	param[0].InitAsDescriptorTable(_countof(ranges), ranges);
 
+	// 샘플링 필요없으면 아래거 쓸것.
 	D3D12_ROOT_SIGNATURE_DESC sigDesc = CD3DX12_ROOT_SIGNATURE_DESC(_countof(param), param, 1, &_samplerDesc);
+	//D3D12_ROOT_SIGNATURE_DESC sigDesc = CD3DX12_ROOT_SIGNATURE_DESC(_countof(param), param);
+
 	sigDesc.Flags = D3D12_ROOT_SIGNATURE_FLAG_ALLOW_INPUT_ASSEMBLER_INPUT_LAYOUT; // 입력 조립기 단계
 
 	ComPtr<ID3DBlob> blobSignature;
