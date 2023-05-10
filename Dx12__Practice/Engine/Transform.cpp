@@ -1,6 +1,7 @@
 #include "pch.h"
 #include "Transform.h"
 
+
 Transform::Transform() : Super(ComponentType::Transform)
 {
 
@@ -20,6 +21,8 @@ void Transform::Update()
 	
 	TransformData cbuffer;
 	cbuffer.offset = GetWorldMatrix();
+	cbuffer.matView =Camera::S_MatView;
+	cbuffer.matProjection = Camera::S_MatProjection;
 
 	D3D12_CPU_DESCRIPTOR_HANDLE handle = GRAPHICS->GetConstantBuffer(CBV_REGISTER::b1)->PushData(&cbuffer, sizeof(cbuffer));
 	GRAPHICS->GetTableDescHeap()->SetConstantBuffer(handle, CBV_REGISTER::b1);

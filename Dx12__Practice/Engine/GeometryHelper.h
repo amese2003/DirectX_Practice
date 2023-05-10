@@ -24,10 +24,12 @@ public:
 	static void CreateSphere(shared_ptr<Geometry<VertexTextureNormalTangentData>> geometry);
 
 
-	static void CreateGrid(shared_ptr<Geometry<VertexTextureNormalTangentData>> geometry, float width, float depth, uint32 m, uint32 n);
+	static void CreateGrid(shared_ptr<Geometry<VertexTextureNormalTangentData>> geometry, float width, float depth, uint32 m, uint32 n, bool demo = false);
 	static float GetHeight(float x, float z) { return 0.3f * (z * sinf(0.1f * x) + x * cosf(0.1f * z)); }
 
-	
+	static void CreateCylinder(shared_ptr<Geometry<VertexTextureNormalTangentData>> geometry, float bottomRadius, float topRadius, float height, uint32 sliceCount, uint32 stackCount);
+	static void CreateCylinderTopCap(shared_ptr<Geometry<VertexTextureNormalTangentData>> geometry, float bottomRadius, float topRadius, float height, uint32 sliceCount, uint32 stackCount);
+	static void CreateCylinderBottomCap(shared_ptr<Geometry<VertexTextureNormalTangentData>> geometry, float bottomRadius, float topRadius, float height, uint32 sliceCount, uint32 stackCount);
 	
 };
 

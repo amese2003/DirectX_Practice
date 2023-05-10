@@ -36,9 +36,32 @@ void Mesh::CreateCube()
 	_indexBuffer->CreateTexture(_geometry->GetIndices());
 }
 
+void Mesh::CreateHillDemo()
+{
+	GeometryHelper::CreateGrid(_geometry, 160.0f, 160.0f, 50, 50, true);
+	_vertexBuffer->CreateTexture(_geometry->GetVertices());
+	_indexBuffer->CreateTexture(_geometry->GetIndices());
+}
+
 void Mesh::CreateGrid()
 {
-	GeometryHelper::CreateGrid(_geometry, 160.0f, 160.0f, 50, 50);
+	//GeometryHelper::CreateGrid(_geometry, 160.0f, 160.0f, 50, 50);
+	 GeometryHelper::CreateGrid(_geometry, 20.f, 30.f, 60, 40);
+	_vertexBuffer->CreateTexture(_geometry->GetVertices());
+	_indexBuffer->CreateTexture(_geometry->GetIndices());
+}
+
+void Mesh::CreateSphere()
+{
+	GeometryHelper::CreateSphere(_geometry);
+
+	_vertexBuffer->CreateTexture(_geometry->GetVertices());
+	_indexBuffer->CreateTexture(_geometry->GetIndices());
+}
+
+void Mesh::CreateCylinder()
+{
+	GeometryHelper::CreateCylinder(_geometry, 0.5f, 0.3f, 3.0f, 20, 20);
 
 	_vertexBuffer->CreateTexture(_geometry->GetVertices());
 	_indexBuffer->CreateTexture(_geometry->GetIndices());

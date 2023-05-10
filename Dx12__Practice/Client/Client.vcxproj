@@ -157,6 +157,7 @@
     <ClInclude Include="02. ConstantBufferDemo.h" />
     <ClInclude Include="04. TextureDemo.h" />
     <ClInclude Include="05. HillsDemo.h" />
+    <ClInclude Include="06. ShapesDemo.h" />
     <ClInclude Include="CameraScript.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="GameObjectDemo.h" />
@@ -171,6 +172,7 @@
     <ClCompile Include="02. ConstantBufferDemo.cpp" />
     <ClCompile Include="04. TextureDemo.cpp" />
     <ClCompile Include="05. HillsDemo.cpp" />
+    <ClCompile Include="06. ShapesDemo.cpp" />
     <ClCompile Include="CameraScript.cpp" />
     <ClCompile Include="GameObjectDemo.cpp" />
     <ClCompile Include="Main.cpp" />

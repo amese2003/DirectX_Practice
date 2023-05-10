@@ -47,6 +47,8 @@ void GameObject::Update()
 			component->Update();
 	}
 
+	
+
 	for (shared_ptr<MonoBehaviour>& script : _scripts)
 	{
 		script->Update();

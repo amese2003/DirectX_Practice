@@ -11,7 +11,7 @@ public:
 	Shader();
 	virtual ~Shader();
 
-	void Init(const wstring& path);
+	void Init(const wstring& path, bool wireframe = false);
 	void Update();
 
 private:

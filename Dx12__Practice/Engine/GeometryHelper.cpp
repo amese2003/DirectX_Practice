@@ -570,7 +570,7 @@ void GeometryHelper::CreateCube(shared_ptr<Geometry<VertexTextureNormalTangentDa
 	vector<VertexTextureNormalTangentData> vtx(24);
 
 	// ¾Õ¸é
-	vtx[0] = VertexTextureNormalTangentData(Vec3(-w2, -h2, -d2), Vec2(0.0f, 1.0f), Vec3(0.0f, 0.0f, -1.0f), Vec3(1.0f, 0.0f, 0.0f));
+	vtx[0] = VertexTextureNormalTangentData(Vec3(-w2, -h2, -d2), Vec2(0.0f, 1.0f), Vec3(0.0f, 0.0f, -1.0f), Vec3(1.0f, 0.0f, 0.0f), Color(1.f, 0.f, 0.f, 1.f));
 	vtx[1] = VertexTextureNormalTangentData(Vec3(-w2, +h2, -d2), Vec2(0.0f, 0.0f), Vec3(0.0f, 0.0f, -1.0f), Vec3(1.0f, 0.0f, 0.0f));
 	vtx[2] = VertexTextureNormalTangentData(Vec3(+w2, +h2, -d2), Vec2(1.0f, 0.0f), Vec3(0.0f, 0.0f, -1.0f), Vec3(1.0f, 0.0f, 0.0f));
 	vtx[3] = VertexTextureNormalTangentData(Vec3(+w2, -h2, -d2), Vec2(1.0f, 1.0f), Vec3(0.0f, 0.0f, -1.0f), Vec3(1.0f, 0.0f, 0.0f));
@@ -725,6 +725,8 @@ void GeometryHelper::CreateSphere(shared_ptr<Geometry<VertexTextureNormalTangent
 		}
 	}
 
+	vtx[0].Color = Color(1.f, 0.f, 0.f, 1.f);
+
 	// ³²±Ø
 	v.position = Vec3(0.0f, -radius, 0.0f);
 	v.uv = Vec2(0.5f, 1.0f);
@@ -786,7 +788,7 @@ void GeometryHelper::CreateSphere(shared_ptr<Geometry<VertexTextureNormalTangent
 	geometry->SetIndices(idx);
 }
 
-void GeometryHelper::CreateGrid(shared_ptr<Geometry<VertexTextureNormalTangentData>> geometry, float width, float depth, uint32 m, uint32 n)
+void GeometryHelper::CreateGrid(shared_ptr<Geometry<VertexTextureNormalTangentData>> geometry, float width, float depth, uint32 m, uint32 n, bool demo)
 {
 	uint32 vertexCount = m * n;
 	uint32 faceCount = (m - 1) * (n - 1) * 2;
@@ -821,39 +823,43 @@ void GeometryHelper::CreateGrid(shared_ptr<Geometry<VertexTextureNormalTangentDa
 		}
 	}
 
-	for (size_t i = 0; i < vtx.size(); i++)
+	if (demo == true)
 	{
-		Vec3 position = vtx[i].position;
-		position.y = GetHeight(position.x, position.z);
-		vtx[i].position = position;
+		for (size_t i = 0; i < vtx.size(); i++)
+		{
+			Vec3 position = vtx[i].position;
+			position.y = GetHeight(position.x, position.z);
+			vtx[i].position = position;
 
-		// Color the vertex based on its height.
-		if (position.y < -10.0f)
-		{
-			// Sandy beach color.
-			vtx[i].Color = XMFLOAT4(1.0f, 0.96f, 0.62f, 1.0f);
-		}
-		else if (position.y < 5.0f)
-		{
-			// Light yellow-green.
-			vtx[i].Color = XMFLOAT4(0.48f, 0.77f, 0.46f, 1.0f);
-		}
-		else if (position.y < 12.0f)
-		{
-			// Dark yellow-green.
-			vtx[i].Color = XMFLOAT4(0.1f, 0.48f, 0.19f, 1.0f);
-		}
-		else if (position.y < 20.0f)
-		{
-			// Dark brown.
-			vtx[i].Color = XMFLOAT4(0.45f, 0.39f, 0.34f, 1.0f);
-		}
-		else
-		{
-			// White snow.
-			vtx[i].Color = XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f);
+			// Color the vertex based on its height.
+			if (position.y < -10.0f)
+			{
+				// Sandy beach color.
+				vtx[i].Color = XMFLOAT4(1.0f, 0.96f, 0.62f, 1.0f);
+			}
+			else if (position.y < 5.0f)
+			{
+				// Light yellow-green.
+				vtx[i].Color = XMFLOAT4(0.48f, 0.77f, 0.46f, 1.0f);
+			}
+			else if (position.y < 12.0f)
+			{
+				// Dark yellow-green.
+				vtx[i].Color = XMFLOAT4(0.1f, 0.48f, 0.19f, 1.0f);
+			}
+			else if (position.y < 20.0f)
+			{
+				// Dark brown.
+				vtx[i].Color = XMFLOAT4(0.45f, 0.39f, 0.34f, 1.0f);
+			}
+			else
+			{
+				// White snow.
+				vtx[i].Color = XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f);
+			}
 		}
 	}
+	
 
 
 	vector<uint32> idx(faceCount * 3);
@@ -886,4 +892,210 @@ void GeometryHelper::CreateGrid(shared_ptr<Geometry<VertexTextureNormalTangentDa
 
 	geometry->SetVertices(vtx);
 	geometry->SetIndices(idx);
+}
+
+void GeometryHelper::CreateCylinder(shared_ptr<Geometry<VertexTextureNormalTangentData>> geometry, float bottomRadius, float topRadius, float height, uint32 sliceCount, uint32 stackCount)
+{
+
+	vector<VertexTextureNormalTangentData> vtx;
+	//
+	// Build Stacks.
+	// 
+
+	float stackHeight = height / stackCount;
+
+	// Amount to increment radius as we move up each stack level from bottom to top.
+	float radiusStep = (topRadius - bottomRadius) / stackCount;
+
+	UINT ringCount = stackCount + 1;
+
+	// Compute vertices for each stack ring starting at the bottom and moving up.
+	for (uint32 i = 0; i < ringCount; ++i)
+	{
+		float y = -0.5f * height + i * stackHeight;
+		float r = bottomRadius + i * radiusStep;
+
+		// vertices of ring
+		float dTheta = 2.0f * XM_PI / sliceCount;
+		for (uint32 j = 0; j <= sliceCount; ++j)
+		{
+			VertexTextureNormalTangentData vertex;
+
+			float c = cosf(j * dTheta);
+			float s = sinf(j * dTheta);
+
+			vertex.position = XMFLOAT3(r * c, y, r * s);
+
+			vertex.uv.x = (float)j / sliceCount;
+			vertex.uv.y = 1.0f - (float)i / stackCount;
+
+			// Cylinder can be parameterized as follows, where we introduce v
+			// parameter that goes in the same direction as the v tex-coord
+			// so that the bitangent goes in the same direction as the v tex-coord.
+			//   Let r0 be the bottom radius and let r1 be the top radius.
+			//   y(v) = h - hv for v in [0,1].
+			//   r(v) = r1 + (r0-r1)v
+			//
+			//   x(t, v) = r(v)*cos(t)
+			//   y(t, v) = h - hv
+			//   z(t, v) = r(v)*sin(t)
+			// 
+			//  dx/dt = -r(v)*sin(t)
+			//  dy/dt = 0
+			//  dz/dt = +r(v)*cos(t)
+			//
+			//  dx/dv = (r0-r1)*cos(t)
+			//  dy/dv = -h
+			//  dz/dv = (r0-r1)*sin(t)
+
+			// This is unit length.
+			vertex.tangent = XMFLOAT3(-s, 0.0f, c);
+
+			float dr = bottomRadius - topRadius;
+			XMFLOAT3 bitangent(dr * c, -height, dr * s);
+
+			XMVECTOR T = ::XMLoadFloat3(&vertex.tangent);
+			XMVECTOR B = ::XMLoadFloat3(&bitangent);
+			XMVECTOR N = ::XMVector3Normalize(::XMVector3Cross(T, B));
+			::XMStoreFloat3(&vertex.normal, N);
+
+			vtx.push_back(vertex);
+		}
+	}
+
+	
+
+	vector<uint32> indices;
+
+	// Add one because we duplicate the first and last vertex per ring
+	// since the texture coordinates are different.
+	UINT ringVertexCount = sliceCount + 1;
+
+	// Compute indices for each stack.
+	for (UINT i = 0; i < stackCount; ++i)
+	{
+		for (UINT j = 0; j < sliceCount; ++j)
+		{
+			indices.push_back(i * ringVertexCount + j);
+			indices.push_back((i + 1) * ringVertexCount + j);
+			indices.push_back((i + 1) * ringVertexCount + j + 1);
+
+			indices.push_back(i * ringVertexCount + j);
+			indices.push_back((i + 1) * ringVertexCount + j + 1);
+			indices.push_back(i * ringVertexCount + j + 1);
+		}
+	}
+
+	geometry->SetVertices(vtx);
+	geometry->SetIndices(indices);
+
+	CreateCylinderTopCap(geometry, bottomRadius, topRadius, height, sliceCount, stackCount);
+	CreateCylinderBottomCap(geometry, bottomRadius, topRadius, height, sliceCount, stackCount);
+}
+
+void GeometryHelper::CreateCylinderTopCap(shared_ptr<Geometry<VertexTextureNormalTangentData>> geometry, float bottomRadius, float topRadius, float height, uint32 sliceCount, uint32 stackCount)
+{
+	uint32 baseIndex = (uint32)geometry->GetVertexCount();
+
+	float y = 0.5f * height;
+	float dTheta = 2.0f * XM_PI / sliceCount;
+
+	// Duplicate cap ring vertices because the texture coordinates and normals differ.
+	for (uint32 i = 0; i <= sliceCount; ++i)
+	{
+		float x = topRadius * cosf(i * dTheta);
+		float z = topRadius * sinf(i * dTheta);
+
+		// Scale down by the height to try and make top cap texture coord area
+		// proportional to base.
+		float u = x / height + 0.5f;
+		float v = z / height + 0.5f;
+
+		//meshData.vertices.push_back(Vertex(x, y, z, 0.0f, 1.0f, 0.0f, 1.0f, 0.0f, 0.0f, u, v));
+
+		Vec3 position = {x, y, z};
+		Vec2 uv = {u, v};
+		Vec3 tangent = {1.0f, 0.0f, 0.0f};
+		Vec3 normal = {0.0f, 1.0f, 0.0f};
+
+
+		VertexTextureNormalTangentData vertex = { position, uv, normal, tangent, Color(1,1,1,1)};
+		geometry->AddVertex(vertex);
+	}
+
+	// Cap center vertex.
+	//meshData.vertices.push_back(Vertex(0.0f, y, 0.0f, 0.0f, 1.0f, 0.0f, 1.0f, 0.0f, 0.0f, 0.5f, 0.5f));
+	Vec3 position = { 0.0f, y, 0.0f };
+	Vec3 normal = { 0.0f, 1.0f, 0.0f };
+	Vec3 tangent = { 1.0f, 0.0f, 0.0f };
+	Vec2 uv = { 0.5f, 0.5f };
+	VertexTextureNormalTangentData vertex = { position, uv, normal, tangent, Color(1,1,1,1) };
+	geometry->AddVertex(vertex);
+
+	// Index of center vertex.
+	uint32 centerIndex = (uint32)geometry->GetVertexCount() - 1;
+
+	for (uint32 i = 0; i < sliceCount; ++i)
+	{
+		geometry->AddIndex(centerIndex);
+		geometry->AddIndex(baseIndex + i + 1);
+		geometry->AddIndex(baseIndex + i);
+
+		/*meshData.indices.push_back(centerIndex);
+		meshData.indices.push_back(baseIndex + i + 1);
+		meshData.indices.push_back(baseIndex + i);*/
+	}
+}
+
+void GeometryHelper::CreateCylinderBottomCap(shared_ptr<Geometry<VertexTextureNormalTangentData>> geometry, float bottomRadius, float topRadius, float height, uint32 sliceCount, uint32 stackCount)
+{
+	// 
+	// Build bottom cap.
+	//
+
+	uint32 baseIndex = (uint32)geometry->GetVertexCount();
+	float y = -0.5f * height;
+
+	// vertices of ring
+	float dTheta = 2.0f * XM_PI / sliceCount;
+	for (uint32 i = 0; i <= sliceCount; ++i)
+	{
+		float x = bottomRadius * cosf(i * dTheta);
+		float z = bottomRadius * sinf(i * dTheta);
+
+		// Scale down by the height to try and make top cap texture coord area
+		// proportional to base.
+		float u = x / height + 0.5f;
+		float v = z / height + 0.5f;
+
+		Vec3 position = { x, y, z };
+		Vec3 normal = { 0.0f, -1.0f, 0.0f };
+		Vec3 tangent = { 1.0f, 0.0f, 0.0f };
+		Vec2 uv = { u, v };
+		
+		VertexTextureNormalTangentData vertex = { position, uv, normal, tangent, Color(1,1,1,1) };
+		geometry->AddVertex(vertex);
+	}
+
+	// Cap center vertex.
+	Vec3 position = { 0.0f, y, 0.0f };
+	Vec3 normal = { 0.0f, -1.0f, 0.0f };
+	Vec3 tangent = { 1.0f, 0.0f, 0.0f };
+	Vec2 uv = { 0.5f, 0.5f };
+	VertexTextureNormalTangentData vertex = { position, uv, normal, tangent, Color(1,1,1,1) };
+	geometry->AddVertex(vertex);
+
+	// Cache the index of center vertex.
+	uint32 centerIndex = (uint32)geometry->GetVertexCount() - 1;
+
+	for (uint32 i = 0; i < sliceCount; ++i)
+	{
+		//meshData.indices.push_back(centerIndex);
+		//meshData.indices.push_back(baseIndex + i);
+		//meshData.indices.push_back(baseIndex + i + 1);
+
+		geometry->AddIndex(centerIndex);
+		geometry->AddIndex(baseIndex + i);
+		geometry->AddIndex(baseIndex + i + 1);
+	}
 }

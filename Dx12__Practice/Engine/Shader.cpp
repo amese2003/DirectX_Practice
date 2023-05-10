@@ -10,7 +10,7 @@ Shader::~Shader()
 {
 }
 
-void Shader::Init(const wstring& path)
+void Shader::Init(const wstring& path, bool wireframe)
 {
 	CreateVertexShader(path, "VS_Main", "vs_5_0");
 	CreatePixelShader(path, "PS_Main", "ps_5_0");
@@ -22,6 +22,7 @@ void Shader::Init(const wstring& path)
 	_pipelineDesc.pRootSignature = ROOT_SIGNATURE.Get();
 
 	_pipelineDesc.RasterizerState = CD3DX12_RASTERIZER_DESC(D3D12_DEFAULT);
+	_pipelineDesc.RasterizerState.FillMode = (wireframe == true) ? D3D12_FILL_MODE_WIREFRAME : D3D12_FILL_MODE_SOLID;
 	_pipelineDesc.BlendState = CD3DX12_BLEND_DESC(D3D12_DEFAULT);
 	_pipelineDesc.DepthStencilState.DepthEnable = FALSE;
 	_pipelineDesc.DepthStencilState.StencilEnable = FALSE;
@@ -32,8 +33,12 @@ void Shader::Init(const wstring& path)
 	_pipelineDesc.SampleDesc.Count = 1;
 
 	HRESULT hr =  DEVICE->CreateGraphicsPipelineState(&_pipelineDesc, IID_PPV_ARGS(&_pipelineState));
+
+	
 	CHECK(hr);
 }
+
+
 
 void Shader::Update()
 {

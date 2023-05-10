@@ -12,6 +12,5 @@ public:
 
 	vector<shared_ptr<GameObject>> _gameObjects;
 	shared_ptr<GameObject> _camera;
-	shared_ptr<GameObject> _gameObject2;
 };
 

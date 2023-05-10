@@ -10,5 +10,7 @@ struct CameraData
 struct TransformData
 {
 	Matrix offset;
+	Matrix matView;
+	Matrix matProjection;
 };
 

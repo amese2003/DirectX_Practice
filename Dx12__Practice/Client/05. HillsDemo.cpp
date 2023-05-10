@@ -11,7 +11,7 @@ void HillsDemo::Init()
 	shared_ptr<Mesh> mesh = make_shared<Mesh>();
 	{
 		mesh->Init();
-		mesh->CreateGrid();
+		mesh->CreateHillDemo();
 	}
 
 
