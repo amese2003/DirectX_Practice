@@ -16,6 +16,8 @@ WPARAM Game::Run(GameDesc& desc)
 
 	GRAPHICS->Init(_desc.hWnd);
 	TIME->Init();
+	TIME->Reset();
+	TIME->Start();
 	INPUT->Init(_desc.hWnd);
 
 	_desc.app->Init();
@@ -94,7 +96,8 @@ LRESULT CALLBACK Game::WndProc(HWND handle, UINT message, WPARAM wParam, LPARAM 
 
 void Game::Update()
 {
-	TIME->Update();
+	//TIME->Update();
+	TIME->Tick();
 	INPUT->Update();
 
 	GRAPHICS->RenderBegin();

@@ -107,7 +107,7 @@ struct WindowInfo
 #define ROOT_SIGNATURE			GRAPHICS->GetRootsignature()->GetSignature()
 #define INPUT					GET_SINGLE(InputManager)
 #define TIME					GET_SINGLE(TimeManager)
-#define DT						TIME->GetDeltaTime()
+#define DT						TIME->DeltaTime()
 #define RESOURCES				GET_SINGLE(ResourceManager)
 
 

@@ -26,6 +26,9 @@ void ShapesDemo::Init()
 	
 
 	{
+		shared_ptr<Shader> shader1 = make_shared<Shader>();
+		shader1->Init(L"..\\Shaders\\05. Color.fx");
+
 		shared_ptr<Mesh> mesh = make_shared<Mesh>();
 		{
 			mesh->Init();
@@ -37,7 +40,7 @@ void ShapesDemo::Init()
 		box->GetTransform()->SetLocalScale(Vec3(2.f, 1.f, 2.f));
 		box->AddComponent(make_shared<MeshRenderer>());
 		box->GetMeshRenderer()->SetMesh(mesh);
-		box->GetMeshRenderer()->SetShader(shader);
+		box->GetMeshRenderer()->SetShader(shader1);
 		_gameObjects.push_back(box);
 	}
 

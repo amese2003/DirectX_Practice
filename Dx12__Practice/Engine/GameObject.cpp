@@ -1,5 +1,6 @@
 #include "pch.h"
 #include "GameObject.h"
+#include "Waves.h"
 
 GameObject::GameObject()
 {
@@ -100,6 +101,12 @@ shared_ptr<MeshRenderer> GameObject::GetMeshRenderer()
 {
 	shared_ptr<Component> component = GetFixedComponent(ComponentType::MeshRenderer);
 	return static_pointer_cast<MeshRenderer>(component);
+}
+
+shared_ptr<Waves> GameObject::GetWaves()
+{
+	shared_ptr<Component> component = GetFixedComponent(ComponentType::Waves);
+	return static_pointer_cast<Waves>(component);
 }
 
 shared_ptr<Transform> GameObject::GetOrAddTransform()

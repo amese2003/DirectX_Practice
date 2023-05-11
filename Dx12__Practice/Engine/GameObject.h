@@ -1,5 +1,7 @@
 #pragma once
 
+class Waves;
+
 class GameObject : public enable_shared_from_this<GameObject>
 {
 public:
@@ -15,6 +17,7 @@ public:
 	shared_ptr<Component> GetFixedComponent(ComponentType type);
 	shared_ptr<Transform> GetTransform();
 	shared_ptr<MeshRenderer> GetMeshRenderer();
+	shared_ptr<Waves> GetWaves();
 
 	shared_ptr<Transform> GetOrAddTransform();
 	void AddComponent(shared_ptr<Component> component);

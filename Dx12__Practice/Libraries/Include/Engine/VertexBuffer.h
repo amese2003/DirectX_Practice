@@ -6,6 +6,7 @@ public:
 	~VertexBuffer();
 
 	ComPtr<ID3D12Resource> GetComPtr() { return _vertexBuffer; }
+	D3D12_VERTEX_BUFFER_VIEW& GetVertexBufferView() { return _vertexBufferView; }
 
 	template<typename T>
 	void CreateTexture(const vector<T>& vertices)
@@ -26,17 +27,26 @@ public:
 			nullptr,
 			IID_PPV_ARGS(&_vertexBuffer));
 
-		void* vertexDataBuffer = nullptr;
-		CD3DX12_RANGE readRange(0, 0);
-		
-		_vertexBuffer->Map(0, &readRange, &vertexDataBuffer);
-		::memcpy(vertexDataBuffer, &vertices[0], bufferSize);
-		_vertexBuffer->Unmap(0, nullptr);
+		PushData(vertices);
 
 		// Initialize the vertex buffer view.
 		_vertexBufferView.BufferLocation = _vertexBuffer->GetGPUVirtualAddress();
 		_vertexBufferView.StrideInBytes = sizeof(T); // 정점 1개 크기
 		_vertexBufferView.SizeInBytes = bufferSize; // 버퍼의 크기	
+	}
+
+	template<typename T>
+	void PushData(const vector<T>& vertices)
+	{
+		_count = static_cast<uint32>(vertices.size());
+		uint32 bufferSize = _count * sizeof(T);
+
+		void* vertexDataBuffer = nullptr;
+		CD3DX12_RANGE readRange(0, 0);
+
+		_vertexBuffer->Map(0, &readRange, &vertexDataBuffer);
+		::memcpy(vertexDataBuffer, &vertices[0], bufferSize);
+		_vertexBuffer->Unmap(0, nullptr);
 	}
 
 private:

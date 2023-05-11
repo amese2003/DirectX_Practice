@@ -6,6 +6,8 @@ public:
 	~IndexBuffer();
 
 	ComPtr<ID3D12Resource> GetComPtr() { return _indexBuffer; }
+	D3D12_INDEX_BUFFER_VIEW& GetIndexBufferView() { return _indexBufferView; }
+	uint32 GetCount() { return _count; }
 
 	template<typename T>
 	void CreateTexture(const vector<T>& vertices)

@@ -147,6 +147,12 @@
     <ClInclude Include="ConstantBuffer.h">
       <Filter>00. Engine</Filter>
     </ClInclude>
+    <ClInclude Include="Waves.h">
+      <Filter>05. Component</Filter>
+    </ClInclude>
+    <ClInclude Include="MathHelper.h">
+      <Filter>00. Engine</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine.cpp">
@@ -243,6 +249,12 @@
       <Filter>03. Resources</Filter>
     </ClCompile>
     <ClCompile Include="ConstantBuffer.cpp">
+      <Filter>00. Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="Waves.cpp">
+      <Filter>05. Component</Filter>
+    </ClCompile>
+    <ClCompile Include="MathHelper.cpp">
       <Filter>00. Engine</Filter>
     </ClCompile>
   </ItemGroup>

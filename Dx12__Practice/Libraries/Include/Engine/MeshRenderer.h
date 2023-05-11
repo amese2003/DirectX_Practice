@@ -18,6 +18,8 @@ public:
 
 	void Render();
 
+	shared_ptr<Mesh> GetMesh() { return _mesh; }
+
 private:
 	shared_ptr<Mesh> _mesh;
 	shared_ptr<Shader> _shader;
