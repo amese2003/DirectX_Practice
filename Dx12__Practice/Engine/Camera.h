@@ -37,7 +37,14 @@ private:
 	float _width = 0.f;
 	float _height = 0.f;
 
+
+	float _theta = 1.5f * XM_PI;
+	float _phi = 0.1f * XM_PI;
+	float _radius = 15.0f;
+	Vec3 _eyePosW = { 0, 0, 0 };
+
 public:
 	static Matrix S_MatView;
 	static Matrix S_MatProjection;
+	static Vec3 S_Eyepos;
 };

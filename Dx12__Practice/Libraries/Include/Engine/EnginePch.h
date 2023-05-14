@@ -119,6 +119,7 @@ struct WindowInfo
 #include "RootSignature.h"
 #include "CommandQueue.h"
 #include "TableDescriptionHeap.h"
+#include "DepthStencilBuffer.h"
 
 
 #include "ResourceBase.h"

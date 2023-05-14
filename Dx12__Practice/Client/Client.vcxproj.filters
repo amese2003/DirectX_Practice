@@ -64,6 +64,9 @@
     <ClInclude Include="07. WavesDemo.h">
       <Filter>Game</Filter>
     </ClInclude>
+    <ClInclude Include="08. LightingDemo.h">
+      <Filter>Game</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Client.rc">
@@ -112,6 +115,9 @@
     <ClCompile Include="07. WavesDemo.cpp">
       <Filter>Game</Filter>
     </ClCompile>
+    <ClCompile Include="08. LightingDemo.cpp">
+      <Filter>Game</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="..\Shaders\01. Rectangle.fx">
@@ -130,6 +136,12 @@
       <Filter>Shader</Filter>
     </FxCompile>
     <FxCompile Include="..\Shaders\05. Color.fx">
+      <Filter>Shader</Filter>
+    </FxCompile>
+    <FxCompile Include="..\Shaders\00. LightHelper.fx">
+      <Filter>Shader</Filter>
+    </FxCompile>
+    <FxCompile Include="..\Shaders\06. Lighting.fx">
       <Filter>Shader</Filter>
     </FxCompile>
   </ItemGroup>

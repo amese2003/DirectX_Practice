@@ -1,5 +1,10 @@
 #include "pch.h"
 #include "Transform.h"
+#include "Mesh.h"
+#include "MeshRenderer.h"
+#include "Waves.h"
+#include "Material.h"
+#include "MathHelper.h"
 
 
 Transform::Transform() : Super(ComponentType::Transform)
@@ -26,6 +31,11 @@ void Transform::Update()
 
 	D3D12_CPU_DESCRIPTOR_HANDLE handle = GRAPHICS->GetConstantBuffer(CBV_REGISTER::b1)->PushData(&cbuffer, sizeof(cbuffer));
 	GRAPHICS->GetTableDescHeap()->SetConstantBuffer(handle, CBV_REGISTER::b1);
+
+
+	CbPerObjectData.gWorld = GetTransform()->GetWorldMatrix();
+	CbPerObjectData.gWorldInvTranspose = MathHelper::InverseTranspose(CbPerObjectData.gWorld);
+	CbPerObjectData.gWorldViewProj = cbuffer.offset * cbuffer.matView * cbuffer.matProjection;;
 	
 }
 

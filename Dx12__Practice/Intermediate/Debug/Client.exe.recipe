@@ -10,6 +10,9 @@
       <FullPath>D:\Project\DirectX_Practice\Dx12__Practice\Binaries\00. Common.cso</FullPath>
     </ContentFile>
     <ContentFile>
+      <FullPath>D:\Project\DirectX_Practice\Dx12__Practice\Binaries\00. LightHelper.cso</FullPath>
+    </ContentFile>
+    <ContentFile>
       <FullPath>D:\Project\DirectX_Practice\Dx12__Practice\Binaries\02. ConstantBuffer.cso</FullPath>
     </ContentFile>
     <ContentFile>
@@ -23,6 +26,9 @@
     </ContentFile>
     <ContentFile>
       <FullPath>D:\Project\DirectX_Practice\Dx12__Practice\Binaries\05. Color.cso</FullPath>
+    </ContentFile>
+    <ContentFile>
+      <FullPath>D:\Project\DirectX_Practice\Dx12__Practice\Binaries\06. Lighting.cso</FullPath>
     </ContentFile>
   </ContentFiles>
   <SatelliteDlls />

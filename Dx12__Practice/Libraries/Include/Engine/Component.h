@@ -7,6 +7,7 @@ enum class ComponentType : uint8
 {
 	NONE = -1,
 	Transform,
+	Light,
 	MeshRenderer,
 	Camera,
 	Waves,

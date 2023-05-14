@@ -6,6 +6,7 @@
 #include "05. HillsDemo.h"
 #include "06. ShapesDemo.h"
 #include "07. WavesDemo.h"
+#include "08. LightingDemo.h"
 
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nShowCmd)
 {

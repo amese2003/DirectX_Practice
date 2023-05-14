@@ -1,5 +1,6 @@
 #include "pch.h"
 #include "CommandQueue.h"
+#include "DepthStencilBuffer.h"
 
 
 CommandQueue::CommandQueue()
@@ -73,6 +74,8 @@ void CommandQueue::RenderBegin(const D3D12_VIEWPORT* vp, const D3D12_RECT* rect)
 
 	GRAPHICS->GetConstantBuffer(CBV_REGISTER::b0)->Clear();
 	GRAPHICS->GetConstantBuffer(CBV_REGISTER::b1)->Clear();
+	GRAPHICS->GetConstantBuffer(CBV_REGISTER::b2)->Clear();
+	GRAPHICS->GetConstantBuffer(CBV_REGISTER::b3)->Clear();
 	GRAPHICS->GetTableDescHeap()->Clear();
 
 	ID3D12DescriptorHeap* descHeap = GRAPHICS->GetTableDescHeap()->GetDescriptorHeap().Get();
@@ -87,7 +90,12 @@ void CommandQueue::RenderBegin(const D3D12_VIEWPORT* vp, const D3D12_RECT* rect)
 	// Specify the buffers we are going to render to.
 	D3D12_CPU_DESCRIPTOR_HANDLE backBufferView = _swapChain->GetBackRTV();
 	_cmdList->ClearRenderTargetView(backBufferView, Colors::LightSteelBlue, 0, nullptr);
-	_cmdList->OMSetRenderTargets(1, &backBufferView, FALSE, nullptr);
+
+
+	D3D12_CPU_DESCRIPTOR_HANDLE depthStencilView = GRAPHICS->GetDepthStencilBuffer()->GetDSVCpuHandle();
+	_cmdList->OMSetRenderTargets(1, &backBufferView, FALSE, &depthStencilView);
+
+	_cmdList->ClearDepthStencilView(depthStencilView, D3D12_CLEAR_FLAG_DEPTH, 1.0f, 0, 0, nullptr);
 }
 
 void CommandQueue::RenderEnd()

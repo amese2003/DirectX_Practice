@@ -5,6 +5,7 @@
 #include <cassert>
 #include "TimeManager.h"
 #include "MathHelper.h"
+#include "Light.h"
 
 Waves::Waves() : Super(ComponentType::Waves)
 {
@@ -40,30 +41,7 @@ void Waves::Render()
 {
 	CMD_LIST->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 
-
-	//
-
-	////_deviceContext->RSSetState(_wireframeRS.Get());
-
-	uint32 stride = sizeof(VertexTextureNormalTangentData);
-	uint32 offset = 0;
-
-	//// Set constants
-	//XMMATRIX view = ::XMLoadFloat4x4(&_view);
-	//XMMATRIX proj = ::XMLoadFloat4x4(&_proj);
-
-	//D3DX11_TECHNIQUE_DESC techDesc;
-	//_tech->GetDesc(&techDesc);
-
-	/*_deviceContext->IASetVertexBuffers(0, 1, _landVB.GetAddressOf(), &stride, &offset);
-	_deviceContext->IASetIndexBuffer(_landIB.Get(), DXGI_FORMAT_R32_UINT, 0);*/
-
-	//XMMATRIX world = XMLoadFloat4x4(&_gridWorld);
-	//XMMATRIX worldViewProj = world * view * proj;
-	//_fxWorldViewProj->SetMatrix(reinterpret_cast<float*>(&worldViewProj));
-	//_tech->GetPassByIndex(p)->Apply(0, _deviceContext.Get());
-	//_deviceContext->DrawIndexed(_gridIndexCount, 0, 0);
-
+	
 	
 
 	//
@@ -80,25 +58,55 @@ void Waves::Render()
 
 	D3D12_CPU_DESCRIPTOR_HANDLE handle = GRAPHICS->GetConstantBuffer(CBV_REGISTER::b1)->PushData(&cbuffer, sizeof(cbuffer));
 	GRAPHICS->GetTableDescHeap()->SetConstantBuffer(handle, CBV_REGISTER::b1);
+
+	if (_dirLight)
+	{
+		CbPerFrame cbLightBuffer;
+		cbLightBuffer.gDirLight.Ambient = _dirLight->GetMaterial()->GetAmbient();
+		cbLightBuffer.gDirLight.Diffuse = _dirLight->GetMaterial()->GetDiffuse();
+		cbLightBuffer.gDirLight.Specular = _dirLight->GetMaterial()->GetSpecular();
+		cbLightBuffer.gDirLight.Direction = _dirLight->GetDir();
+
+		cbLightBuffer.gPointLight.Ambient = _point->GetMaterial()->GetAmbient();
+		cbLightBuffer.gPointLight.Diffuse = _point->GetMaterial()->GetDiffuse();
+		cbLightBuffer.gPointLight.Specular = _point->GetMaterial()->GetSpecular();
+		cbLightBuffer.gPointLight.Att = _point->GetAtt();
+		cbLightBuffer.gPointLight.Range = _point->GetRange();
+		cbLightBuffer.gPointLight.Position = _point->GetTransform()->GetPosition();
+
+
+		cbLightBuffer.gSpotLight.Ambient = _spotLight->GetMaterial()->GetAmbient();
+		cbLightBuffer.gSpotLight.Diffuse = _spotLight->GetMaterial()->GetDiffuse();
+		cbLightBuffer.gSpotLight.Specular = _spotLight->GetMaterial()->GetSpecular();
+		cbLightBuffer.gSpotLight.Direction = _spotLight->GetDir();
+		cbLightBuffer.gSpotLight.Position = _spotLight->GetTransform()->GetPosition();
+		cbLightBuffer.gSpotLight.Range = _spotLight->GetRange();
+		cbLightBuffer.gSpotLight.Att = _spotLight->GetAtt();
+		cbLightBuffer.gSpotLight.Spot = _spotLight->GetSpot();
+
+		cbLightBuffer.gEyePosW = Camera::S_Eyepos;
+
+
+		D3D12_CPU_DESCRIPTOR_HANDLE lighthandle = GRAPHICS->GetConstantBuffer(CBV_REGISTER::b2)->PushData(&cbLightBuffer, sizeof(cbLightBuffer));
+		GRAPHICS->GetTableDescHeap()->SetConstantBuffer(lighthandle, CBV_REGISTER::b2);
+
+		auto c3buffer = GetTransform()->CbPerObjectData;
+		c3buffer.gMaterial.Ambient = _mesh->GetMaterial()->GetAmbient();
+		c3buffer.gMaterial.Diffuse = _mesh->GetMaterial()->GetDiffuse();
+		c3buffer.gMaterial.Specular = _mesh->GetMaterial()->GetSpecular();
+
+
+
+		D3D12_CPU_DESCRIPTOR_HANDLE objecthandle = GRAPHICS->GetConstantBuffer(CBV_REGISTER::b3)->PushData(&c3buffer, sizeof(c3buffer));
+		GRAPHICS->GetTableDescHeap()->SetConstantBuffer(objecthandle, CBV_REGISTER::b3);
+	}
+
+	
+
+	
+
 	GRAPHICS->GetTableDescHeap()->CommitTable();
 	CMD_LIST->DrawIndexedInstanced(3 * TriangleCount(), 1, 0, 0, 0);
-
-	/*_deviceContext->RSSetState(_wireframeRS.Get());
-
-	_deviceContext->IASetVertexBuffers(0, 1, _wavesVB.GetAddressOf(), &stride, &offset);
-	_deviceContext->IASetIndexBuffer(_wavesIB.Get(), DXGI_FORMAT_R32_UINT, 0);
-
-	world = XMLoadFloat4x4(&_wavesWorld);
-	worldViewProj = world * view * proj;
-	_fxWorldViewProj->SetMatrix(reinterpret_cast<float*>(&worldViewProj));
-	_tech->GetPassByIndex(p)->Apply(0, _deviceContext.Get());
-	_deviceContext->DrawIndexed(3 * _waves.TriangleCount(), 0, 0);*/
-
-	// Restore default.
-	//_deviceContext->RSSetState(0);
-
-	//GRAPHICS->GetTableDescHeap()->CommitTable();
-	//CMD_LIST->DrawIndexedInstanced(_mesh->GetIndexBuffer()->_count, 1, 0, 0, 0);
 }
 
 void Waves::Init(shared_ptr<Mesh> mesh, shared_ptr<Shader> shader, uint32 m, uint32 n, float dx, float dt, float speed, float damping)

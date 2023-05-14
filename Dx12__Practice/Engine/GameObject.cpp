@@ -1,6 +1,7 @@
 #include "pch.h"
 #include "GameObject.h"
 #include "Waves.h"
+#include "Light.h"
 
 GameObject::GameObject()
 {
@@ -95,6 +96,12 @@ shared_ptr<Transform> GameObject::GetTransform()
 {
 	shared_ptr<Component> component = GetFixedComponent(ComponentType::Transform);
 	return static_pointer_cast<Transform>(component);
+}
+
+shared_ptr<Light> GameObject::GetLight()
+{
+	shared_ptr<Component> component = GetFixedComponent(ComponentType::Light);
+	return static_pointer_cast<Light>(component);
 }
 
 shared_ptr<MeshRenderer> GameObject::GetMeshRenderer()

@@ -153,6 +153,15 @@
     <ClInclude Include="MathHelper.h">
       <Filter>00. Engine</Filter>
     </ClInclude>
+    <ClInclude Include="Material.h">
+      <Filter>03. Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="Light.h">
+      <Filter>05. Component</Filter>
+    </ClInclude>
+    <ClInclude Include="DepthStencilBuffer.h">
+      <Filter>01. Graphics\Pipeline\01. InputAssembler</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine.cpp">
@@ -256,6 +265,15 @@
     </ClCompile>
     <ClCompile Include="MathHelper.cpp">
       <Filter>00. Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="Material.cpp">
+      <Filter>03. Resources</Filter>
+    </ClCompile>
+    <ClCompile Include="Light.cpp">
+      <Filter>05. Component</Filter>
+    </ClCompile>
+    <ClCompile Include="DepthStencilBuffer.cpp">
+      <Filter>01. Graphics\Pipeline\01. InputAssembler</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

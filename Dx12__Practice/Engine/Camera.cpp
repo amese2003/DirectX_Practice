@@ -3,6 +3,7 @@
 
 Matrix Camera::S_MatView = Matrix::Identity;
 Matrix Camera::S_MatProjection = Matrix::Identity;
+Vec3 Camera::S_Eyepos = Vec3::Zero;
 
 Camera::Camera() : Super(ComponentType::Camera)
 {
@@ -22,6 +23,8 @@ void Camera::Update()
 
 void Camera::UpdateMatrix()
 {
+	S_Eyepos = GetTransform()->GetPosition();
+
 	Vec3 eyePosition = GetTransform()->GetPosition();
 	Vec3 focusPosition = eyePosition + GetTransform()->GetLook();
 	Vec3 upDirection = GetTransform()->GetUp();
@@ -36,4 +39,8 @@ void Camera::UpdateMatrix()
 
 	D3D12_CPU_DESCRIPTOR_HANDLE handle = GRAPHICS->GetConstantBuffer(CBV_REGISTER::b0)->PushData(&cbuffer, sizeof(cbuffer));
 	GRAPHICS->GetTableDescHeap()->SetConstantBuffer(handle, CBV_REGISTER::b0);
+
+
+	D3D12_CPU_DESCRIPTOR_HANDLE objecthandle = GRAPHICS->GetConstantBuffer(CBV_REGISTER::b3)->PushData(&GetTransform()->CbPerObjectData, sizeof(GetTransform()->CbPerObjectData));
+	GRAPHICS->GetTableDescHeap()->SetConstantBuffer(objecthandle, CBV_REGISTER::b3);
 }

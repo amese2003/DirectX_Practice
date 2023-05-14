@@ -2,6 +2,7 @@
 #include "Component.h"
 
 class Mesh;
+class Light;
 
 class Waves : public Component
 {
@@ -20,6 +21,7 @@ public:
 	void Render();
 
 	void SetShader(shared_ptr<Shader> shader) { _shader = shader; }
+	void SetMesh(shared_ptr<Mesh> mesh) { _mesh = mesh; }
 
 
 	// Returns the solution at the ith grid point.
@@ -32,6 +34,14 @@ public:
 	void Init(shared_ptr<Mesh> mesh, shared_ptr<Shader> shader, uint32 m, uint32 n, float dx, float dt, float speed, float damping);
 	void Update(float dt);
 	void Disturb(uint32 i, uint32 j, float magnitude);
+
+
+	void SetSpot(shared_ptr<Light> spot) { _spotLight = spot; }
+	void SetDir(shared_ptr<Light> dir) { _dirLight = dir; }
+	void SetPoint(shared_ptr<Light> point) { _point = point; }
+
+	
+	shared_ptr<Mesh> GetMesh() { return _mesh; }
 
 private:
 	uint32 _numRows = 0;
@@ -52,12 +62,16 @@ private:
 	vector<XMFLOAT3> _tangentX;
 
 
-	float _theta = 1.5f * XM_PI;
-	float _phi = 0.1f * XM_PI;
-	float _radius = 15.0f;
+	
 
 private:
 	shared_ptr<Shader> _shader;
 	shared_ptr<Mesh> _mesh;
+
+	// юс╫ц
+private:
+	shared_ptr<Light> _spotLight;
+	shared_ptr<Light> _dirLight;
+	shared_ptr<Light> _point;
 };
 
