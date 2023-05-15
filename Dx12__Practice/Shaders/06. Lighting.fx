@@ -1,27 +1,19 @@
 #include "00. Common.fx"
 #include "00. LightHelper.fx"
 
+
 cbuffer TEST_B1 : register(b1)
 {
     row_major matrix world;
-    row_major matrix viewtest;
-    row_major matrix protest;
+    row_major matrix view;
+    row_major matrix projection;
+	row_major matrix worldnvTranspose;
+	row_major matrix worldViewProj;
 };
 
-cbuffer cbPerFrame : register(b2)
+cbuffer MaterialData : register(b2)
 {
-    DirectionalLight gDirLight;
-    PointLight gPointLight;
-    SpotLight gSpotLight;
-    float3 gEyePosW;
-};
-
-cbuffer cbPerObject : register(b3)
-{
-    row_major matrix gWorld;
-    row_major matrix gWorldInvTranspose;
-    row_major matrix gWorldViewProj;
-    Material gMaterial;
+	Material gMaterial;
 }
 
 struct VertexOut

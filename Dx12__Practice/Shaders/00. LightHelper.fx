@@ -1,3 +1,28 @@
+#ifndef _LIGHT_FX_
+#define _LIGHT_FX_
+
+
+struct LightInfo
+{
+	float4		ambient;
+	float4		diffuse;
+	float4		specular;
+	float4      emmissive;
+
+	float3		direction;
+	float		range;
+
+	float3		att;
+	float		spoto;
+};
+
+cbuffer GlobalLightData : register(b0)
+{
+	int		lightCount;
+	float3	gEyePosW;
+	LightInfo g_light[50];
+};
+
 
 
 struct DirectionalLight
@@ -194,3 +219,4 @@ void ComputeSpotLight(Material mat, SpotLight L, float3 pos, float3 normal, floa
 }
 
 
+#endif
