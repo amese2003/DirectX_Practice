@@ -2,6 +2,7 @@
 #include "Mesh.h"
 #include "Graphics.h"
 #include "GeometryHelper.h"
+#include <fstream>
 
 Mesh::Mesh() : Super(ResourceType::Mesh)
 {
@@ -66,4 +67,57 @@ void Mesh::CreateCylinder()
 
 	_vertexBuffer->CreateTexture(_geometry->GetVertices());
 	_indexBuffer->CreateTexture(_geometry->GetIndices());
+}
+
+void Mesh::CreateMesh(const wstring& path)
+{
+	std::ifstream fin("../Resources/Models/skull.txt");
+
+	if (!fin)
+	{
+		MessageBox(0, L"../Resources/Models/skull.txt not found.", 0, 0);
+		return;
+	}
+
+	uint32 vcount = 0;
+	uint32 tcount = 0;
+	std::string ignore;
+
+	fin >> ignore >> vcount;
+	fin >> ignore >> tcount;
+	fin >> ignore >> ignore >> ignore >> ignore;
+
+	XMFLOAT4 black(0.0f, 0.0f, 0.0f, 1.0f);
+	XMFLOAT4 white(1.0f, 1.0f, 1.0f, 1.0f);
+
+	std::vector<VertexTextureNormalTangentData> vertices(vcount);
+	for (uint32 i = 0; i < vcount; ++i)
+	{
+		fin >> vertices[i].position.x >> vertices[i].position.y >> vertices[i].position.z;
+
+		vertices[i].Color = white;
+
+		// Normal not used in this demo.
+		fin >> vertices[i].normal.x >> vertices[i].normal.y >> vertices[i].normal.z;
+	}
+
+	fin >> ignore;
+	fin >> ignore;
+	fin >> ignore;
+
+
+	int32 skullIndexCount = 3 * tcount;
+	std::vector<uint32> indices(skullIndexCount);
+	for (uint32 i = 0; i < tcount; ++i)
+	{
+		fin >> indices[i * 3 + 0] >> indices[i * 3 + 1] >> indices[i * 3 + 2];
+	}
+
+	fin.close();
+
+	_geometry->SetVertices(vertices);
+	_geometry->SetIndices(indices);
+
+	_vertexBuffer->CreateTexture(vertices);
+	_indexBuffer->CreateTexture(indices);
 }

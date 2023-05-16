@@ -67,6 +67,9 @@
     <ClInclude Include="08. LightingDemo.h">
       <Filter>Game</Filter>
     </ClInclude>
+    <ClInclude Include="09. SkullDemo.h">
+      <Filter>Game</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Client.rc">
@@ -116,6 +119,9 @@
       <Filter>Game</Filter>
     </ClCompile>
     <ClCompile Include="08. LightingDemo.cpp">
+      <Filter>Game</Filter>
+    </ClCompile>
+    <ClCompile Include="09. SkullDemo.cpp">
       <Filter>Game</Filter>
     </ClCompile>
   </ItemGroup>

@@ -21,6 +21,7 @@ public:
 	void CreateGrid();
 	void CreateSphere();
 	void CreateCylinder();
+	void CreateMesh(const wstring& path);
 
 	shared_ptr<VertexBuffer> GetVertexBuffer() { return _vertexBuffer; }
 	shared_ptr<IndexBuffer> GetIndexBuffer() { return _indexBuffer; }

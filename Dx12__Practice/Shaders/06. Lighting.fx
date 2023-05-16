@@ -2,19 +2,8 @@
 #include "00. LightHelper.fx"
 
 
-cbuffer TEST_B1 : register(b1)
-{
-    row_major matrix world;
-    row_major matrix view;
-    row_major matrix projection;
-	row_major matrix worldnvTranspose;
-	row_major matrix worldViewProj;
-};
 
-cbuffer MaterialData : register(b2)
-{
-	Material gMaterial;
-}
+
 
 struct VertexOut
 {
@@ -53,17 +42,17 @@ float4 PS_Main(VertexOut input) : SV_Target
 	// Sum the light contribution from each light source.
 	float4 A, D, S;
 
-	ComputeDirectionalLight(gMaterial, gDirLight, input.NormalW, toEyeW, A, D, S);
+	ComputeDirectionalLight(gMaterial, g_light[0], input.NormalW, toEyeW, A, D, S);
 	ambient += A;
 	diffuse += D;
 	spec += S;
 
-	ComputePointLight(gMaterial, gPointLight, input.PosW, input.NormalW, toEyeW, A, D, S);
+	ComputePointLight(gMaterial, g_light[1], input.PosW, input.NormalW, toEyeW, A, D, S);
 	ambient += A;
 	diffuse += D;
 	spec += S;
 
-	ComputeSpotLight(gMaterial, gSpotLight, input.PosW, input.NormalW, toEyeW, A, D, S);
+	ComputeSpotLight(gMaterial, g_light[2], input.PosW, input.NormalW, toEyeW, A, D, S);
 	ambient += A;
 	diffuse += D;
 	spec += S;

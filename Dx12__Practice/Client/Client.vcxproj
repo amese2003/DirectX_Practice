@@ -160,6 +160,7 @@
     <ClInclude Include="06. ShapesDemo.h" />
     <ClInclude Include="07. WavesDemo.h" />
     <ClInclude Include="08. LightingDemo.h" />
+    <ClInclude Include="09. SkullDemo.h" />
     <ClInclude Include="CameraScript.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="GameObjectDemo.h" />
@@ -177,6 +178,7 @@
     <ClCompile Include="06. ShapesDemo.cpp" />
     <ClCompile Include="07. WavesDemo.cpp" />
     <ClCompile Include="08. LightingDemo.cpp" />
+    <ClCompile Include="09. SkullDemo.cpp" />
     <ClCompile Include="CameraScript.cpp" />
     <ClCompile Include="GameObjectDemo.cpp" />
     <ClCompile Include="Main.cpp" />

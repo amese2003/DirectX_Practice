@@ -1,4 +1,10 @@
 
+
+#ifndef _GLOBAL_FX_
+#define _GLOBAL_FX_
+
+
+
 ////////////////
 // VertexData //
 ////////////////
@@ -72,11 +78,28 @@ struct VertexColorOutput
 	float4 color : COLOR;
 };
 
-
-
-
-cbuffer CAMERA_B0 : register(b0)
+struct Material
 {
-	row_major matrix view;
-	row_major matrix projection;
+	float4 Ambient;
+	float4 Diffuse;
+	float4 Specular; // w = SpecPower
+	float4 Reflect;
 };
+
+cbuffer TransformData : register(b1)
+{
+	float4		     position;
+	row_major matrix gWorld;
+	row_major matrix gView;
+	row_major matrix gProjection;
+	row_major matrix gWorldInvTranspose;
+	row_major matrix gWorldViewProj;
+};
+
+
+cbuffer MaterialData : register(b2)
+{
+	Material gMaterial;
+}
+
+#endif

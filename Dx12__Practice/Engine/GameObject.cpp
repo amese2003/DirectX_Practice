@@ -2,6 +2,7 @@
 #include "GameObject.h"
 #include "Waves.h"
 #include "Light.h"
+#include "Camera.h"
 
 GameObject::GameObject()
 {
@@ -108,6 +109,12 @@ shared_ptr<MeshRenderer> GameObject::GetMeshRenderer()
 {
 	shared_ptr<Component> component = GetFixedComponent(ComponentType::MeshRenderer);
 	return static_pointer_cast<MeshRenderer>(component);
+}
+
+shared_ptr<Camera> GameObject::GetCamera()
+{
+	shared_ptr<Component> component = GetFixedComponent(ComponentType::Camera);
+	return static_pointer_cast<Camera>(component);
 }
 
 shared_ptr<Waves> GameObject::GetWaves()

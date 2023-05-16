@@ -33,14 +33,14 @@ void Camera::UpdateMatrix()
 	S_MatView = GetTransform()->GetWorldMatrix().Invert();
 	S_MatProjection = ::XMMatrixPerspectiveFovLH(_fov, _width / _height, _near, _far);
 
-	CameraData cbuffer;
+	/*CameraData cbuffer;
 	cbuffer.matView = S_MatView;
 	cbuffer.matProjection = S_MatProjection;
 
 	D3D12_CPU_DESCRIPTOR_HANDLE handle = GRAPHICS->GetConstantBuffer(CBV_REGISTER::b0)->PushData(&cbuffer, sizeof(cbuffer));
-	GRAPHICS->GetTableDescHeap()->SetConstantBuffer(handle, CBV_REGISTER::b0);
+	GRAPHICS->GetTableDescHeap()->SetConstantBuffer(handle, CBV_REGISTER::b0);*/
 
 
-	D3D12_CPU_DESCRIPTOR_HANDLE objecthandle = GRAPHICS->GetConstantBuffer(CBV_REGISTER::b3)->PushData(&GetTransform()->CbPerObjectData, sizeof(GetTransform()->CbPerObjectData));
-	GRAPHICS->GetTableDescHeap()->SetConstantBuffer(objecthandle, CBV_REGISTER::b3);
+	/*D3D12_CPU_DESCRIPTOR_HANDLE objecthandle = GRAPHICS->GetConstantBuffer(CBV_REGISTER::b3)->PushData(&GetTransform()->CbPerObjectData, sizeof(GetTransform()->CbPerObjectData));
+	GRAPHICS->GetTableDescHeap()->SetConstantBuffer(objecthandle, CBV_REGISTER::b3);*/
 }

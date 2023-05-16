@@ -11,7 +11,7 @@ void LightingDemo::Init()
 {
 	
 	
-	shared_ptr<Light> dirLight = make_shared<Light>();
+	/*shared_ptr<Light> dirLight = make_shared<Light>();
 	dirLight->Init(LightType::Dirlight);
 	shared_ptr<Material> dirmaterial = make_shared<Material>();
 	{
@@ -63,13 +63,13 @@ void LightingDemo::Init()
 		spotMat->SetDiffuse(diffuse);
 		spotMat->SetSpecular(specular);
 	}
-	spotLight->SetSpot(960.f);
-	spotLight->SetRange(1.f);
+	spotLight->SetSpot(1.f);
+	spotLight->SetRange(10000.f);
 	spotLight->SetMaterial(spotMat);
-	spotLight->SetAtt(Vec3(1.f, 0.f, 0.f));
+	spotLight->SetAtt(Vec3(1.f, 0.f, 0.f));*/
 
 
-	{
+	/*{
 		shared_ptr<Shader> shader = make_shared<Shader>();
 		shader->Init(L"..\\Shaders\\06. Lighting.fx");
 
@@ -158,7 +158,7 @@ void LightingDemo::Init()
 
 	{
 		shared_ptr<GameObject> spotLightObject = make_shared<GameObject>();
-		spotLightObject->GetOrAddTransform()->SetPosition(Vec3(0.f, 10.f, 3.f));
+		spotLightObject->GetOrAddTransform()->SetPosition(Vec3(0.f, 0.f, 0.f));
 		spotLightObject->AddComponent(spotLight);
 		_spotLight = spotLightObject;
 	}
@@ -168,7 +168,7 @@ void LightingDemo::Init()
 		pointLightObject->GetOrAddTransform()->SetPosition(Vec3(0.f, 2.f, -30.f));
 		pointLightObject->AddComponent(pointLight);
 		_pointLight = pointLightObject;
-	}
+	}*/
 
 	
 
@@ -188,11 +188,11 @@ void LightingDemo::Update()
 	//_pointLight->GetTransform()->SetPosition(Vec3(70.0f * cosf(0.2f * TIME->TotalTime()), 70.0f * sinf(0.2f * TIME->TotalTime()), MathHelper::Max(GetHillHeight(_pointLight->GetTransform()->GetPosition().x, _pointLight->GetTransform()->GetPosition().z), -3.0f) + 10.0f));
 	_pointLight->Update();
 	
-	Vec3 dir = Vec3(0.f, -10.f, 0.f) - Camera::S_Eyepos;
+	/*Vec3 dir = Vec3(0.f, 0.f, 0.f) - Camera::S_Eyepos;
 	dir.Normalize();
 	_spotLight->GetLight()->SetDir(dir);
 	_spotLight->Update();
-	
+	*/
 
 	_dirLight->Update();
 

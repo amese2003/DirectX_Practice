@@ -25,6 +25,8 @@ void Shader::Init(const wstring& path, bool wireframe)
 	_pipelineDesc.RasterizerState.FillMode = (wireframe == true) ? D3D12_FILL_MODE_WIREFRAME : D3D12_FILL_MODE_SOLID;
 	_pipelineDesc.BlendState = CD3DX12_BLEND_DESC(D3D12_DEFAULT);
 	_pipelineDesc.DepthStencilState = CD3DX12_DEPTH_STENCIL_DESC(D3D12_DEFAULT);
+	/*_pipelineDesc.DepthStencilState.DepthEnable = FALSE;
+	_pipelineDesc.DepthStencilState.StencilEnable = FALSE;*/
 	_pipelineDesc.SampleMask = UINT_MAX;
 	_pipelineDesc.PrimitiveTopologyType = D3D12_PRIMITIVE_TOPOLOGY_TYPE_TRIANGLE;
 	_pipelineDesc.NumRenderTargets = 1;

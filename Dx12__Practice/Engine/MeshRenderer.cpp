@@ -24,9 +24,15 @@ void MeshRenderer::Render()
 	CMD_LIST->IASetVertexBuffers(0, 1, &_mesh->GetVertexBuffer()->GetVertexBufferView()); // Slot: (0~15)
 	CMD_LIST->IASetIndexBuffer(&_mesh->GetIndexBuffer()->_indexBufferView);
 
+	if (_texture)
+	{
+		GRAPHICS->GetTableDescHeap()->SetShaderResourceView(_texture->GetCpuHandle(), SRV_REGISTER::t0);
+	}
+	
+
 	if (_dirLight)
 	{
-		auto c3buffer = GetTransform()->CbPerObjectData;
+		/*auto c3buffer = GetTransform()->CbPerObjectData;
 		c3buffer.gMaterial.Ambient = _mesh->GetMaterial()->GetAmbient();
 		c3buffer.gMaterial.Diffuse = _mesh->GetMaterial()->GetDiffuse();
 		c3buffer.gMaterial.Specular = _mesh->GetMaterial()->GetSpecular();
@@ -64,7 +70,7 @@ void MeshRenderer::Render()
 
 
 		D3D12_CPU_DESCRIPTOR_HANDLE objecthandle = GRAPHICS->GetConstantBuffer(CBV_REGISTER::b3)->PushData(&c3buffer, sizeof(c3buffer));
-		GRAPHICS->GetTableDescHeap()->SetConstantBuffer(objecthandle, CBV_REGISTER::b3);
+		GRAPHICS->GetTableDescHeap()->SetConstantBuffer(objecthandle, CBV_REGISTER::b3);*/
 	}
 
 	

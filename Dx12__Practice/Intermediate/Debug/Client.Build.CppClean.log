@@ -2,33 +2,23 @@ d:\project\directx_practice\dx12__practice\intermediate\debug\client.pch
 d:\project\directx_practice\dx12__practice\intermediate\debug\vc143.pdb
 d:\project\directx_practice\dx12__practice\intermediate\debug\vc143.idb
 d:\project\directx_practice\dx12__practice\intermediate\debug\pch.obj
-d:\project\directx_practice\dx12__practice\intermediate\debug\main.obj
-d:\project\directx_practice\dx12__practice\intermediate\debug\gameobjectdemo.obj
-d:\project\directx_practice\dx12__practice\intermediate\debug\camerascript.obj
-d:\project\directx_practice\dx12__practice\intermediate\debug\08. lightingdemo.obj
-d:\project\directx_practice\dx12__practice\intermediate\debug\07. wavesdemo.obj
-d:\project\directx_practice\dx12__practice\intermediate\debug\06. shapesdemo.obj
-d:\project\directx_practice\dx12__practice\intermediate\debug\05. hillsdemo.obj
-d:\project\directx_practice\dx12__practice\intermediate\debug\04. texturedemo.obj
-d:\project\directx_practice\dx12__practice\intermediate\debug\03. camerademo.obj
-d:\project\directx_practice\dx12__practice\intermediate\debug\02. constantbufferdemo.obj
-d:\project\directx_practice\dx12__practice\intermediate\debug\01. rectangledemo.obj
 d:\project\directx_practice\dx12__practice\binaries\00. common.cso
-d:\project\directx_practice\dx12__practice\binaries\00. lighthelper.cso
 d:\project\directx_practice\dx12__practice\binaries\02. constantbuffer.cso
 d:\project\directx_practice\dx12__practice\binaries\01. rectangle.cso
 d:\project\directx_practice\dx12__practice\binaries\03. world.cso
 d:\project\directx_practice\dx12__practice\binaries\04. texture.cso
-d:\project\directx_practice\dx12__practice\binaries\05. color.cso
 d:\project\directx_practice\dx12__practice\binaries\06. lighting.cso
+d:\project\directx_practice\dx12__practice\binaries\00. lighthelper.cso
 d:\project\directx_practice\dx12__practice\intermediate\debug\client.ilk
 d:\project\directx_practice\dx12__practice\binaries\client.exe
 d:\project\directx_practice\dx12__practice\binaries\client.pdb
 d:\project\directx_practice\dx12__practice\intermediate\debug\client.res
+d:\project\directx_practice\dx12__practice\intermediate\debug\bindshaderdesc.obj
 d:\project\directx_practice\dx12__practice\intermediate\debug\camera.obj
 d:\project\directx_practice\dx12__practice\intermediate\debug\commandqueue.obj
 d:\project\directx_practice\dx12__practice\intermediate\debug\component.obj
 d:\project\directx_practice\dx12__practice\intermediate\debug\constantbuffer.obj
+d:\project\directx_practice\dx12__practice\intermediate\debug\depthstencilbuffer.obj
 d:\project\directx_practice\dx12__practice\intermediate\debug\device.obj
 d:\project\directx_practice\dx12__practice\intermediate\debug\engine.obj
 d:\project\directx_practice\dx12__practice\intermediate\debug\game.obj
@@ -48,6 +38,8 @@ d:\project\directx_practice\dx12__practice\intermediate\debug\monobehaviour.obj
 d:\project\directx_practice\dx12__practice\intermediate\debug\renderhelper.obj
 d:\project\directx_practice\dx12__practice\intermediate\debug\resourcebase.obj
 d:\project\directx_practice\dx12__practice\intermediate\debug\rootsignature.obj
+d:\project\directx_practice\dx12__practice\intermediate\debug\scene.obj
+d:\project\directx_practice\dx12__practice\intermediate\debug\scenemanager.obj
 d:\project\directx_practice\dx12__practice\intermediate\debug\shader.obj
 d:\project\directx_practice\dx12__practice\intermediate\debug\simplemath.obj
 d:\project\directx_practice\dx12__practice\intermediate\debug\swapchain.obj

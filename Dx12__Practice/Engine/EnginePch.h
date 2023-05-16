@@ -13,6 +13,7 @@
 #include <list>
 #include <map>
 #include <unordered_map>
+#include <unordered_set>
 #include <algorithm>
 using namespace std;
 
@@ -96,6 +97,7 @@ struct WindowInfo
 #include "RenderHelper.h"
 #include "InputManager.h"
 #include "TimeManager.h"
+#include "SceneManager.h"
 //#include "ResourceManager.h"
 
 #define CHECK(p)				assert(SUCCEEDED(p))
@@ -109,8 +111,8 @@ struct WindowInfo
 #define TIME					GET_SINGLE(TimeManager)
 #define DT						TIME->DeltaTime()
 #define RESOURCES				GET_SINGLE(ResourceManager)
-
-
+#define SCENE					GET_SINGLE(SceneManager)
+#define CUR_SCENE				SCENE->GetCurrentScene()
 
 
 // Engine
@@ -120,9 +122,11 @@ struct WindowInfo
 #include "CommandQueue.h"
 #include "TableDescriptionHeap.h"
 #include "DepthStencilBuffer.h"
+#include "BindShaderDesc.h"
 
 
 #include "ResourceBase.h"
+#include "Material.h"
 #include "VertexBuffer.h"
 #include "IndexBuffer.h"
 #include "ConstantBuffer.h"
@@ -138,6 +142,7 @@ struct WindowInfo
 #include "Transform.h"
 #include "Mesh.h"
 #include "Camera.h"
+#include "Light.h"
 //#include "Texture.h"
 
 

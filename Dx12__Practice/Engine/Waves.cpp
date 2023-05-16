@@ -41,9 +41,6 @@ void Waves::Render()
 {
 	CMD_LIST->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 
-	
-	
-
 	//
 	// Draw the waves.
 	//
@@ -51,15 +48,15 @@ void Waves::Render()
 	CMD_LIST->IASetVertexBuffers(0, 1, &_mesh->GetVertexBuffer()->GetVertexBufferView()); // Slot: (0~15)
 	CMD_LIST->IASetIndexBuffer(&_mesh->GetIndexBuffer()->GetIndexBufferView());
 
-	TransformData cbuffer;
+	/*TransformData cbuffer;
 	cbuffer.offset = GetTransform()->GetWorldMatrix();
 	cbuffer.matView = Camera::S_MatView;
 	cbuffer.matProjection = Camera::S_MatProjection;
 
 	D3D12_CPU_DESCRIPTOR_HANDLE handle = GRAPHICS->GetConstantBuffer(CBV_REGISTER::b1)->PushData(&cbuffer, sizeof(cbuffer));
-	GRAPHICS->GetTableDescHeap()->SetConstantBuffer(handle, CBV_REGISTER::b1);
+	GRAPHICS->GetTableDescHeap()->SetConstantBuffer(handle, CBV_REGISTER::b1);*/
 
-	if (_dirLight)
+	/*if (_dirLight)
 	{
 		CbPerFrame cbLightBuffer;
 		cbLightBuffer.gDirLight.Ambient = _dirLight->GetMaterial()->GetAmbient();
@@ -99,7 +96,7 @@ void Waves::Render()
 
 		D3D12_CPU_DESCRIPTOR_HANDLE objecthandle = GRAPHICS->GetConstantBuffer(CBV_REGISTER::b3)->PushData(&c3buffer, sizeof(c3buffer));
 		GRAPHICS->GetTableDescHeap()->SetConstantBuffer(objecthandle, CBV_REGISTER::b3);
-	}
+	}*/
 
 	
 

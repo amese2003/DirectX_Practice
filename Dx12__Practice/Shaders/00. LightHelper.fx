@@ -1,19 +1,22 @@
+#include "00. Common.fx"
 #ifndef _LIGHT_FX_
 #define _LIGHT_FX_
 
-
 struct LightInfo
 {
-	float4		ambient;
-	float4		diffuse;
-	float4		specular;
-	float4      emmissive;
+	float4		Ambient;
+	float4		Diffuse;
+	float4		Specular;
+	float4      Emmissive;
 
-	float3		direction;
-	float		range;
+	float3		Direction;
+	float		Range;
 
-	float3		att;
-	float		spoto;
+	float3		Att;
+	float		Spot;
+
+	float3		Position;
+	float		pad;
 };
 
 cbuffer GlobalLightData : register(b0)
@@ -63,20 +66,14 @@ struct SpotLight
 	float pad;
 };
 
-struct Material
-{
-	float4 Ambient;
-	float4 Diffuse;
-	float4 Specular; // w = SpecPower
-	float4 Reflect;
-};
+
 
 //---------------------------------------------------------------------------------------
 // Computes the ambient, diffuse, and specular terms in the lighting equation
 // from a directional light.  We need to output the terms separately because
 // later we will modify the individual terms.
 //---------------------------------------------------------------------------------------
-void ComputeDirectionalLight(Material mat, DirectionalLight L,
+void ComputeDirectionalLight(Material mat, LightInfo L,
 	float3 normal, float3 toEye,
 	out float4 ambient,
 	out float4 diffuse,
@@ -115,7 +112,7 @@ void ComputeDirectionalLight(Material mat, DirectionalLight L,
 // from a point light.  We need to output the terms separately because
 // later we will modify the individual terms.
 //---------------------------------------------------------------------------------------
-void ComputePointLight(Material mat, PointLight L, float3 pos, float3 normal, float3 toEye,
+void ComputePointLight(Material mat, LightInfo L, float3 pos, float3 normal, float3 toEye,
 	out float4 ambient, out float4 diffuse, out float4 spec)
 {
 	// Initialize outputs.
@@ -167,7 +164,7 @@ void ComputePointLight(Material mat, PointLight L, float3 pos, float3 normal, fl
 // from a spotlight.  We need to output the terms separately because
 // later we will modify the individual terms.
 //---------------------------------------------------------------------------------------
-void ComputeSpotLight(Material mat, SpotLight L, float3 pos, float3 normal, float3 toEye,
+void ComputeSpotLight(Material mat, LightInfo L, float3 pos, float3 normal, float3 toEye,
 	out float4 ambient, out float4 diffuse, out float4 spec)
 {
 	// Initialize outputs.

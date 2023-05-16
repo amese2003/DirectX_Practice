@@ -101,6 +101,7 @@ void Game::Update()
 	INPUT->Update();
 
 	GRAPHICS->RenderBegin();
+	CUR_SCENE->Update();
 
 	_desc.app->Update();
 	_desc.app->Render();
