@@ -16,4 +16,5 @@ void Light::Init(LightType lighttype)
 
 void Light::Update()
 {
+	_desc.position = GetTransform()->GetPosition();
 }

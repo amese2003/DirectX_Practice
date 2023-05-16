@@ -98,7 +98,14 @@ void Waves::Render()
 		GRAPHICS->GetTableDescHeap()->SetConstantBuffer(objecthandle, CBV_REGISTER::b3);
 	}*/
 
-	
+	MaterialDesc pushDesc;
+	pushDesc.ambient = _mesh->GetMaterial()->GetAmbient();
+	pushDesc.diffuse = _mesh->GetMaterial()->GetDiffuse();
+	pushDesc.specular = _mesh->GetMaterial()->GetSpecular();
+	pushDesc.emissive = Color(1.f, 1.f, 1.f, 1.f);
+
+	D3D12_CPU_DESCRIPTOR_HANDLE handle = GRAPHICS->GetConstantBuffer(CBV_REGISTER::b2)->PushData(&pushDesc, sizeof(pushDesc));
+	GRAPHICS->GetTableDescHeap()->SetConstantBuffer(handle, CBV_REGISTER::b2);
 
 	
 

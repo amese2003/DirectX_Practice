@@ -59,6 +59,7 @@ float4 PS_Main(VertexOut input) : SV_Target
 
 	float4 litColor = ambient + diffuse + spec;
 
+	//float4 litColor = ambient;
 	// Common to take alpha from diffuse material.
 	litColor.a = gMaterial.Diffuse.a;
 

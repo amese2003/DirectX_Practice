@@ -13,6 +13,8 @@ void Scene::Start()
 
 void Scene::Update()
 {
+	PushLightData();
+
 	unordered_set<shared_ptr<GameObject>> objects = _objects;
 
 	for (shared_ptr<GameObject> object : objects)
@@ -79,6 +81,7 @@ void Scene::PushLightData()
 	CHECK(_lights.size() > 50);
 
 	LightParams cbParams;
+	cbParams.lightCount = 0;
 	cbParams.eyePosition = GetMainCamera()->GetCamera()->GetTransform()->GetPosition();
 	cbParams.lightCount = _lights.size();
 	
@@ -87,8 +90,12 @@ void Scene::PushLightData()
 		shared_ptr<Light> light = lightObject->GetLight();
 
 		LightDesc lightDesc;
+		
 		lightDesc = light->GetLightDesc();
-		cbParams.lights[static_cast<int>(light->GetLightType())] = lightDesc;
+		LightType type = light->GetLightType();
+		cbParams.lights[static_cast<int>(type)] = lightDesc;
+		cbParams.lightCount++;
 	}
 
+	GRAPHICS->GetConstantBuffer(CBV_REGISTER::b0)->SetGlobalData(&cbParams, sizeof(cbParams));
 }

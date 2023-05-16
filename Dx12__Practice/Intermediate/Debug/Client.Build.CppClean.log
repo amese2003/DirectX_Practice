@@ -2,13 +2,26 @@ d:\project\directx_practice\dx12__practice\intermediate\debug\client.pch
 d:\project\directx_practice\dx12__practice\intermediate\debug\vc143.pdb
 d:\project\directx_practice\dx12__practice\intermediate\debug\vc143.idb
 d:\project\directx_practice\dx12__practice\intermediate\debug\pch.obj
+d:\project\directx_practice\dx12__practice\intermediate\debug\main.obj
+d:\project\directx_practice\dx12__practice\intermediate\debug\gameobjectdemo.obj
+d:\project\directx_practice\dx12__practice\intermediate\debug\camerascript.obj
+d:\project\directx_practice\dx12__practice\intermediate\debug\09. skulldemo.obj
+d:\project\directx_practice\dx12__practice\intermediate\debug\08. lightingdemo.obj
+d:\project\directx_practice\dx12__practice\intermediate\debug\07. wavesdemo.obj
+d:\project\directx_practice\dx12__practice\intermediate\debug\06. shapesdemo.obj
+d:\project\directx_practice\dx12__practice\intermediate\debug\05. hillsdemo.obj
+d:\project\directx_practice\dx12__practice\intermediate\debug\04. texturedemo.obj
+d:\project\directx_practice\dx12__practice\intermediate\debug\03. camerademo.obj
+d:\project\directx_practice\dx12__practice\intermediate\debug\02. constantbufferdemo.obj
+d:\project\directx_practice\dx12__practice\intermediate\debug\01. rectangledemo.obj
 d:\project\directx_practice\dx12__practice\binaries\00. common.cso
+d:\project\directx_practice\dx12__practice\binaries\00. lighthelper.cso
 d:\project\directx_practice\dx12__practice\binaries\02. constantbuffer.cso
 d:\project\directx_practice\dx12__practice\binaries\01. rectangle.cso
 d:\project\directx_practice\dx12__practice\binaries\03. world.cso
 d:\project\directx_practice\dx12__practice\binaries\04. texture.cso
+d:\project\directx_practice\dx12__practice\binaries\05. color.cso
 d:\project\directx_practice\dx12__practice\binaries\06. lighting.cso
-d:\project\directx_practice\dx12__practice\binaries\00. lighthelper.cso
 d:\project\directx_practice\dx12__practice\intermediate\debug\client.ilk
 d:\project\directx_practice\dx12__practice\binaries\client.exe
 d:\project\directx_practice\dx12__practice\binaries\client.pdb

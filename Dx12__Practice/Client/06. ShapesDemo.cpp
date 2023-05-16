@@ -21,6 +21,7 @@ void ShapesDemo::Init()
 		grid->GetMeshRenderer()->SetMesh(mesh);
 		grid->GetMeshRenderer()->SetShader(shader);
 		_gameObjects.push_back(grid);
+		CUR_SCENE->Add(grid);
 	}
 
 	
@@ -42,6 +43,7 @@ void ShapesDemo::Init()
 		box->GetMeshRenderer()->SetMesh(mesh);
 		box->GetMeshRenderer()->SetShader(shader1);
 		_gameObjects.push_back(box);
+		CUR_SCENE->Add(box);
 	}
 
 	{
@@ -58,6 +60,7 @@ void ShapesDemo::Init()
 		centerSphere->GetMeshRenderer()->SetMesh(sphere);
 		centerSphere->GetMeshRenderer()->SetShader(shader);
 		_gameObjects.push_back(centerSphere);
+		CUR_SCENE->Add(centerSphere);
 	}
 
 
@@ -126,6 +129,9 @@ void ShapesDemo::Init()
 	{
 		_gameObjects.push_back(cyl[i]);
 		_gameObjects.push_back(spheres[i]);
+
+		CUR_SCENE->Add(cyl[i]);
+		CUR_SCENE->Add(spheres[i]);
 	}
 
 
@@ -134,6 +140,7 @@ void ShapesDemo::Init()
 	_camera->GetOrAddTransform();
 	_camera->AddComponent(make_shared<Camera>());
 	_camera->AddComponent(make_shared<CameraScript>());
+	CUR_SCENE->Add(_camera);
 
 	GRAPHICS->GetCommandQueue()->WaitSync();
 }

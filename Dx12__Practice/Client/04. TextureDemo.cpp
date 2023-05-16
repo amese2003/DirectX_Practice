@@ -25,11 +25,14 @@ void TextureDemo::Init()
 	_gameObject->GetMeshRenderer()->SetShader(shader);
 	_gameObject->GetMeshRenderer()->SetTexture(texture);
 
+	CUR_SCENE->Add(_gameObject);
+
 	_camera = make_shared<GameObject>();
 	_camera->GetOrAddTransform();
 	_camera->AddComponent(make_shared<Camera>());
 	_camera->AddComponent(make_shared<CameraScript>());
 
+	CUR_SCENE->Add(_camera);
 	GRAPHICS->GetCommandQueue()->WaitSync();
 }
 

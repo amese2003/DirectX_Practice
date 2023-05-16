@@ -21,11 +21,13 @@ void HillsDemo::Init()
 	_gameObject->AddComponent(make_shared<MeshRenderer>());
 	_gameObject->GetMeshRenderer()->SetMesh(mesh);
 	_gameObject->GetMeshRenderer()->SetShader(shader);
+	CUR_SCENE->Add(_gameObject);
 
 	_camera = make_shared<GameObject>();
 	_camera->GetOrAddTransform();
 	_camera->AddComponent(make_shared<Camera>());
 	_camera->AddComponent(make_shared<CameraScript>());
+	CUR_SCENE->Add(_camera);
 
 	GRAPHICS->GetCommandQueue()->WaitSync();
 }
