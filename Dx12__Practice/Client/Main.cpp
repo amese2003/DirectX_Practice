@@ -20,7 +20,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	desc.width = 800;
 	desc.height = 600;
 	desc.clearColor = Color(0.5f, 0.5f, 1.f, 1.f);
-	desc.app = make_shared<CrateDemo>();
+	desc.app = make_shared<WavesDemo>();
 
 	GAME->Run(desc);
 

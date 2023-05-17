@@ -16,6 +16,12 @@ void WavesDemo::Init()
 		{
 			landMesh->Init();
 			landMesh->CreateHillDemo();
+
+			shared_ptr<Material> material = make_shared<Material>();
+			material->SetAmbient(Vec4(0.5f, 0.5f, 0.5f, 1.0f));
+			material->SetDiffuse(Vec4(1.0f, 1.0f, 1.0f, 1.0f));
+			material->SetSpecular(Vec4(0.6f, 0.6f, 0.6f, 16.0f));
+			landMesh->SetMateral(material);
 		}
 
 		shared_ptr<GameObject> grid = make_shared<GameObject>();
@@ -23,7 +29,7 @@ void WavesDemo::Init()
 		grid->AddComponent(make_shared<MeshRenderer>());
 		grid->GetMeshRenderer()->SetMesh(landMesh);
 		grid->GetMeshRenderer()->SetShader(shader);
-		_gameObjects.push_back(grid);
+		CUR_SCENE->Add(grid);
 	}
 
 	{
@@ -31,7 +37,16 @@ void WavesDemo::Init()
 		shader->Init(L"..\\Shaders\\05. Color.fx", true);
 
 		shared_ptr<Mesh> waveMesh = make_shared<Mesh>();
-		waveMesh->Init();
+		{
+			waveMesh->Init();
+
+			shared_ptr<Material> material = make_shared<Material>();
+			material->SetAmbient(Vec4(0.5f, 0.5f, 0.5f, 1.0f));
+			material->SetDiffuse(Vec4(1.0f, 1.0f, 1.0f, 1.0f));
+			material->SetSpecular(Vec4(0.6f, 0.6f, 0.6f, 16.0f));
+			waveMesh->SetMateral(material);
+		}
+		
 
 		shared_ptr<GameObject> grid = make_shared<GameObject>();
 		grid->GetOrAddTransform();
@@ -40,7 +55,7 @@ void WavesDemo::Init()
 		wave->Init(waveMesh, shader, 200, 200, 0.8f, 0.03f, 3.25f, 0.4f);
 		grid->AddComponent(wave);
 
-		_gameObjects.push_back(grid);
+		CUR_SCENE->Add(grid);
 	}
 
 	
@@ -52,6 +67,7 @@ void WavesDemo::Init()
 	_camera->GetOrAddTransform();
 	_camera->AddComponent(make_shared<Camera>());
 	_camera->AddComponent(make_shared<CameraScript>());
+	CUR_SCENE->Add(_camera);
 
 	GRAPHICS->GetCommandQueue()->WaitSync();
 }
