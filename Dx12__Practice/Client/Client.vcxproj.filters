@@ -70,6 +70,9 @@
     <ClInclude Include="09. SkullDemo.h">
       <Filter>Game</Filter>
     </ClInclude>
+    <ClInclude Include="10. CrateDemo.h">
+      <Filter>Game</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Client.rc">
@@ -124,6 +127,9 @@
     <ClCompile Include="09. SkullDemo.cpp">
       <Filter>Game</Filter>
     </ClCompile>
+    <ClCompile Include="10. CrateDemo.cpp">
+      <Filter>Game</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="..\Shaders\01. Rectangle.fx">
@@ -148,6 +154,9 @@
       <Filter>Shader</Filter>
     </FxCompile>
     <FxCompile Include="..\Shaders\06. Lighting.fx">
+      <Filter>Shader</Filter>
+    </FxCompile>
+    <FxCompile Include="..\Shaders\07. Basic.fx">
       <Filter>Shader</Filter>
     </FxCompile>
   </ItemGroup>

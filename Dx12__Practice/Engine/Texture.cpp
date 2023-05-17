@@ -20,7 +20,18 @@ void Texture::Init(const wstring& path)
 void Texture::CreateTexture(const wstring& path)
 {
 	DirectX::TexMetadata md;
-	HRESULT hr = ::LoadFromWICFile(path.c_str(), WIC_FLAGS_NONE, &md, _image);
+	HRESULT hr;
+
+	wstring ext = fs::path(path).extension();
+	/*hr = ::LoadFromWICFile(path.c_str(), WIC_FLAGS_NONE, &md, _image);*/
+
+	if (ext == L".dds" || ext == L".DDS")
+		hr = ::LoadFromDDSFile(path.c_str(), DDS_FLAGS_NONE, &md, _image);
+	else if (ext == L".tga" || ext == L".TGA")
+		hr = ::LoadFromTGAFile(path.c_str(), &md, _image);
+	else // png, jpg, jpeg, bmp
+		hr = ::LoadFromWICFile(path.c_str(), WIC_FLAGS_NONE, &md, _image);
+
 	CHECK(hr);
 
 	hr = ::CreateTexture(DEVICE.Get(), _image.GetMetadata(), &_texture2D);
@@ -63,6 +74,7 @@ void Texture::CreateTexture(const wstring& path)
 	_size.y = md.height;
 
 	GRAPHICS->GetCommandQueue()->FlushResourceCommandQueue();
+
 }
 
 void Texture::CreateView()

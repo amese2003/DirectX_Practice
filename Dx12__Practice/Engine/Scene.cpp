@@ -83,7 +83,6 @@ void Scene::PushLightData()
 	LightParams cbParams;
 	cbParams.lightCount = 0;
 	cbParams.eyePosition = GetMainCamera()->GetCamera()->GetTransform()->GetPosition();
-	cbParams.lightCount = _lights.size();
 	
 	for (shared_ptr<GameObject> lightObject : _lights)
 	{
@@ -93,7 +92,8 @@ void Scene::PushLightData()
 		
 		lightDesc = light->GetLightDesc();
 		LightType type = light->GetLightType();
-		cbParams.lights[static_cast<int>(type)] = lightDesc;
+		//cbParams.lights[static_cast<int>(type)] = lightDesc;
+		cbParams.lights[cbParams.lightCount] = lightDesc;
 		cbParams.lightCount++;
 	}
 

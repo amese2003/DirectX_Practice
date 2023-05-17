@@ -24,6 +24,11 @@ cbuffer GlobalLightData : register(b0)
 	int		lightCount;
 	float3	gEyePosW;
 	LightInfo g_light[50];
+
+	float gFogStart;
+	float gFogRange;
+	float2 pad;
+	float4 gFogColor;
 };
 
 

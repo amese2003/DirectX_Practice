@@ -8,6 +8,7 @@
 #include "07. WavesDemo.h"
 #include "08. LightingDemo.h"
 #include "09. SkullDemo.h"
+#include "10. CrateDemo.h"
 
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nShowCmd)
 {
@@ -19,7 +20,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	desc.width = 800;
 	desc.height = 600;
 	desc.clearColor = Color(0.5f, 0.5f, 1.f, 1.f);
-	desc.app = make_shared<LightingDemo>();
+	desc.app = make_shared<CrateDemo>();
 
 	GAME->Run(desc);
 

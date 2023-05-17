@@ -14,6 +14,7 @@ public:
 	void CreateTexture(const wstring& path);
 	void CreateView();
 
+
 	Vec2 GetSize() { return _size; }
 
 private:
@@ -22,8 +23,13 @@ private:
 
 
 	ComPtr<ID3D12DescriptorHeap>	_srvHeap;
+	// defered
+	ComPtr<ID3D12DescriptorHeap>	_rtvHeap;
+	ComPtr<ID3D12DescriptorHeap>	_dsvHeap;
 	D3D12_CPU_DESCRIPTOR_HANDLE		_srvHandle = {};
 
+
+private:
 	Vec2 _size = { 0.f, 0.f };
 };
 

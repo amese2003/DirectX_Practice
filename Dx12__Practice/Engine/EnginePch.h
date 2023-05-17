@@ -22,6 +22,9 @@ using namespace std;
 #include <assert.h>
 #include <optional>
 
+#include <filesystem>
+namespace fs = std::filesystem;
+
 // DX
 #include "d3dx12.h"
 #include "SimpleMath.h"

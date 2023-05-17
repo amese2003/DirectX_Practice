@@ -94,6 +94,7 @@ cbuffer TransformData : register(b1)
 	row_major matrix gProjection;
 	row_major matrix gWorldInvTranspose;
 	row_major matrix gWorldViewProj;
+	row_major matrix gTexTransform;
 };
 
 
