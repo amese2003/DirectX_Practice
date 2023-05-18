@@ -168,6 +168,9 @@
     <ClInclude Include="Scene.h">
       <Filter>02. Managers</Filter>
     </ClInclude>
+    <ClInclude Include="RenderStates.h">
+      <Filter>98. Utils</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine.cpp">
@@ -286,6 +289,9 @@
     </ClCompile>
     <ClCompile Include="SceneManager.cpp">
       <Filter>02. Managers</Filter>
+    </ClCompile>
+    <ClCompile Include="RenderStates.cpp">
+      <Filter>98. Utils</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

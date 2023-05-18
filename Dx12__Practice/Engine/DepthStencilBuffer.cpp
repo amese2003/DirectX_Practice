@@ -13,7 +13,6 @@ void DepthStencilBuffer::Init(DXGI_FORMAT dsvFormat)
 	D3D12_CLEAR_VALUE optimizedClearValue = CD3DX12_CLEAR_VALUE(_dsvFormat, 1.0f, 0);
 
 
-
 	DEVICE->CreateCommittedResource(
 		&heapProperty,
 		D3D12_HEAP_FLAG_NONE,

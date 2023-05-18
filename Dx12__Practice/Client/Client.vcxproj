@@ -163,6 +163,7 @@
     <ClInclude Include="09. SkullDemo.h" />
     <ClInclude Include="10. CrateDemo.h" />
     <ClInclude Include="11. TexturedHillsAndWavesDemo.h" />
+    <ClInclude Include="12. BlendDemo.h" />
     <ClInclude Include="CameraScript.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="GameObjectDemo.h" />
@@ -183,6 +184,7 @@
     <ClCompile Include="09. SkullDemo.cpp" />
     <ClCompile Include="10. CrateDemo.cpp" />
     <ClCompile Include="11. TexturedHillsAndWavesDemo.cpp" />
+    <ClCompile Include="12. BlendDemo.cpp" />
     <ClCompile Include="CameraScript.cpp" />
     <ClCompile Include="GameObjectDemo.cpp" />
     <ClCompile Include="Main.cpp" />
@@ -281,6 +283,16 @@
       <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">5.0</ShaderModel>
     </FxCompile>
     <FxCompile Include="..\Shaders\07. Basic.fx">
+      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+      </EntryPointName>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Effect</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">5.0</ShaderModel>
+      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+      </EntryPointName>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Effect</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">5.0</ShaderModel>
+    </FxCompile>
+    <FxCompile Include="..\Shaders\08. Basic.fx">
       <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
       </EntryPointName>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Effect</ShaderType>
