@@ -17,12 +17,15 @@ public:
 	uint32 VertexCount() { return _vertexCount; }
 	uint32 TriangleCount() { return _triangleCount; }
 
+	float Width() { return _numCols * _spatialStep; }
+	float Depth() { return _numRows * _spatialStep; }
+
 	virtual void Update() override;
 	void Render();
 
 	void SetShader(shared_ptr<Shader> shader) { _shader = shader; }
 	void SetMesh(shared_ptr<Mesh> mesh) { _mesh = mesh; }
-
+	void SetTexture(shared_ptr<Texture> texture) { _texture = texture; }
 
 	// Returns the solution at the ith grid point.
 	const XMFLOAT3& operator[](int32 i) const { return _currSolution[i]; }
@@ -57,6 +60,7 @@ private:
 	vector<XMFLOAT3> _currSolution;
 	vector<XMFLOAT3> _normals;
 	vector<XMFLOAT3> _tangentX;
+	vector<Vec2> _uv;
 
 
 	
@@ -64,6 +68,6 @@ private:
 private:
 	shared_ptr<Shader> _shader;
 	shared_ptr<Mesh> _mesh;
-
+	shared_ptr<Texture> _texture;
 };
 

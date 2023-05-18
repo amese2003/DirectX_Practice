@@ -15,11 +15,16 @@ public:
 	void CreateView();
 
 
-	Vec2 GetSize() { return _size; }
+	float GetWidth() { return static_cast<float>(_desc.Width); }
+	float GetHeight() { return static_cast<float>(_desc.Height); }
+
+	Vec2 GetOffset() { return _texOffset; }
+	void SetOffset(Vec2 offset) { _texOffset = offset; }
 
 private:
-	ScratchImage			 _image;
-	ComPtr<ID3D12Resource>	_texture2D;
+	ScratchImage				_image;
+	D3D12_RESOURCE_DESC			_desc;
+	ComPtr<ID3D12Resource>		_texture2D;
 
 
 	ComPtr<ID3D12DescriptorHeap>	_srvHeap;
@@ -31,5 +36,6 @@ private:
 
 private:
 	Vec2 _size = { 0.f, 0.f };
+	Vec2 _texOffset = { 0, 0 };
 };
 

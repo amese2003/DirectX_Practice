@@ -97,7 +97,6 @@ struct WindowInfo
 #include "Graphics.h"
 #include "VertexData.h"
 #include "Geometry.h"
-#include "RenderHelper.h"
 #include "InputManager.h"
 #include "TimeManager.h"
 #include "SceneManager.h"

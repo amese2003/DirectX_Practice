@@ -85,8 +85,7 @@ void CrateDemo::Init()
 
 void CrateDemo::Update()
 {
-	_camera->Update();
-	_gameObject->Update();
+
 }
 
 void CrateDemo::Render()

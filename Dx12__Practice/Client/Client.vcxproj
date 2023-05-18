@@ -162,6 +162,7 @@
     <ClInclude Include="08. LightingDemo.h" />
     <ClInclude Include="09. SkullDemo.h" />
     <ClInclude Include="10. CrateDemo.h" />
+    <ClInclude Include="11. TexturedHillsAndWavesDemo.h" />
     <ClInclude Include="CameraScript.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="GameObjectDemo.h" />
@@ -181,6 +182,7 @@
     <ClCompile Include="08. LightingDemo.cpp" />
     <ClCompile Include="09. SkullDemo.cpp" />
     <ClCompile Include="10. CrateDemo.cpp" />
+    <ClCompile Include="11. TexturedHillsAndWavesDemo.cpp" />
     <ClCompile Include="CameraScript.cpp" />
     <ClCompile Include="GameObjectDemo.cpp" />
     <ClCompile Include="Main.cpp" />

@@ -24,8 +24,8 @@ void Waves::Update()
 	{
 		t_base += 0.25f;
 
-		DWORD i = 5 + rand() % 190;
-		DWORD j = 5 + rand() % 190;
+		DWORD i = 5 + rand() % (RowCount() - 10);
+		DWORD j = 5 + rand() % (ColumnCount() - 10);
 
 		float r = MathHelper::RandF(1.0f, 2.0f);
 
@@ -40,7 +40,6 @@ void Waves::Update()
 void Waves::Render()
 {
 	CMD_LIST->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
-
 	//
 	// Draw the waves.
 	//
@@ -48,55 +47,9 @@ void Waves::Render()
 	CMD_LIST->IASetVertexBuffers(0, 1, &_mesh->GetVertexBuffer()->GetVertexBufferView()); // Slot: (0~15)
 	CMD_LIST->IASetIndexBuffer(&_mesh->GetIndexBuffer()->GetIndexBufferView());
 
-	/*TransformData cbuffer;
-	cbuffer.offset = GetTransform()->GetWorldMatrix();
-	cbuffer.matView = Camera::S_MatView;
-	cbuffer.matProjection = Camera::S_MatProjection;
-
-	D3D12_CPU_DESCRIPTOR_HANDLE handle = GRAPHICS->GetConstantBuffer(CBV_REGISTER::b1)->PushData(&cbuffer, sizeof(cbuffer));
-	GRAPHICS->GetTableDescHeap()->SetConstantBuffer(handle, CBV_REGISTER::b1);*/
-
-	/*if (_dirLight)
-	{
-		CbPerFrame cbLightBuffer;
-		cbLightBuffer.gDirLight.Ambient = _dirLight->GetMaterial()->GetAmbient();
-		cbLightBuffer.gDirLight.Diffuse = _dirLight->GetMaterial()->GetDiffuse();
-		cbLightBuffer.gDirLight.Specular = _dirLight->GetMaterial()->GetSpecular();
-		cbLightBuffer.gDirLight.Direction = _dirLight->GetDir();
-
-		cbLightBuffer.gPointLight.Ambient = _point->GetMaterial()->GetAmbient();
-		cbLightBuffer.gPointLight.Diffuse = _point->GetMaterial()->GetDiffuse();
-		cbLightBuffer.gPointLight.Specular = _point->GetMaterial()->GetSpecular();
-		cbLightBuffer.gPointLight.Att = _point->GetAtt();
-		cbLightBuffer.gPointLight.Range = _point->GetRange();
-		cbLightBuffer.gPointLight.Position = _point->GetTransform()->GetPosition();
 
 
-		cbLightBuffer.gSpotLight.Ambient = _spotLight->GetMaterial()->GetAmbient();
-		cbLightBuffer.gSpotLight.Diffuse = _spotLight->GetMaterial()->GetDiffuse();
-		cbLightBuffer.gSpotLight.Specular = _spotLight->GetMaterial()->GetSpecular();
-		cbLightBuffer.gSpotLight.Direction = _spotLight->GetDir();
-		cbLightBuffer.gSpotLight.Position = _spotLight->GetTransform()->GetPosition();
-		cbLightBuffer.gSpotLight.Range = _spotLight->GetRange();
-		cbLightBuffer.gSpotLight.Att = _spotLight->GetAtt();
-		cbLightBuffer.gSpotLight.Spot = _spotLight->GetSpot();
-
-		cbLightBuffer.gEyePosW = Camera::S_Eyepos;
-
-
-		D3D12_CPU_DESCRIPTOR_HANDLE lighthandle = GRAPHICS->GetConstantBuffer(CBV_REGISTER::b2)->PushData(&cbLightBuffer, sizeof(cbLightBuffer));
-		GRAPHICS->GetTableDescHeap()->SetConstantBuffer(lighthandle, CBV_REGISTER::b2);
-
-		auto c3buffer = GetTransform()->CbPerObjectData;
-		c3buffer.gMaterial.Ambient = _mesh->GetMaterial()->GetAmbient();
-		c3buffer.gMaterial.Diffuse = _mesh->GetMaterial()->GetDiffuse();
-		c3buffer.gMaterial.Specular = _mesh->GetMaterial()->GetSpecular();
-
-
-
-		D3D12_CPU_DESCRIPTOR_HANDLE objecthandle = GRAPHICS->GetConstantBuffer(CBV_REGISTER::b3)->PushData(&c3buffer, sizeof(c3buffer));
-		GRAPHICS->GetTableDescHeap()->SetConstantBuffer(objecthandle, CBV_REGISTER::b3);
-	}*/
+	
 
 	MaterialDesc pushDesc;
 	pushDesc.ambient = _mesh->GetMaterial()->GetAmbient();
@@ -104,7 +57,25 @@ void Waves::Render()
 	pushDesc.specular = _mesh->GetMaterial()->GetSpecular();
 	pushDesc.emissive = Color(1.f, 1.f, 1.f, 1.f);
 
-	D3D12_CPU_DESCRIPTOR_HANDLE handle = GRAPHICS->GetConstantBuffer(CBV_REGISTER::b2)->PushData(&pushDesc, sizeof(pushDesc));
+	MaterialData cbuffer;
+	cbuffer.mat = pushDesc;
+	cbuffer.texTransform = Matrix::Identity;
+
+
+	if (_texture)
+	{
+		Vec2 offset = _texture->GetOffset();
+		Matrix waveScale = Matrix::CreateScale(5.0f, 5.0f, 0.0f);
+		Matrix waveOffset = XMMatrixTranslation(offset.x, offset.y, 0.f);
+		cbuffer.texTransform = waveScale * waveOffset;
+		GRAPHICS->GetTableDescHeap()->SetShaderResourceView(_texture->GetCpuHandle(), SRV_REGISTER::t0);
+	}
+
+	
+
+	
+
+	D3D12_CPU_DESCRIPTOR_HANDLE handle = GRAPHICS->GetConstantBuffer(CBV_REGISTER::b2)->PushData(&cbuffer, sizeof(cbuffer));
 	GRAPHICS->GetTableDescHeap()->SetConstantBuffer(handle, CBV_REGISTER::b2);
 
 	
@@ -142,6 +113,7 @@ void Waves::Init(shared_ptr<Mesh> mesh, shared_ptr<Shader> shader, uint32 m, uin
 	_currSolution.resize(m * n);
 	_normals.resize(m * n);
 	_tangentX.resize(m * n);
+	_uv.resize(m * n);
 
 	// Generate grid vertices in system memory.
 
@@ -150,6 +122,8 @@ void Waves::Init(shared_ptr<Mesh> mesh, shared_ptr<Shader> shader, uint32 m, uin
 
 	vector<VertexTextureNormalTangentData> vtx;
 	vtx.resize(m * n);
+
+	vector<Vec2> uvpos;
 
 	for (uint32 i = 0; i < m; ++i)
 	{
@@ -164,13 +138,20 @@ void Waves::Init(shared_ptr<Mesh> mesh, shared_ptr<Shader> shader, uint32 m, uin
 			_normals[i * n + j] = XMFLOAT3(0.0f, 1.0f, 0.0f);
 			_tangentX[i * n + j] = XMFLOAT3(1.0f, 0.0f, 0.0f);
 
+			_uv[i * n + j].x = 0.5f + _currSolution[i * n + j].x / Width();
+			_uv[i * n + j].y = 0.5f - _currSolution[i * n + j].z / Depth();
 
 			VertexTextureNormalTangentData buffer;
 			buffer.position = _currSolution[i * n + j];
 			buffer.normal = _normals[i * n + j];
 			buffer.tangent = _tangentX[i * n + j];
+
+			buffer.uv.x = _uv[i * n + j].x;
+			buffer.uv.y = _uv[i * n + j].y;
 			
 			vtx[i * n + j] = buffer;
+
+			uvpos.push_back(buffer.uv);
 		}
 	}
 
@@ -262,6 +243,8 @@ void Waves::Update(float dt)
 				_normals[i * _numCols + j].y = 2.0f * _spatialStep;
 				_normals[i * _numCols + j].z = b - t;
 
+				
+
 				XMVECTOR n = ::XMVector3Normalize(::XMLoadFloat3(&_normals[i * _numCols + j]));
 				::XMStoreFloat3(&_normals[i * _numCols + j], n);
 
@@ -273,12 +256,21 @@ void Waves::Update(float dt)
 				buffer.position = _currSolution[i * _numCols + j];
 				buffer.normal = _normals[i * _numCols + j];
 				buffer.tangent = _tangentX[i * _numCols + j];
+				buffer.uv = _uv[i * _numCols + j];
 
 				vtx[i * _numCols + j] = buffer;
 			}
 		}
 
 		_mesh->GetVertexBuffer()->PushData(vtx);
+	}
+
+	if (_texture)
+	{
+		Vec2 curOffset = _texture->GetOffset();
+		curOffset.y += 0.05f * dt;
+		curOffset.x += 0.1f * dt;
+		_texture->SetOffset(curOffset);
 	}
 }
 

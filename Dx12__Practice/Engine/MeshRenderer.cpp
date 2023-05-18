@@ -24,19 +24,34 @@ void MeshRenderer::Render()
 	CMD_LIST->IASetVertexBuffers(0, 1, &_mesh->GetVertexBuffer()->GetVertexBufferView()); // Slot: (0~15)
 	CMD_LIST->IASetIndexBuffer(&_mesh->GetIndexBuffer()->_indexBufferView);
 
+
+	MaterialDesc pushDesc;
+	shared_ptr<Material> material = _mesh->GetMaterial();
+
+	if (material)
+	{
+		pushDesc.ambient = material->GetAmbient();
+		pushDesc.diffuse = material->GetDiffuse();
+		pushDesc.specular = material->GetSpecular();
+		pushDesc.emissive = Color(1.f, 1.f, 1.f, 1.f);
+	}
+	
+	
+
+	MaterialData cbuffer;
+	cbuffer.mat = pushDesc;
+	cbuffer.texTransform = Matrix::Identity;
+
 	if (_texture)
 	{
+		cbuffer.texTransform *= 5;
 		GRAPHICS->GetTableDescHeap()->SetShaderResourceView(_texture->GetCpuHandle(), SRV_REGISTER::t0);
 	}
 
 
-	MaterialDesc pushDesc;
-	pushDesc.ambient = _mesh->GetMaterial()->GetAmbient();
-	pushDesc.diffuse = _mesh->GetMaterial()->GetDiffuse();
-	pushDesc.specular = _mesh->GetMaterial()->GetSpecular();
-	pushDesc.emissive = Color(1.f, 1.f, 1.f, 1.f);
+	
 
-	D3D12_CPU_DESCRIPTOR_HANDLE handle = GRAPHICS->GetConstantBuffer(CBV_REGISTER::b2)->PushData(&pushDesc, sizeof(pushDesc));
+	D3D12_CPU_DESCRIPTOR_HANDLE handle = GRAPHICS->GetConstantBuffer(CBV_REGISTER::b2)->PushData(&cbuffer, sizeof(cbuffer));
 	GRAPHICS->GetTableDescHeap()->SetConstantBuffer(handle, CBV_REGISTER::b2);
 	
 

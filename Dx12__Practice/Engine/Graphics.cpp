@@ -36,7 +36,7 @@ void Graphics::Init(HWND hwnd)
 	_constantBuffer[static_cast<uint8>(CBV_REGISTER::b1)]->Init(sizeof(TransformData), 256);
 
 	_constantBuffer[static_cast<uint8>(CBV_REGISTER::b2)] = make_shared<ConstantBuffer>();
-	_constantBuffer[static_cast<uint8>(CBV_REGISTER::b2)]->Init(sizeof(MaterialDesc), 256);
+	_constantBuffer[static_cast<uint8>(CBV_REGISTER::b2)]->Init(sizeof(MaterialData), 256);
 }
 
 void Graphics::RenderBegin()

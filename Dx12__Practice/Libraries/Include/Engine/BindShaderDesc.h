@@ -47,6 +47,10 @@ struct TransformData
 	Matrix matProjection;
 	Matrix worldnvTranspose;
 	Matrix worldViewProj;
-	Matrix TexTransform;
 };
 
+struct MaterialData
+{
+	MaterialDesc mat;
+	Matrix texTransform;
+};

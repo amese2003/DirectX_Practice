@@ -8,8 +8,8 @@ SamplerState samAnisotropic : register(s0)
 	Filter = ANISOTROPIC;
 	MaxAnisotropy = 4;
 
-	AddressU = WRAP;
-	AddressV = WRAP;
+	AddressU = MIRROR;
+	AddressV = MIRROR;
 };
 
 
@@ -61,7 +61,8 @@ float4 PS_Main(VertexOut pin) : SV_Target
 	//}
 
 	texColor = gDiffuseMap.Sample(samAnisotropic, pin.Tex);
-
+	//float4 litColor = float4(pin.Tex, 0.0f, 1.0f);
+	//
 	//
 	// Lighting.
 	//

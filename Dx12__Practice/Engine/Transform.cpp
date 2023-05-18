@@ -32,7 +32,6 @@ void Transform::Update()
 	cbuffer.matProjection = Camera::S_MatProjection;
 	cbuffer.worldnvTranspose = MathHelper::InverseTranspose(cbuffer.world);
 	cbuffer.worldViewProj = cbuffer.world * cbuffer.matView * cbuffer.matProjection;
-	cbuffer.TexTransform = Matrix::Identity;
 
 	D3D12_CPU_DESCRIPTOR_HANDLE handle = GRAPHICS->GetConstantBuffer(CBV_REGISTER::b1)->PushData(&cbuffer, sizeof(cbuffer));
 	GRAPHICS->GetTableDescHeap()->SetConstantBuffer(handle, CBV_REGISTER::b1);

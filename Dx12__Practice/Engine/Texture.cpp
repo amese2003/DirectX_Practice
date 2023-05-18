@@ -93,4 +93,6 @@ void Texture::CreateView()
 	srvDesc.Shader4ComponentMapping = D3D12_DEFAULT_SHADER_4_COMPONENT_MAPPING;
 	srvDesc.Texture2D.MipLevels = 1;
 	DEVICE->CreateShaderResourceView(_texture2D.Get(), &srvDesc, _srvHandle);
+
+
 }
