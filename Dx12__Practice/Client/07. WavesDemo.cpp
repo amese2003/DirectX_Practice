@@ -34,7 +34,7 @@ void WavesDemo::Init()
 
 	{
 		shared_ptr<Shader> shader = make_shared<Shader>();
-		shader->Init(L"..\\Shaders\\05. Color.fx", true);
+		shader->Init(L"..\\Shaders\\05. Color.fx");
 
 		shared_ptr<Mesh> waveMesh = make_shared<Mesh>();
 		{

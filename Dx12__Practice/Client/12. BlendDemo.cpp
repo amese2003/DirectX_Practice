@@ -8,7 +8,44 @@ void BlendDemo::Init()
 {
 	{
 		shared_ptr<Shader> shader = make_shared<Shader>();
-		shader->Init(L"..\\Shaders\\07. Basic.fx");
+		{
+			ShaderInfo info;
+			info.rasterizerType = RASTERIZER_TYPE::NoCullRS;
+			shader->Init(L"..\\Shaders\\08. Basic.fx", info);
+		}
+		
+
+		shared_ptr<Mesh> mesh = make_shared<Mesh>();
+		{
+			mesh->Init();
+			mesh->CreateCube();
+
+
+			shared_ptr<Material> material = make_shared<Material>();
+			material->SetAmbient(Vec4(0.5f, 0.5f, 0.5f, 1.0f));
+			material->SetDiffuse(Vec4(1.0f, 1.0f, 1.0f, 1.0f));
+			material->SetSpecular(Vec4(0.6f, 0.6f, 0.6f, 16.0f));
+			mesh->SetMateral(material);
+		}
+
+		shared_ptr<Texture> texture = make_shared<Texture>();
+		texture->Init(L"..\\Resources\\Textures\\WireFence.dds");
+
+		shared_ptr<GameObject> gameObject = make_shared<GameObject>();
+		gameObject->GetOrAddTransform();
+		gameObject->GetTransform()->SetPosition(Vec3(8.0f, 5.0f, -15.0f));
+		gameObject->GetTransform()->SetLocalScale(Vec3(15.0f, 15.0f, 15.0f));
+		gameObject->AddComponent(make_shared<MeshRenderer>());
+		gameObject->GetMeshRenderer()->SetMesh(mesh);
+		gameObject->GetMeshRenderer()->SetShader(shader);
+		gameObject->GetMeshRenderer()->SetTexture(texture);
+
+		CUR_SCENE->Add(gameObject);
+	}
+
+	{
+		shared_ptr<Shader> shader = make_shared<Shader>();
+		shader->Init(L"..\\Shaders\\08. Basic.fx");
 
 		shared_ptr<Texture> texture = make_shared<Texture>();
 		texture->Init(L"..\\Resources\\Textures\\grass.dds");
@@ -36,7 +73,11 @@ void BlendDemo::Init()
 
 	{
 		shared_ptr<Shader> shader = make_shared<Shader>();
-		shader->Init(L"..\\Shaders\\07. Basic.fx");
+		{
+			ShaderInfo desc;
+			shader->Init(L"..\\Shaders\\08. Basic.fx", desc);
+		}
+		
 
 		shared_ptr<Texture> texture = make_shared<Texture>();
 		texture->Init(L"..\\Resources\\Textures\\water2.dds");

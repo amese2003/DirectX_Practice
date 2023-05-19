@@ -1,17 +1,17 @@
 #pragma once
+#include "RenderStates.h"
 
 class VertexShader;
 class PixelShader;
+struct ShaderInfo;
 
-class Shader : public ResourceBase
+class Shader
 {
-	using Super = ResourceBase;
-
 public:
 	Shader();
 	virtual ~Shader();
 
-	void Init(const wstring& path, bool wireframe = false);
+	void Init(const wstring& path, ShaderInfo info = ShaderInfo());
 	void Update();
 
 private:

@@ -38,6 +38,7 @@ namespace fs = std::filesystem;
 using namespace DirectX;
 using namespace DirectX::PackedVector;
 using namespace Microsoft::WRL;
+#include "RenderStates.h"
 
 #include <DirectXTex/DirectXTex.h>
 #include <DirectXTex/DirectXTex.inl>

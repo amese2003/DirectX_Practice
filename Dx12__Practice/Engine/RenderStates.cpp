@@ -55,9 +55,14 @@ D3D12_RASTERIZER_DESC RenderStates::InitRasterizer(RASTERIZER_TYPE rasterizeStat
 {
 	D3D12_RASTERIZER_DESC desc = CD3DX12_RASTERIZER_DESC(D3D12_DEFAULT);
 
+
 	switch (rasterizeState)
 	{
+	case RASTERIZER_TYPE::WireframeRS:
+		desc.FillMode = D3D12_FILL_MODE_WIREFRAME;
+		break;
 	default:
+		desc.FillMode = D3D12_FILL_MODE_SOLID;
 		break;
 	}
 

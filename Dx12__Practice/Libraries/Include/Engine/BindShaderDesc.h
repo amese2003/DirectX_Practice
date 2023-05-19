@@ -35,6 +35,11 @@ struct LightParams
 	uint32			lightCount;
 	Vec3			eyePosition;
 	LightDesc		lights[50];
+
+	float gFogStart;
+	float gFogRange;
+	Vec2 pad;
+	Color gFogColor;
 };
 
 

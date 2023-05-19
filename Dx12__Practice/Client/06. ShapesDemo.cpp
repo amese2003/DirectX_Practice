@@ -2,11 +2,17 @@
 #include "06. ShapesDemo.h"
 #include "Camera.h"
 #include "CameraScript.h"
+#include "RenderStates.h"
 
 void ShapesDemo::Init()
 {
 	shared_ptr<Shader> shader = make_shared<Shader>();
-	shader->Init(L"..\\Shaders\\05. Color.fx", true);
+	{
+		ShaderInfo info;
+		info.rasterizerType = RASTERIZER_TYPE::WireframeRS;
+		shader->Init(L"..\\Shaders\\05. Color.fx", info);
+	}
+	
 
 	{
 		shared_ptr<Mesh> mesh = make_shared<Mesh>();
