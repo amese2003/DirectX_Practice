@@ -31,5 +31,9 @@ public:
 	static void CreateCylinderTopCap(shared_ptr<Geometry<VertexTextureNormalTangentData>> geometry, float bottomRadius, float topRadius, float height, uint32 sliceCount, uint32 stackCount);
 	static void CreateCylinderBottomCap(shared_ptr<Geometry<VertexTextureNormalTangentData>> geometry, float bottomRadius, float topRadius, float height, uint32 sliceCount, uint32 stackCount);
 	
+
+	static void CreateFloor(shared_ptr<Geometry<VertexTextureNormalTangentData>> geometry);
+	static void CreateWall(shared_ptr<Geometry<VertexTextureNormalTangentData>> geometry);
+	static void CreateRoomMirror(shared_ptr<Geometry<VertexTextureNormalTangentData>> geometry);
 };
 

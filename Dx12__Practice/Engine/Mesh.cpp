@@ -121,3 +121,24 @@ void Mesh::CreateMesh(const wstring& path)
 	_vertexBuffer->CreateTexture(vertices);
 	_indexBuffer->CreateTexture(indices);
 }
+
+void Mesh::CreateFloor()
+{
+	GeometryHelper::CreateFloor(_geometry);
+
+	_vertexBuffer->CreateTexture(_geometry->GetVertices());
+}
+
+void Mesh::CreateWall()
+{
+	GeometryHelper::CreateWall(_geometry);
+
+	_vertexBuffer->CreateTexture(_geometry->GetVertices());
+}
+
+void Mesh::CreateMirror()
+{
+	GeometryHelper::CreateRoomMirror(_geometry);
+
+	_vertexBuffer->CreateTexture(_geometry->GetVertices());
+}

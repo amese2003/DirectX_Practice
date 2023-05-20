@@ -34,6 +34,8 @@ void SkullDemo::Init()
 			material->SetAmbient(ambient);
 			material->SetDiffuse(diffuse);
 			material->SetSpecular(specular);
+
+			material->SetShader(shader);
 		}	
 
 		shared_ptr<Mesh> skullMesh = make_shared<Mesh>();

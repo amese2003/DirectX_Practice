@@ -22,6 +22,9 @@ public:
 	void CreateSphere();
 	void CreateCylinder();
 	void CreateMesh(const wstring& path);
+	void CreateFloor();
+	void CreateWall();
+	void CreateMirror();
 
 	shared_ptr<VertexBuffer> GetVertexBuffer() { return _vertexBuffer; }
 	shared_ptr<IndexBuffer> GetIndexBuffer() { return _indexBuffer; }
@@ -32,6 +35,9 @@ public:
 	void SetMateral(shared_ptr<Material> material) { _material = material; }
 	shared_ptr<Material> GetMaterial() { return _material; }
 
+	void SetShadow(shared_ptr<Material> material) { _shadowMaterial = material; }
+	shared_ptr<Material> GetShadowMaterial() { return _shadowMaterial; }
+
 private:
 	ComPtr<ID3D12Device> _device;
 
@@ -41,5 +47,6 @@ private:
 
 private:
 	shared_ptr<Material> _material;
+	shared_ptr<Material> _shadowMaterial;
 };
 

@@ -98,9 +98,10 @@ void Scene::PushLightData()
 	}
 
 
-	cbParams.gFogColor = Color(0.752941251f, 0.752941251f, 0.752941251f, 1.000000000f);
-	cbParams.gFogStart = 15.0f;
-	cbParams.gFogRange = 175.0f;
+	//cbParams.gFogColor = Color(0.752941251f, 0.752941251f, 0.752941251f, 1.000000000f);
+	cbParams.gFogColor = Color(0.f,0.f,0.f, 1.000000000f);
+	cbParams.gFogStart = 2.0f;
+	cbParams.gFogRange = 40.0f;
 
 	GRAPHICS->GetConstantBuffer(CBV_REGISTER::b0)->SetGlobalData(&cbParams, sizeof(cbParams));
 }

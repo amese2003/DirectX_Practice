@@ -1099,3 +1099,84 @@ void GeometryHelper::CreateCylinderBottomCap(shared_ptr<Geometry<VertexTextureNo
 		geometry->AddIndex(baseIndex + i + 1);
 	}
 }
+
+void GeometryHelper::CreateFloor(shared_ptr<Geometry<VertexTextureNormalTangentData>> geometry)
+{
+	vector<VertexTextureNormalTangentData> vtx;
+	vtx.resize(6);
+
+
+	// Floor: Observe we tile texture coordinates.
+	vtx[0] = VertexTextureNormalTangentData({-3.5f, 0.0f, -10.0f}, { 0.0f, 4.0f }, { 0.0f, 1.0f, 0.0f });
+	vtx[1] = VertexTextureNormalTangentData({ -3.5f, 0.0f, 0.0f }, { 0.0f, 0.0f }, { 0.0f, 1.0f, 0.0f });
+	vtx[2] = VertexTextureNormalTangentData({ 7.5f, 0.0f, 0.0f }, { 4.0f, 0.0f }, {0.0f, 1.0f, 0.0f} );
+
+	vtx[3] = VertexTextureNormalTangentData({ -3.5f, 0.0f, -10.0f }, { 0.0f, 4.0f }, { 0.0f, 1.0f, 0.0f });
+	vtx[4] = VertexTextureNormalTangentData({ 7.5f, 0.0f, 0.0f }, { 4.0f, 0.0f }, { 0.0f, 1.0f, 0.0f });
+	vtx[5] = VertexTextureNormalTangentData({ 7.5f, 0.0f, -10.0f }, { 4.0f, 4.0f }, { 0.0f, 1.0f, 0.0f });
+
+	
+
+	// Mirror
+	//vtx[24] = VertexTextureNormalTangentData({-2.5f, 0.0f, 0.0f}, { 0.0f, 1.0f }, { 0.0f, 0.0f, -1.0f });
+	//vtx[25] = VertexTextureNormalTangentData({ -2.5f, 4.0f, 0.0f }, { 0.0f, 0.0f }, { 0.0f, 0.0f, -1.0f });
+	//vtx[26] = VertexTextureNormalTangentData({ 2.5f, 4.0f, 0.0f }, { 1.0f, 0.0f },{0.0f, 0.0f, -1.0f} );
+
+	//vtx[27] = VertexTextureNormalTangentData({-2.5f, 0.0f, 0.0f}, { 0.0f, 1.0f } ,{0.0f, 0.0f, -1.0f });
+	//vtx[28] = VertexTextureNormalTangentData({ 2.5f, 4.0f, 0.0f }, { 1.0f, 0.0f } ,{0.0f, 0.0f, -1.0f});
+	//vtx[29] = VertexTextureNormalTangentData({ 2.5f, 0.0f, 0.0f }, { 1.0f, 1.0f } ,{0.0f, 0.0f , -1.0f});
+
+	geometry->SetVertices(vtx);
+
+}
+
+void GeometryHelper::CreateWall(shared_ptr<Geometry<VertexTextureNormalTangentData>> geometry)
+{
+	vector<VertexTextureNormalTangentData> vtx;
+	vtx.resize(18);
+	// Wall: Observe we tile texture coordinates, and that we
+	// leave a gap in the middle for the mirror.
+	vtx[0] = VertexTextureNormalTangentData({ -3.5f, 0.0f, 0.0f }, { 0.0f, 2.0f }, { 0.0f, 0.0f, -1.0f });
+	vtx[1] = VertexTextureNormalTangentData({ -3.5f, 4.0f, 0.0f }, { 0.0f, 0.0f }, { 0.0f, 0.0f, -1.0f });
+	vtx[2] = VertexTextureNormalTangentData({ -2.5f, 4.0f, 0.0f }, { 0.5f, 0.0f }, { 0.0f, 0.0f, -1.0f });
+
+	vtx[3] = VertexTextureNormalTangentData({ -3.5f, 0.0f, 0.0f }, { 0.0f, 2.0f }, { 0.0f, 0.0f, -1.0f });
+	vtx[4] = VertexTextureNormalTangentData({ -2.5f, 4.0f, 0.0f }, { 0.5f, 0.0f }, { 0.0f, 0.0f, -1.0f });
+	vtx[5] = VertexTextureNormalTangentData({ -2.5f, 0.0f, 0.0f }, { 0.5f, 2.0f }, { 0.0f, 0.0f, -1.0f });
+
+	vtx[6] = VertexTextureNormalTangentData({ 2.5f, 0.0f, 0.0f }, { 0.0f, 2.0f }, { 0.0f, 0.0f, -1.0f });
+	vtx[7] = VertexTextureNormalTangentData({ 2.5f, 4.0f, 0.0f }, { 0.0f, 0.0f }, { 0.0f, 0.0f, -1.0f });
+	vtx[8] = VertexTextureNormalTangentData({ 7.5f, 4.0f, 0.0f }, { 2.0f, 0.0f }, { 0.0f, 0.0f, -1.0f });
+
+	vtx[9] = VertexTextureNormalTangentData({ 2.5f, 0.0f, 0.0f }, { 0.0f, 2.0f }, { 0.0f, 0.0f, -1.0f });
+	vtx[10] = VertexTextureNormalTangentData({ 7.5f, 4.0f, 0.0f }, { 2.0f, 0.0f }, { 0.0f, 0.0f, -1.0f });
+	vtx[11] = VertexTextureNormalTangentData({ 7.5f, 0.0f, 0.0f }, { 2.0f, 2.0f }, { 0.0f, 0.0f, -1.0f });
+
+	vtx[12] = VertexTextureNormalTangentData({ -3.5f, 4.0f, 0.0f }, { 0.0f, 1.0f }, { 0.0f, 0.0f, -1.0f });
+	vtx[13] = VertexTextureNormalTangentData({ -3.5f, 6.0f, 0.0f }, { 0.0f, 0.0f }, { 0.0f, 0.0f, -1.0f });
+	vtx[14] = VertexTextureNormalTangentData({ 7.5f, 6.0f, 0.0f }, { 6.0f, 0.0f }, { 0.0f, 0.0f, -1.0f });
+
+	vtx[15] = VertexTextureNormalTangentData({ -3.5f, 4.0f, 0.0f }, { 0.0f, 1.0f }, { 0.0f, 0.0f, -1.0f });
+	vtx[16] = VertexTextureNormalTangentData({ 7.5f, 6.0f, 0.0f }, { 6.0f, 0.0f }, { 0.0f, 0.0f, -1.0f });
+	vtx[17] = VertexTextureNormalTangentData({ 7.5f, 4.0f, 0.0f }, { 6.0f, 1.0f }, { 0.0f, 0.0f, -1.0f });
+
+
+	geometry->SetVertices(vtx);
+}
+
+void GeometryHelper::CreateRoomMirror(shared_ptr<Geometry<VertexTextureNormalTangentData>> geometry)
+{
+	vector<VertexTextureNormalTangentData> vtx;
+	vtx.resize(6);
+
+	// Mirror
+	vtx[0] = VertexTextureNormalTangentData({ -2.5f, 0.0f, 0.0f }, { 0.0f, 1.0f }, { 0.0f, 0.0f, -1.0f });
+	vtx[1] = VertexTextureNormalTangentData({ -2.5f, 4.0f, 0.0f }, { 0.0f, 0.0f }, { 0.0f, 0.0f, -1.0f });
+	vtx[2] = VertexTextureNormalTangentData({ 2.5f, 4.0f, 0.0f }, { 1.0f, 0.0f }, { 0.0f, 0.0f, -1.0f });
+
+	vtx[3] = VertexTextureNormalTangentData({ -2.5f, 0.0f, 0.0f }, { 0.0f, 1.0f }, { 0.0f, 0.0f, -1.0f });
+	vtx[4] = VertexTextureNormalTangentData({ 2.5f, 4.0f, 0.0f }, { 1.0f, 0.0f }, { 0.0f, 0.0f, -1.0f });
+	vtx[5] = VertexTextureNormalTangentData({ 2.5f, 0.0f, 0.0f }, { 1.0f, 1.0f }, { 0.0f, 0.0f , -1.0f });
+
+	geometry->SetVertices(vtx);
+}
