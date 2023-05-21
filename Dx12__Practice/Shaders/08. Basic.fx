@@ -61,6 +61,7 @@ float4 PS_Main(VertexOut pin) : SV_Target
 	//}
 
 	texColor = gDiffuseMap.Sample(samAnisotropic, pin.Tex);
+	
 	clip(texColor.a - 0.1f);
 
 	//float4 litColor = float4(pin.Tex, 0.0f, 1.0f);
@@ -99,6 +100,6 @@ float4 PS_Main(VertexOut pin) : SV_Target
 
 	// Common to take alpha from diffuse material and texture.
 	litColor.a = gMaterial.Diffuse.a * texColor.a;
-
+	//litColor = float4(pin.Tex, 0.0f, 1.0f);
 	return litColor;
 }
