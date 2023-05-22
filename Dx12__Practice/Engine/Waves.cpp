@@ -47,7 +47,17 @@ void Waves::Render()
 	CMD_LIST->IASetVertexBuffers(0, 1, &_mesh->GetVertexBuffer()->GetVertexBufferView()); // Slot: (0~15)
 	CMD_LIST->IASetIndexBuffer(&_mesh->GetIndexBuffer()->GetIndexBufferView());
 
+	TransformData ctransformbuffer;
+	ctransformbuffer.position = GetTransform()->GetPosition();
+	ctransformbuffer.pad = 1.f;
+	ctransformbuffer.world = GetTransform()->GetWorldMatrix();
+	ctransformbuffer.matView = Camera::S_MatView;
+	ctransformbuffer.matProjection = Camera::S_MatProjection;
+	ctransformbuffer.worldnvTranspose = MathHelper::InverseTranspose(ctransformbuffer.world);
+	ctransformbuffer.worldViewProj = ctransformbuffer.world * ctransformbuffer.matView * ctransformbuffer.matProjection;
 
+	D3D12_CPU_DESCRIPTOR_HANDLE transformhandle = GRAPHICS->GetConstantBuffer(CBV_REGISTER::b1)->PushData(&ctransformbuffer, sizeof(ctransformbuffer));
+	GRAPHICS->GetTableDescHeap()->SetConstantBuffer(transformhandle, CBV_REGISTER::b1);
 
 	
 

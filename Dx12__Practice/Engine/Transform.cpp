@@ -24,17 +24,7 @@ void Transform::Awake()
 void Transform::Update()
 {
 	
-	TransformData cbuffer;
-	cbuffer.position = _position;
-	cbuffer.pad = 1.f;
-	cbuffer.world = GetWorldMatrix();
-	cbuffer.matView = Camera::S_MatView;
-	cbuffer.matProjection = Camera::S_MatProjection;
-	cbuffer.worldnvTranspose = MathHelper::InverseTranspose(cbuffer.world);
-	cbuffer.worldViewProj = cbuffer.world * cbuffer.matView * cbuffer.matProjection;
 
-	D3D12_CPU_DESCRIPTOR_HANDLE handle = GRAPHICS->GetConstantBuffer(CBV_REGISTER::b1)->PushData(&cbuffer, sizeof(cbuffer));
-	GRAPHICS->GetTableDescHeap()->SetConstantBuffer(handle, CBV_REGISTER::b1);
 
 	//CbPerObjectData.gWorld = GetTransform()->GetWorldMatrix();
 	//CbPerObjectData.gWorldInvTranspose = MathHelper::InverseTranspose(CbPerObjectData.gWorld);

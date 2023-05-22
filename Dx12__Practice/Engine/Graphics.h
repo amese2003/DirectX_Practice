@@ -42,7 +42,7 @@ private:
 	shared_ptr<RootSignature>					_rootSignature;
 	shared_ptr<TableDescriptionHeap>			_tableDescHeap;
 	vector<shared_ptr<ConstantBuffer>>			_constantBuffer;
-	shared_ptr<DepthStencilBuffer> _depthStencilBuffer;
+	shared_ptr<DepthStencilBuffer>				_depthStencilBuffer;
 
 	D3D12_VIEWPORT _viewport = { 0 };
 	D3D12_RECT		_scissorRect = {};

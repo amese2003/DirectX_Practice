@@ -15,7 +15,7 @@ D3D12_BLEND_DESC RenderStates::InitBlend(BLEND_TYPE blendState)
 		desc.RenderTarget[0].RenderTargetWriteMask = D3D12_COLOR_WRITE_ENABLE_ALL;
 		break;
 		
-	case BLEND_TYPE::NonRenderTargetWritesBS:
+	case BLEND_TYPE::NoRenderTargetWritesBS:
 		desc.AlphaToCoverageEnable = false;
 		desc.IndependentBlendEnable = false;
 

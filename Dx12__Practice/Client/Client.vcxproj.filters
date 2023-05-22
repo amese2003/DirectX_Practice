@@ -79,6 +79,12 @@
     <ClInclude Include="12. BlendDemo.h">
       <Filter>Game</Filter>
     </ClInclude>
+    <ClInclude Include="13. MirrorDemo.h">
+      <Filter>Game</Filter>
+    </ClInclude>
+    <ClInclude Include="SkullScript.h">
+      <Filter>Main</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Client.rc">
@@ -141,6 +147,12 @@
     </ClCompile>
     <ClCompile Include="12. BlendDemo.cpp">
       <Filter>Game</Filter>
+    </ClCompile>
+    <ClCompile Include="13. MirrorDemo.cpp">
+      <Filter>Game</Filter>
+    </ClCompile>
+    <ClCompile Include="SkullScript.cpp">
+      <Filter>Main</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

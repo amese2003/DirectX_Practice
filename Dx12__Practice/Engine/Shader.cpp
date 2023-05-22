@@ -25,7 +25,7 @@ void Shader::Init(const wstring& path, ShaderInfo info)
 	_pipelineDesc.RasterizerState = CD3DX12_RASTERIZER_DESC(D3D12_DEFAULT);
 	_pipelineDesc.BlendState = CD3DX12_BLEND_DESC(D3D12_DEFAULT);
 	_pipelineDesc.DepthStencilState = CD3DX12_DEPTH_STENCIL_DESC(D3D12_DEFAULT);
-
+	
 
 	_pipelineDesc.SampleMask = UINT_MAX;
 	_pipelineDesc.PrimitiveTopologyType = D3D12_PRIMITIVE_TOPOLOGY_TYPE_TRIANGLE;
@@ -33,6 +33,7 @@ void Shader::Init(const wstring& path, ShaderInfo info)
 	_pipelineDesc.RTVFormats[0] = DXGI_FORMAT_R8G8B8A8_UNORM;
 	_pipelineDesc.SampleDesc.Count = 1;
 	_pipelineDesc.DSVFormat = GRAPHICS->GetDepthStencilBuffer()->GetDSVFormat();
+
 
 
 
@@ -46,7 +47,7 @@ void Shader::Init(const wstring& path, ShaderInfo info)
 		_pipelineDesc.BlendState.RenderTarget[0].RenderTargetWriteMask = D3D12_COLOR_WRITE_ENABLE_ALL;
 		break;
 
-	case BLEND_TYPE::NonRenderTargetWritesBS:
+	case BLEND_TYPE::NoRenderTargetWritesBS:
 		_pipelineDesc.BlendState.AlphaToCoverageEnable = false;
 		_pipelineDesc.BlendState.IndependentBlendEnable = false;
 

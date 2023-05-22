@@ -15,7 +15,7 @@ enum class BLEND_TYPE : uint8
 	DEFAULT = 0,
 	AlphaToCoverageBS,
 	TransparentBS,
-	NonRenderTargetWritesBS,
+	NoRenderTargetWritesBS,
 };
 
 enum class DEPTH_STENCIL_TYPE : uint8
