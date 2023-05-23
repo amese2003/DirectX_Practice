@@ -165,6 +165,7 @@
     <ClInclude Include="11. TexturedHillsAndWavesDemo.h" />
     <ClInclude Include="12. BlendDemo.h" />
     <ClInclude Include="13. MirrorDemo.h" />
+    <ClInclude Include="14. TreeBillboardDemo.h" />
     <ClInclude Include="CameraScript.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="GameObjectDemo.h" />
@@ -188,6 +189,7 @@
     <ClCompile Include="11. TexturedHillsAndWavesDemo.cpp" />
     <ClCompile Include="12. BlendDemo.cpp" />
     <ClCompile Include="13. MirrorDemo.cpp" />
+    <ClCompile Include="14. TreeBillboardDemo.cpp" />
     <ClCompile Include="CameraScript.cpp" />
     <ClCompile Include="GameObjectDemo.cpp" />
     <ClCompile Include="Main.cpp" />

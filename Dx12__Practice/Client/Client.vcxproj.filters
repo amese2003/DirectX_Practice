@@ -85,6 +85,9 @@
     <ClInclude Include="SkullScript.h">
       <Filter>Main</Filter>
     </ClInclude>
+    <ClInclude Include="14. TreeBillboardDemo.h">
+      <Filter>Game</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Client.rc">
@@ -153,6 +156,9 @@
     </ClCompile>
     <ClCompile Include="SkullScript.cpp">
       <Filter>Main</Filter>
+    </ClCompile>
+    <ClCompile Include="14. TreeBillboardDemo.cpp">
+      <Filter>Game</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
