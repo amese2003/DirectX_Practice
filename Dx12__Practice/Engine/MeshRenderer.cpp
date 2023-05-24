@@ -17,10 +17,10 @@ void MeshRenderer::Update()
 {
 	Render();
 
-	if (_mesh->GetShadowMaterial())
+	if (_mesh->GetShadowMaterial() != nullptr)
 		RenderShadow();
 
-	if (_mesh->GetReflectMaterial())
+	if (_mesh->GetReflectMaterial() != nullptr)
 		RenderReflect();
 	
 }
@@ -67,7 +67,7 @@ void MeshRenderer::Render()
 
 	if (_texture)
 	{
-		//cbuffer.texTransform *= 5;
+		cbuffer.texTransform *= 5;
 		GRAPHICS->GetTableDescHeap()->SetShaderResourceView(_texture->GetCpuHandle(), SRV_REGISTER::t0);
 	}
 

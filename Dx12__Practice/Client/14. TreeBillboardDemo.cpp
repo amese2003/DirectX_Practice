@@ -22,6 +22,7 @@ void TreeBillboardDemo::Init()
 			material->SetAmbient(Vec4(0.5f, 0.5f, 0.5f, 1.0f));
 			material->SetDiffuse(Vec4(1.0f, 1.0f, 1.0f, 1.0f));
 			material->SetSpecular(Vec4(0.6f, 0.6f, 0.6f, 16.0f));
+			material->SetShader(shader);
 			landMesh->SetMateral(material);
 		}
 
@@ -29,7 +30,6 @@ void TreeBillboardDemo::Init()
 		grid->GetOrAddTransform();
 		grid->AddComponent(make_shared<MeshRenderer>());
 		grid->GetMeshRenderer()->SetMesh(landMesh);
-		grid->GetMeshRenderer()->SetShader(shader);
 		grid->GetMeshRenderer()->SetTexture(texture);
 		CUR_SCENE->Add(grid);
 	}
@@ -49,6 +49,7 @@ void TreeBillboardDemo::Init()
 			material->SetAmbient(Vec4(0.5f, 0.5f, 0.5f, 1.0f));
 			material->SetDiffuse(Vec4(1.0f, 1.0f, 1.0f, 1.0f));
 			material->SetSpecular(Vec4(0.6f, 0.6f, 0.6f, 16.0f));
+			material->SetShader(shader);
 			waveMesh->SetMateral(material);
 		}
 		
