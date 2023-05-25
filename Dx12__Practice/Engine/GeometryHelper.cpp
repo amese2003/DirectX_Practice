@@ -1,5 +1,6 @@
 #include "pch.h"
 #include "GeometryHelper.h"
+#include "MathHelper.h"
 
 void GeometryHelper::CreateRectangle(shared_ptr<Geometry<VertexColorData>> geometry, Color color)
 {
@@ -894,6 +895,19 @@ void GeometryHelper::CreateGrid(shared_ptr<Geometry<VertexTextureNormalTangentDa
 	geometry->SetIndices(idx);
 }
 
+Vec3 GeometryHelper::GetHeightNormal(float x, float z)
+{
+	XMFLOAT3 n(
+		-0.03f * z * cosf(0.1f * x) - 0.3f * cosf(0.1f * z),
+		1.0f,
+		-0.3f * sinf(0.1f * x) + 0.03f * x * sinf(0.1f * z));
+
+	XMVECTOR unitNormal = XMVector3Normalize(XMLoadFloat3(&n));
+	XMStoreFloat3(&n, unitNormal);
+
+	return n;
+}
+
 void GeometryHelper::CreateCylinder(shared_ptr<Geometry<VertexTextureNormalTangentData>> geometry, float bottomRadius, float topRadius, float height, uint32 sliceCount, uint32 stackCount)
 {
 
@@ -1179,4 +1193,31 @@ void GeometryHelper::CreateRoomMirror(shared_ptr<Geometry<VertexTextureNormalTan
 	vtx[5] = VertexTextureNormalTangentData({ 2.5f, 0.0f, 0.0f }, { 1.0f, 1.0f }, { 0.0f, 0.0f , -1.0f });
 
 	geometry->SetVertices(vtx);
+}
+
+void GeometryHelper::CreateTreeSprites(shared_ptr<Geometry<VertexTextureNormalTangentData>> geometry)
+{
+	int treecount = 16;
+
+	vector<VertexTextureNormalTangentData> vtx;
+	vtx.resize(treecount);
+
+	for (int i = 0; i < treecount; i++)
+	{
+		float x = MathHelper::RandF(-45.f, 45.f);
+		float z = MathHelper::RandF(-45.f, 45.f);
+		float y = GetHeight(x, z);
+
+		 
+		y += 8.0f;
+
+		vtx[i].position = Vec3(x, y, z);
+		vtx[i].sizeW = Vec2(20.f, 20.f);
+	}
+
+
+	vector<uint32> indices = { 0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15 };
+
+	geometry->SetVertices(vtx);
+	geometry->SetIndices(indices);
 }

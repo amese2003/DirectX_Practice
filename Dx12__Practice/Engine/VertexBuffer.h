@@ -12,7 +12,8 @@ public:
 	void CreateTexture(const vector<T>& vertices)
 	{
 		_count = static_cast<uint32>(vertices.size());
-		uint32 bufferSize = _count * sizeof(T);
+		_stride = sizeof(T);
+		uint32 bufferSize = _count * _stride;
 
 		D3D12_HEAP_PROPERTIES heapProperty = CD3DX12_HEAP_PROPERTIES(D3D12_HEAP_TYPE_UPLOAD);
 		D3D12_RESOURCE_DESC desc;
@@ -29,9 +30,10 @@ public:
 
 		PushData(vertices);
 
+		
 		// Initialize the vertex buffer view.
 		_vertexBufferView.BufferLocation = _vertexBuffer->GetGPUVirtualAddress();
-		_vertexBufferView.StrideInBytes = sizeof(T); // 정점 1개 크기
+		_vertexBufferView.StrideInBytes = _stride; // 정점 1개 크기
 		_vertexBufferView.SizeInBytes = bufferSize; // 버퍼의 크기	
 	}
 
@@ -48,6 +50,8 @@ public:
 		::memcpy(vertexDataBuffer, &vertices[0], bufferSize);
 		_vertexBuffer->Unmap(0, nullptr);
 	}
+
+
 
 private:
 	friend class MeshRenderer;

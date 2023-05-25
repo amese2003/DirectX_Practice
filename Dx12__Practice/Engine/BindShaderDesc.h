@@ -3,6 +3,15 @@
 
 class Shader;
 
+struct ShaderArg
+{
+	const string vs = "VS_Main";
+	const string hs;
+	const string ds;
+	const string gs;
+	const string ps = "PS_Main";
+};
+
 
 struct MaterialDesc
 {

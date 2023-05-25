@@ -9,12 +9,12 @@ Texture::~Texture()
 {
 }
 
-void Texture::Init(const wstring& path)
+void Texture::Init(const wstring& path, bool isArray)
 {
 	_srvHeap = GRAPHICS->GetTableDescHeap()->GetDescriptorHeap();
 
 	CreateTexture(path);
-	CreateView();
+	CreateView(isArray);
 }
 
 void Texture::CreateTexture(const wstring& path)
@@ -33,6 +33,7 @@ void Texture::CreateTexture(const wstring& path)
 		hr = ::LoadFromWICFile(path.c_str(), WIC_FLAGS_NONE, &md, _image);
 
 	CHECK(hr);
+
 
 	hr = ::CreateTexture(DEVICE.Get(), _image.GetMetadata(), &_texture2D);
 	CHECK(hr);
@@ -77,7 +78,7 @@ void Texture::CreateTexture(const wstring& path)
 
 }
 
-void Texture::CreateView()
+void Texture::CreateView(bool isArray)
 {
 	D3D12_DESCRIPTOR_HEAP_DESC srvHeapDesc = {};
 	srvHeapDesc.NumDescriptors = 1;
@@ -88,10 +89,26 @@ void Texture::CreateView()
 	_srvHandle = _srvHeap->GetCPUDescriptorHandleForHeapStart();
 
 	D3D12_SHADER_RESOURCE_VIEW_DESC srvDesc = {};
-	srvDesc.Format = _image.GetMetadata().format;
-	srvDesc.ViewDimension = D3D12_SRV_DIMENSION_TEXTURE2D;
 	srvDesc.Shader4ComponentMapping = D3D12_DEFAULT_SHADER_4_COMPONENT_MAPPING;
-	srvDesc.Texture2D.MipLevels = 1;
+	srvDesc.Format = _image.GetMetadata().format;
+
+	if (isArray)
+	{
+		srvDesc.ViewDimension = D3D12_SRV_DIMENSION_TEXTURE2DARRAY;
+		srvDesc.Texture2DArray.MostDetailedMip = 0;
+		srvDesc.Texture2DArray.MipLevels = -1;
+		srvDesc.Texture2DArray.FirstArraySlice = 0;
+		srvDesc.Texture2DArray.ArraySize = _image.GetMetadata().arraySize;
+		
+		
+	}
+	else
+	{
+		srvDesc.ViewDimension = D3D12_SRV_DIMENSION_TEXTURE2D;
+		srvDesc.Texture2D.MipLevels = 1;
+	}
+
+	
 	DEVICE->CreateShaderResourceView(_texture2D.Get(), &srvDesc, _srvHandle);
 
 

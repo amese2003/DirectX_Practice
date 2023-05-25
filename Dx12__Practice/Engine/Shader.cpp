@@ -11,10 +11,14 @@ Shader::~Shader()
 {
 }
 
-void Shader::Init(const wstring& path, ShaderInfo info)
+void Shader::Init(const wstring& path, ShaderInfo info, ShaderArg args)
 {
-	CreateVertexShader(path, "VS_Main", "vs_5_0");
-	CreatePixelShader(path, "PS_Main", "ps_5_0");
+	CreateVertexShader(path, args.vs, "vs_5_0");
+	CreatePixelShader(path, args.ps, "ps_5_0");
+
+	if (args.gs.empty() == false)
+		CreateGeometryShader(path, args.gs, "gs_5_0");
+
 
 	vector<D3D12_INPUT_ELEMENT_DESC> desc = MeshVertex::VertexDesc;
 
@@ -75,6 +79,18 @@ void Shader::Init(const wstring& path, ShaderInfo info)
 		_pipelineDesc.BlendState.RenderTarget[0].RenderTargetWriteMask = 0;
 		break;
 
+	case BLEND_TYPE::TranseparencyBS:
+		_pipelineDesc.BlendState.RenderTarget[0].BlendEnable = true;
+		_pipelineDesc.BlendState.RenderTarget[0].LogicOpEnable = false;
+		_pipelineDesc.BlendState.RenderTarget[0].SrcBlend = D3D12_BLEND_SRC_ALPHA;
+		_pipelineDesc.BlendState.RenderTarget[0].DestBlend = D3D12_BLEND_INV_SRC_ALPHA;
+		_pipelineDesc.BlendState.RenderTarget[0].BlendOp = D3D12_BLEND_OP_ADD;
+		_pipelineDesc.BlendState.RenderTarget[0].SrcBlendAlpha = D3D12_BLEND_ONE;
+		_pipelineDesc.BlendState.RenderTarget[0].DestBlendAlpha = D3D12_BLEND_ZERO;
+		_pipelineDesc.BlendState.RenderTarget[0].BlendOpAlpha = D3D12_BLEND_OP_ADD;
+		_pipelineDesc.BlendState.RenderTarget[0].LogicOp = D3D12_LOGIC_OP_NOOP;
+		_pipelineDesc.BlendState.RenderTarget[0].RenderTargetWriteMask = D3D12_COLOR_WRITE_ENABLE_ALL;
+		break;
 	default:
 		break;
 	}
@@ -171,6 +187,7 @@ void Shader::Init(const wstring& path, ShaderInfo info)
 
 
 	HRESULT hr =  DEVICE->CreateGraphicsPipelineState(&_pipelineDesc, IID_PPV_ARGS(&_pipelineState));
+	CHECK(hr);
 }
 
 
@@ -199,6 +216,11 @@ void Shader::CreateShader(const wstring& path, const string& name, const string&
 void Shader::CreateVertexShader(const wstring& path, const string& name, const string& version)
 {
 	CreateShader(path, name, version, _vsBlob, _pipelineDesc.VS);
+}
+
+void Shader::CreateGeometryShader(const wstring& path, const string& name, const string& version)
+{
+	CreateShader(path, name, version, _vsBlob, _pipelineDesc.GS);
 }
 
 void Shader::CreatePixelShader(const wstring& path, const string& name, const string& version)

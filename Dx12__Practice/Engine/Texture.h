@@ -7,12 +7,12 @@ public:
 	Texture();
 	~Texture();
 
-	void Init(const wstring& path);
+	void Init(const wstring& path, bool isArray = false);
 	ComPtr<ID3D12Resource> GetComPtr() { return _texture2D; }
 	D3D12_CPU_DESCRIPTOR_HANDLE GetCpuHandle() { return _srvHandle; }
 	
 	void CreateTexture(const wstring& path);
-	void CreateView();
+	void CreateView(bool isArray);
 
 
 	float GetWidth() { return static_cast<float>(_desc.Width); }

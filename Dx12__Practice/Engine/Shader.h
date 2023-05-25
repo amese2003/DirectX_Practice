@@ -11,12 +11,13 @@ public:
 	Shader();
 	virtual ~Shader();
 
-	void Init(const wstring& path, ShaderInfo info = ShaderInfo());
+	void Init(const wstring& path, ShaderInfo info = ShaderInfo(), ShaderArg args = ShaderArg());
 	void Update();
 
 private:
 	void CreateShader(const wstring& path, const string& name, const string& version, ComPtr<ID3DBlob>& blob, D3D12_SHADER_BYTECODE& shaderByteCode);
 	void CreateVertexShader(const wstring& path, const string& name, const string& version);
+	void CreateGeometryShader(const wstring& path, const string& name, const string& version);
 	void CreatePixelShader(const wstring& path, const string& name, const string& version);
 
 private:

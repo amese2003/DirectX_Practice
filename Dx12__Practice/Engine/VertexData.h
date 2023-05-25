@@ -33,6 +33,7 @@ struct VertexTextureNormalTangentData
 	Vec3 normal = { 0, 0, 0 };
 	Vec3 tangent = { 0, 0, 0 };
 	Color Color = { 1, 1, 1, 1 };
+	Vec2 sizeW = { 0, 0 };
 };
 
 class MeshVertex
