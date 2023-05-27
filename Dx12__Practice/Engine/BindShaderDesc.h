@@ -5,11 +5,11 @@ class Shader;
 
 struct ShaderArg
 {
-	const string vs = "VS_Main";
-	const string hs;
-	const string ds;
-	const string gs;
-	const string ps = "PS_Main";
+	string vs = "VS_Main";
+	string hs;
+	string ds;
+	string gs;
+	string ps = "PS_Main";
 };
 
 
@@ -61,10 +61,16 @@ struct TransformData
 	Matrix matProjection;
 	Matrix worldnvTranspose;
 	Matrix worldViewProj;
+	Matrix ViewProj;
 };
 
 struct MaterialData
 {
 	MaterialDesc mat;
 	Matrix texTransform;
+};
+
+struct Fixeduv
+{
+	Vec2 gTexC[4];
 };

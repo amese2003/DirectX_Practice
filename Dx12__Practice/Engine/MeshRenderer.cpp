@@ -4,6 +4,7 @@
 #include "Material.h"
 #include "Light.h"
 #include "MathHelper.h"
+#include "Shader.h"
 
 MeshRenderer::MeshRenderer() : Super(ComponentType::MeshRenderer)
 {
@@ -27,7 +28,15 @@ void MeshRenderer::Update()
 
 void MeshRenderer::Render()
 {
-	CMD_LIST->IASetPrimitiveTopology(D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+	shared_ptr<Material> material = _mesh->GetMaterial();
+
+	if (material)
+	{
+		CMD_LIST->IASetPrimitiveTopology(material->GetShader()->GetTopology());
+	}
+	else
+		CMD_LIST->IASetPrimitiveTopology(D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+
 	CMD_LIST->IASetVertexBuffers(0, 1, &_mesh->GetVertexBuffer()->GetVertexBufferView()); // Slot: (0~15)
 
 	if (_mesh->GetIndexBuffer()->GetComPtr() != nullptr)
@@ -42,13 +51,14 @@ void MeshRenderer::Render()
 	ctransformbuffer.matProjection = Camera::S_MatProjection;
 	ctransformbuffer.worldnvTranspose = MathHelper::InverseTranspose(ctransformbuffer.world);
 	ctransformbuffer.worldViewProj = ctransformbuffer.world * ctransformbuffer.matView * ctransformbuffer.matProjection;
+	ctransformbuffer.ViewProj = ctransformbuffer.matView * ctransformbuffer.matProjection;
 
 	D3D12_CPU_DESCRIPTOR_HANDLE handle = GRAPHICS->GetConstantBuffer(CBV_REGISTER::b1)->PushData(&ctransformbuffer, sizeof(ctransformbuffer));
 	GRAPHICS->GetTableDescHeap()->SetConstantBuffer(handle, CBV_REGISTER::b1);
 
 
 	MaterialDesc pushDesc;
-	shared_ptr<Material> material = _mesh->GetMaterial();
+	
 
 	material->UpdateShader();
 

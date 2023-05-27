@@ -25,7 +25,9 @@ public:
 
 
 	static void CreateGrid(shared_ptr<Geometry<VertexTextureNormalTangentData>> geometry, float width, float depth, uint32 m, uint32 n, bool demo = false);
+
 	static float GetHeight(float x, float z) { return 0.3f * (z * sinf(0.1f * x) + x * cosf(0.1f * z)); }
+	static Vec3 GetHeightNormal(float x, float z);
 
 	static void CreateCylinder(shared_ptr<Geometry<VertexTextureNormalTangentData>> geometry, float bottomRadius, float topRadius, float height, uint32 sliceCount, uint32 stackCount);
 	static void CreateCylinderTopCap(shared_ptr<Geometry<VertexTextureNormalTangentData>> geometry, float bottomRadius, float topRadius, float height, uint32 sliceCount, uint32 stackCount);
@@ -35,5 +37,7 @@ public:
 	static void CreateFloor(shared_ptr<Geometry<VertexTextureNormalTangentData>> geometry);
 	static void CreateWall(shared_ptr<Geometry<VertexTextureNormalTangentData>> geometry);
 	static void CreateRoomMirror(shared_ptr<Geometry<VertexTextureNormalTangentData>> geometry);
+
+	static void CreateTreeSprites(shared_ptr<Geometry<VertexTextureNormalTangentData>> geometry);
 };
 

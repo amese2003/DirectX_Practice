@@ -6,6 +6,8 @@ d:\project\directx_practice\dx12__practice\intermediate\debug\skullscript.obj
 d:\project\directx_practice\dx12__practice\intermediate\debug\main.obj
 d:\project\directx_practice\dx12__practice\intermediate\debug\gameobjectdemo.obj
 d:\project\directx_practice\dx12__practice\intermediate\debug\camerascript.obj
+d:\project\directx_practice\dx12__practice\intermediate\debug\14. treebillboarddemo.obj
+d:\project\directx_practice\dx12__practice\intermediate\debug\13. mirrordemo.obj
 d:\project\directx_practice\dx12__practice\intermediate\debug\12. blenddemo.obj
 d:\project\directx_practice\dx12__practice\intermediate\debug\11. texturedhillsandwavesdemo.obj
 d:\project\directx_practice\dx12__practice\intermediate\debug\10. cratedemo.obj
@@ -18,7 +20,6 @@ d:\project\directx_practice\dx12__practice\intermediate\debug\04. texturedemo.ob
 d:\project\directx_practice\dx12__practice\intermediate\debug\03. camerademo.obj
 d:\project\directx_practice\dx12__practice\intermediate\debug\02. constantbufferdemo.obj
 d:\project\directx_practice\dx12__practice\intermediate\debug\01. rectangledemo.obj
-d:\project\directx_practice\dx12__practice\intermediate\debug\13. mirrordemo.obj
 d:\project\directx_practice\dx12__practice\binaries\00. common.cso
 d:\project\directx_practice\dx12__practice\binaries\00. lighthelper.cso
 d:\project\directx_practice\dx12__practice\binaries\02. constantbuffer.cso
@@ -29,8 +30,9 @@ d:\project\directx_practice\dx12__practice\binaries\05. color.cso
 d:\project\directx_practice\dx12__practice\binaries\06. lighting.cso
 d:\project\directx_practice\dx12__practice\binaries\07. basic.cso
 d:\project\directx_practice\dx12__practice\binaries\08. basic.cso
-d:\project\directx_practice\dx12__practice\intermediate\debug\client.ilk
+d:\project\directx_practice\dx12__practice\binaries\12. treesprite.cso
 d:\project\directx_practice\dx12__practice\binaries\client.exe
+d:\project\directx_practice\dx12__practice\intermediate\debug\client.ilk
 d:\project\directx_practice\dx12__practice\binaries\client.pdb
 d:\project\directx_practice\dx12__practice\intermediate\debug\client.res
 d:\project\directx_practice\dx12__practice\intermediate\debug\bindshaderdesc.obj

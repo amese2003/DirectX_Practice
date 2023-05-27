@@ -142,3 +142,11 @@ void Mesh::CreateMirror()
 
 	_vertexBuffer->CreateTexture(_geometry->GetVertices());
 }
+
+void Mesh::CreateTreeSprites()
+{
+	GeometryHelper::CreateTreeSprites(_geometry);
+
+	_vertexBuffer->CreateTexture(_geometry->GetVertices());
+	_indexBuffer->CreateTexture(_geometry->GetIndices());
+}

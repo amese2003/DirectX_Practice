@@ -25,6 +25,7 @@ public:
 	void CreateFloor();
 	void CreateWall();
 	void CreateMirror();
+	void CreateTreeSprites();
 
 	shared_ptr<VertexBuffer> GetVertexBuffer() { return _vertexBuffer; }
 	shared_ptr<IndexBuffer> GetIndexBuffer() { return _indexBuffer; }

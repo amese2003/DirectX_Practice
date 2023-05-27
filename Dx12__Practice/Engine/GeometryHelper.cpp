@@ -1209,10 +1209,10 @@ void GeometryHelper::CreateTreeSprites(shared_ptr<Geometry<VertexTextureNormalTa
 		float y = GetHeight(x, z);
 
 		 
-		y += 8.0f;
+		y += 20.0f;
 
 		vtx[i].position = Vec3(x, y, z);
-		vtx[i].sizeW = Vec2(20.f, 20.f);
+		vtx[i].sizeW = Vec2(40.f, 40.f);
 	}
 
 

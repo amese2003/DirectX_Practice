@@ -40,6 +40,7 @@ struct VertexTextureNormalTangent
 	float3 normal : NORMAL;
 	float3 tangent : TANGENT;
 	float4 color : COLOR;
+	float2 sizeW : SIZE;
 };
 
 struct VertexTextureNormalTangentBlend
@@ -94,6 +95,7 @@ cbuffer TransformData : register(b1)
 	row_major matrix gProjection;
 	row_major matrix gWorldInvTranspose;
 	row_major matrix gWorldViewProj;
+	row_major matrix gViewProj;
 };
 
 
@@ -101,6 +103,9 @@ cbuffer MaterialData : register(b2)
 {
 	Material gMaterial;
 	row_major matrix gTexTransform;
+	float3   gFresnelR0;
+	float    gRoughness;
 }
+
 
 #endif

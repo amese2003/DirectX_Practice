@@ -8,6 +8,7 @@ enum class RASTERIZER_TYPE : uint8
 	CullClockwiseRS,
 	CULL_BACK,
 	CULL_FRONT,
+	CULL_NONE,
 };
 
 enum class BLEND_TYPE : uint8
@@ -27,11 +28,19 @@ enum class DEPTH_STENCIL_TYPE : uint8
 	NoDoubleBlendDSS,
 };
 
+enum class TOPOLOGY_TYPE : uint8
+{
+	DEFAULT = 0,
+	TRIANGLE,
+	POINT
+};
+
 struct ShaderInfo
 {
 	RASTERIZER_TYPE rasterizerType = RASTERIZER_TYPE::DEFAULT;
 	DEPTH_STENCIL_TYPE depthStencilType = DEPTH_STENCIL_TYPE::DEFAULT;
 	BLEND_TYPE blendType = BLEND_TYPE::DEFAULT;
+	TOPOLOGY_TYPE topologyType = TOPOLOGY_TYPE::DEFAULT;
 };
 
 class RenderStates

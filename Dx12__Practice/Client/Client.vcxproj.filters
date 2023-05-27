@@ -192,5 +192,8 @@
     <FxCompile Include="..\Shaders\08. Basic.fx">
       <Filter>Shader</Filter>
     </FxCompile>
+    <FxCompile Include="..\Shaders\12. TreeSprite.fx">
+      <Filter>Shader</Filter>
+    </FxCompile>
   </ItemGroup>
 </Project>

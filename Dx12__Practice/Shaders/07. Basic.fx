@@ -38,6 +38,8 @@ VertexOut VS_Main(VertexTextureNormalTangent vin)
 	return vout;
 }
 
+
+
 float4 PS_Main(VertexOut pin) : SV_Target
 {
 	// Interpolating normal can unnormalize it, so normalize it.

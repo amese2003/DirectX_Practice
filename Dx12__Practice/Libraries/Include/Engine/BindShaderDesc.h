@@ -3,6 +3,15 @@
 
 class Shader;
 
+struct ShaderArg
+{
+	string vs = "VS_Main";
+	string hs;
+	string ds;
+	string gs;
+	string ps = "PS_Main";
+};
+
 
 struct MaterialDesc
 {
@@ -52,10 +61,16 @@ struct TransformData
 	Matrix matProjection;
 	Matrix worldnvTranspose;
 	Matrix worldViewProj;
+	Matrix ViewProj;
 };
 
 struct MaterialData
 {
 	MaterialDesc mat;
 	Matrix texTransform;
+};
+
+struct Fixeduv
+{
+	Vec2 gTexC[4];
 };

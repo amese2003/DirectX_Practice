@@ -32,15 +32,30 @@ void Shader::Init(const wstring& path, ShaderInfo info, ShaderArg args)
 	
 
 	_pipelineDesc.SampleMask = UINT_MAX;
-	_pipelineDesc.PrimitiveTopologyType = D3D12_PRIMITIVE_TOPOLOGY_TYPE_TRIANGLE;
+	
+
+
+	switch (info.topologyType)
+	{
+	case TOPOLOGY_TYPE::POINT:
+		_pipelineDesc.PrimitiveTopologyType = D3D12_PRIMITIVE_TOPOLOGY_TYPE_POINT;
+		_topology = D3D_PRIMITIVE_TOPOLOGY_POINTLIST;
+		break;
+
+	case TOPOLOGY_TYPE::TRIANGLE:
+	case TOPOLOGY_TYPE::DEFAULT:
+	default:
+		_pipelineDesc.PrimitiveTopologyType = D3D12_PRIMITIVE_TOPOLOGY_TYPE_TRIANGLE;
+		_topology = D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST;
+		break;
+	}
+
+	
+
 	_pipelineDesc.NumRenderTargets = 1;
 	_pipelineDesc.RTVFormats[0] = DXGI_FORMAT_R8G8B8A8_UNORM;
 	_pipelineDesc.SampleDesc.Count = 1;
 	_pipelineDesc.DSVFormat = GRAPHICS->GetDepthStencilBuffer()->GetDSVFormat();
-
-
-
-
 
 	switch (info.blendType)
 	{
@@ -115,8 +130,10 @@ void Shader::Init(const wstring& path, ShaderInfo info, ShaderArg args)
 		_pipelineDesc.RasterizerState.FrontCounterClockwise = true;
 		_pipelineDesc.RasterizerState.DepthClipEnable = true;
 		break;
+	case RASTERIZER_TYPE::CULL_NONE:
+		_pipelineDesc.RasterizerState.CullMode = D3D12_CULL_MODE_NONE;
+		break;
 	default:
-		_pipelineDesc.RasterizerState.FillMode = D3D12_FILL_MODE_SOLID;
 		break;
 	}
 
@@ -204,7 +221,14 @@ void Shader::CreateShader(const wstring& path, const string& name, const string&
 	compileFlag = D3DCOMPILE_DEBUG | D3DCOMPILE_SKIP_OPTIMIZATION;
 #endif
 
-	if (FAILED(::D3DCompileFromFile(path.c_str(), nullptr, D3D_COMPILE_STANDARD_FILE_INCLUDE
+	const D3D_SHADER_MACRO alphaTestDefines[] =
+	{
+		"FOG", "1",
+		"ALPHA_TEST", "1",
+		NULL, NULL
+	};
+
+	if (FAILED(::D3DCompileFromFile(path.c_str(), alphaTestDefines, D3D_COMPILE_STANDARD_FILE_INCLUDE
 		, name.c_str(), version.c_str(), compileFlag, 0, &blob, &_errBlob)))
 	{
 		::MessageBoxA(nullptr, "Shader Create Failed !", nullptr, MB_OK);
@@ -220,7 +244,7 @@ void Shader::CreateVertexShader(const wstring& path, const string& name, const s
 
 void Shader::CreateGeometryShader(const wstring& path, const string& name, const string& version)
 {
-	CreateShader(path, name, version, _vsBlob, _pipelineDesc.GS);
+	CreateShader(path, name, version, _gsBlob, _pipelineDesc.GS);
 }
 
 void Shader::CreatePixelShader(const wstring& path, const string& name, const string& version)

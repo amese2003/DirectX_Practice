@@ -8,8 +8,8 @@ SamplerState samAnisotropic : register(s0)
 	Filter = ANISOTROPIC;
 	MaxAnisotropy = 4;
 
-	AddressU = MIRROR;
-	AddressV = MIRROR;
+	AddressU = WRAP;
+	AddressV = WRAP;
 };
 
 
@@ -37,6 +37,7 @@ VertexOut VS_Main(VertexTextureNormalTangent vin)
 
 	return vout;
 }
+
 
 float4 PS_Main(VertexOut pin) : SV_Target
 {
