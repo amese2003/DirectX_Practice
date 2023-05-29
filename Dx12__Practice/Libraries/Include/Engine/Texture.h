@@ -11,9 +11,12 @@ public:
 	ComPtr<ID3D12Resource> GetComPtr() { return _texture2D; }
 	D3D12_CPU_DESCRIPTOR_HANDLE GetCpuHandle() { return _srvHandle; }
 	
-	void CreateTexture(const wstring& path);
-	void CreateView(bool isArray);
+	void LoadTexture(const wstring& path);
+	void LoadFromView(bool isArray);
 
+public:
+	void CreateTexture(DXGI_FORMAT format, uint32 width, uint32 height, const D3D12_HEAP_PROPERTIES& heapProperty, D3D12_HEAP_FLAGS heapFlags, D3D12_RESOURCE_FLAGS resFlags, Vec4 clearColor = Vec4());
+	void CreateFromTexture(ComPtr<ID3D12Resource> tex2D);
 
 	float GetWidth() { return static_cast<float>(_desc.Width); }
 	float GetHeight() { return static_cast<float>(_desc.Height); }
@@ -28,11 +31,13 @@ private:
 
 
 	ComPtr<ID3D12DescriptorHeap>	_srvHeap;
-	// defered
 	ComPtr<ID3D12DescriptorHeap>	_rtvHeap;
 	ComPtr<ID3D12DescriptorHeap>	_dsvHeap;
-	D3D12_CPU_DESCRIPTOR_HANDLE		_srvHandle = {};
+	ComPtr<ID3D12DescriptorHeap>	_uavHeap;
 
+
+	D3D12_CPU_DESCRIPTOR_HANDLE		_srvHandle = {};
+	D3D12_CPU_DESCRIPTOR_HANDLE		_uavHandle = {};
 
 private:
 	Vec2 _size = { 0.f, 0.f };

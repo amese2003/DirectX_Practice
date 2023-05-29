@@ -171,6 +171,12 @@
     <ClInclude Include="RenderStates.h">
       <Filter>98. Utils</Filter>
     </ClInclude>
+    <ClInclude Include="ComputeCommandQueue.h">
+      <Filter>00. Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="ComputeDescriptorHeap.h">
+      <Filter>00. Engine</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine.cpp">
@@ -292,6 +298,12 @@
     </ClCompile>
     <ClCompile Include="RenderStates.cpp">
       <Filter>98. Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="ComputeCommandQueue.cpp">
+      <Filter>00. Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="ComputeDescriptorHeap.cpp">
+      <Filter>00. Engine</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

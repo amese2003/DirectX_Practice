@@ -21,6 +21,7 @@ WPARAM Game::Run(GameDesc& desc)
 	INPUT->Init(_desc.hWnd);
 
 	_desc.app->Init();
+	CUR_SCENE->Start();
 
 	MSG msg = { 0 };
 

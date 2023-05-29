@@ -26,47 +26,47 @@ void Mesh::CreateRectangle()
 	GeometryHelper::CreateQuad(_geometry);
 
 
-	_vertexBuffer->CreateTexture(_geometry->GetVertices());
-	_indexBuffer->CreateTexture(_geometry->GetIndices());
+	_vertexBuffer->CreateBuffer(_geometry->GetVertices());
+	_indexBuffer->CreateBuffer(_geometry->GetIndices());
 }
 
 void Mesh::CreateCube()
 {
 	GeometryHelper::CreateCube(_geometry);
 
-	_vertexBuffer->CreateTexture(_geometry->GetVertices());
-	_indexBuffer->CreateTexture(_geometry->GetIndices());
+	_vertexBuffer->CreateBuffer(_geometry->GetVertices());
+	_indexBuffer->CreateBuffer(_geometry->GetIndices());
 }
 
 void Mesh::CreateHillDemo()
 {
 	GeometryHelper::CreateGrid(_geometry, 160.0f, 160.0f, 50, 50, true);
-	_vertexBuffer->CreateTexture(_geometry->GetVertices());
-	_indexBuffer->CreateTexture(_geometry->GetIndices());
+	_vertexBuffer->CreateBuffer(_geometry->GetVertices());
+	_indexBuffer->CreateBuffer(_geometry->GetIndices());
 }
 
 void Mesh::CreateGrid()
 {
 	//GeometryHelper::CreateGrid(_geometry, 160.0f, 160.0f, 50, 50);
 	 GeometryHelper::CreateGrid(_geometry, 20.f, 30.f, 60, 40);
-	_vertexBuffer->CreateTexture(_geometry->GetVertices());
-	_indexBuffer->CreateTexture(_geometry->GetIndices());
+	_vertexBuffer->CreateBuffer(_geometry->GetVertices());
+	_indexBuffer->CreateBuffer(_geometry->GetIndices());
 }
 
 void Mesh::CreateSphere()
 {
 	GeometryHelper::CreateSphere(_geometry);
 
-	_vertexBuffer->CreateTexture(_geometry->GetVertices());
-	_indexBuffer->CreateTexture(_geometry->GetIndices());
+	_vertexBuffer->CreateBuffer(_geometry->GetVertices());
+	_indexBuffer->CreateBuffer(_geometry->GetIndices());
 }
 
 void Mesh::CreateCylinder()
 {
 	GeometryHelper::CreateCylinder(_geometry, 0.5f, 0.3f, 3.0f, 20, 20);
 
-	_vertexBuffer->CreateTexture(_geometry->GetVertices());
-	_indexBuffer->CreateTexture(_geometry->GetIndices());
+	_vertexBuffer->CreateBuffer(_geometry->GetVertices());
+	_indexBuffer->CreateBuffer(_geometry->GetIndices());
 }
 
 void Mesh::CreateMesh(const wstring& path)
@@ -118,35 +118,35 @@ void Mesh::CreateMesh(const wstring& path)
 	_geometry->SetVertices(vertices);
 	_geometry->SetIndices(indices);
 
-	_vertexBuffer->CreateTexture(vertices);
-	_indexBuffer->CreateTexture(indices);
+	_vertexBuffer->CreateBuffer(vertices);
+	_indexBuffer->CreateBuffer(indices);
 }
 
 void Mesh::CreateFloor()
 {
 	GeometryHelper::CreateFloor(_geometry);
 
-	_vertexBuffer->CreateTexture(_geometry->GetVertices());
+	_vertexBuffer->CreateBuffer(_geometry->GetVertices());
 }
 
 void Mesh::CreateWall()
 {
 	GeometryHelper::CreateWall(_geometry);
 
-	_vertexBuffer->CreateTexture(_geometry->GetVertices());
+	_vertexBuffer->CreateBuffer(_geometry->GetVertices());
 }
 
 void Mesh::CreateMirror()
 {
 	GeometryHelper::CreateRoomMirror(_geometry);
 
-	_vertexBuffer->CreateTexture(_geometry->GetVertices());
+	_vertexBuffer->CreateBuffer(_geometry->GetVertices());
 }
 
 void Mesh::CreateTreeSprites()
 {
 	GeometryHelper::CreateTreeSprites(_geometry);
 
-	_vertexBuffer->CreateTexture(_geometry->GetVertices());
-	_indexBuffer->CreateTexture(_geometry->GetIndices());
+	_vertexBuffer->CreateBuffer(_geometry->GetVertices());
+	_indexBuffer->CreateBuffer(_geometry->GetIndices());
 }

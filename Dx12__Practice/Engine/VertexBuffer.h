@@ -9,7 +9,7 @@ public:
 	D3D12_VERTEX_BUFFER_VIEW& GetVertexBufferView() { return _vertexBufferView; }
 
 	template<typename T>
-	void CreateTexture(const vector<T>& vertices)
+	void CreateBuffer(const vector<T>& vertices)
 	{
 		_count = static_cast<uint32>(vertices.size());
 		_stride = sizeof(T);

@@ -10,9 +10,16 @@ void Graphics::Init(HWND hwnd)
 
 	_device = make_shared<Device>();
 	_cmdQueue = make_shared<CommandQueue>();
+	_computecmdQueue = make_shared<ComputeCommandQueue>();
 	_swapChain = make_shared<SwapChain>();
+
+
 	_rootSignature = make_shared<RootSignature>();
+
+
 	_tableDescHeap = make_shared<TableDescriptionHeap>();
+	_computeDescHeap = make_shared<ComputeDescriptorHeap>();
+
 	_constantBuffer = vector<shared_ptr<ConstantBuffer>>(CBV_REGISTER_COUNT);
 	_depthStencilBuffer = make_shared<DepthStencilBuffer>();
 
@@ -24,9 +31,12 @@ void Graphics::Init(HWND hwnd)
 
 	_device->Init();
 	_cmdQueue->Init(_device->GetDevice(), _swapChain);
+	_computecmdQueue->Init(_device->GetDevice());
+
 	_swapChain->Init(hwnd, _device->GetDevice(), _device->GetDXGI(), _cmdQueue->GetCmdQueue());
 	_rootSignature->Init();
 	_tableDescHeap->Init(256);
+	_computeDescHeap->Init();
 	_depthStencilBuffer->Init();
 
 	_constantBuffer[static_cast<uint8>(CBV_REGISTER::b0)] = make_shared<ConstantBuffer>();
@@ -48,6 +58,7 @@ void Graphics::RenderEnd()
 {
 	_cmdQueue->RenderEnd();
 }
+
 
 void Graphics::SetViewport()
 {

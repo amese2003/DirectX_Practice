@@ -5,7 +5,9 @@ d:\project\directx_practice\dx12__practice\intermediate\debug\pch.obj
 d:\project\directx_practice\dx12__practice\intermediate\debug\skullscript.obj
 d:\project\directx_practice\dx12__practice\intermediate\debug\main.obj
 d:\project\directx_practice\dx12__practice\intermediate\debug\gameobjectdemo.obj
+d:\project\directx_practice\dx12__practice\intermediate\debug\computetest.obj
 d:\project\directx_practice\dx12__practice\intermediate\debug\camerascript.obj
+d:\project\directx_practice\dx12__practice\intermediate\debug\15. vecadddemo.obj
 d:\project\directx_practice\dx12__practice\intermediate\debug\14. treebillboarddemo.obj
 d:\project\directx_practice\dx12__practice\intermediate\debug\13. mirrordemo.obj
 d:\project\directx_practice\dx12__practice\intermediate\debug\12. blenddemo.obj
@@ -31,6 +33,7 @@ d:\project\directx_practice\dx12__practice\binaries\06. lighting.cso
 d:\project\directx_practice\dx12__practice\binaries\07. basic.cso
 d:\project\directx_practice\dx12__practice\binaries\08. basic.cso
 d:\project\directx_practice\dx12__practice\binaries\12. treesprite.cso
+d:\project\directx_practice\dx12__practice\binaries\13. vecadd.cso
 d:\project\directx_practice\dx12__practice\binaries\client.exe
 d:\project\directx_practice\dx12__practice\intermediate\debug\client.ilk
 d:\project\directx_practice\dx12__practice\binaries\client.pdb
@@ -39,6 +42,8 @@ d:\project\directx_practice\dx12__practice\intermediate\debug\bindshaderdesc.obj
 d:\project\directx_practice\dx12__practice\intermediate\debug\camera.obj
 d:\project\directx_practice\dx12__practice\intermediate\debug\commandqueue.obj
 d:\project\directx_practice\dx12__practice\intermediate\debug\component.obj
+d:\project\directx_practice\dx12__practice\intermediate\debug\computecommandqueue.obj
+d:\project\directx_practice\dx12__practice\intermediate\debug\computedescriptorheap.obj
 d:\project\directx_practice\dx12__practice\intermediate\debug\constantbuffer.obj
 d:\project\directx_practice\dx12__practice\intermediate\debug\depthstencilbuffer.obj
 d:\project\directx_practice\dx12__practice\intermediate\debug\device.obj

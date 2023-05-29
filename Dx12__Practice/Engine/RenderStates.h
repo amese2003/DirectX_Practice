@@ -1,5 +1,12 @@
 #pragma once
 
+enum class SHADER_TYPE : uint8
+{
+	FORWARD,
+	COMPUTE,
+};
+
+
 enum class RASTERIZER_TYPE : uint8
 {
 	DEFAULT = 0,
@@ -37,6 +44,7 @@ enum class TOPOLOGY_TYPE : uint8
 
 struct ShaderInfo
 {
+	SHADER_TYPE shaderType = SHADER_TYPE::FORWARD;
 	RASTERIZER_TYPE rasterizerType = RASTERIZER_TYPE::DEFAULT;
 	DEPTH_STENCIL_TYPE depthStencilType = DEPTH_STENCIL_TYPE::DEFAULT;
 	BLEND_TYPE blendType = BLEND_TYPE::DEFAULT;

@@ -13,29 +13,47 @@ Shader::~Shader()
 
 void Shader::Init(const wstring& path, ShaderInfo info, ShaderArg args)
 {
-	CreateVertexShader(path, args.vs, "vs_5_0");
-	CreatePixelShader(path, args.ps, "ps_5_0");
+	_info = info;
+	_args = args;
 
-	if (args.gs.empty() == false)
-		CreateGeometryShader(path, args.gs, "gs_5_0");
+	if (_info.shaderType == SHADER_TYPE::COMPUTE)
+		CreateComputeShader(path);
+	else
+		CreateGraphicShader(path);
+}
+
+
+
+void Shader::Update()
+{
+	CMD_LIST->SetPipelineState(_pipelineState.Get());
+}
+
+void Shader::CreateGraphicShader(const wstring& path)
+{
+	CreateVertexShader(path, _args.vs, "vs_5_0");
+	CreatePixelShader(path, _args.ps, "ps_5_0");
+
+	if (_args.gs.empty() == false)
+		CreateGeometryShader(path, _args.gs, "gs_5_0");
 
 
 	vector<D3D12_INPUT_ELEMENT_DESC> desc = MeshVertex::VertexDesc;
 
 	//_pipelineDesc.InputLayout = { desc, _countof(desc)};
-	_pipelineDesc.InputLayout = { desc.data(), static_cast<UINT>(desc.size())};
+	_pipelineDesc.InputLayout = { desc.data(), static_cast<UINT>(desc.size()) };
 	_pipelineDesc.pRootSignature = ROOT_SIGNATURE.Get();
 
 	_pipelineDesc.RasterizerState = CD3DX12_RASTERIZER_DESC(D3D12_DEFAULT);
 	_pipelineDesc.BlendState = CD3DX12_BLEND_DESC(D3D12_DEFAULT);
 	_pipelineDesc.DepthStencilState = CD3DX12_DEPTH_STENCIL_DESC(D3D12_DEFAULT);
-	
+
 
 	_pipelineDesc.SampleMask = UINT_MAX;
-	
 
 
-	switch (info.topologyType)
+
+	switch (_info.topologyType)
 	{
 	case TOPOLOGY_TYPE::POINT:
 		_pipelineDesc.PrimitiveTopologyType = D3D12_PRIMITIVE_TOPOLOGY_TYPE_POINT;
@@ -50,14 +68,14 @@ void Shader::Init(const wstring& path, ShaderInfo info, ShaderArg args)
 		break;
 	}
 
-	
+
 
 	_pipelineDesc.NumRenderTargets = 1;
 	_pipelineDesc.RTVFormats[0] = DXGI_FORMAT_R8G8B8A8_UNORM;
 	_pipelineDesc.SampleDesc.Count = 1;
 	_pipelineDesc.DSVFormat = GRAPHICS->GetDepthStencilBuffer()->GetDSVFormat();
 
-	switch (info.blendType)
+	switch (_info.blendType)
 	{
 	case BLEND_TYPE::AlphaToCoverageBS:
 		_pipelineDesc.BlendState.AlphaToCoverageEnable = true;
@@ -110,7 +128,7 @@ void Shader::Init(const wstring& path, ShaderInfo info, ShaderArg args)
 		break;
 	}
 
-	switch (info.rasterizerType)
+	switch (_info.rasterizerType)
 	{
 	case RASTERIZER_TYPE::WireframeRS:
 		_pipelineDesc.RasterizerState.FillMode = D3D12_FILL_MODE_WIREFRAME;
@@ -137,7 +155,7 @@ void Shader::Init(const wstring& path, ShaderInfo info, ShaderArg args)
 		break;
 	}
 
-	switch (info.depthStencilType)
+	switch (_info.depthStencilType)
 	{
 	case DEPTH_STENCIL_TYPE::MarkMirrorDSS:
 		_pipelineDesc.DepthStencilState.DepthEnable = true;
@@ -203,15 +221,8 @@ void Shader::Init(const wstring& path, ShaderInfo info, ShaderArg args)
 	}
 
 
-	HRESULT hr =  DEVICE->CreateGraphicsPipelineState(&_pipelineDesc, IID_PPV_ARGS(&_pipelineState));
+	HRESULT hr = DEVICE->CreateGraphicsPipelineState(&_pipelineDesc, IID_PPV_ARGS(&_pipelineState));
 	CHECK(hr);
-}
-
-
-
-void Shader::Update()
-{
-	CMD_LIST->SetPipelineState(_pipelineState.Get());
 }
 
 void Shader::CreateShader(const wstring& path, const string& name, const string& version, ComPtr<ID3DBlob>& blob, D3D12_SHADER_BYTECODE& shaderByteCode)
@@ -250,4 +261,20 @@ void Shader::CreateGeometryShader(const wstring& path, const string& name, const
 void Shader::CreatePixelShader(const wstring& path, const string& name, const string& version)
 {
 	CreateShader(path, name, version, _psBlob, _pipelineDesc.PS);
+}
+
+
+
+void Shader::CreateComputeShader(const wstring& path)
+{
+	_info.shaderType = SHADER_TYPE::COMPUTE;
+
+	_computePipelineDesc.pRootSignature = COMPUTE_ROOT_SIGNATURE.Get();
+
+
+	CreateShader(path, _args.cs, "cs_5_0", _csBlob, _computePipelineDesc.CS);
+	_computePipelineDesc.Flags = D3D12_PIPELINE_STATE_FLAG_NONE;
+
+	HRESULT hr = DEVICE->CreateComputePipelineState(&_computePipelineDesc, IID_PPV_ARGS(&_pipelineState));
+	CHECK(hr);
 }

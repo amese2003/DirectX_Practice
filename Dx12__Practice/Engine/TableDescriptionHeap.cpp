@@ -6,14 +6,14 @@ void TableDescriptionHeap::Init(uint32 count)
 	_groupCount = count;
 
 	D3D12_DESCRIPTOR_HEAP_DESC desc = {};
-	desc.NumDescriptors = count * (REGISTER_COUNT - 1);
+	desc.NumDescriptors = count * (CBV_SRV_REGISTER_COUNT - 1);
 	desc.Flags = D3D12_DESCRIPTOR_HEAP_FLAG_SHADER_VISIBLE;
 	desc.Type = D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV;
 
 	DEVICE->CreateDescriptorHeap(&desc, IID_PPV_ARGS(&_descHeap));
 
 	_handleSize = DEVICE->GetDescriptorHandleIncrementSize(D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV);
-	_groupSize = _handleSize * (REGISTER_COUNT - 1);
+	_groupSize = _handleSize * (CBV_SRV_REGISTER_COUNT - 1);
 }
 
 void TableDescriptionHeap::Clear()
@@ -66,3 +66,5 @@ D3D12_CPU_DESCRIPTOR_HANDLE TableDescriptionHeap::GetCPUHandle(uint32 reg)
 	handle.ptr += (reg - 1) * _handleSize;
 	return handle;
 }
+
+

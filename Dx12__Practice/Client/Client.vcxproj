@@ -166,7 +166,9 @@
     <ClInclude Include="12. BlendDemo.h" />
     <ClInclude Include="13. MirrorDemo.h" />
     <ClInclude Include="14. TreeBillboardDemo.h" />
+    <ClInclude Include="15. VecAddDemo.h" />
     <ClInclude Include="CameraScript.h" />
+    <ClInclude Include="ComputeTest.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="GameObjectDemo.h" />
     <ClInclude Include="Main.h" />
@@ -190,7 +192,9 @@
     <ClCompile Include="12. BlendDemo.cpp" />
     <ClCompile Include="13. MirrorDemo.cpp" />
     <ClCompile Include="14. TreeBillboardDemo.cpp" />
+    <ClCompile Include="15. VecAddDemo.cpp" />
     <ClCompile Include="CameraScript.cpp" />
+    <ClCompile Include="ComputeTest.cpp" />
     <ClCompile Include="GameObjectDemo.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="pch.cpp">
@@ -317,6 +321,16 @@
       </EntryPointName>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Effect</ShaderType>
       <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">5.0</ShaderModel>
+    </FxCompile>
+    <FxCompile Include="..\Shaders\13. VecAdd.fx">
+      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+      </EntryPointName>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">5.0</ShaderModel>
+      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+      </EntryPointName>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">5.0</ShaderModel>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Effect</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Effect</ShaderType>
     </FxCompile>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

@@ -10,6 +10,7 @@ struct ShaderArg
 	string ds;
 	string gs;
 	string ps = "PS_Main";
+	string cs = "CS_Main";
 };
 
 

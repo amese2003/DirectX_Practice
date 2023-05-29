@@ -10,7 +10,7 @@ public:
 	uint32 GetCount() { return _count; }
 
 	template<typename T>
-	void CreateTexture(const vector<T>& vertices)
+	void CreateBuffer(const vector<T>& vertices)
 	{
 		_count = static_cast<uint32>(vertices.size());
 		uint32 bufferSize = _count * sizeof(uint32);

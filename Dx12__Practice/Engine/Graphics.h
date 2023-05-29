@@ -5,8 +5,10 @@ class CommandQueue;
 class SwapChain;
 class RootSignature;
 class TableDescriptionHeap;
+class ComputeDescriptorHeap;
 class ConstantBuffer;
 class DepthStencilBuffer;
+class ComputeCommandQueue;
 
 class Graphics
 {
@@ -17,13 +19,16 @@ public:
 
 	void RenderBegin();
 	void RenderEnd();
+	void ComputeShader();
 
 public:
 	shared_ptr<Device>					GetDevice() { return _device; }
 	shared_ptr<CommandQueue>			GetCommandQueue() { return _cmdQueue; }
+	shared_ptr<ComputeCommandQueue>		GetComputeQueue() { return _computecmdQueue; }
 	shared_ptr<SwapChain>				GetSwapChain() { return _swapChain; }
 	shared_ptr<RootSignature>			GetRootsignature() { return _rootSignature; }
 	shared_ptr<TableDescriptionHeap>	GetTableDescHeap() { return _tableDescHeap; }
+	shared_ptr<ComputeDescriptorHeap>	GetComputeDescHeap() { return _computeDescHeap; }
 	shared_ptr<ConstantBuffer>			GetConstantBuffer(CBV_REGISTER reg) { return _constantBuffer[static_cast<uint8>(reg)]; }
 	shared_ptr<DepthStencilBuffer>		GetDepthStencilBuffer() { return _depthStencilBuffer; }
 	D3D12_VIEWPORT& GetViewport() { return _viewport; }
@@ -38,9 +43,13 @@ private:
 
 	shared_ptr<Device>							_device;
 	shared_ptr<CommandQueue>					_cmdQueue;
+	shared_ptr<ComputeCommandQueue>				_computecmdQueue;
+
 	shared_ptr<SwapChain>						_swapChain;
 	shared_ptr<RootSignature>					_rootSignature;
 	shared_ptr<TableDescriptionHeap>			_tableDescHeap;
+	shared_ptr<ComputeDescriptorHeap>			_computeDescHeap;
+
 	vector<shared_ptr<ConstantBuffer>>			_constantBuffer;
 	shared_ptr<DepthStencilBuffer>				_depthStencilBuffer;
 

@@ -61,7 +61,8 @@ void CommandQueue::WaitSync()
 
 void CommandQueue::RenderBegin(const D3D12_VIEWPORT* vp, const D3D12_RECT* rect)
 {
-	_cmdAlloc->Reset();
+	HRESULT hr= _cmdAlloc->Reset();
+	CHECK(hr);
 	_cmdList->Reset(_cmdAlloc.Get(), nullptr);
 
 	D3D12_RESOURCE_BARRIER barrier = CD3DX12_RESOURCE_BARRIER::Transition(

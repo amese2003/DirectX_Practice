@@ -26,4 +26,3 @@ private:
 
 	uint32					_currentGroupIndex = 0;
 };
-

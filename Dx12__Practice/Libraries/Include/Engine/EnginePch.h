@@ -73,8 +73,24 @@ enum class SRV_REGISTER : uint8
 	t2,
 	t3,
 	t4,
+	t5,
+	t6,
+	t7,
+	t8,
+	t9,
 
 	END
+};
+
+enum class UAV_REGISTER : uint8
+{
+	u0 = static_cast<uint8>(SRV_REGISTER::END),
+	u1,
+	u2,
+	u3,
+	u4,
+
+	END,
 };
 
 enum
@@ -82,7 +98,9 @@ enum
 	SWAP_CHAIN_BUFFER_COUNT = 2,
 	CBV_REGISTER_COUNT = CBV_REGISTER::END,
 	SRV_REGISTER_COUNT = static_cast<uint8>(SRV_REGISTER::END) - CBV_REGISTER_COUNT,
-	REGISTER_COUNT = CBV_REGISTER_COUNT + SRV_REGISTER_COUNT,
+	CBV_SRV_REGISTER_COUNT = CBV_REGISTER_COUNT + SRV_REGISTER_COUNT,
+	UAV_REGISTER_COUNT = static_cast<uint8>(UAV_REGISTER::END) - CBV_SRV_REGISTER_COUNT,
+	TOTAL_REGISTER_COUNT = CBV_SRV_REGISTER_COUNT + UAV_REGISTER_COUNT
 };
 
 struct WindowInfo
@@ -109,7 +127,11 @@ struct WindowInfo
 #define DEVICE					GRAPHICS->GetDevice()->GetDevice()
 #define CMD_LIST				GRAPHICS->GetCommandQueue()->GetCmdList()
 #define RESOURCE_CMD_LIST		GRAPHICS->GetCommandQueue()->GetResourceCmdList()
+#define COMPUTE_CMD_LIST		GRAPHICS->GetComputeQueue()->GetCmdList()
+
 #define ROOT_SIGNATURE			GRAPHICS->GetRootsignature()->GetSignature()
+#define COMPUTE_ROOT_SIGNATURE	GRAPHICS->GetRootsignature()->GetComputeSignature()
+
 #define INPUT					GET_SINGLE(InputManager)
 #define TIME					GET_SINGLE(TimeManager)
 #define DT						TIME->DeltaTime()
@@ -123,7 +145,9 @@ struct WindowInfo
 #include "SwapChain.h"
 #include "RootSignature.h"
 #include "CommandQueue.h"
+#include "ComputeCommandQueue.h"
 #include "TableDescriptionHeap.h"
+#include "ComputeDescriptorHeap.h"
 #include "DepthStencilBuffer.h"
 #include "BindShaderDesc.h"
 

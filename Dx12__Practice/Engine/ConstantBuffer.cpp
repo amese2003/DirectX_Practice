@@ -69,6 +69,7 @@ void ConstantBuffer::CreateView()
 		cbvDesc.SizeInBytes = _elementSize;   // CB size is required to be 256-byte aligned.
 
 		DEVICE->CreateConstantBufferView(&cbvDesc, cbvHandle);
+
 	}
 }
 

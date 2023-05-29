@@ -88,6 +88,12 @@
     <ClInclude Include="14. TreeBillboardDemo.h">
       <Filter>Game</Filter>
     </ClInclude>
+    <ClInclude Include="15. VecAddDemo.h">
+      <Filter>Game</Filter>
+    </ClInclude>
+    <ClInclude Include="ComputeTest.h">
+      <Filter>Main</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Client.rc">
@@ -160,6 +166,12 @@
     <ClCompile Include="14. TreeBillboardDemo.cpp">
       <Filter>Game</Filter>
     </ClCompile>
+    <ClCompile Include="15. VecAddDemo.cpp">
+      <Filter>Game</Filter>
+    </ClCompile>
+    <ClCompile Include="ComputeTest.cpp">
+      <Filter>Main</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="..\Shaders\01. Rectangle.fx">
@@ -193,6 +205,9 @@
       <Filter>Shader</Filter>
     </FxCompile>
     <FxCompile Include="..\Shaders\12. TreeSprite.fx">
+      <Filter>Shader</Filter>
+    </FxCompile>
+    <FxCompile Include="..\Shaders\13. VecAdd.fx">
       <Filter>Shader</Filter>
     </FxCompile>
   </ItemGroup>

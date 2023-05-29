@@ -190,8 +190,8 @@ void Waves::Init(shared_ptr<Mesh> mesh, shared_ptr<Shader> shader, uint32 m, uin
 		}
 	}
 
-	_mesh->GetVertexBuffer()->CreateTexture(vtx);
-	_mesh->GetIndexBuffer()->CreateTexture(indices);
+	_mesh->GetVertexBuffer()->CreateBuffer(vtx);
+	_mesh->GetIndexBuffer()->CreateBuffer(indices);
 }
 
 void Waves::Update(float dt)
