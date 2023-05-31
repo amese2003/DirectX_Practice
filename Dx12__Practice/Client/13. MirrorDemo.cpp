@@ -45,7 +45,7 @@ void MirrorDemo::Init()
 		}
 
 		shared_ptr<Texture> texture = make_shared<Texture>();
-		texture->Init(L"..\\Resources\\Textures\\ice.dds");
+		texture->Load(L"..\\Resources\\Textures\\ice.dds");
 
 		shared_ptr<GameObject> gameObject = make_shared<GameObject>();
 		gameObject->GetOrAddTransform();
@@ -135,7 +135,7 @@ void MirrorDemo::Init()
 		}
 
 		shared_ptr<Texture> texture = make_shared<Texture>();
-		texture->Init(L"..\\Resources\\Textures\\checkboard.dds");
+		texture->Load(L"..\\Resources\\Textures\\checkboard.dds");
 
 		shared_ptr<GameObject> skull = make_shared<GameObject>();
 		skull->GetOrAddTransform()->SetPosition(Vec3(0.0f, 1.f, -3.f));
@@ -180,7 +180,7 @@ void MirrorDemo::Init()
 		}
 
 		shared_ptr<Texture> texture = make_shared<Texture>();
-		texture->Init(L"..\\Resources\\Textures\\checkboard.dds");
+		texture->Load(L"..\\Resources\\Textures\\checkboard.dds");
 
 		shared_ptr<GameObject> gameObject = make_shared<GameObject>();
 		gameObject->GetOrAddTransform();
@@ -217,7 +217,7 @@ void MirrorDemo::Init()
 		}
 
 		shared_ptr<Texture> texture = make_shared<Texture>();
-		texture->Init(L"..\\Resources\\Textures\\brick01.dds");
+		texture->Load(L"..\\Resources\\Textures\\brick01.dds");
 
 		shared_ptr<GameObject> gameObject = make_shared<GameObject>();
 		gameObject->GetOrAddTransform();

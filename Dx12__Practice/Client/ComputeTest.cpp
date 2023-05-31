@@ -6,6 +6,7 @@
 
 void ComputeTest::Start()
 {
+	_test.resize(4);
 	HRESULT hr = GRAPHICS->GetComputeQueue()->GetCmdList()->Reset(GRAPHICS->GetComputeQueue()->GetAlloc().Get(), nullptr);
 	CHECK(hr);
 
@@ -40,43 +41,53 @@ void ComputeTest::BuildBuffers()
 
 	UINT64 byteSize = dataA.size() * sizeof(Data);
 
-	// Create some buffers to be used as SRVs.
-	mInputBufferA = CreateDefaultBuffer(
-		dataA.data(),
-		byteSize,
-		mInputUploadBufferA);
+	_test[0] = make_shared<Texture>();
+	_test[1] = make_shared<Texture>();
+	_test[2] = make_shared<Texture>();
+	_test[3] = make_shared<Texture>();
 
-	mInputBufferB = CreateDefaultBuffer(
-		dataB.data(),
-		byteSize,
-		mInputUploadBufferB);
+	_test[0]->CreateComputeTexture(dataA.data(), byteSize);
+	_test[1]->CreateComputeTexture(dataB.data(), byteSize);
+	_test[2]->CreateUAVTexture(byteSize);
+	_test[3]->CreateCopyTexture(byteSize);
 
-	D3D12_HEAP_PROPERTIES heapProperty = CD3DX12_HEAP_PROPERTIES(D3D12_HEAP_TYPE_DEFAULT);
-	D3D12_RESOURCE_DESC desc = CD3DX12_RESOURCE_DESC::Buffer(byteSize, D3D12_RESOURCE_FLAG_ALLOW_UNORDERED_ACCESS);
+	////// Create some buffers to be used as SRVs.
+	//mInputBufferA = CreateDefaultBuffer(
+	//	dataA.data(),
+	//	byteSize,
+	//	mInputUploadBufferA);
 
-	HRESULT hr;
-	// Create the buffer that will be a UAV.
-	hr =DEVICE->CreateCommittedResource(
-		&heapProperty,
-		D3D12_HEAP_FLAG_NONE,
-		&desc,
-		D3D12_RESOURCE_STATE_UNORDERED_ACCESS,
-		nullptr,
-		IID_PPV_ARGS(&mOutputBuffer));
+	//mInputBufferB = CreateDefaultBuffer(
+	//	dataB.data(),
+	//	byteSize,
+	//	mInputUploadBufferB);
 
-	CHECK(hr);
-	D3D12_HEAP_PROPERTIES heapProperty1 = CD3DX12_HEAP_PROPERTIES(D3D12_HEAP_TYPE_READBACK);
-	D3D12_RESOURCE_DESC desc1 = CD3DX12_RESOURCE_DESC::Buffer(byteSize);
+	//D3D12_HEAP_PROPERTIES heapProperty = CD3DX12_HEAP_PROPERTIES(D3D12_HEAP_TYPE_DEFAULT);
+	//D3D12_RESOURCE_DESC desc = CD3DX12_RESOURCE_DESC::Buffer(byteSize, D3D12_RESOURCE_FLAG_ALLOW_UNORDERED_ACCESS);
+
+	//HRESULT hr;
+	//// Create the buffer that will be a UAV.
+	//hr =DEVICE->CreateCommittedResource(
+	//	&heapProperty,
+	//	D3D12_HEAP_FLAG_NONE,
+	//	&desc,
+	//	D3D12_RESOURCE_STATE_UNORDERED_ACCESS,
+	//	nullptr,
+	//	IID_PPV_ARGS(&mOutputBuffer));
+
+	//CHECK(hr);
+	//D3D12_HEAP_PROPERTIES heapProperty1 = CD3DX12_HEAP_PROPERTIES(D3D12_HEAP_TYPE_READBACK);
+	//D3D12_RESOURCE_DESC desc1 = CD3DX12_RESOURCE_DESC::Buffer(byteSize);
 
 
-	hr  = DEVICE->CreateCommittedResource(
-		&heapProperty1,
-		D3D12_HEAP_FLAG_NONE,
-		&desc1,
-		D3D12_RESOURCE_STATE_COPY_DEST,
-		nullptr,
-		IID_PPV_ARGS(&mReadBackBuffer));
-	CHECK(hr);
+	//hr  = DEVICE->CreateCommittedResource(
+	//	&heapProperty1,
+	//	D3D12_HEAP_FLAG_NONE,
+	//	&desc1,
+	//	D3D12_RESOURCE_STATE_COPY_DEST,
+	//	nullptr,
+	//	IID_PPV_ARGS(&mReadBackBuffer));
+	//CHECK(hr);
 }
 
 void ComputeTest::Dispatch()
@@ -100,25 +111,30 @@ void ComputeTest::Dispatch()
 
 	mCommandList->SetComputeRootSignature(COMPUTE_ROOT_SIGNATURE.Get());
 
-	mCommandList->SetComputeRootShaderResourceView(static_cast<uint32>(SRV_REGISTER::t0), mInputBufferA->GetGPUVirtualAddress());
-	mCommandList->SetComputeRootShaderResourceView(static_cast<uint32>(SRV_REGISTER::t1), mInputBufferB->GetGPUVirtualAddress());
-	mCommandList->SetComputeRootUnorderedAccessView(static_cast<uint32>(UAV_REGISTER::u0), mOutputBuffer->GetGPUVirtualAddress());
+	/*mCommandList->SetComputeRootShaderResourceView(0, mInputBufferA->GetGPUVirtualAddress());
+	mCommandList->SetComputeRootShaderResourceView(1, mInputBufferB->GetGPUVirtualAddress());
+	mCommandList->SetComputeRootUnorderedAccessView(2, mOutputBuffer->GetGPUVirtualAddress());*/
+
+	mCommandList->SetComputeRootShaderResourceView(0, _test[0]->GetComPtr()->GetGPUVirtualAddress());
+	mCommandList->SetComputeRootShaderResourceView(1, _test[1]->GetComPtr()->GetGPUVirtualAddress());
+	mCommandList->SetComputeRootUnorderedAccessView(2, _test[2]->GetComPtr()->GetGPUVirtualAddress());
+
 
 	mCommandList->Dispatch(1, 1, 1);
 
 
 	D3D12_RESOURCE_BARRIER barrier = CD3DX12_RESOURCE_BARRIER::Transition(
-		mOutputBuffer.Get(),
+		_test[2]->GetComPtr().Get(),
 		D3D12_RESOURCE_STATE_COMMON,
 		D3D12_RESOURCE_STATE_COPY_SOURCE);
 
 	// Schedule to copy the data to the default buffer to the readback buffer.
 	mCommandList->ResourceBarrier(1, &barrier);
 
-	mCommandList->CopyResource(mReadBackBuffer.Get(), mOutputBuffer.Get());
+	mCommandList->CopyResource(_test[3]->GetComPtr().Get(), _test[2]->GetComPtr().Get());
 
 	D3D12_RESOURCE_BARRIER rbarrier = CD3DX12_RESOURCE_BARRIER::Transition(
-		mOutputBuffer.Get(),
+		_test[2]->GetComPtr().Get(),
 		D3D12_RESOURCE_STATE_COPY_SOURCE,
 		D3D12_RESOURCE_STATE_COMMON);
 
@@ -133,7 +149,9 @@ void ComputeTest::Dispatch()
 
 	// Map the data so we can read it on CPU.
 	Data* mappedData = nullptr;
-	hr = (mReadBackBuffer->Map(0, nullptr, reinterpret_cast<void**>(&mappedData)));
+
+	
+	hr = (_test[3]->GetComPtr()->Map(0, nullptr, reinterpret_cast<void**>(&mappedData)));
 	CHECK(hr);
 
 	std::ofstream fout("results.txt");
@@ -144,7 +162,7 @@ void ComputeTest::Dispatch()
 			", " << mappedData[i].v2.x << ", " << mappedData[i].v2.y << ")" << std::endl;
 	}
 
-	mReadBackBuffer->Unmap(0, nullptr);
+	_test[3]->GetComPtr()->Unmap(0, nullptr);
 
 }
 

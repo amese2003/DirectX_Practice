@@ -34,6 +34,7 @@ void TableDescriptionHeap::SetShaderResourceView(D3D12_CPU_DESCRIPTOR_HANDLE src
 {
 	D3D12_CPU_DESCRIPTOR_HANDLE destHandle = GetCPUHandle(reg);
 
+
 	uint32 destRange = 1;
 	uint32 srcRange = 1;
 	DEVICE->CopyDescriptors(1, &destHandle, &destRange, 1, &srcHandle, &srcRange, D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV);
@@ -44,6 +45,7 @@ void TableDescriptionHeap::CommitTable()
 	D3D12_GPU_DESCRIPTOR_HANDLE handle = _descHeap->GetGPUDescriptorHandleForHeapStart();
 	handle.ptr += _currentGroupIndex * _groupSize;
 	CMD_LIST->SetGraphicsRootDescriptorTable(1, handle);
+
 
 	_currentGroupIndex++;
 }

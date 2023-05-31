@@ -36,16 +36,20 @@ void RootSignature::CreateRootSignature()
 
 void RootSignature::CreateComputeSignature()
 {
-	CD3DX12_DESCRIPTOR_RANGE ranges[] =
-	{
-		CD3DX12_DESCRIPTOR_RANGE(D3D12_DESCRIPTOR_RANGE_TYPE_SRV, 2, 0), // b0~b4
-	};
+	//CD3DX12_DESCRIPTOR_RANGE ranges[] =
+	//{
+	//	CD3DX12_DESCRIPTOR_RANGE(D3D12_DESCRIPTOR_RANGE_TYPE_CBV, 2, 0), // b0~b4
+	//	CD3DX12_DESCRIPTOR_RANGE(D3D12_DESCRIPTOR_RANGE_TYPE_SRV, 2, 0), // t0~t9
+	//	CD3DX12_DESCRIPTOR_RANGE(D3D12_DESCRIPTOR_RANGE_TYPE_UAV, 1, 0), // u0~u4
+	//};
 
-	CD3DX12_ROOT_PARAMETER param[2];
-	param[0].InitAsDescriptorTable(_countof(ranges), ranges);
-	//param[0].InitAsShaderResourceView(0);
+	CD3DX12_ROOT_PARAMETER param[3];
+	//param[0].InitAsDescriptorTable(_countof(ranges), ranges);
+	param[0].InitAsShaderResourceView(0);
+	param[1].InitAsShaderResourceView(1);
+	param[2].InitAsUnorderedAccessView(0);
 	//param[1].InitAsShaderResourceView(1);
-	param[1].InitAsUnorderedAccessView(0);
+	//param[2].InitAsUnorderedAccessView(0);
 
 	D3D12_ROOT_SIGNATURE_DESC sigDesc = CD3DX12_ROOT_SIGNATURE_DESC(_countof(param), param);
 	sigDesc.Flags = D3D12_ROOT_SIGNATURE_FLAG_NONE;

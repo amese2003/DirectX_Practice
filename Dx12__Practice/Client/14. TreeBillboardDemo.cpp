@@ -11,7 +11,7 @@ void TreeBillboardDemo::Init()
 		shader->Init(L"..\\Shaders\\07. Basic.fx");
 
 		shared_ptr<Texture> texture = make_shared<Texture>();
-		texture->Init(L"..\\Resources\\Textures\\grass.dds");
+		texture->Load(L"..\\Resources\\Textures\\grass.dds");
 
 		shared_ptr<Mesh> landMesh = make_shared<Mesh>();
 		{
@@ -39,7 +39,7 @@ void TreeBillboardDemo::Init()
 		shader->Init(L"..\\Shaders\\07. Basic.fx");
 
 		shared_ptr<Texture> texture = make_shared<Texture>();
-		texture->Init(L"..\\Resources\\Textures\\water2.dds");
+		texture->Load(L"..\\Resources\\Textures\\water2.dds");
 
 		shared_ptr<Mesh> waveMesh = make_shared<Mesh>();
 		{
@@ -89,7 +89,7 @@ void TreeBillboardDemo::Init()
 		}
 
 		shared_ptr<Texture> texture = make_shared<Texture>();
-		texture->Init(L"..\\Resources\\Textures\\WireFence.dds");
+		texture->Load(L"..\\Resources\\Textures\\WireFence.dds");
 
 		shared_ptr<GameObject> gameObject = make_shared<GameObject>();
 		gameObject->GetOrAddTransform();
@@ -131,7 +131,7 @@ void TreeBillboardDemo::Init()
 		}
 
 		shared_ptr<Texture> texture = make_shared<Texture>();
-		texture->Init(L"..\\Resources\\Textures\\treearray.dds", true);
+		texture->Load(L"..\\Resources\\Textures\\treearray.dds");
 
 		shared_ptr<GameObject> gameObject = make_shared<GameObject>();
 		gameObject->GetOrAddTransform();

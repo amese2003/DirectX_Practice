@@ -7,16 +7,19 @@ public:
 	Texture();
 	~Texture();
 
-	void Init(const wstring& path, bool isArray = false);
+	//void Init(const wstring& path, bool isArray = false);
 	ComPtr<ID3D12Resource> GetComPtr() { return _texture2D; }
 	D3D12_CPU_DESCRIPTOR_HANDLE GetCpuHandle() { return _srvHandle; }
 	
-	void LoadTexture(const wstring& path);
-	void LoadFromView(bool isArray);
+	virtual void Load(const wstring& path) override;
+	void CreateComputeTexture(const void* data, UINT64 byteSize);
+	void CreateUAVTexture(UINT64 byteSize);
+	void CreateCopyTexture(UINT64 byteSize);
 
 public:
 	void CreateTexture(DXGI_FORMAT format, uint32 width, uint32 height, const D3D12_HEAP_PROPERTIES& heapProperty, D3D12_HEAP_FLAGS heapFlags, D3D12_RESOURCE_FLAGS resFlags, Vec4 clearColor = Vec4());
 	void CreateFromTexture(ComPtr<ID3D12Resource> tex2D);
+	
 
 	float GetWidth() { return static_cast<float>(_desc.Width); }
 	float GetHeight() { return static_cast<float>(_desc.Height); }
@@ -24,10 +27,13 @@ public:
 	Vec2 GetOffset() { return _texOffset; }
 	void SetOffset(Vec2 offset) { _texOffset = offset; }
 
+
+
 private:
 	ScratchImage				_image;
 	D3D12_RESOURCE_DESC			_desc;
 	ComPtr<ID3D12Resource>		_texture2D;
+	ComPtr<ID3D12Resource>		_uploadBuffer;
 
 
 	ComPtr<ID3D12DescriptorHeap>	_srvHeap;

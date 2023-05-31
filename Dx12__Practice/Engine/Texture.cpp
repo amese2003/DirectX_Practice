@@ -9,16 +9,11 @@ Texture::~Texture()
 {
 }
 
-void Texture::Init(const wstring& path, bool isArray)
+
+void Texture::Load(const wstring& path)
 {
 	_srvHeap = GRAPHICS->GetTableDescHeap()->GetDescriptorHeap();
 
-	LoadTexture(path);
-	LoadFromView(isArray);
-}
-
-void Texture::LoadTexture(const wstring& path)
-{
 	DirectX::TexMetadata md;
 	HRESULT hr;
 
@@ -76,10 +71,6 @@ void Texture::LoadTexture(const wstring& path)
 
 	GRAPHICS->GetCommandQueue()->FlushResourceCommandQueue();
 
-}
-
-void Texture::LoadFromView(bool isArray)
-{
 	D3D12_DESCRIPTOR_HEAP_DESC srvHeapDesc = {};
 	srvHeapDesc.NumDescriptors = 1;
 	srvHeapDesc.Type = D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV;
@@ -92,15 +83,13 @@ void Texture::LoadFromView(bool isArray)
 	srvDesc.Shader4ComponentMapping = D3D12_DEFAULT_SHADER_4_COMPONENT_MAPPING;
 	srvDesc.Format = _image.GetMetadata().format;
 
-	if (isArray)
+	if (_image.GetMetadata().arraySize > 1)
 	{
 		srvDesc.ViewDimension = D3D12_SRV_DIMENSION_TEXTURE2DARRAY;
 		srvDesc.Texture2DArray.MostDetailedMip = 0;
 		srvDesc.Texture2DArray.MipLevels = -1;
 		srvDesc.Texture2DArray.FirstArraySlice = 0;
 		srvDesc.Texture2DArray.ArraySize = _image.GetMetadata().arraySize;
-		
-		
 	}
 	else
 	{
@@ -108,11 +97,95 @@ void Texture::LoadFromView(bool isArray)
 		srvDesc.Texture2D.MipLevels = 1;
 	}
 
-	
 	DEVICE->CreateShaderResourceView(_texture2D.Get(), &srvDesc, _srvHandle);
-
-
 }
+
+void Texture::CreateComputeTexture(const void* data, UINT64 byteSize)
+{
+	_srvHeap = GRAPHICS->GetComputeDescHeap()->GetDescriptorHeap();
+
+	D3D12_HEAP_PROPERTIES heapProperty = CD3DX12_HEAP_PROPERTIES(D3D12_HEAP_TYPE_DEFAULT);
+	D3D12_RESOURCE_DESC desc = CD3DX12_RESOURCE_DESC::Buffer(byteSize);
+
+	HRESULT hr;
+
+	hr = DEVICE->CreateCommittedResource(
+		&heapProperty,
+		D3D12_HEAP_FLAG_NONE,
+		&desc,
+		D3D12_RESOURCE_STATE_COMMON,
+		nullptr,
+		IID_PPV_ARGS(_texture2D.GetAddressOf()));
+
+	CHECK(hr);
+
+	heapProperty = CD3DX12_HEAP_PROPERTIES(D3D12_HEAP_TYPE_UPLOAD);
+	hr = DEVICE->CreateCommittedResource(
+		&heapProperty,
+		D3D12_HEAP_FLAG_NONE,
+		&desc,
+		D3D12_RESOURCE_STATE_GENERIC_READ,
+		nullptr,
+		IID_PPV_ARGS(_uploadBuffer.GetAddressOf()));
+	CHECK(hr);
+
+
+	D3D12_SUBRESOURCE_DATA subResourceData = {};
+	subResourceData.pData = data;
+	subResourceData.RowPitch = byteSize;
+	subResourceData.SlicePitch = subResourceData.RowPitch;
+
+	auto barrier = CD3DX12_RESOURCE_BARRIER::Transition(_texture2D.Get(),
+		D3D12_RESOURCE_STATE_COMMON, D3D12_RESOURCE_STATE_COPY_DEST);
+
+	COMPUTE_CMD_LIST->ResourceBarrier(1, &barrier);
+
+	::UpdateSubresources<1>(COMPUTE_CMD_LIST.Get(),
+		_texture2D.Get(),
+		_uploadBuffer.Get(),
+		0, 0,
+		1,
+		&subResourceData);
+
+	barrier = CD3DX12_RESOURCE_BARRIER::Transition(_texture2D.Get(),
+		D3D12_RESOURCE_STATE_COPY_DEST, D3D12_RESOURCE_STATE_GENERIC_READ);
+	COMPUTE_CMD_LIST->ResourceBarrier(1, &barrier);
+}
+
+void Texture::CreateUAVTexture(UINT64 byteSize)
+{
+	D3D12_HEAP_PROPERTIES heapProperty = CD3DX12_HEAP_PROPERTIES(D3D12_HEAP_TYPE_DEFAULT);
+	D3D12_RESOURCE_DESC desc = CD3DX12_RESOURCE_DESC::Buffer(byteSize, D3D12_RESOURCE_FLAG_ALLOW_UNORDERED_ACCESS);
+
+	HRESULT hr;
+	// Create the buffer that will be a UAV.
+	hr = DEVICE->CreateCommittedResource(
+		&heapProperty,
+		D3D12_HEAP_FLAG_NONE,
+		&desc,
+		D3D12_RESOURCE_STATE_UNORDERED_ACCESS,
+		nullptr,
+		IID_PPV_ARGS(&_texture2D));
+
+	CHECK(hr);
+}
+
+void Texture::CreateCopyTexture(UINT64 byteSize)
+{
+	D3D12_HEAP_PROPERTIES heapProperty = CD3DX12_HEAP_PROPERTIES(D3D12_HEAP_TYPE_READBACK);
+	D3D12_RESOURCE_DESC desc = CD3DX12_RESOURCE_DESC::Buffer(byteSize);
+
+	HRESULT hr;
+	hr = DEVICE->CreateCommittedResource(
+		&heapProperty,
+		D3D12_HEAP_FLAG_NONE,
+		&desc,
+		D3D12_RESOURCE_STATE_COPY_DEST,
+		nullptr,
+		IID_PPV_ARGS(&_texture2D));
+	CHECK(hr);
+}
+
 
 void Texture::CreateTexture(DXGI_FORMAT format, uint32 width, uint32 height, const D3D12_HEAP_PROPERTIES& heapProperty, D3D12_HEAP_FLAGS heapFlags, D3D12_RESOURCE_FLAGS resFlags, Vec4 clearColor)
 {

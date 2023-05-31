@@ -23,7 +23,7 @@ void CrateDemo::Init()
 		}
 
 		shared_ptr<Texture> texture = make_shared<Texture>();
-		texture->Init(L"..\\Resources\\Textures\\WoodCrate01.dds");
+		texture->Load(L"..\\Resources\\Textures\\WoodCrate01.dds");
 
 		_gameObject = make_shared<GameObject>();
 		_gameObject->GetOrAddTransform();

@@ -21,6 +21,7 @@ public:
 
 private:
 	shared_ptr<Shader> _shader;
+	vector<shared_ptr<Texture>> _test;
 
 	const int NumDataElements = 32;
 

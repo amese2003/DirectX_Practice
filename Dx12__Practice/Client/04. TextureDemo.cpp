@@ -15,7 +15,7 @@ void TextureDemo::Init()
 	}
 
 	shared_ptr<Texture> texture = make_shared<Texture>();
-	texture->Init(L"..\\Resources\\Hoshino.png");
+	texture->Load(L"..\\Resources\\Hoshino.png");
 
 	_gameObject = make_shared<GameObject>();
 	_gameObject->GetOrAddTransform();
