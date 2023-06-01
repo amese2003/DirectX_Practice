@@ -10,6 +10,7 @@ public:
 	//void Init(const wstring& path, bool isArray = false);
 	ComPtr<ID3D12Resource> GetComPtr() { return _texture2D; }
 	D3D12_CPU_DESCRIPTOR_HANDLE GetCpuHandle() { return _srvHandle; }
+	D3D12_GPU_DESCRIPTOR_HANDLE GetGpuHandle() { return _gpuHandle; }
 	
 	virtual void Load(const wstring& path) override;
 	void CreateComputeTexture(const void* data, UINT64 byteSize);
@@ -44,6 +45,8 @@ private:
 
 	D3D12_CPU_DESCRIPTOR_HANDLE		_srvHandle = {};
 	D3D12_CPU_DESCRIPTOR_HANDLE		_uavHandle = {};
+
+	D3D12_GPU_DESCRIPTOR_HANDLE		_gpuHandle = {};
 
 private:
 	Vec2 _size = { 0.f, 0.f };

@@ -70,12 +70,14 @@ void Texture::Load(const wstring& path)
 	_size.y = md.height;
 
 	GRAPHICS->GetCommandQueue()->FlushResourceCommandQueue();
+	CreateFromTexture(_texture2D);
 
-	D3D12_DESCRIPTOR_HEAP_DESC srvHeapDesc = {};
+	/*D3D12_DESCRIPTOR_HEAP_DESC srvHeapDesc = {};
 	srvHeapDesc.NumDescriptors = 1;
 	srvHeapDesc.Type = D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV;
 	srvHeapDesc.Flags = D3D12_DESCRIPTOR_HEAP_FLAG_NONE;
-	DEVICE->CreateDescriptorHeap(&srvHeapDesc, IID_PPV_ARGS(&_srvHeap));
+	hr = DEVICE->CreateDescriptorHeap(&srvHeapDesc, IID_PPV_ARGS(&_srvHeap));
+	CHECK(hr);
 
 	_srvHandle = _srvHeap->GetCPUDescriptorHandleForHeapStart();
 
@@ -97,7 +99,7 @@ void Texture::Load(const wstring& path)
 		srvDesc.Texture2D.MipLevels = 1;
 	}
 
-	DEVICE->CreateShaderResourceView(_texture2D.Get(), &srvDesc, _srvHandle);
+	DEVICE->CreateShaderResourceView(_texture2D.Get(), &srvDesc, _srvHandle);*/
 }
 
 void Texture::CreateComputeTexture(const void* data, UINT64 byteSize)
@@ -290,13 +292,27 @@ void Texture::CreateFromTexture(ComPtr<ID3D12Resource> tex2D)
 		srvHeapDesc.Flags = D3D12_DESCRIPTOR_HEAP_FLAG_NONE;
 		DEVICE->CreateDescriptorHeap(&srvHeapDesc, IID_PPV_ARGS(&_srvHeap));
 
-		_uavHandle = _srvHeap->GetCPUDescriptorHandleForHeapStart();
+		_srvHandle = _srvHeap->GetCPUDescriptorHandleForHeapStart();
+		_gpuHandle = _srvHeap->GetGPUDescriptorHandleForHeapStart();
 
 		D3D12_SHADER_RESOURCE_VIEW_DESC srvDesc = {};
 		srvDesc.Shader4ComponentMapping = D3D12_DEFAULT_SHADER_4_COMPONENT_MAPPING;
 		srvDesc.Format = _image.GetMetadata().format;
-		srvDesc.ViewDimension = D3D12_SRV_DIMENSION_TEXTURE2D;
-		srvDesc.Texture2D.MipLevels = 1;
-		DEVICE->CreateShaderResourceView(_texture2D.Get(), &srvDesc, _uavHandle);
+
+		if (_image.GetMetadata().arraySize > 1)
+		{
+			srvDesc.ViewDimension = D3D12_SRV_DIMENSION_TEXTURE2DARRAY;
+			srvDesc.Texture2DArray.MostDetailedMip = 0;
+			srvDesc.Texture2DArray.MipLevels = -1;
+			srvDesc.Texture2DArray.FirstArraySlice = 0;
+			srvDesc.Texture2DArray.ArraySize = _image.GetMetadata().arraySize;
+		}
+		else
+		{
+			srvDesc.ViewDimension = D3D12_SRV_DIMENSION_TEXTURE2D;
+			srvDesc.Texture2D.MipLevels = 1;
+		}
+
+		DEVICE->CreateShaderResourceView(_texture2D.Get(), &srvDesc, _srvHandle);
 	}
 }
