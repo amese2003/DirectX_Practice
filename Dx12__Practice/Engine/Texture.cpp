@@ -71,35 +71,6 @@ void Texture::Load(const wstring& path)
 
 	GRAPHICS->GetCommandQueue()->FlushResourceCommandQueue();
 	CreateFromTexture(_texture2D);
-
-	/*D3D12_DESCRIPTOR_HEAP_DESC srvHeapDesc = {};
-	srvHeapDesc.NumDescriptors = 1;
-	srvHeapDesc.Type = D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV;
-	srvHeapDesc.Flags = D3D12_DESCRIPTOR_HEAP_FLAG_NONE;
-	hr = DEVICE->CreateDescriptorHeap(&srvHeapDesc, IID_PPV_ARGS(&_srvHeap));
-	CHECK(hr);
-
-	_srvHandle = _srvHeap->GetCPUDescriptorHandleForHeapStart();
-
-	D3D12_SHADER_RESOURCE_VIEW_DESC srvDesc = {};
-	srvDesc.Shader4ComponentMapping = D3D12_DEFAULT_SHADER_4_COMPONENT_MAPPING;
-	srvDesc.Format = _image.GetMetadata().format;
-
-	if (_image.GetMetadata().arraySize > 1)
-	{
-		srvDesc.ViewDimension = D3D12_SRV_DIMENSION_TEXTURE2DARRAY;
-		srvDesc.Texture2DArray.MostDetailedMip = 0;
-		srvDesc.Texture2DArray.MipLevels = -1;
-		srvDesc.Texture2DArray.FirstArraySlice = 0;
-		srvDesc.Texture2DArray.ArraySize = _image.GetMetadata().arraySize;
-	}
-	else
-	{
-		srvDesc.ViewDimension = D3D12_SRV_DIMENSION_TEXTURE2D;
-		srvDesc.Texture2D.MipLevels = 1;
-	}
-
-	DEVICE->CreateShaderResourceView(_texture2D.Get(), &srvDesc, _srvHandle);*/
 }
 
 void Texture::CreateComputeTexture(const void* data, UINT64 byteSize)
@@ -194,6 +165,7 @@ void Texture::CreateTexture(DXGI_FORMAT format, uint32 width, uint32 height, con
 	D3D12_RESOURCE_DESC desc = CD3DX12_RESOURCE_DESC::Tex2D(format, width, height);
 	desc.Flags = resFlags;
 
+
 	D3D12_CLEAR_VALUE optimizedClearValue = {};
 	D3D12_CLEAR_VALUE* pOptimizedClearValue = nullptr;
 
@@ -224,7 +196,6 @@ void Texture::CreateTexture(DXGI_FORMAT format, uint32 width, uint32 height, con
 
 	assert(SUCCEEDED(hr));
 
-	CreateFromTexture(_texture2D);
 }
 
 void Texture::CreateFromTexture(ComPtr<ID3D12Resource> tex2D)
@@ -274,9 +245,12 @@ void Texture::CreateFromTexture(ComPtr<ID3D12Resource> tex2D)
 			uavHeapDesc.NumDescriptors = 1;
 			uavHeapDesc.Flags = D3D12_DESCRIPTOR_HEAP_FLAG_NONE;
 			uavHeapDesc.NodeMask = 0;
-			DEVICE->CreateDescriptorHeap(&uavHeapDesc, IID_PPV_ARGS(&_uavHeap));
+			HRESULT hr;
+			hr = DEVICE->CreateDescriptorHeap(&uavHeapDesc, IID_PPV_ARGS(&_uavHeap));
+			CHECK(hr);
 
 			_uavHandle = _uavHeap->GetCPUDescriptorHandleForHeapStart();
+			_uavgpuHandle = _uavHeap->GetGPUDescriptorHandleForHeapStart();
 
 			D3D12_UNORDERED_ACCESS_VIEW_DESC uavDesc = {};
 			uavDesc.Format = _image.GetMetadata().format;
@@ -316,3 +290,4 @@ void Texture::CreateFromTexture(ComPtr<ID3D12Resource> tex2D)
 		DEVICE->CreateShaderResourceView(_texture2D.Get(), &srvDesc, _srvHandle);
 	}
 }
+
