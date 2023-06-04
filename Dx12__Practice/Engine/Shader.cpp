@@ -3,7 +3,7 @@
 #include "VertexData.h"
 #include "RenderStates.h"
 
-Shader::Shader()
+Shader::Shader() : Super(ResourceType::Shader)
 {
 }
 

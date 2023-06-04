@@ -166,6 +166,7 @@ xcopy /Y "$(SolutionDir)Engine\*.inl" "$(SolutionDir)Libraries\Include\Engine"</
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="BindShaderDesc.h" />
+    <ClInclude Include="BlurFilter.h" />
     <ClInclude Include="C:\Users\amese\Downloads\Mentoring_DX11\GameCoding\Engine\tinyxml2.h" />
     <ClInclude Include="C:\Users\amese\Downloads\Mentoring_DX11\GameCoding\Engine\Utils.h" />
     <ClInclude Include="Camera.h" />
@@ -197,6 +198,7 @@ xcopy /Y "$(SolutionDir)Engine\*.inl" "$(SolutionDir)Libraries\Include\Engine"</
     <ClInclude Include="pch.h" />
     <ClInclude Include="RenderStates.h" />
     <ClInclude Include="ResourceBase.h" />
+    <ClInclude Include="ResourceManager.h" />
     <ClInclude Include="RootSignature.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="SceneManager.h" />
@@ -214,6 +216,7 @@ xcopy /Y "$(SolutionDir)Engine\*.inl" "$(SolutionDir)Libraries\Include\Engine"</
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="BindShaderDesc.cpp" />
+    <ClCompile Include="BlurFilter.cpp" />
     <ClCompile Include="C:\Users\amese\Downloads\Mentoring_DX11\GameCoding\Engine\tinyxml2.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
@@ -250,6 +253,7 @@ xcopy /Y "$(SolutionDir)Engine\*.inl" "$(SolutionDir)Libraries\Include\Engine"</
     </ClCompile>
     <ClCompile Include="RenderStates.cpp" />
     <ClCompile Include="ResourceBase.cpp" />
+    <ClCompile Include="ResourceManager.cpp" />
     <ClCompile Include="RootSignature.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="SceneManager.cpp" />

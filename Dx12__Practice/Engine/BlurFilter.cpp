@@ -106,7 +106,7 @@ void BlurFilter::Update(UINT width, UINT height)
 	}
 }
 
-void BlurFilter::Execute(ComPtr<ID3D12PipelineState> horzBlurPipeline, ComPtr<ID3D12PipelineState> vertBlurPipeline, ComPtr<ID3D12Resource> input, int blurCount)
+void BlurFilter::Execute(ComPtr<ID3D12Resource> input, int blurCount)
 {
 	auto cmdList = GRAPHICS->GetComputeQueue()->GetCmdList();
 	auto cmdListAlloc = GRAPHICS->GetComputeQueue()->GetAlloc();
@@ -114,9 +114,8 @@ void BlurFilter::Execute(ComPtr<ID3D12PipelineState> horzBlurPipeline, ComPtr<ID
 	HRESULT hr = cmdListAlloc->Reset();
 	CHECK(hr);
 
-	hr = cmdList->Reset(cmdListAlloc.Get(), GRAPHICS->GetComputeShader(0)->GetPipelineState().Get());
-	CHECK(hr);
-
+	/*hr = cmdList->Reset(cmdListAlloc.Get(), GRAPHICS->GetComputeShader(0)->GetPipelineState().Get());
+	CHECK(hr);*/
 	 
 
 
@@ -165,15 +164,15 @@ void BlurFilter::Execute(ComPtr<ID3D12PipelineState> horzBlurPipeline, ComPtr<ID
 		// Horizontal Blur pass.
 		//
 
-		cmdList->SetPipelineState(horzBlurPipeline.Get());
+		
 
-		GRAPHICS->GetComputConstatntBuffer(CBV_REGISTER::b0)->Clear();
-		BlurRadius radius;
+		//cmdList->SetPipelineState(horzBlurPipeline.Get());
 
-		D3D12_CPU_DESCRIPTOR_HANDLE handle = GRAPHICS->GetComputConstatntBuffer(CBV_REGISTER::b0)->PushData(&radius, sizeof(BlurRadius));
+
+
+		BlurParam param;
+		D3D12_CPU_DESCRIPTOR_HANDLE handle = GRAPHICS->GetComputeConstantBuffer(CBV_REGISTER::b0)->PushData(&param, sizeof(BlurParam));
 		GRAPHICS->GetComputeDescHeap()->SetCBV(handle, CBV_REGISTER::b0);
-
-
 		GRAPHICS->GetComputeDescHeap()->CommitTable();
 		cmdList->SetComputeRootDescriptorTable(1, mBlur0GpuSrv);
 		cmdList->SetComputeRootDescriptorTable(2, mBlur1GpuUav);
@@ -197,13 +196,11 @@ void BlurFilter::Execute(ComPtr<ID3D12PipelineState> horzBlurPipeline, ComPtr<ID
 		// Vertical Blur pass.
 		//
 
-		cmdList->SetPipelineState(vertBlurPipeline.Get());
+		//cmdList->SetPipelineState(vertBlurPipeline.Get());
 
-		GRAPHICS->GetComputConstatntBuffer(CBV_REGISTER::b0)->Clear();
-		handle = GRAPHICS->GetComputConstatntBuffer(CBV_REGISTER::b0)->PushData(&radius, sizeof(BlurRadius));
+
+		GRAPHICS->GetComputeConstantBuffer(CBV_REGISTER::b0)->PushData(&param, sizeof(BlurParam));
 		GRAPHICS->GetComputeDescHeap()->SetCBV(handle, CBV_REGISTER::b0);
-
-
 		GRAPHICS->GetComputeDescHeap()->CommitTable();
 		cmdList->SetComputeRootDescriptorTable(1, mBlur1GpuSrv);
 		cmdList->SetComputeRootDescriptorTable(2, mBlur0GpuUav);

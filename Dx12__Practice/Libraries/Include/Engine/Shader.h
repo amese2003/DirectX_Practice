@@ -6,8 +6,10 @@ class PixelShader;
 struct ShaderInfo;
 
 
-class Shader
+class Shader : public ResourceBase
 {
+	using Super = ResourceBase;
+
 public:
 	Shader();
 	virtual ~Shader();

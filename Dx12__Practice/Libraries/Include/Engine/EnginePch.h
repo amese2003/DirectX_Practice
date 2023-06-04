@@ -119,7 +119,7 @@ struct WindowInfo
 #include "InputManager.h"
 #include "TimeManager.h"
 #include "SceneManager.h"
-//#include "ResourceManager.h"
+#include "ResourceManager.h"
 
 #define CHECK(p)				assert(SUCCEEDED(p))
 #define GAME					GET_SINGLE(Game)		
@@ -138,7 +138,7 @@ struct WindowInfo
 #define RESOURCES				GET_SINGLE(ResourceManager)
 #define SCENE					GET_SINGLE(SceneManager)
 #define CUR_SCENE				SCENE->GetCurrentScene()
-
+#define RESOURCES				GET_SINGLE(ResourceManager)
 
 // Engine
 #include "Device.h"

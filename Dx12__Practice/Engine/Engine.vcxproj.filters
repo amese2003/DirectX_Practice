@@ -177,6 +177,12 @@
     <ClInclude Include="ComputeDescriptorHeap.h">
       <Filter>00. Engine</Filter>
     </ClInclude>
+    <ClInclude Include="BlurFilter.h">
+      <Filter>98. Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="ResourceManager.h">
+      <Filter>02. Managers</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine.cpp">
@@ -304,6 +310,12 @@
     </ClCompile>
     <ClCompile Include="ComputeDescriptorHeap.cpp">
       <Filter>00. Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="BlurFilter.cpp">
+      <Filter>98. Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="ResourceManager.cpp">
+      <Filter>02. Managers</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

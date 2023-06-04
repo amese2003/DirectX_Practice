@@ -42,6 +42,9 @@
     <ContentFile>
       <FullPath>D:\Project\DirectX_Practice\Dx12__Practice\Binaries\13. VecAdd.cso</FullPath>
     </ContentFile>
+    <ContentFile>
+      <FullPath>D:\Project\DirectX_Practice\Dx12__Practice\Binaries\14. Blur.cso</FullPath>
+    </ContentFile>
   </ContentFiles>
   <SatelliteDlls />
   <NonRecipeFileRefs />

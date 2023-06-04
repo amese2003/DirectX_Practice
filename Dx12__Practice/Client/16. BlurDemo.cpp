@@ -36,7 +36,6 @@ void BlurDemo::Init()
 		horizonblurShader->Init(L"..\\Shaders\\14. Blur.fx", info, arg);
 	}
 
-	GRAPHICS->SetComputeShader(horizonblurShader);
 
 	shared_ptr<Shader> vertblurShader = make_shared<Shader>();
 	{
@@ -49,24 +48,18 @@ void BlurDemo::Init()
 		vertblurShader->Init(L"..\\Shaders\\14. Blur.fx", info, arg);
 	}
 
-	GRAPHICS->SetComputeShader(vertblurShader);
+	RESOURCES->Add<Shader>(L"HorzBlur", horizonblurShader);
+	RESOURCES->Add<Shader>(L"VertBlur", vertblurShader);
 
-	/*auto heapProperty = CD3DX12_HEAP_PROPERTIES(D3D12_HEAP_TYPE_DEFAULT);
-	shared_ptr<Texture> blurTex = make_shared<Texture>();
-	blurTex->CreateTexture(DXGI_FORMAT_R8G8B8A8_UNORM, GRAPHICS->GetViewport().Width, GRAPHICS->GetViewport().Height, heapProperty, D3D12_HEAP_FLAG_NONE, D3D12_RESOURCE_FLAG_ALLOW_UNORDERED_ACCESS);
-	RESOURCES->Add(L"blurTex1", blurTex);
-	
 
-	shared_ptr<Texture> blurTex2 = make_shared<Texture>();
-	blurTex2->CreateTexture(DXGI_FORMAT_R8G8B8A8_UNORM, GRAPHICS->GetViewport().Width, GRAPHICS->GetViewport().Height, heapProperty, D3D12_HEAP_FLAG_NONE, D3D12_RESOURCE_FLAG_ALLOW_UNORDERED_ACCESS);
-	RESOURCES->Add(L"blurTex2", blurTex2);*/
 
-	GRAPHICS->GetBlurFilter()->PushResource(grassTex->GetComPtr());
-	GRAPHICS->GetBlurFilter()->PushResource(waterTex->GetComPtr());
-	GRAPHICS->GetBlurFilter()->PushResource(wireTex->GetComPtr());
-	GRAPHICS->GetBlurFilter()->CommitResource();
+	vector<shared_ptr<Texture>> expectTexture;
+	expectTexture.push_back(grassTex);
+	expectTexture.push_back(waterTex);
+	expectTexture.push_back(wireTex);
 
-	vector<shared_ptr<Shader>> test = GRAPHICS->_computeShaders;
+
+
 	{
 		shared_ptr<Shader> shader = make_shared<Shader>();
 		shader->Init(L"..\\Shaders\\07. Basic.fx");

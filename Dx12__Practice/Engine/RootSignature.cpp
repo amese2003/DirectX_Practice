@@ -43,12 +43,20 @@ void RootSignature::CreateComputeSignature()
 		//CD3DX12_DESCRIPTOR_RANGE(D3D12_DESCRIPTOR_RANGE_TYPE_UAV, 1, 0), // u0~u4
 	};
 
-	CD3DX12_ROOT_PARAMETER param[4];
+	CD3DX12_DESCRIPTOR_RANGE srvTable;
+	srvTable.Init(D3D12_DESCRIPTOR_RANGE_TYPE_SRV, 1, 0);
+
+	CD3DX12_DESCRIPTOR_RANGE uavTable;
+	uavTable.Init(D3D12_DESCRIPTOR_RANGE_TYPE_UAV, 1, 0);
+
+	CD3DX12_ROOT_PARAMETER param[3];
 	//param[0].InitAsDescriptorTable(_countof(ranges), ranges);
 	param[0].InitAsDescriptorTable(_countof(ranges), ranges);
-	param[1].InitAsShaderResourceView(0);
+	param[1].InitAsDescriptorTable(1, &srvTable);
+	param[2].InitAsDescriptorTable(1, &uavTable);
+	/*param[1].InitAsShaderResourceView(0);
 	param[2].InitAsShaderResourceView(1);
-	param[3].InitAsUnorderedAccessView(0);
+	param[3].InitAsUnorderedAccessView(0);*/
 	//param[1].InitAsShaderResourceView(1);
 	//param[2].InitAsUnorderedAccessView(0);
 

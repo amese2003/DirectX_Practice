@@ -23,7 +23,7 @@ public:
 
 	
 	void Update(UINT width, UINT height);
-	void Execute(ComPtr<ID3D12PipelineState> horzBlurPipeline, ComPtr<ID3D12PipelineState> vertBlurPipeline, ComPtr<ID3D12Resource> input, int blurCount);
+	void Execute(ComPtr<ID3D12Resource> input, int blurCount);
 	
 private:
 	shared_ptr<ComputeCommandQueue> _commandQueue;
