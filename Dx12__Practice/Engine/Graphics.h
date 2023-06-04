@@ -19,7 +19,6 @@ public:
 
 	void RenderBegin();
 	void RenderEnd();
-	void ComputeShader();
 
 public:
 	shared_ptr<Device>					GetDevice() { return _device; }
@@ -30,6 +29,7 @@ public:
 	shared_ptr<TableDescriptionHeap>	GetTableDescHeap() { return _tableDescHeap; }
 	shared_ptr<ComputeDescriptorHeap>	GetComputeDescHeap() { return _computeDescHeap; }
 	shared_ptr<ConstantBuffer>			GetConstantBuffer(CBV_REGISTER reg) { return _constantBuffer[static_cast<uint8>(reg)]; }
+	shared_ptr<ConstantBuffer>			GetComputeConstantBuffer(CBV_REGISTER reg) { return _computeConstantBuffer[static_cast<uint8>(reg)]; }
 	shared_ptr<DepthStencilBuffer>		GetDepthStencilBuffer() { return _depthStencilBuffer; }
 	D3D12_VIEWPORT& GetViewport() { return _viewport; }
 
@@ -51,6 +51,7 @@ private:
 	shared_ptr<ComputeDescriptorHeap>			_computeDescHeap;
 
 	vector<shared_ptr<ConstantBuffer>>			_constantBuffer;
+	vector<shared_ptr<ConstantBuffer>>			_computeConstantBuffer;
 	shared_ptr<DepthStencilBuffer>				_depthStencilBuffer;
 
 	D3D12_VIEWPORT _viewport = { 0 };

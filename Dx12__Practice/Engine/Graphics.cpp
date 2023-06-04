@@ -21,6 +21,7 @@ void Graphics::Init(HWND hwnd)
 	_computeDescHeap = make_shared<ComputeDescriptorHeap>();
 
 	_constantBuffer = vector<shared_ptr<ConstantBuffer>>(CBV_REGISTER_COUNT);
+	_computeConstantBuffer = vector<shared_ptr<ConstantBuffer>>(1);
 	_depthStencilBuffer = make_shared<DepthStencilBuffer>();
 
 
@@ -47,6 +48,9 @@ void Graphics::Init(HWND hwnd)
 
 	_constantBuffer[static_cast<uint8>(CBV_REGISTER::b2)] = make_shared<ConstantBuffer>();
 	_constantBuffer[static_cast<uint8>(CBV_REGISTER::b2)]->Init(sizeof(MaterialData), 256);
+
+	_computeConstantBuffer[static_cast<uint8>(CBV_REGISTER::b0)] = make_shared<ConstantBuffer>();
+	_computeConstantBuffer[static_cast<uint8>(CBV_REGISTER::b0)]->Init(sizeof(BlurParam), 1);
 }
 
 void Graphics::RenderBegin()

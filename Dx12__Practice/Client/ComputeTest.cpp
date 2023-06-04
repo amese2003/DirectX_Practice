@@ -111,13 +111,15 @@ void ComputeTest::Dispatch()
 
 	mCommandList->SetComputeRootSignature(COMPUTE_ROOT_SIGNATURE.Get());
 
-	/*mCommandList->SetComputeRootShaderResourceView(0, mInputBufferA->GetGPUVirtualAddress());
-	mCommandList->SetComputeRootShaderResourceView(1, mInputBufferB->GetGPUVirtualAddress());
-	mCommandList->SetComputeRootUnorderedAccessView(2, mOutputBuffer->GetGPUVirtualAddress());*/
 
-	mCommandList->SetComputeRootShaderResourceView(0, _test[0]->GetComPtr()->GetGPUVirtualAddress());
-	mCommandList->SetComputeRootShaderResourceView(1, _test[1]->GetComPtr()->GetGPUVirtualAddress());
-	mCommandList->SetComputeRootUnorderedAccessView(2, _test[2]->GetComPtr()->GetGPUVirtualAddress());
+	BlurParam param;
+	D3D12_CPU_DESCRIPTOR_HANDLE handle =  GRAPHICS->GetComputeConstantBuffer(CBV_REGISTER::b0)->PushData(&param, sizeof(BlurParam));
+	GRAPHICS->GetComputeDescHeap()->SetCBV(handle, CBV_REGISTER::b0);
+	GRAPHICS->GetComputeDescHeap()->CommitTable();
+
+	mCommandList->SetComputeRootShaderResourceView(1, _test[0]->GetComPtr()->GetGPUVirtualAddress());
+	mCommandList->SetComputeRootShaderResourceView(2, _test[1]->GetComPtr()->GetGPUVirtualAddress());
+	mCommandList->SetComputeRootUnorderedAccessView(3, _test[2]->GetComPtr()->GetGPUVirtualAddress());
 
 
 	mCommandList->Dispatch(1, 1, 1);
