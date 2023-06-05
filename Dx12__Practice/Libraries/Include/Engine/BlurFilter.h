@@ -12,6 +12,7 @@ public:
 
 	void Init(UINT width, UINT height, DXGI_FORMAT format);
 	void BuildDescriptorHeap();
+	void BuildExampleResource();
 	void PushResource(ComPtr<ID3D12Resource> resource);
 	void CommitResource();
 
@@ -23,8 +24,8 @@ public:
 
 	
 	void Update(UINT width, UINT height);
-	void Execute(ComPtr<ID3D12Resource> input, int blurCount);
-	
+	void Execute(ComPtr<ID3D12GraphicsCommandList> cmdList, ComPtr<ID3D12Resource> input, int blurCount);
+	shared_ptr<GameObject> _test;
 private:
 	shared_ptr<ComputeCommandQueue> _commandQueue;
 	ComPtr<ID3D12RootSignature> _rootsignature;
@@ -63,6 +64,8 @@ private:
 
 	ComPtr<ID3D12DescriptorHeap>	_srvHeap;
 	CD3DX12_CPU_DESCRIPTOR_HANDLE	_srvHandle;
+
+	
 
 };
 

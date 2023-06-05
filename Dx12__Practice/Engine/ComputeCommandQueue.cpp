@@ -64,11 +64,8 @@ void ComputeCommandQueue::FlushComputeCommandQueue()
 
 	
 
-	hr = _cmdAlloc->Reset();
+	/*hr = _cmdAlloc->Reset();
 	CHECK(hr);
 	hr = _cmdList->Reset(_cmdAlloc.Get(), nullptr);
-	CHECK(hr);
-
-	COMPUTE_CMD_LIST->SetComputeRootSignature(GRAPHICS->GetRootsignature()->GetComputeSignature().Get());
+	CHECK(hr);*/
 }
-\

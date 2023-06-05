@@ -106,11 +106,15 @@ void CommandQueue::RenderEnd()
 		D3D12_RESOURCE_STATE_PRESENT); // 화면 출력
 
 	_cmdList->ResourceBarrier(1, &barrier);
-	_cmdList->Close();
+	HRESULT hr = _cmdList->Close();
+	CHECK(hr);
 
 	// 커맨드 리스트 수행
 	ID3D12CommandList* cmdListArr[] = { _cmdList.Get() };
 	_cmdQueue->ExecuteCommandLists(_countof(cmdListArr), cmdListArr);
+
+
+	
 
 	_swapChain->Present();
 
@@ -118,6 +122,8 @@ void CommandQueue::RenderEnd()
 	// done for simplicity.  Later we will show how to organize our rendering code
 	// so we do not have to wait per frame.
 	WaitSync();
+
+	
 
 	_swapChain->SwapIndex();
 }
@@ -133,4 +139,17 @@ void CommandQueue::FlushResourceCommandQueue()
 
 	_resourceCmdAlloc->Reset();
 	_resourceCmdList->Reset(_resourceCmdAlloc.Get(), nullptr);
+}
+
+void CommandQueue::FlushCommandQueue()
+{
+	_cmdList->Close();
+
+	ID3D12CommandList* cmdListArr[] = { _cmdList.Get() };
+	_cmdQueue->ExecuteCommandLists(_countof(cmdListArr), cmdListArr);
+
+	WaitSync();
+
+	_cmdAlloc->Reset();
+	_cmdList->Reset(_cmdAlloc.Get(), nullptr);
 }

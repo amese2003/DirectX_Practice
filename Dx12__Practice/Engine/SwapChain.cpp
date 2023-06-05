@@ -11,7 +11,8 @@ void SwapChain::Init(HWND hWnd, ComPtr<ID3D12Device> device, ComPtr<IDXGIFactory
 void SwapChain::Present()
 {
 	// Present the frame.
-	_swapChain->Present(0, 0);
+	HRESULT hr = _swapChain->Present(0, 0);
+	CHECK(hr);
 }
 
 void SwapChain::SwapIndex()

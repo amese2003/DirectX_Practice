@@ -170,6 +170,7 @@ struct WindowInfo
 #include "Mesh.h"
 #include "Camera.h"
 #include "Light.h"
+#include "BlurFilter.h"
 //#include "Texture.h"
 
 

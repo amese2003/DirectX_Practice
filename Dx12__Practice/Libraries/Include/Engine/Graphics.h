@@ -9,6 +9,8 @@ class ComputeDescriptorHeap;
 class ConstantBuffer;
 class DepthStencilBuffer;
 class ComputeCommandQueue;
+class BlurFilter;
+class GameObject;
 
 class Graphics
 {
@@ -31,8 +33,11 @@ public:
 	shared_ptr<ConstantBuffer>			GetConstantBuffer(CBV_REGISTER reg) { return _constantBuffer[static_cast<uint8>(reg)]; }
 	shared_ptr<ConstantBuffer>			GetComputeConstantBuffer(CBV_REGISTER reg) { return _computeConstantBuffer[static_cast<uint8>(reg)]; }
 	shared_ptr<DepthStencilBuffer>		GetDepthStencilBuffer() { return _depthStencilBuffer; }
+	shared_ptr<BlurFilter>				GetBlurFilter() { return _blurfilter; }
 	D3D12_VIEWPORT& GetViewport() { return _viewport; }
 
+
+	shared_ptr<GameObject> _test;
 private:
 
 	void SetViewport();
@@ -53,6 +58,8 @@ private:
 	vector<shared_ptr<ConstantBuffer>>			_constantBuffer;
 	vector<shared_ptr<ConstantBuffer>>			_computeConstantBuffer;
 	shared_ptr<DepthStencilBuffer>				_depthStencilBuffer;
+
+	shared_ptr<BlurFilter>						_blurfilter;
 
 	D3D12_VIEWPORT _viewport = { 0 };
 	D3D12_RECT		_scissorRect = {};

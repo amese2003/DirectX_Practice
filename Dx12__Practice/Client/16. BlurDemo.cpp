@@ -53,11 +53,8 @@ void BlurDemo::Init()
 
 
 
-	vector<shared_ptr<Texture>> expectTexture;
-	expectTexture.push_back(grassTex);
-	expectTexture.push_back(waterTex);
-	expectTexture.push_back(wireTex);
-
+	GRAPHICS->GetBlurFilter()->BuildExampleResource();
+	
 
 
 	{
@@ -85,6 +82,9 @@ void BlurDemo::Init()
 		grid->GetMeshRenderer()->SetMesh(landMesh);
 		grid->GetMeshRenderer()->SetTexture(grassTex);
 		CUR_SCENE->Add(grid);
+
+		GRAPHICS->GetBlurFilter()->_test = grid;
+		GRAPHICS->_test = grid;
 	}
 
 	{
@@ -255,6 +255,7 @@ void BlurDemo::Init()
 	cameraObject->AddComponent(make_shared<CameraScript>());
 	CUR_SCENE->Add(cameraObject);
 
+	
 	GRAPHICS->GetCommandQueue()->WaitSync();
 }
 

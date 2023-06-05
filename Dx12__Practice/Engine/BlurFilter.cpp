@@ -1,5 +1,7 @@
 #include "pch.h"
 #include "BlurFilter.h"
+#include <fstream>
+#include <comdef.h>
 
 BlurFilter::BlurFilter()
 {
@@ -17,25 +19,18 @@ void BlurFilter::Init(UINT width, UINT height, DXGI_FORMAT format)
 
 	mCbvSrvUavDescriptorSize = DEVICE->GetDescriptorHandleIncrementSize(D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV);
 	_rootsignature = GRAPHICS->GetRootsignature()->GetComputeSignature();
-	BuildDescriptorHeap();
+
 	BuildResources();
-
-	HRESULT hr = GRAPHICS->GetComputeQueue()->GetAlloc()->Reset();
-	CHECK(hr);
-
-	hr = GRAPHICS->GetComputeQueue()->GetCmdList()->Reset(GRAPHICS->GetComputeQueue()->GetAlloc().Get(), nullptr);
-	CHECK(hr);
-
-	hr =  GRAPHICS->GetComputeQueue()->GetCmdList()->Close();
-	CHECK(hr);
-	ID3D12CommandList* cmdsLists[] = { GRAPHICS->GetComputeQueue()->GetCmdList().Get() };
-	GRAPHICS->GetComputeQueue()->GetCmdQueue()->ExecuteCommandLists(_countof(cmdsLists), cmdsLists);
-
-	GRAPHICS->GetComputeQueue()->WaitSync();
 }
 
 void BlurFilter::BuildDescriptorHeap()
 {
+	
+}
+
+void BlurFilter::BuildExampleResource()
+{
+
 	D3D12_DESCRIPTOR_HEAP_DESC srvHeapDesc = {};
 	srvHeapDesc.NumDescriptors = textureDescriptorCount +
 		blurDescriptorCount;
@@ -43,7 +38,39 @@ void BlurFilter::BuildDescriptorHeap()
 	srvHeapDesc.Flags = D3D12_DESCRIPTOR_HEAP_FLAG_SHADER_VISIBLE;
 	DEVICE->CreateDescriptorHeap(&srvHeapDesc, IID_PPV_ARGS(&_srvHeap));
 
-	_srvHandle = _srvHeap->GetCPUDescriptorHandleForHeapStart();
+	_srvHandle = CD3DX12_CPU_DESCRIPTOR_HANDLE(_srvHeap->GetCPUDescriptorHandleForHeapStart());
+
+	CD3DX12_CPU_DESCRIPTOR_HANDLE handle(_srvHeap->GetCPUDescriptorHandleForHeapStart());
+
+	auto grassTex = RESOURCES->Get<Texture>(L"grassTex")->GetComPtr();
+	auto waterTex = RESOURCES->Get<Texture>(L"waterTex")->GetComPtr();
+	auto fenceTex = RESOURCES->Get<Texture>(L"wireTex")->GetComPtr();
+
+	D3D12_SHADER_RESOURCE_VIEW_DESC srvDesc = {};
+	srvDesc.Shader4ComponentMapping = D3D12_DEFAULT_SHADER_4_COMPONENT_MAPPING;
+	srvDesc.Format = grassTex->GetDesc().Format;
+	srvDesc.ViewDimension = D3D12_SRV_DIMENSION_TEXTURE2D;
+	srvDesc.Texture2D.MostDetailedMip = 0;
+	srvDesc.Texture2D.MipLevels = -1;
+	DEVICE->CreateShaderResourceView(grassTex.Get(), &srvDesc, handle);
+
+	// next descriptor
+	handle.Offset(1, mCbvSrvUavDescriptorSize);
+
+	srvDesc.Format = waterTex->GetDesc().Format;
+	DEVICE->CreateShaderResourceView(waterTex.Get(), &srvDesc, handle);
+
+	// next descriptor
+	handle.Offset(1, mCbvSrvUavDescriptorSize);
+
+	srvDesc.Format = fenceTex->GetDesc().Format;
+	DEVICE->CreateShaderResourceView(fenceTex.Get(), &srvDesc, handle);
+
+
+	BuildDescriptors(
+		CD3DX12_CPU_DESCRIPTOR_HANDLE(_srvHeap->GetCPUDescriptorHandleForHeapStart(), 3, mCbvSrvUavDescriptorSize),
+		CD3DX12_GPU_DESCRIPTOR_HANDLE(_srvHeap->GetGPUDescriptorHandleForHeapStart(), 3, mCbvSrvUavDescriptorSize),
+		mCbvSrvUavDescriptorSize);
 }
 
 void BlurFilter::PushResource(ComPtr<ID3D12Resource> resource)
@@ -106,26 +133,14 @@ void BlurFilter::Update(UINT width, UINT height)
 	}
 }
 
-void BlurFilter::Execute(ComPtr<ID3D12Resource> input, int blurCount)
+void BlurFilter::Execute(ComPtr<ID3D12GraphicsCommandList> cmdList, ComPtr<ID3D12Resource> input, int blurCount)
 {
-	auto cmdList = GRAPHICS->GetComputeQueue()->GetCmdList();
-	auto cmdListAlloc = GRAPHICS->GetComputeQueue()->GetAlloc();
-
-	HRESULT hr = cmdListAlloc->Reset();
-	CHECK(hr);
-
-	/*hr = cmdList->Reset(cmdListAlloc.Get(), GRAPHICS->GetComputeShader(0)->GetPipelineState().Get());
-	CHECK(hr);*/
-	 
+	ID3D12DescriptorHeap* descriptorHeaps[] = { _srvHeap.Get() };
+	cmdList->SetDescriptorHeaps(_countof(descriptorHeaps), descriptorHeaps);
 
 
 	auto weights = CalcGaussWeights(2.5f);
 	int blurRadius = (int)weights.size() / 2;
-
-	// A command list can be reset after it has been added to the command queue via ExecuteCommandList.
-	// Reusing the command list reuses memory.
-	
-
 	
 	cmdList->SetComputeRootSignature(_rootsignature.Get());
 
@@ -137,20 +152,26 @@ void BlurFilter::Execute(ComPtr<ID3D12Resource> input, int blurCount)
 		D3D12_RESOURCE_STATE_RENDER_TARGET, D3D12_RESOURCE_STATE_COPY_SOURCE);
 
 	cmdList->ResourceBarrier(1, &barrier);
-	
+
 	barrier = CD3DX12_RESOURCE_BARRIER::Transition(_blurMap0.Get(),
 		D3D12_RESOURCE_STATE_COMMON, D3D12_RESOURCE_STATE_COPY_DEST);
 
 	cmdList->ResourceBarrier(1, &barrier);
 
+
+
 	// Copy the input (back-buffer in this example) to BlurMap0.
 	cmdList->CopyResource(_blurMap0.Get(), input.Get());
+
+	
+
 
 
 	barrier = CD3DX12_RESOURCE_BARRIER::Transition(_blurMap0.Get(),
 		D3D12_RESOURCE_STATE_COPY_DEST, D3D12_RESOURCE_STATE_GENERIC_READ);
 
 	cmdList->ResourceBarrier(1, &barrier);
+	
 
 
 	barrier = CD3DX12_RESOURCE_BARRIER::Transition(_blurMap1.Get(),
@@ -164,18 +185,12 @@ void BlurFilter::Execute(ComPtr<ID3D12Resource> input, int blurCount)
 		// Horizontal Blur pass.
 		//
 
-		
+		//GRAPHICS->GetComputeConstantBuffer(CBV_REGISTER::b0)->Clear();
 
-		//cmdList->SetPipelineState(horzBlurPipeline.Get());
-
-
-
-		BlurParam param;
-		D3D12_CPU_DESCRIPTOR_HANDLE handle = GRAPHICS->GetComputeConstantBuffer(CBV_REGISTER::b0)->PushData(&param, sizeof(BlurParam));
-		GRAPHICS->GetComputeDescHeap()->SetCBV(handle, CBV_REGISTER::b0);
-		GRAPHICS->GetComputeDescHeap()->CommitTable();
+		cmdList->SetPipelineState(RESOURCES->Get<Shader>(L"HorzBlur")->GetPipelineState().Get());
 		cmdList->SetComputeRootDescriptorTable(1, mBlur0GpuSrv);
 		cmdList->SetComputeRootDescriptorTable(2, mBlur1GpuUav);
+
 
 		// How many groups do we need to dispatch to cover a row of pixels, where each
 		// group covers 256 pixels (the 256 is defined in the ComputeShader).
@@ -196,12 +211,7 @@ void BlurFilter::Execute(ComPtr<ID3D12Resource> input, int blurCount)
 		// Vertical Blur pass.
 		//
 
-		//cmdList->SetPipelineState(vertBlurPipeline.Get());
-
-
-		GRAPHICS->GetComputeConstantBuffer(CBV_REGISTER::b0)->PushData(&param, sizeof(BlurParam));
-		GRAPHICS->GetComputeDescHeap()->SetCBV(handle, CBV_REGISTER::b0);
-		GRAPHICS->GetComputeDescHeap()->CommitTable();
+		cmdList->SetPipelineState(RESOURCES->Get<Shader>(L"VertBlur")->GetPipelineState().Get());
 		cmdList->SetComputeRootDescriptorTable(1, mBlur1GpuSrv);
 		cmdList->SetComputeRootDescriptorTable(2, mBlur0GpuUav);
 
@@ -222,12 +232,26 @@ void BlurFilter::Execute(ComPtr<ID3D12Resource> input, int blurCount)
 		cmdList->ResourceBarrier(1, &barrier);
 	}
 
+	barrier = CD3DX12_RESOURCE_BARRIER::Transition(input.Get(),
+		D3D12_RESOURCE_STATE_COPY_SOURCE, D3D12_RESOURCE_STATE_COPY_DEST);
+	cmdList->ResourceBarrier(1, &barrier);
+
+	cmdList->CopyResource(input.Get(), _blurMap0.Get());
+
+	//shared_ptr<Texture> tex = make_shared<Texture>();
+	//tex->CreateFromTexture(_blurMap0.Get());
+	//_test->GetMeshRenderer()->SetTexture(tex);
 
 
+
+	barrier = CD3DX12_RESOURCE_BARRIER::Transition(input.Get(),
+		D3D12_RESOURCE_STATE_COPY_DEST, D3D12_RESOURCE_STATE_PRESENT);
+	cmdList->ResourceBarrier(1, &barrier);
+	
 
 }
 
-vector<float> BlurFilter::CalcGaussWeights(float sigma)
+std::vector<float> BlurFilter::CalcGaussWeights(float sigma)
 {
 	float twoSigma2 = 2.0f * sigma * sigma;
 
@@ -235,7 +259,7 @@ vector<float> BlurFilter::CalcGaussWeights(float sigma)
 	// For example, for sigma = 3, the width of the bell curve is 
 	int blurRadius = (int)ceil(2.0f * sigma);
 
-	blurRadius <= MaxBlurRadius;
+	assert(blurRadius <= MaxBlurRadius);
 
 	std::vector<float> weights;
 	weights.resize(2 * blurRadius + 1);

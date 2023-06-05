@@ -43,6 +43,9 @@ void RootSignature::CreateComputeSignature()
 		//CD3DX12_DESCRIPTOR_RANGE(D3D12_DESCRIPTOR_RANGE_TYPE_UAV, 1, 0), // u0~u4
 	};
 
+	CD3DX12_DESCRIPTOR_RANGE cbvTable;
+	cbvTable.Init(D3D12_DESCRIPTOR_RANGE_TYPE_CBV, 1, 0);
+
 	CD3DX12_DESCRIPTOR_RANGE srvTable;
 	srvTable.Init(D3D12_DESCRIPTOR_RANGE_TYPE_SRV, 1, 0);
 
@@ -51,7 +54,7 @@ void RootSignature::CreateComputeSignature()
 
 	CD3DX12_ROOT_PARAMETER param[3];
 	//param[0].InitAsDescriptorTable(_countof(ranges), ranges);
-	param[0].InitAsDescriptorTable(_countof(ranges), ranges);
+	param[0].InitAsConstants(12, 0);
 	param[1].InitAsDescriptorTable(1, &srvTable);
 	param[2].InitAsDescriptorTable(1, &uavTable);
 	/*param[1].InitAsShaderResourceView(0);
@@ -60,8 +63,7 @@ void RootSignature::CreateComputeSignature()
 	//param[1].InitAsShaderResourceView(1);
 	//param[2].InitAsUnorderedAccessView(0);
 
-	D3D12_ROOT_SIGNATURE_DESC sigDesc = CD3DX12_ROOT_SIGNATURE_DESC(_countof(param), param);
-	sigDesc.Flags = D3D12_ROOT_SIGNATURE_FLAG_NONE;
+	D3D12_ROOT_SIGNATURE_DESC sigDesc = CD3DX12_ROOT_SIGNATURE_DESC(_countof(param), param, 0, nullptr, D3D12_ROOT_SIGNATURE_FLAG_ALLOW_INPUT_ASSEMBLER_INPUT_LAYOUT);
 
 	ComPtr<ID3DBlob> blobSignature;
 	ComPtr<ID3DBlob> blobError;
@@ -69,8 +71,6 @@ void RootSignature::CreateComputeSignature()
 	CHECK(hr);
 	hr = DEVICE->CreateRootSignature(0, blobSignature->GetBufferPointer(), blobSignature->GetBufferSize(), IID_PPV_ARGS(&_computeSignature));
 	CHECK(hr);
-
-	COMPUTE_CMD_LIST->SetComputeRootSignature(_computeSignature.Get());
 }
 
 void RootSignature::CreateSamplerDesc()

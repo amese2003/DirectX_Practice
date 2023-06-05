@@ -23,6 +23,7 @@ void Graphics::Init(HWND hwnd)
 	_constantBuffer = vector<shared_ptr<ConstantBuffer>>(CBV_REGISTER_COUNT);
 	_computeConstantBuffer = vector<shared_ptr<ConstantBuffer>>(1);
 	_depthStencilBuffer = make_shared<DepthStencilBuffer>();
+	_blurfilter = make_shared<BlurFilter>();
 
 
 	
@@ -39,6 +40,7 @@ void Graphics::Init(HWND hwnd)
 	_tableDescHeap->Init(256);
 	_computeDescHeap->Init();
 	_depthStencilBuffer->Init();
+	_blurfilter->Init(_viewport.Width, _viewport.Height, DXGI_FORMAT_R8G8B8A8_UNORM);
 
 	_constantBuffer[static_cast<uint8>(CBV_REGISTER::b0)] = make_shared<ConstantBuffer>();
 	_constantBuffer[static_cast<uint8>(CBV_REGISTER::b0)]->Init(sizeof(LightParams), 1);
@@ -60,6 +62,7 @@ void Graphics::RenderBegin()
 
 void Graphics::RenderEnd()
 {
+	//_blurfilter->Execute(_cmdQueue->GetCmdList(), GetSwapChain()->GetBackRTVBuffer(), 4);
 	_cmdQueue->RenderEnd();
 }
 
