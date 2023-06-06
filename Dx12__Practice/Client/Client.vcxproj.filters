@@ -97,6 +97,9 @@
     <ClInclude Include="16. BlurDemo.h">
       <Filter>Game</Filter>
     </ClInclude>
+    <ClInclude Include="17. BasicTessellation.h">
+      <Filter>Game</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Client.rc">
@@ -176,6 +179,9 @@
       <Filter>Main</Filter>
     </ClCompile>
     <ClCompile Include="16. BlurDemo.cpp">
+      <Filter>Game</Filter>
+    </ClCompile>
+    <ClCompile Include="17. BasicTessellation.cpp">
       <Filter>Game</Filter>
     </ClCompile>
   </ItemGroup>
