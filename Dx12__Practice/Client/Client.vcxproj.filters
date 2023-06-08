@@ -225,5 +225,8 @@
     <FxCompile Include="..\Shaders\14. Blur.fx">
       <Filter>Shader</Filter>
     </FxCompile>
+    <FxCompile Include="..\Shaders\15. BasicTessellation.fx">
+      <Filter>Shader</Filter>
+    </FxCompile>
   </ItemGroup>
 </Project>

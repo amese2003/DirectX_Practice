@@ -34,6 +34,12 @@ void Shader::CreateGraphicShader(const wstring& path)
 	CreateVertexShader(path, _args.vs, "vs_5_0");
 	CreatePixelShader(path, _args.ps, "ps_5_0");
 
+	if (_args.hs.empty() == false)
+		CreateHullShader(path, _args.hs, "hs_5_0");
+
+	if (_args.ds.empty() == false)
+		CreateDomainShader(path, _args.ds, "ds_5_0");
+
 	if (_args.gs.empty() == false)
 		CreateGeometryShader(path, _args.gs, "gs_5_0");
 
@@ -251,6 +257,16 @@ void Shader::CreateShader(const wstring& path, const string& name, const string&
 void Shader::CreateVertexShader(const wstring& path, const string& name, const string& version)
 {
 	CreateShader(path, name, version, _vsBlob, _pipelineDesc.VS);
+}
+
+void Shader::CreateHullShader(const wstring& path, const string& name, const string& version)
+{
+	CreateShader(path, name, version, _hsBlob, _pipelineDesc.HS);
+}
+
+void Shader::CreateDomainShader(const wstring& path, const string& name, const string& version)
+{
+	CreateShader(path, name, version, _dsBlob, _pipelineDesc.DS);
 }
 
 void Shader::CreateGeometryShader(const wstring& path, const string& name, const string& version)

@@ -45,6 +45,9 @@
     <ContentFile>
       <FullPath>D:\Project\DirectX_Practice\Dx12__Practice\Binaries\14. Blur.cso</FullPath>
     </ContentFile>
+    <ContentFile>
+      <FullPath>D:\Project\DirectX_Practice\Dx12__Practice\Binaries\15. BasicTessellation.cso</FullPath>
+    </ContentFile>
   </ContentFiles>
   <SatelliteDlls />
   <NonRecipeFileRefs />
