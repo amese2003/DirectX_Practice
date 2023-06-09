@@ -19,11 +19,12 @@ void BasicTessellation::Init()
 		shared_ptr<Shader> shader = make_shared<Shader>();
 		{
 			ShaderInfo info;
-			info.rasterizerType = RASTERIZER_TYPE::WireframeRS;
+			info.rasterizerType = RASTERIZER_TYPE::WireframeOnly;
+			info.topologyType = TOPOLOGY_TYPE::PATCH;
 
 			ShaderArg args;
-			args.hs = "HS";
-			args.ds = "DS";
+			args.hs = "HS_Main";
+			args.ds = "DS_Main";
 
 			shader->Init(L"..\\Shaders\\15. BasicTessellation.fx", info, args);;
 		}
@@ -34,7 +35,7 @@ void BasicTessellation::Init()
 		shared_ptr<Mesh> landMesh = make_shared<Mesh>();
 		{
 			landMesh->Init();
-			landMesh->CreateHillDemo();
+			landMesh->CreateQuad();
 
 			shared_ptr<Material> material = make_shared<Material>();
 			material->SetAmbient(Vec4(0.5f, 0.5f, 0.5f, 1.0f));

@@ -1,5 +1,9 @@
 #pragma once
 
+struct VetextData
+{
+	Vec3 position = { 0, 0, 0 };
+};
 
 struct VertexTextureData
 {

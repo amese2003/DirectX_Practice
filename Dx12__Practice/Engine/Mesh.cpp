@@ -30,6 +30,16 @@ void Mesh::CreateRectangle()
 	_indexBuffer->CreateBuffer(_geometry->GetIndices());
 }
 
+void Mesh::CreateQuad()
+{
+	GeometryHelper::CreateQuadWave(_geometry);
+
+
+	_vertexBuffer->CreateBuffer(_geometry->GetVertices());
+	_indexBuffer->CreateBuffer(_geometry->GetIndices());
+}
+
+
 void Mesh::CreateCube()
 {
 	GeometryHelper::CreateCube(_geometry);

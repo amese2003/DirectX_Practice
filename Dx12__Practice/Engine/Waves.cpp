@@ -130,7 +130,7 @@ void Waves::Init(shared_ptr<Mesh> mesh, shared_ptr<Shader> shader, uint32 m, uin
 	float halfWidth = (n - 1) * dx * 0.5f;
 	float halfDepth = (m - 1) * dx * 0.5f;
 
-	vector<VertexTextureNormalTangentData> vtx;
+	vector<VetextData> vtx;
 	vtx.resize(m * n);
 
 	vector<Vec2> uvpos;
@@ -151,17 +151,17 @@ void Waves::Init(shared_ptr<Mesh> mesh, shared_ptr<Shader> shader, uint32 m, uin
 			_uv[i * n + j].x = 0.5f + _currSolution[i * n + j].x / Width();
 			_uv[i * n + j].y = 0.5f - _currSolution[i * n + j].z / Depth();
 
-			VertexTextureNormalTangentData buffer;
+			VetextData buffer;
 			buffer.position = _currSolution[i * n + j];
-			buffer.normal = _normals[i * n + j];
-			buffer.tangent = _tangentX[i * n + j];
-
-			buffer.uv.x = _uv[i * n + j].x;
-			buffer.uv.y = _uv[i * n + j].y;
+			//buffer.normal = _normals[i * n + j];
+			//buffer.tangent = _tangentX[i * n + j];
+			//
+			//buffer.uv.x = _uv[i * n + j].x;
+			//buffer.uv.y = _uv[i * n + j].y;
 			
 			vtx[i * n + j] = buffer;
 
-			uvpos.push_back(buffer.uv);
+			//uvpos.push_back(buffer.uv);
 		}
 	}
 

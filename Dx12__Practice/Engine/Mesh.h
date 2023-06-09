@@ -16,6 +16,7 @@ public:
 
 	void Init();
 	void CreateRectangle();
+	void CreateQuad();
 	void CreateCube();
 	void CreateHillDemo();
 	void CreateGrid();

@@ -20,6 +20,10 @@ struct MaterialDesc
 	Color diffuse = Color(1.f, 1.f, 1.f, 1.f);
 	Color specular = Color(0.f, 0.f, 0.f, 1.f);
 	Color emissive = Color(0.f, 0.f, 0.f, 1.f);
+
+	Color diffuseAlbedo = Color(1.f, 1.f, 1.f, 1.f);
+	Vec3 FresmeIRO = Vec3::Zero;
+	float shininess = 0;
 };
 
 struct LightDesc
@@ -69,6 +73,7 @@ struct MaterialData
 {
 	MaterialDesc mat;
 	Matrix texTransform;
+
 };
 
 struct Fixeduv

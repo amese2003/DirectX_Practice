@@ -16,6 +16,7 @@ enum class RASTERIZER_TYPE : uint8
 	CULL_BACK,
 	CULL_FRONT,
 	CULL_NONE,
+	WireframeOnly
 };
 
 enum class BLEND_TYPE : uint8
@@ -39,7 +40,8 @@ enum class TOPOLOGY_TYPE : uint8
 {
 	DEFAULT = 0,
 	TRIANGLE,
-	POINT
+	POINT,
+	PATCH,
 };
 
 struct ShaderInfo

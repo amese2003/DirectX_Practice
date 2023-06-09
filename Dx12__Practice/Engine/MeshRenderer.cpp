@@ -32,7 +32,8 @@ void MeshRenderer::Render()
 
 	if (material)
 	{
-		CMD_LIST->IASetPrimitiveTopology(material->GetShader()->GetTopology());
+		auto temp = material->GetShader()->GetTopology();
+		CMD_LIST->IASetPrimitiveTopology(temp);
 	}
 	else
 		CMD_LIST->IASetPrimitiveTopology(D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST);

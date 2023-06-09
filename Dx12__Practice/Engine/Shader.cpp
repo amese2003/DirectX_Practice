@@ -31,6 +31,7 @@ void Shader::Update()
 
 void Shader::CreateGraphicShader(const wstring& path)
 {
+	ZeroMemory(&_pipelineDesc, sizeof(D3D12_GRAPHICS_PIPELINE_STATE_DESC));
 	CreateVertexShader(path, _args.vs, "vs_5_0");
 	CreatePixelShader(path, _args.ps, "ps_5_0");
 
@@ -44,11 +45,30 @@ void Shader::CreateGraphicShader(const wstring& path)
 		CreateGeometryShader(path, _args.gs, "gs_5_0");
 
 
-	vector<D3D12_INPUT_ELEMENT_DESC> desc = MeshVertex::VertexDesc;
+	vector<D3D12_INPUT_ELEMENT_DESC> desc = {
+			{ "POSITION", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 0, D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA, 0 },
+			{ "TEXCOORD", 0, DXGI_FORMAT_R32G32_FLOAT, 0, 12, D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA, 0 },
+			{ "NORMAL",	 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 20, D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA, 0 },
+			{ "TANGENT", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 32, D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA, 0 },
+			{ "COLOR", 0, DXGI_FORMAT_R32G32B32A32_FLOAT, 0, 44, D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA, 0 },
+			{ "SIZE", 0, DXGI_FORMAT_R32G32_FLOAT, 0, 60, D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA, 0},
+	};
 
 	//_pipelineDesc.InputLayout = { desc, _countof(desc)};
 	_pipelineDesc.InputLayout = { desc.data(), static_cast<UINT>(desc.size()) };
 	_pipelineDesc.pRootSignature = ROOT_SIGNATURE.Get();
+
+	//_pipelineDesc.RasterizerState = CD3DX12_RASTERIZER_DESC(D3D12_DEFAULT);
+	//_pipelineDesc.RasterizerState.FillMode = D3D12_FILL_MODE_WIREFRAME;
+	//_pipelineDesc.BlendState = CD3DX12_BLEND_DESC(D3D12_DEFAULT);
+	//_pipelineDesc.DepthStencilState = CD3DX12_DEPTH_STENCIL_DESC(D3D12_DEFAULT);
+	//_pipelineDesc.SampleMask = UINT_MAX;
+	//_pipelineDesc.PrimitiveTopologyType = D3D12_PRIMITIVE_TOPOLOGY_TYPE_PATCH;
+	//_pipelineDesc.NumRenderTargets = 1;
+	//_pipelineDesc.RTVFormats[0] = DXGI_FORMAT_R8G8B8A8_UNORM;
+	//_pipelineDesc.SampleDesc.Count = 1;
+	//_pipelineDesc.SampleDesc.Quality = 0;
+	//_pipelineDesc.DSVFormat = DXGI_FORMAT_D24_UNORM_S8_UINT;
 
 	_pipelineDesc.RasterizerState = CD3DX12_RASTERIZER_DESC(D3D12_DEFAULT);
 	_pipelineDesc.BlendState = CD3DX12_BLEND_DESC(D3D12_DEFAULT);
@@ -66,6 +86,10 @@ void Shader::CreateGraphicShader(const wstring& path)
 		_topology = D3D_PRIMITIVE_TOPOLOGY_POINTLIST;
 		break;
 
+	case TOPOLOGY_TYPE::PATCH:
+		_pipelineDesc.PrimitiveTopologyType = D3D12_PRIMITIVE_TOPOLOGY_TYPE_PATCH;
+		_topology = D3D_PRIMITIVE_TOPOLOGY_4_CONTROL_POINT_PATCHLIST;
+		break;
 	case TOPOLOGY_TYPE::TRIANGLE:
 	case TOPOLOGY_TYPE::DEFAULT:
 	default:
@@ -79,7 +103,7 @@ void Shader::CreateGraphicShader(const wstring& path)
 	_pipelineDesc.NumRenderTargets = 1;
 	_pipelineDesc.RTVFormats[0] = DXGI_FORMAT_R8G8B8A8_UNORM;
 	_pipelineDesc.SampleDesc.Count = 1;
-	_pipelineDesc.DSVFormat = GRAPHICS->GetDepthStencilBuffer()->GetDSVFormat();
+	_pipelineDesc.DSVFormat = DXGI_FORMAT_D24_UNORM_S8_UINT;
 
 	switch (_info.blendType)
 	{
@@ -157,6 +181,8 @@ void Shader::CreateGraphicShader(const wstring& path)
 	case RASTERIZER_TYPE::CULL_NONE:
 		_pipelineDesc.RasterizerState.CullMode = D3D12_CULL_MODE_NONE;
 		break;
+	case RASTERIZER_TYPE::WireframeOnly:
+		_pipelineDesc.RasterizerState.FillMode = D3D12_FILL_MODE_WIREFRAME;
 	default:
 		break;
 	}
