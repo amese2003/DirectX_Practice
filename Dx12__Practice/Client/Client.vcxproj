@@ -170,6 +170,7 @@
     <ClInclude Include="16. BlurDemo.h" />
     <ClInclude Include="17. BasicTessellation.h" />
     <ClInclude Include="18. TriangleTessellation.h" />
+    <ClInclude Include="19. BezierTessellation.h" />
     <ClInclude Include="CameraScript.h" />
     <ClInclude Include="ComputeTest.h" />
     <ClInclude Include="framework.h" />
@@ -199,6 +200,7 @@
     <ClCompile Include="16. BlurDemo.cpp" />
     <ClCompile Include="17. BasicTessellation.cpp" />
     <ClCompile Include="18. TriangleTessellation.cpp" />
+    <ClCompile Include="19. BezierTessellation.cpp" />
     <ClCompile Include="CameraScript.cpp" />
     <ClCompile Include="ComputeTest.cpp" />
     <ClCompile Include="GameObjectDemo.cpp" />
@@ -359,6 +361,16 @@
       <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">5.0</ShaderModel>
     </FxCompile>
     <FxCompile Include="..\Shaders\16. TriTessellation.fx">
+      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+      </EntryPointName>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Effect</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">5.0</ShaderModel>
+      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+      </EntryPointName>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Effect</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">5.0</ShaderModel>
+    </FxCompile>
+    <FxCompile Include="..\Shaders\17. BezierTessellation.fx">
       <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
       </EntryPointName>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Effect</ShaderType>
