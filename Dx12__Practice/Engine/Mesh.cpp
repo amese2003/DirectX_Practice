@@ -39,6 +39,15 @@ void Mesh::CreateQuad()
 	_indexBuffer->CreateBuffer(_geometry->GetIndices());
 }
 
+void Mesh::CreateTriangle()
+{
+	GeometryHelper::CreateTriangle(_geometry);
+
+
+	_vertexBuffer->CreateBuffer(_geometry->GetVertices());
+	_indexBuffer->CreateBuffer(_geometry->GetIndices());
+}
+
 
 void Mesh::CreateCube()
 {

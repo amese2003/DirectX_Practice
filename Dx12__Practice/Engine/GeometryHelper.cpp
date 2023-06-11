@@ -562,6 +562,31 @@ void GeometryHelper::CreateQuad(shared_ptr<Geometry<VertexTextureNormalTangentDa
 	geometry->SetIndices(idx);
 }
 
+void GeometryHelper::CreateTriangle(shared_ptr<Geometry<VertexTextureNormalTangentData>> geometry)
+{
+	vector<VertexTextureNormalTangentData> vtx;
+	vtx.resize(3);
+
+	vtx[0].position = Vec3(-10.0f, 0.f, -10.0f);
+	vtx[0].uv = Vec2(0.f, 1.f);
+	vtx[0].normal = Vec3(0.f, 0.f, -1.f);
+	vtx[0].tangent = Vec3(1.0f, 0.0f, 0.0f);
+
+	vtx[1].position = Vec3(0.0f, 0.0f, 10.0f);
+	vtx[1].uv = Vec2(0.f, 0.f);
+	vtx[1].normal = Vec3(0.f, 0.f, -1.f);
+	vtx[1].tangent = Vec3(1.0f, 0.0f, 0.0f);
+
+	vtx[2].position = Vec3(+10.0f, 0.0f, -10.0f);
+	vtx[2].uv = Vec2(1.f, 1.f);
+	vtx[2].normal = Vec3(0.f, 0.f, -1.f);
+	vtx[2].tangent = Vec3(1.0f, 0.0f, 0.0f);
+	geometry->SetVertices(vtx);
+
+	vector<uint32> idx = { 0, 1, 2 };
+	geometry->SetIndices(idx);
+}
+
 void GeometryHelper::CreateQuadWave(shared_ptr<Geometry<VertexTextureNormalTangentData>> geometry)
 {
 	vector<VertexTextureNormalTangentData> vtx;

@@ -100,6 +100,9 @@
     <ClInclude Include="17. BasicTessellation.h">
       <Filter>Game</Filter>
     </ClInclude>
+    <ClInclude Include="18. TriangleTessellation.h">
+      <Filter>Game</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Client.rc">
@@ -184,6 +187,9 @@
     <ClCompile Include="17. BasicTessellation.cpp">
       <Filter>Game</Filter>
     </ClCompile>
+    <ClCompile Include="18. TriangleTessellation.cpp">
+      <Filter>Game</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="..\Shaders\01. Rectangle.fx">
@@ -226,6 +232,9 @@
       <Filter>Shader</Filter>
     </FxCompile>
     <FxCompile Include="..\Shaders\15. BasicTessellation.fx">
+      <Filter>Shader</Filter>
+    </FxCompile>
+    <FxCompile Include="..\Shaders\16. TriTessellation.fx">
       <Filter>Shader</Filter>
     </FxCompile>
   </ItemGroup>
