@@ -54,6 +54,9 @@
     <ContentFile>
       <FullPath>D:\Project\DirectX_Practice\Dx12__Practice\Binaries\17. BezierTessellation.cso</FullPath>
     </ContentFile>
+    <ContentFile>
+      <FullPath>D:\Project\DirectX_Practice\Dx12__Practice\Binaries\19. InstancedBasic.cso</FullPath>
+    </ContentFile>
   </ContentFiles>
   <SatelliteDlls />
   <NonRecipeFileRefs />

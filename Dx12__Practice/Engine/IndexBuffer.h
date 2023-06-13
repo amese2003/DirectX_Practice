@@ -2,7 +2,7 @@
 class IndexBuffer
 {
 public:
-	IndexBuffer(ComPtr<ID3D12Device> device);
+	IndexBuffer();
 	~IndexBuffer();
 
 	ComPtr<ID3D12Resource> GetComPtr() { return _indexBuffer; }

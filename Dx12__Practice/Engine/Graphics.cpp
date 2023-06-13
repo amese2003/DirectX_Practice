@@ -63,6 +63,7 @@ void Graphics::RenderBegin()
 void Graphics::RenderEnd()
 {
 	//_blurfilter->Execute(_cmdQueue->GetCmdList(), GetSwapChain()->GetBackRTVBuffer(), 4);
+	INSTANCING->Render(SCENE->GetCurrentScene()->GetGameObjects());
 	_cmdQueue->RenderEnd();
 }
 

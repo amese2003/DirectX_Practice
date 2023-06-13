@@ -55,6 +55,8 @@ using namespace Microsoft::WRL;
 #pragma comment(lib, "DirectXTex\\DirectXTex.lib")
 #endif
 
+using InstanceID = std::pair<uint64, uint64>;
+
 enum class CBV_REGISTER
 {
 	b0,
@@ -120,6 +122,7 @@ struct WindowInfo
 #include "TimeManager.h"
 #include "SceneManager.h"
 #include "ResourceManager.h"
+#include "InstancingManager.h"
 
 #define CHECK(p)				assert(SUCCEEDED(p))
 #define GAME					GET_SINGLE(Game)		
@@ -139,6 +142,7 @@ struct WindowInfo
 #define SCENE					GET_SINGLE(SceneManager)
 #define CUR_SCENE				SCENE->GetCurrentScene()
 #define RESOURCES				GET_SINGLE(ResourceManager)
+#define INSTANCING				GET_SINGLE(InstancingManager)
 
 // Engine
 #include "Device.h"

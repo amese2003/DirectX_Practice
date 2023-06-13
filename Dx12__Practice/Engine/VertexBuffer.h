@@ -2,7 +2,7 @@
 class VertexBuffer
 {
 public:
-	VertexBuffer(ComPtr<ID3D12Device> device);
+	VertexBuffer();
 	~VertexBuffer();
 
 	ComPtr<ID3D12Resource> GetComPtr() { return _vertexBuffer; }

@@ -22,7 +22,22 @@ public:
 	void RenderShadow();
 	void RenderReflect();
 
+
+
+	void RenderInstancing(shared_ptr<class InstancingBuffer>& buffer);
+	InstanceID GetInstanceID();
+
 	
+	void SetMateral(shared_ptr<Material> material) { _material = material; }
+	shared_ptr<Material> GetMaterial() { return _material; }
+
+	void SetShadow(shared_ptr<Material> material) { _shadowMaterial = material; }
+	shared_ptr<Material> GetShadowMaterial() { return _shadowMaterial; }
+
+	void SetReflect(shared_ptr<Material> material) { _reflectMaterial = material; }
+	shared_ptr<Material> GetReflectMaterial() { return _reflectMaterial; }
+
+
 
 	shared_ptr<Mesh> GetMesh() { return _mesh; }
 
@@ -32,6 +47,12 @@ private:
 	shared_ptr<Texture> _texture;
 
 	bool _useShadow = false;
+
+
+private:
+	shared_ptr<Material> _material;
+	shared_ptr<Material> _shadowMaterial;
+	shared_ptr<Material> _reflectMaterial;
 
 };
 

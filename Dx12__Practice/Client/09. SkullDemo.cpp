@@ -50,7 +50,7 @@ void SkullDemo::Init()
 		skull->GetMeshRenderer()->SetMesh(skullMesh);
 		skull->GetMeshRenderer()->SetShader(shader);
 
-		skull->GetMeshRenderer()->GetMesh()->SetMateral(material);
+		skull->GetMeshRenderer()->SetMateral(material);
 
 		//_gameObjects.push_back(skull);
 		CUR_SCENE->Add(skull);

@@ -26,7 +26,13 @@ public:
 	void UpdateShader(int pass = 0);
 	shared_ptr<Shader> GetShader(int pass = 0) { return _shaders[pass]; }
 
+
+	void SetColor(Color color) { _color = color; }
+	Color& GetColor() { return _color; }
+
 private:
+	Color _color = { 0, 0, 0 ,1 };
+
 	Vec4 _ambient = { 1,1,1,1 };
 	Vec4 _diffuse = { 1,1,1,1 };
 	Vec4 _specular = { 1, 1, 1, 1 };

@@ -17,8 +17,8 @@ void Mesh::Init()
 	_device = DEVICE;
 
 	_geometry = make_shared<Geometry<VertexTextureNormalTangentData>>();
-	_vertexBuffer = make_shared<VertexBuffer>(_device);
-	_indexBuffer = make_shared<IndexBuffer>(_device);
+	_vertexBuffer = make_shared<VertexBuffer>();
+	_indexBuffer = make_shared<IndexBuffer>();
 }
 
 void Mesh::CreateRectangle()

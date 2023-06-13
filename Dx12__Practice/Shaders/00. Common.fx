@@ -43,6 +43,22 @@ struct VertexTextureNormalTangent
 	float2 sizeW : SIZE;
 };
 
+struct VertexTextureNormalTangentInstance
+{
+	float3				position : POSITION;
+	float2				uv : TEXCOORD;
+	float3				normal : NORMAL;
+	float3				tangent : TANGENT;
+	float4				color : COLOR;
+	float2				sizeW : SIZE;
+
+	// Instancing
+	row_major matrix	World		: WORLD;
+	float4				Color1		: COLOR1;
+	uint				InstanceId	: SV_InstanceID;
+};
+
+
 struct VertexTextureNormalTangentBlend
 {
 	float4 position : POSITION;

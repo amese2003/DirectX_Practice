@@ -44,6 +44,11 @@ public:
 	void SetReflect(shared_ptr<Material> material) { _reflectMaterial = material; }
 	shared_ptr<Material> GetReflectMaterial() { return _reflectMaterial; }
 
+
+
+
+
+
 private:
 	ComPtr<ID3D12Device> _device;
 
@@ -55,5 +60,7 @@ private:
 	shared_ptr<Material> _material;
 	shared_ptr<Material> _shadowMaterial;
 	shared_ptr<Material> _reflectMaterial;
+
+
 };
 

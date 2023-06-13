@@ -16,6 +16,7 @@ public:
 	
 
 	unordered_set<shared_ptr<GameObject>>& GetObjects() { return _objects; }
+	vector<shared_ptr<GameObject>>& GetGameObjects() { return _gameObjects; }
 	shared_ptr<GameObject> GetMainCamera();
 	shared_ptr<GameObject> GetUICamera();
 	shared_ptr<GameObject> GetLight() { return _lights.empty() ? nullptr : *_lights.begin(); }
@@ -26,5 +27,7 @@ private:
 	unordered_set<shared_ptr<GameObject>> _objects;
 	unordered_set<shared_ptr<GameObject>> _cameras;
 	unordered_set<shared_ptr<GameObject>> _lights;
+
+	vector<shared_ptr<GameObject>> _gameObjects;
 };
 
