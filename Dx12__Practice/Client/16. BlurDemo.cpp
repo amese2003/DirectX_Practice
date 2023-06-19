@@ -91,27 +91,36 @@ void BlurDemo::Init()
 		shared_ptr<Shader> shader = make_shared<Shader>();
 		shader->Init(L"..\\Shaders\\07. Basic.fx");
 
-		
+		shared_ptr<Material> material = make_shared<Material>();
+		material->SetAmbient(Vec4(0.5f, 0.5f, 0.5f, 1.0f));
+		material->SetDiffuse(Vec4(1.0f, 1.0f, 1.0f, 1.0f));
+		material->SetSpecular(Vec4(0.6f, 0.6f, 0.6f, 16.0f));
+		material->SetShader(shader);
 
 		shared_ptr<Mesh> waveMesh = make_shared<Mesh>();
 		{
 			waveMesh->Init();
-
-			shared_ptr<Material> material = make_shared<Material>();
-			material->SetAmbient(Vec4(0.5f, 0.5f, 0.5f, 1.0f));
-			material->SetDiffuse(Vec4(1.0f, 1.0f, 1.0f, 1.0f));
-			material->SetSpecular(Vec4(0.6f, 0.6f, 0.6f, 16.0f));
-			material->SetShader(shader);
 			waveMesh->SetMateral(material);
 		}
+
+		shared_ptr<MeshRenderer> render = make_shared<MeshRenderer>();
+		{
+			render->SetMesh(waveMesh);
+			render->SetTexture(waterTex);
+			render->SetMateral(material);
+		}
+
+		shared_ptr<Waves> wave = make_shared<Waves>();
+		{
+			wave->Init(waveMesh, shader, 160, 160, 1.f, 0.03f, 3.25f, 0.4f);
+			wave->SetTexture(waterTex);
+		}
+		
 		
 
 		shared_ptr<GameObject> grid = make_shared<GameObject>();
 		grid->GetOrAddTransform();
-
-		shared_ptr<Waves> wave = make_shared<Waves>();
-		wave->Init(waveMesh, shader, 160, 160, 1.f, 0.03f, 3.25f, 0.4f);
-		wave->SetTexture(waterTex);
+		grid->AddComponent(render);
 		grid->AddComponent(wave);
 
 		CUR_SCENE->Add(grid);

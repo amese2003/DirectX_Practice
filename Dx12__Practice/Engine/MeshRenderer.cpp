@@ -17,13 +17,13 @@ MeshRenderer::~MeshRenderer()
 
 void MeshRenderer::Update()
 {
-	//Render();
+	Render();
 
-	//if (_mesh->GetShadowMaterial() != nullptr)
-	//	RenderShadow();
+	if (_mesh->GetShadowMaterial() != nullptr)
+		RenderShadow();
 
-	//if (_mesh->GetReflectMaterial() != nullptr)
-	//	RenderReflect();
+	if (_mesh->GetReflectMaterial() != nullptr)
+		RenderReflect();
 	
 }
 
@@ -76,10 +76,15 @@ void MeshRenderer::Render()
 	MaterialData cbuffer;
 	cbuffer.mat = pushDesc;
 	cbuffer.texTransform = Matrix::Identity;
+	cbuffer.FresnelR0 = Vec3(0, 0, 0);
+	cbuffer.Roughness = 0;
 
 	if (_texture)
 	{
-		cbuffer.texTransform *= 5;
+		Vec2 offset = _texture->GetOffset();
+		Matrix scale_M = Matrix::CreateScale(5.0f, 5.0f, 0.0f);
+		Matrix offset_M = XMMatrixTranslation(offset.x, offset.y, 0.f);
+		cbuffer.texTransform = scale_M * offset_M;
 		GRAPHICS->GetTableDescHeap()->SetShaderResourceView(_texture->GetCpuHandle(), SRV_REGISTER::t0);
 	}
 
@@ -145,10 +150,13 @@ void MeshRenderer::RenderShadow()
 	MaterialData cbuffer;
 	cbuffer.mat = pushDesc;
 	cbuffer.texTransform = Matrix::Identity;
+	cbuffer.FresnelR0 = Vec3(0, 0, 0);
+	cbuffer.Roughness = 0;
 
 	if (_texture)
 	{
-		cbuffer.texTransform *= 5;
+		
+		//cbuffer.texTransform = waveScale * waveOffset;
 		GRAPHICS->GetTableDescHeap()->SetShaderResourceView(_texture->GetCpuHandle(), SRV_REGISTER::t0);
 	}
 
@@ -211,10 +219,12 @@ void MeshRenderer::RenderReflect()
 	MaterialData cbuffer;
 	cbuffer.mat = pushDesc;
 	cbuffer.texTransform = Matrix::Identity;
+	cbuffer.FresnelR0 = Vec3(0, 0, 0);
+	cbuffer.Roughness = 0;
 
 	if (_texture)
 	{
-		cbuffer.texTransform *= 5;
+		//cbuffer.texTransform *= 5;
 		GRAPHICS->GetTableDescHeap()->SetShaderResourceView(_texture->GetCpuHandle(), SRV_REGISTER::t0);
 	}
 

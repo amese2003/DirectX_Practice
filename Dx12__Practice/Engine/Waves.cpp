@@ -17,7 +17,7 @@ Waves::~Waves()
 
 void Waves::Update()
 {
-	_shader->Update();
+	//_shader->Update();
 
 	static float t_base = 0.0f;
 	if ((TIME->TotalTime() - t_base) >= 0.25f)
@@ -39,59 +39,59 @@ void Waves::Update()
 
 void Waves::Render()
 {
-	CMD_LIST->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+	//CMD_LIST->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+	////
+	//// Draw the waves.
+	////
+
+	//CMD_LIST->IASetVertexBuffers(0, 1, &_mesh->GetVertexBuffer()->GetVertexBufferView()); // Slot: (0~15)
+	//CMD_LIST->IASetIndexBuffer(&_mesh->GetIndexBuffer()->GetIndexBufferView());
+
+	//TransformData ctransformbuffer;
+	//ctransformbuffer.position = GetTransform()->GetPosition();
+	//ctransformbuffer.pad = 1.f;
+	//ctransformbuffer.world = GetTransform()->GetWorldMatrix();
+	//ctransformbuffer.matView = Camera::S_MatView;
+	//ctransformbuffer.matProjection = Camera::S_MatProjection;
+	//ctransformbuffer.worldnvTranspose = MathHelper::InverseTranspose(ctransformbuffer.world);
+	//ctransformbuffer.worldViewProj = ctransformbuffer.world * ctransformbuffer.matView * ctransformbuffer.matProjection;
+
+	//D3D12_CPU_DESCRIPTOR_HANDLE transformhandle = GRAPHICS->GetConstantBuffer(CBV_REGISTER::b1)->PushData(&ctransformbuffer, sizeof(ctransformbuffer));
+	//GRAPHICS->GetTableDescHeap()->SetConstantBuffer(transformhandle, CBV_REGISTER::b1);
+
 	//
-	// Draw the waves.
+
+	//MaterialDesc pushDesc;
+	//pushDesc.ambient = _mesh->GetMaterial()->GetAmbient();
+	//pushDesc.diffuse = _mesh->GetMaterial()->GetDiffuse();
+	//pushDesc.specular = _mesh->GetMaterial()->GetSpecular();
+	//pushDesc.emissive = Color(1.f, 1.f, 1.f, 1.f);
+
+	//MaterialData cbuffer;
+	//cbuffer.mat = pushDesc;
+	//cbuffer.texTransform = Matrix::Identity;
+
+
+	//if (_texture)
+	//{
+	//	Vec2 offset = _texture->GetOffset();
+	//	Matrix waveScale = Matrix::CreateScale(5.0f, 5.0f, 0.0f);
+	//	Matrix waveOffset = XMMatrixTranslation(offset.x, offset.y, 0.f);
+	//	cbuffer.texTransform = waveScale * waveOffset;
+	//	GRAPHICS->GetTableDescHeap()->SetShaderResourceView(_texture->GetCpuHandle(), SRV_REGISTER::t0);
+	//}
+
 	//
 
-	CMD_LIST->IASetVertexBuffers(0, 1, &_mesh->GetVertexBuffer()->GetVertexBufferView()); // Slot: (0~15)
-	CMD_LIST->IASetIndexBuffer(&_mesh->GetIndexBuffer()->GetIndexBufferView());
+	//
 
-	TransformData ctransformbuffer;
-	ctransformbuffer.position = GetTransform()->GetPosition();
-	ctransformbuffer.pad = 1.f;
-	ctransformbuffer.world = GetTransform()->GetWorldMatrix();
-	ctransformbuffer.matView = Camera::S_MatView;
-	ctransformbuffer.matProjection = Camera::S_MatProjection;
-	ctransformbuffer.worldnvTranspose = MathHelper::InverseTranspose(ctransformbuffer.world);
-	ctransformbuffer.worldViewProj = ctransformbuffer.world * ctransformbuffer.matView * ctransformbuffer.matProjection;
+	//D3D12_CPU_DESCRIPTOR_HANDLE handle = GRAPHICS->GetConstantBuffer(CBV_REGISTER::b2)->PushData(&cbuffer, sizeof(cbuffer));
+	//GRAPHICS->GetTableDescHeap()->SetConstantBuffer(handle, CBV_REGISTER::b2);
 
-	D3D12_CPU_DESCRIPTOR_HANDLE transformhandle = GRAPHICS->GetConstantBuffer(CBV_REGISTER::b1)->PushData(&ctransformbuffer, sizeof(ctransformbuffer));
-	GRAPHICS->GetTableDescHeap()->SetConstantBuffer(transformhandle, CBV_REGISTER::b1);
+	//
 
-	
-
-	MaterialDesc pushDesc;
-	pushDesc.ambient = _mesh->GetMaterial()->GetAmbient();
-	pushDesc.diffuse = _mesh->GetMaterial()->GetDiffuse();
-	pushDesc.specular = _mesh->GetMaterial()->GetSpecular();
-	pushDesc.emissive = Color(1.f, 1.f, 1.f, 1.f);
-
-	MaterialData cbuffer;
-	cbuffer.mat = pushDesc;
-	cbuffer.texTransform = Matrix::Identity;
-
-
-	if (_texture)
-	{
-		Vec2 offset = _texture->GetOffset();
-		Matrix waveScale = Matrix::CreateScale(5.0f, 5.0f, 0.0f);
-		Matrix waveOffset = XMMatrixTranslation(offset.x, offset.y, 0.f);
-		cbuffer.texTransform = waveScale * waveOffset;
-		GRAPHICS->GetTableDescHeap()->SetShaderResourceView(_texture->GetCpuHandle(), SRV_REGISTER::t0);
-	}
-
-	
-
-	
-
-	D3D12_CPU_DESCRIPTOR_HANDLE handle = GRAPHICS->GetConstantBuffer(CBV_REGISTER::b2)->PushData(&cbuffer, sizeof(cbuffer));
-	GRAPHICS->GetTableDescHeap()->SetConstantBuffer(handle, CBV_REGISTER::b2);
-
-	
-
-	GRAPHICS->GetTableDescHeap()->CommitTable();
-	CMD_LIST->DrawIndexedInstanced(3 * TriangleCount(), 1, 0, 0, 0);
+	//GRAPHICS->GetTableDescHeap()->CommitTable();
+	//CMD_LIST->DrawIndexedInstanced(3 * TriangleCount(), 1, 0, 0, 0);
 }
 
 void Waves::Init(shared_ptr<Mesh> mesh, shared_ptr<Shader> shader, uint32 m, uint32 n, float dx, float dt, float speed, float damping)
@@ -130,10 +130,8 @@ void Waves::Init(shared_ptr<Mesh> mesh, shared_ptr<Shader> shader, uint32 m, uin
 	float halfWidth = (n - 1) * dx * 0.5f;
 	float halfDepth = (m - 1) * dx * 0.5f;
 
-	vector<VetextData> vtx;
+	vector<VertexTextureNormalTangentData> vtx;
 	vtx.resize(m * n);
-
-	vector<Vec2> uvpos;
 
 	for (uint32 i = 0; i < m; ++i)
 	{
@@ -151,17 +149,15 @@ void Waves::Init(shared_ptr<Mesh> mesh, shared_ptr<Shader> shader, uint32 m, uin
 			_uv[i * n + j].x = 0.5f + _currSolution[i * n + j].x / Width();
 			_uv[i * n + j].y = 0.5f - _currSolution[i * n + j].z / Depth();
 
-			VetextData buffer;
+			VertexTextureNormalTangentData buffer;
 			buffer.position = _currSolution[i * n + j];
-			//buffer.normal = _normals[i * n + j];
-			//buffer.tangent = _tangentX[i * n + j];
-			//
-			//buffer.uv.x = _uv[i * n + j].x;
-			//buffer.uv.y = _uv[i * n + j].y;
+			buffer.normal = _normals[i * n + j];
+			buffer.tangent = _tangentX[i * n + j];
+			
+			buffer.uv.x = _uv[i * n + j].x;
+			buffer.uv.y = _uv[i * n + j].y;
 			
 			vtx[i * n + j] = buffer;
-
-			//uvpos.push_back(buffer.uv);
 		}
 	}
 

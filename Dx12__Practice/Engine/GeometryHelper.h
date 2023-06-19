@@ -24,6 +24,9 @@ public:
 	static void CreateCube(shared_ptr<Geometry<VertexTextureNormalTangentData>> geometry);
 	static void CreateGrid(shared_ptr<Geometry<VertexTextureNormalTangentData>> geometry, int32 sizeX, int32 sizeZ);
 	static void CreateSphere(shared_ptr<Geometry<VertexTextureNormalTangentData>> geometry);
+	static void CreateWave(shared_ptr<Geometry<VertexTextureNormalTangentData>> geometry, uint32 m, uint32 n, float dx, float dt, float speed, float damping);
+
+	
 
 
 	static void CreateGrid(shared_ptr<Geometry<VertexTextureNormalTangentData>> geometry, float width, float depth, uint32 m, uint32 n, bool demo = false);

@@ -20,9 +20,9 @@ struct Material
 	float4 Specular; // w = SpecPower
 	float4 Reflect;
 
-	float4 DiffuseAlbedo;
-	float3 FresnelR0;
-	float Shininess;
+	//float4 DiffuseAlbedo;
+	//float3 FresnelR0;
+	//float Shininess;
 };
 
 struct LightInfo

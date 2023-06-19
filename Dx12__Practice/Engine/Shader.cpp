@@ -84,11 +84,6 @@ void Shader::CreateGraphicShader(const wstring& path)
 
 	_pipelineDesc.SampleMask = UINT_MAX;
 
-	_pipelineDesc.NumRenderTargets = 1;
-	_pipelineDesc.RTVFormats[0] = DXGI_FORMAT_R8G8B8A8_UNORM;
-	_pipelineDesc.SampleDesc.Count = 1;
-	_pipelineDesc.DSVFormat = DXGI_FORMAT_D24_UNORM_S8_UINT;
-
 	switch (_info.topologyType)
 	{
 	case TOPOLOGY_TYPE::POINT:
@@ -113,7 +108,8 @@ void Shader::CreateGraphicShader(const wstring& path)
 	_pipelineDesc.NumRenderTargets = 1;
 	_pipelineDesc.RTVFormats[0] = DXGI_FORMAT_R8G8B8A8_UNORM;
 	_pipelineDesc.SampleDesc.Count = 1;
-	_pipelineDesc.DSVFormat = DXGI_FORMAT_D24_UNORM_S8_UINT;
+	_pipelineDesc.DSVFormat = GRAPHICS->GetDepthStencilBuffer()->GetDSVFormat();
+
 
 	switch (_info.blendType)
 	{

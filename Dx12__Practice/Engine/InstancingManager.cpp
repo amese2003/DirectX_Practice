@@ -6,7 +6,7 @@ void InstancingManager::Render(vector<shared_ptr<GameObject>>& gameObjects)
 	ClearData();
 
 
-	RenderMeshRenderer(gameObjects);
+	//RenderMeshRenderer(gameObjects);
 }
 
 void InstancingManager::ClearData()
