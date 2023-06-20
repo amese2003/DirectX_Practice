@@ -3,26 +3,35 @@
 #include "Camera.h"
 #include "CameraScript.h"
 #include "Waves.h"
+#include "MeshRenderer.h"
+#include "TextureMultiple.h"
 
 void BlurDemo::Init()
 {
+	vector<shared_ptr<Texture>> texarr;
+
+
 	shared_ptr<Texture> grassTex = make_shared<Texture>();
 	grassTex->Load(L"..\\Resources\\Textures\\grass.dds");
 	RESOURCES->Add(L"grassTex", grassTex);
+	texarr.push_back(grassTex);
 
 	shared_ptr<Texture> waterTex = make_shared<Texture>();
 	waterTex->Load(L"..\\Resources\\Textures\\water2.dds");
 	RESOURCES->Add(L"waterTex", waterTex);
+	texarr.push_back(waterTex);
 
 	shared_ptr<Texture> wireTex = make_shared<Texture>();
 	wireTex->Load(L"..\\Resources\\Textures\\WireFence.dds");
 	RESOURCES->Add(L"wireTex", wireTex);
-
+	texarr.push_back(wireTex);
 
 	shared_ptr<Texture> treearrayTex = make_shared<Texture>();
 	treearrayTex->Load(L"..\\Resources\\Textures\\treearray.dds");
 	RESOURCES->Add(L"treearrayTex", treearrayTex);
 
+	shared_ptr< TextureMultiple> texMult = make_shared<TextureMultiple>();
+	texMult->Init(texarr.size(), texarr);
 
 
 	shared_ptr<Shader> horizonblurShader = make_shared<Shader>();
@@ -80,7 +89,7 @@ void BlurDemo::Init()
 		grid->GetOrAddTransform();
 		grid->AddComponent(make_shared<MeshRenderer>());
 		grid->GetMeshRenderer()->SetMesh(landMesh);
-		grid->GetMeshRenderer()->SetTexture(grassTex);
+		grid->GetMeshRenderer()->SetTexture(texMult);
 		CUR_SCENE->Add(grid);
 
 		GRAPHICS->GetBlurFilter()->_test = grid;

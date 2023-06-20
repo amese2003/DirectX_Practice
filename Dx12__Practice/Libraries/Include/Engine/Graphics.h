@@ -38,6 +38,8 @@ public:
 
 
 	shared_ptr<GameObject> _test;
+
+	HWND& GetWindow() { return _hwnd; }
 private:
 
 	void SetViewport();

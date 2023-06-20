@@ -3,6 +3,7 @@
 class Mesh;
 class Shader;
 class Light;
+class TextureMultiple;
 
 class MeshRenderer : public Component
 {
@@ -17,12 +18,14 @@ public:
 	void SetMesh(shared_ptr<Mesh> mesh) { _mesh = mesh; }
 	void SetShader(shared_ptr<Shader> shader) { _shader = shader; }
 	void SetTexture(shared_ptr<Texture> texture) { _texture = texture; }
+	void SetTexture(shared_ptr<TextureMultiple> texture) { _textureArr = texture; }
 
 	void Render();
 	void RenderShadow();
 	void RenderReflect();
 
 
+	shared_ptr<Texture> _texture2;
 
 	void RenderInstancing(shared_ptr<class InstancingBuffer>& buffer);
 	InstanceID GetInstanceID();
@@ -45,6 +48,7 @@ private:
 	shared_ptr<Mesh> _mesh;
 	shared_ptr<Shader> _shader;
 	shared_ptr<Texture> _texture;
+	shared_ptr<TextureMultiple> _textureArr;
 
 	bool _useShadow = false;
 

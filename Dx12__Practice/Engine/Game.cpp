@@ -107,6 +107,9 @@ void Game::Update()
 	_desc.app->Update();
 	_desc.app->Render();
 
+
+	TIME->CalculateFrameStats();
+
 	GRAPHICS->RenderEnd();
 }
 

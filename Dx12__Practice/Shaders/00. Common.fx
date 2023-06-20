@@ -54,7 +54,7 @@ struct VertexTextureNormalTangentInstance
 
 	// Instancing
 	row_major matrix	World		: WORLD;
-	float4				Color1		: COLOR1;
+	float4				WColor		: WCOLOR;
 	uint				InstanceId	: SV_InstanceID;
 };
 

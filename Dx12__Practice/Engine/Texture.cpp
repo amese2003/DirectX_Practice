@@ -12,8 +12,6 @@ Texture::~Texture()
 
 void Texture::Load(const wstring& path)
 {
-	_srvHeap = GRAPHICS->GetTableDescHeap()->GetDescriptorHeap();
-
 	DirectX::TexMetadata md;
 	HRESULT hr;
 
@@ -75,7 +73,6 @@ void Texture::Load(const wstring& path)
 
 void Texture::CreateComputeTexture(const void* data, UINT64 byteSize)
 {
-	_srvHeap = GRAPHICS->GetComputeDescHeap()->GetDescriptorHeap();
 
 	D3D12_HEAP_PROPERTIES heapProperty = CD3DX12_HEAP_PROPERTIES(D3D12_HEAP_TYPE_DEFAULT);
 	D3D12_RESOURCE_DESC desc = CD3DX12_RESOURCE_DESC::Buffer(byteSize);

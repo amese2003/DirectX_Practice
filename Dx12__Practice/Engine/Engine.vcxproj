@@ -209,6 +209,7 @@ xcopy /Y "$(SolutionDir)Engine\*.inl" "$(SolutionDir)Libraries\Include\Engine"</
     <ClInclude Include="SwapChain.h" />
     <ClInclude Include="TableDescriptionHeap.h" />
     <ClInclude Include="Texture.h" />
+    <ClInclude Include="TextureMultiple.h" />
     <ClInclude Include="TimeManager.h" />
     <ClInclude Include="Transform.h" />
     <ClInclude Include="Types.h" />
@@ -266,6 +267,7 @@ xcopy /Y "$(SolutionDir)Engine\*.inl" "$(SolutionDir)Libraries\Include\Engine"</
     <ClCompile Include="SwapChain.cpp" />
     <ClCompile Include="TableDescriptionHeap.cpp" />
     <ClCompile Include="Texture.cpp" />
+    <ClCompile Include="TextureMultiple.cpp" />
     <ClCompile Include="TimeManager.cpp" />
     <ClCompile Include="Transform.cpp" />
     <ClCompile Include="VertexBuffer.cpp" />

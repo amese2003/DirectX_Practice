@@ -87,8 +87,3 @@ struct BlurParam
 	int BlurRadius = 5;
 	float weight[11] = { 0.05f, 0.05f, 0.1f, 0.1f, 0.1f, 0.2f, 0.1f, 0.1f, 0.1f, 0.05f, 0.05f };
 };
-
-struct VecAddParam
-{
-
-};

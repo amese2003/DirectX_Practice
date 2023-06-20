@@ -6,6 +6,7 @@
 #include "MathHelper.h"
 #include "Shader.h"
 #include "InstancingBuffer.h"
+#include "TextureMultiple.h"
 
 MeshRenderer::MeshRenderer() : Super(ComponentType::MeshRenderer)
 {
@@ -17,13 +18,13 @@ MeshRenderer::~MeshRenderer()
 
 void MeshRenderer::Update()
 {
-	Render();
+	//Render();
 
-	if (_mesh->GetShadowMaterial() != nullptr)
-		RenderShadow();
+	//if (_mesh->GetShadowMaterial() != nullptr)
+	//	RenderShadow();
 
-	if (_mesh->GetReflectMaterial() != nullptr)
-		RenderReflect();
+	//if (_mesh->GetReflectMaterial() != nullptr)
+	//	RenderReflect();
 	
 }
 
@@ -87,7 +88,6 @@ void MeshRenderer::Render()
 		cbuffer.texTransform = scale_M * offset_M;
 		GRAPHICS->GetTableDescHeap()->SetShaderResourceView(_texture->GetCpuHandle(), SRV_REGISTER::t0);
 	}
-
 
 	D3D12_CPU_DESCRIPTOR_HANDLE transformhandle = GRAPHICS->GetConstantBuffer(CBV_REGISTER::b2)->PushData(&cbuffer, sizeof(cbuffer));
 	GRAPHICS->GetTableDescHeap()->SetConstantBuffer(transformhandle, CBV_REGISTER::b2);
@@ -267,8 +267,7 @@ void MeshRenderer::RenderInstancing(shared_ptr<class InstancingBuffer>& buffer)
 
 	MaterialDesc pushDesc;
 
-
-	material->UpdateShader();
+	_shader->Update();
 
 	if (material)
 	{
@@ -287,6 +286,11 @@ void MeshRenderer::RenderInstancing(shared_ptr<class InstancingBuffer>& buffer)
 	{
 		cbuffer.texTransform *= 5;
 		GRAPHICS->GetTableDescHeap()->SetShaderResourceView(_texture->GetCpuHandle(), SRV_REGISTER::t0);
+	}
+
+	if (_textureArr)
+	{
+		GRAPHICS->GetTableDescHeap()->SetShaderResourceView(_textureArr->GetCpuHandle(), SRV_REGISTER::t0);
 	}
 
 

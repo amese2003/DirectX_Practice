@@ -141,3 +141,28 @@ void TimeManager::Tick()
 		_deltaTime = 0.0;
 	}
 }
+
+void TimeManager::CalculateFrameStats()
+{
+	static int frameCnt = 0;
+	static float timeElapsed = 0.0f;
+
+	frameCnt++;
+
+	// Compute averages over one second period.
+	if ((TotalTime() - timeElapsed) >= 1.0f)
+	{
+		float fps = (float)frameCnt; // fps = frameCnt / 1
+		float mspf = 1000.0f / fps;
+
+		std::wostringstream outs;
+		outs.precision(6);
+		outs << GRAPHICS->GetWindow() << L"    " << L"FPS: " << fps << L"    " << L"Frame Time: " << mspf << L" (ms)";
+
+		::SetWindowText(GRAPHICS->GetWindow(), outs.str().c_str());
+
+		// Reset for next average.
+		frameCnt = 0;
+		timeElapsed += 1.0f;
+	}
+}
