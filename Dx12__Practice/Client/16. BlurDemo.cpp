@@ -90,6 +90,7 @@ void BlurDemo::Init()
 		grid->AddComponent(make_shared<MeshRenderer>());
 		grid->GetMeshRenderer()->SetMesh(landMesh);
 		grid->GetMeshRenderer()->SetTexture(texMult);
+		grid->GetMeshRenderer()->SetShader(shader);
 		CUR_SCENE->Add(grid);
 
 		GRAPHICS->GetBlurFilter()->_test = grid;
@@ -117,6 +118,7 @@ void BlurDemo::Init()
 			render->SetMesh(waveMesh);
 			render->SetTexture(waterTex);
 			render->SetMateral(material);
+			render->SetShader(shader);
 		}
 
 		shared_ptr<Waves> wave = make_shared<Waves>();

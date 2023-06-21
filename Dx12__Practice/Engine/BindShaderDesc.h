@@ -42,31 +42,45 @@ struct LightDesc
 	Vec3 position = Vec3(0.f, 0.f, 0.f);
 	float pad = 0.f;
 
+	Vec3 Strength = { 0.5f, 0.5f, 0.5f };
+	float falloffStart = 1.0f;
+
 };
 
-struct LightParams
+struct GlobalParams
 {
-	uint32			lightCount;
-	Vec3			eyePosition;
-	LightDesc		lights[50];
+	Matrix	matView = Matrix::Identity;
+	Matrix	invView = Matrix::Identity;
+	Matrix	matProj = Matrix::Identity;
+	Matrix	invProj = Matrix::Identity;
+	Matrix	viewProj = Matrix::Identity;;
+	Matrix	invViewProj = Matrix::Identity;;
+	Vec3	eyePosition;
+	int     lightCount = 0;
+	Vec2	renderTargetSize;
+	Vec2	invRenderTargetSize;
 
-	float gFogStart;
+	float nearZ = 0.f;
+	float farZ = 0.f;
+	float totalTime = 0.f;
+	float deltaTime = 0.f;
+	Vec4 ambientLight = { 0.f, 0.f, 0.f, 1.f };
+
+
+
+	/*float gFogStart;
 	float gFogRange;
 	Vec2 pad;
-	Color gFogColor;
+	Color gFogColor;*/
+
+
+	LightDesc		lights[50];
 };
 
 
 struct TransformData
 {
-	Vec3   position;
-	float  pad;
 	Matrix world;
-	Matrix matView;
-	Matrix matProjection;
-	Matrix worldnvTranspose;
-	Matrix worldViewProj;
-	Matrix ViewProj;
 };
 
 struct MaterialData

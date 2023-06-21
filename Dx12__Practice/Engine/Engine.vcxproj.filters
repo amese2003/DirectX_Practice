@@ -192,6 +192,9 @@
     <ClInclude Include="TextureMultiple.h">
       <Filter>03. Resources</Filter>
     </ClInclude>
+    <ClInclude Include="StructuredBuffer.h">
+      <Filter>01. Graphics\Buffer</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine.cpp">
@@ -334,6 +337,9 @@
     </ClCompile>
     <ClCompile Include="TextureMultiple.cpp">
       <Filter>03. Resources</Filter>
+    </ClCompile>
+    <ClCompile Include="StructuredBuffer.cpp">
+      <Filter>01. Graphics\Buffer</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

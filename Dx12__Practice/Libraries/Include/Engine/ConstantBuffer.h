@@ -24,6 +24,7 @@ public:
 	void Clear();
 	D3D12_CPU_DESCRIPTOR_HANDLE PushData(void* buffer, uint32 size);
 	void SetGlobalData(void* buffer, uint32 size);
+	void SetMaterialData(void* buffer, uint32 size);
 
 	D3D12_GPU_VIRTUAL_ADDRESS GetGpuVirtualAddress(uint32 index);
 	D3D12_CPU_DESCRIPTOR_HANDLE GetCpuHandle(uint32 index);

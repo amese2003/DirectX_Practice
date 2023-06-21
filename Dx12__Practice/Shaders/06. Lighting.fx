@@ -19,10 +19,10 @@ VertexOut VS_Main(VertexTextureNormalTangent input)
 
     // Transform to world space space.
 	output.PosW = mul(float4(input.position, 1.0f), gWorld).xyz;
-	output.NormalW = mul(input.normal, (float3x3)gWorldInvTranspose);
+	output.NormalW = mul(input.normal, (float3x3)gWorld);
 
     // Transform to homogeneous clip space.
-	output.PosH = mul(float4(input.position, 1.0f), gWorldViewProj);
+	output.PosH = mul(float4(output.PosW, 1.0f), gViewProj);
 
     return output;
 }

@@ -157,7 +157,7 @@ void TimeManager::CalculateFrameStats()
 
 		std::wostringstream outs;
 		outs.precision(6);
-		outs << GRAPHICS->GetWindow() << L"    " << L"FPS: " << fps << L"    " << L"Frame Time: " << mspf << L" (ms)";
+		outs << L"Test" << L"    " << L"FPS: " << fps << L"    " << L"Frame Time: " << mspf << L" (ms)";
 
 		::SetWindowText(GRAPHICS->GetWindow(), outs.str().c_str());
 

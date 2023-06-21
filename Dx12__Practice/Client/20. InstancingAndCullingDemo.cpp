@@ -42,6 +42,7 @@ void InstancingAndCullingDemo::Init()
 
 	shared_ptr<Shader> shader = make_shared<Shader>();
 	shader->Init(L"..\\Shaders\\19. InstancedBasic.fx");
+	RESOURCES->Add(L"texShader", shader);
 
 	shared_ptr<Mesh> skullMesh = make_shared<Mesh>();
 	{

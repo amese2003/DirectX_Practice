@@ -118,18 +118,37 @@ struct LightInfo
 
 	float3		Position;
 	float		pad;
+
+	float3 strength;
+	float falloffstart;
 };
 
 cbuffer GlobalLightData : register(b0)
 {
-	int		lightCount;
-	float3	gEyePosW;
-	LightInfo g_light[50];
+	row_major matrix gView;
+	row_major matrix invView;
+	row_major matrix gProjection;
+	row_major matrix invProj;
+	row_major matrix gViewProj;
+	row_major matrix invViewProj;
 
-	float gFogStart;
-	float gFogRange;
-	float2 pad;
-	float4 gFogColor;
+
+	float3	gEyePosW;
+	int lightCount;
+	float2 renderTargetSize;;
+	float2 invrenderTargetSize;
+	float nearZ;
+	float farZ;
+	float totalTime;
+	float deltaTime;
+	float4 ambientLight;
+
+	//float gFogStart;
+	//float gFogRange;
+	//float2 pad;
+	//float4 gFogColor;
+
+	LightInfo g_light[50];
 };
 
 
@@ -173,19 +192,13 @@ struct SpotLight
 };
 
 
-cbuffer TransformData : register(b1)
+cbuffer TransformData : register(b2)
 {
-	float4		     position;
 	row_major matrix gWorld;
-	row_major matrix gView;
-	row_major matrix gProjection;
-	row_major matrix gWorldInvTranspose;
-	row_major matrix gWorldViewProj;
-	row_major matrix gViewProj;
 };
 
 
-cbuffer MaterialData : register(b2)
+cbuffer MaterialData : register(b1)
 {
 	Material gMaterial;
 	row_major matrix gTexTransform;

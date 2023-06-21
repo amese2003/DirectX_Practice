@@ -11,7 +11,8 @@ VertexColorOutput VS_Main(VertexTextureNormalTangent input)
     output.position = mul(output.position, gView);
     output.position = mul(output.position, gProjection);*/
 
-    output.position = mul(output.position, gWorldViewProj);
+    output.position = mul(output.position, gWorld);
+    output.position = mul(output.position, gViewProj);
     output.color = input.color;
     return output;
 }

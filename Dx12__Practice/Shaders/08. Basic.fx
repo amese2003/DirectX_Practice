@@ -27,10 +27,10 @@ VertexOut VS_Main(VertexTextureNormalTangent vin)
 
 	// Transform to world space space.
 	vout.PosW = mul(float4(vin.position, 1.0f), gWorld).xyz;
-	vout.NormalW = mul(vin.normal, (float3x3)gWorldInvTranspose);
+	vout.NormalW = mul(vin.normal, (float3x3)gWorld);
 
 	// Transform to homogeneous clip space.
-	vout.PosH = mul(float4(vin.position, 1.0f), gWorldViewProj);
+	vout.PosH = mul(float4(vin.position, 1.0f), gViewProj);
 
 	// Output vertex attributes for interpolation across triangle.
 	vout.Tex = mul(float4(vin.uv, 0.0f, 1.0f), gTexTransform).xy;
@@ -96,8 +96,8 @@ float4 PS_Main(VertexOut pin) : SV_Target
 		litColor = texColor * (ambient + diffuse) + spec;
 	}
 
-	float fogLerp = saturate((distToEye - gFogStart) / gFogRange);
-	litColor = lerp(litColor, gFogColor, fogLerp);
+	//float fogLerp = saturate((distToEye - gFogStart) / gFogRange);
+	//litColor = lerp(litColor, gFogColor, fogLerp);
 
 	// Common to take alpha from diffuse material and texture.
 	litColor.a = gMaterial.Diffuse.a * texColor.a;

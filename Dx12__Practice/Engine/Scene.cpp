@@ -81,10 +81,29 @@ void Scene::PushLightData()
 {
 	CHECK(_lights.size() > 50);
 
-	LightParams cbParams;
-	cbParams.lightCount = 0;
-	cbParams.eyePosition = GetMainCamera()->GetCamera()->GetTransform()->GetPosition();
+	shared_ptr<Camera> camera = GetMainCamera()->GetCamera();
+
+	GlobalParams cbParams;
 	
+	XMMATRIX view = Camera::S_MatView;
+	XMMATRIX proj = Camera::S_MatProjection;
+	XMMATRIX viewProj = view * proj;
+
+	cbParams.matView = view;
+	auto viewPos = XMMatrixDeterminant(view);
+	cbParams.invView = XMMatrixInverse(&viewPos, view);
+
+	cbParams.matProj = proj;
+	auto projPos = XMMatrixDeterminant(proj);
+	cbParams.invProj = XMMatrixInverse(&projPos, proj);
+
+	cbParams.viewProj = viewProj;
+	auto viewProjPos = XMMatrixDeterminant(viewProj);
+	cbParams.invViewProj = XMMatrixInverse(&viewProjPos, viewProj);
+
+	cbParams.eyePosition = camera->GetTransform()->GetPosition();
+	cbParams.lightCount = 0;
+
 	for (shared_ptr<GameObject> lightObject : _lights)
 	{
 		shared_ptr<Light> light = lightObject->GetLight();
@@ -98,11 +117,21 @@ void Scene::PushLightData()
 		cbParams.lightCount++;
 	}
 
+	cbParams.renderTargetSize = {GRAPHICS->GetViewport().Width, GRAPHICS->GetViewport().Height};
+	cbParams.invRenderTargetSize = {1.f/ GRAPHICS->GetViewport().Width, 1.f / GRAPHICS->GetViewport().Height};
+
+	cbParams.nearZ = 1.f;
+	cbParams.farZ = 1000.f;
+
+	cbParams.totalTime = TIME->TotalTime();
+	cbParams.deltaTime = TIME->DeltaTime();
+
+	cbParams.ambientLight = { 0.25f, 0.25f, 0.35f, 1.0f };
 
 	//cbParams.gFogColor = Color(0.752941251f, 0.752941251f, 0.752941251f, 1.000000000f);
-	cbParams.gFogColor = Color(0.f,0.f,0.f, 1.000000000f);
-	cbParams.gFogStart = 2.0f;
-	cbParams.gFogRange = 40.0f;
+	//cbParams.gFogColor = Color(0.f,0.f,0.f, 1.000000000f);
+	//cbParams.gFogStart = 2.0f;
+	//cbParams.gFogRange = 40.0f;
 
 	GRAPHICS->GetConstantBuffer(CBV_REGISTER::b0)->SetGlobalData(&cbParams, sizeof(cbParams));
 }

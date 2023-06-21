@@ -10,11 +10,11 @@ MeshOutput VS_Main(VertexTextureNormalTangent input)
     MeshOutput output = (MeshOutput)0;
 
     output.position = float4(input.position, 1.f);
-    /*output.position = mul(output.position, gWorld);
-    output.position = mul(output.position, gView);
-    output.position = mul(output.position, gProjection);*/
+    output.position = mul(output.position, gWorld);
+    output.position = mul(output.position, gViewProj);
+    //output.position = mul(output.position, gProjection);
 
-    output.position = mul(output.position, gWorldViewProj);
+    //output.position = mul(output.position, gWorldViewProj);
 
     output.uv = input.uv;
     output.normal = input.normal;

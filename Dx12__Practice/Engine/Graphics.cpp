@@ -43,13 +43,13 @@ void Graphics::Init(HWND hwnd)
 	_blurfilter->Init(_viewport.Width, _viewport.Height, DXGI_FORMAT_R8G8B8A8_UNORM);
 
 	_constantBuffer[static_cast<uint8>(CBV_REGISTER::b0)] = make_shared<ConstantBuffer>();
-	_constantBuffer[static_cast<uint8>(CBV_REGISTER::b0)]->Init(sizeof(LightParams), 1);
-
-	_constantBuffer[static_cast<uint8>(CBV_REGISTER::b1)] = make_shared<ConstantBuffer>();
-	_constantBuffer[static_cast<uint8>(CBV_REGISTER::b1)]->Init(sizeof(TransformData), 256);
+	_constantBuffer[static_cast<uint8>(CBV_REGISTER::b0)]->Init(sizeof(GlobalParams), 1);
 
 	_constantBuffer[static_cast<uint8>(CBV_REGISTER::b2)] = make_shared<ConstantBuffer>();
-	_constantBuffer[static_cast<uint8>(CBV_REGISTER::b2)]->Init(sizeof(MaterialData), 256);
+	_constantBuffer[static_cast<uint8>(CBV_REGISTER::b2)]->Init(sizeof(TransformData), 1);
+
+	_constantBuffer[static_cast<uint8>(CBV_REGISTER::b1)] = make_shared<ConstantBuffer>();
+	_constantBuffer[static_cast<uint8>(CBV_REGISTER::b1)]->Init(sizeof(MaterialData), 1);
 
 	_computeConstantBuffer[static_cast<uint8>(CBV_REGISTER::b0)] = make_shared<ConstantBuffer>();
 	_computeConstantBuffer[static_cast<uint8>(CBV_REGISTER::b0)]->Init(sizeof(BlurParam), 1);

@@ -47,24 +47,17 @@ void MeshRenderer::Render()
 
 
 	TransformData ctransformbuffer;
-	ctransformbuffer.position = GetTransform()->GetPosition();
-	ctransformbuffer.pad = 1.f;
 	ctransformbuffer.world = GetTransform()->GetWorldMatrix();
-	ctransformbuffer.matView = Camera::S_MatView;
-	ctransformbuffer.matProjection = Camera::S_MatProjection;
-	ctransformbuffer.worldnvTranspose = MathHelper::InverseTranspose(ctransformbuffer.world);
-	ctransformbuffer.worldViewProj = ctransformbuffer.world * ctransformbuffer.matView * ctransformbuffer.matProjection;
-	ctransformbuffer.ViewProj = ctransformbuffer.matView * ctransformbuffer.matProjection;
 
-	D3D12_CPU_DESCRIPTOR_HANDLE handle = GRAPHICS->GetConstantBuffer(CBV_REGISTER::b1)->PushData(&ctransformbuffer, sizeof(ctransformbuffer));
-	GRAPHICS->GetTableDescHeap()->SetConstantBuffer(handle, CBV_REGISTER::b1);
+	D3D12_CPU_DESCRIPTOR_HANDLE handle = GRAPHICS->GetConstantBuffer(CBV_REGISTER::b2)->PushData(&ctransformbuffer, sizeof(ctransformbuffer));
+	GRAPHICS->GetTableDescHeap()->SetConstantBuffer(handle, CBV_REGISTER::b2);
 
 
 	MaterialDesc pushDesc;
 	
 
-	material->UpdateShader();
-
+	
+	_shader->Update();
 	if (material)
 	{
 		pushDesc.ambient = material->GetAmbient();
@@ -89,8 +82,14 @@ void MeshRenderer::Render()
 		GRAPHICS->GetTableDescHeap()->SetShaderResourceView(_texture->GetCpuHandle(), SRV_REGISTER::t0);
 	}
 
-	D3D12_CPU_DESCRIPTOR_HANDLE transformhandle = GRAPHICS->GetConstantBuffer(CBV_REGISTER::b2)->PushData(&cbuffer, sizeof(cbuffer));
-	GRAPHICS->GetTableDescHeap()->SetConstantBuffer(transformhandle, CBV_REGISTER::b2);
+	if (_textureArr)
+	{
+		GRAPHICS->GetTableDescHeap()->SetShaderResourceView(_textureArr->GetCpuHandle(), SRV_REGISTER::t0);
+	}
+
+
+	D3D12_CPU_DESCRIPTOR_HANDLE transformhandle = GRAPHICS->GetConstantBuffer(CBV_REGISTER::b1)->PushData(&cbuffer, sizeof(cbuffer));
+	GRAPHICS->GetTableDescHeap()->SetConstantBuffer(transformhandle, CBV_REGISTER::b1);
 	
 
 	GRAPHICS->GetTableDescHeap()->CommitTable();
@@ -120,16 +119,11 @@ void MeshRenderer::RenderShadow()
 	
 
 	TransformData ctransformbuffer;
-	ctransformbuffer.position = GetTransform()->GetPosition();
-	ctransformbuffer.pad = 1.f;
 	ctransformbuffer.world = GetTransform()->GetWorldMatrix() * shadow * shadowOffsetY;
-	ctransformbuffer.matView = Camera::S_MatView;
-	ctransformbuffer.matProjection = Camera::S_MatProjection;
-	ctransformbuffer.worldnvTranspose = MathHelper::InverseTranspose(ctransformbuffer.world);
-	ctransformbuffer.worldViewProj = ctransformbuffer.world * ctransformbuffer.matView * ctransformbuffer.matProjection;
 
-	D3D12_CPU_DESCRIPTOR_HANDLE transformhandle = GRAPHICS->GetConstantBuffer(CBV_REGISTER::b1)->PushData(&ctransformbuffer, sizeof(ctransformbuffer));
-	GRAPHICS->GetTableDescHeap()->SetConstantBuffer(transformhandle, CBV_REGISTER::b1);
+
+	D3D12_CPU_DESCRIPTOR_HANDLE transformhandle = GRAPHICS->GetConstantBuffer(CBV_REGISTER::b2)->PushData(&ctransformbuffer, sizeof(ctransformbuffer));
+	GRAPHICS->GetTableDescHeap()->SetConstantBuffer(transformhandle, CBV_REGISTER::b2);
 
 
 	MaterialDesc pushDesc;
@@ -163,8 +157,8 @@ void MeshRenderer::RenderShadow()
 
 
 
-	D3D12_CPU_DESCRIPTOR_HANDLE handle = GRAPHICS->GetConstantBuffer(CBV_REGISTER::b2)->PushData(&cbuffer, sizeof(cbuffer));
-	GRAPHICS->GetTableDescHeap()->SetConstantBuffer(handle, CBV_REGISTER::b2);
+	D3D12_CPU_DESCRIPTOR_HANDLE handle = GRAPHICS->GetConstantBuffer(CBV_REGISTER::b1)->PushData(&cbuffer, sizeof(cbuffer));
+	GRAPHICS->GetTableDescHeap()->SetConstantBuffer(handle, CBV_REGISTER::b1);
 
 
 	GRAPHICS->GetTableDescHeap()->CommitTable();
@@ -191,16 +185,10 @@ void MeshRenderer::RenderReflect()
 	XMVECTOR lightDir = XMLoadFloat3(&dirlight->GetLightDesc().direction);
 
 	TransformData ctransformbuffer;
-	ctransformbuffer.position = GetTransform()->GetPosition();
-	ctransformbuffer.pad = 1.f;
 	ctransformbuffer.world = GetTransform()->GetWorldMatrix() * R;
-	ctransformbuffer.matView = Camera::S_MatView;
-	ctransformbuffer.matProjection = Camera::S_MatProjection;
-	ctransformbuffer.worldnvTranspose = MathHelper::InverseTranspose(ctransformbuffer.world);
-	ctransformbuffer.worldViewProj = ctransformbuffer.world * ctransformbuffer.matView * ctransformbuffer.matProjection;
 
-	D3D12_CPU_DESCRIPTOR_HANDLE transformhandle = GRAPHICS->GetConstantBuffer(CBV_REGISTER::b1)->PushData(&ctransformbuffer, sizeof(ctransformbuffer));
-	GRAPHICS->GetTableDescHeap()->SetConstantBuffer(transformhandle, CBV_REGISTER::b1);
+	D3D12_CPU_DESCRIPTOR_HANDLE transformhandle = GRAPHICS->GetConstantBuffer(CBV_REGISTER::b2)->PushData(&ctransformbuffer, sizeof(ctransformbuffer));
+	GRAPHICS->GetTableDescHeap()->SetConstantBuffer(transformhandle, CBV_REGISTER::b2);
 
 
 	MaterialDesc pushDesc;
@@ -231,8 +219,8 @@ void MeshRenderer::RenderReflect()
 
 
 
-	D3D12_CPU_DESCRIPTOR_HANDLE handle = GRAPHICS->GetConstantBuffer(CBV_REGISTER::b2)->PushData(&cbuffer, sizeof(cbuffer));
-	GRAPHICS->GetTableDescHeap()->SetConstantBuffer(handle, CBV_REGISTER::b2);
+	D3D12_CPU_DESCRIPTOR_HANDLE handle = GRAPHICS->GetConstantBuffer(CBV_REGISTER::b1)->PushData(&cbuffer, sizeof(cbuffer));
+	GRAPHICS->GetTableDescHeap()->SetConstantBuffer(handle, CBV_REGISTER::b1);
 
 	GRAPHICS->GetTableDescHeap()->CommitTable();
 
@@ -247,11 +235,13 @@ void MeshRenderer::RenderInstancing(shared_ptr<class InstancingBuffer>& buffer)
 	shared_ptr<Material> material = _material;
 	D3D12_VERTEX_BUFFER_VIEW bufferViews[] = { _mesh->GetVertexBuffer()->GetVertexBufferView(), buffer->GetBuffer()->GetVertexBufferView() };
 
-	CMD_LIST->IASetPrimitiveTopology(D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+	_shader->Update();
+
+	CMD_LIST->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 	CMD_LIST->IASetVertexBuffers(0, 2, bufferViews); // Slot: (0~15)
 	CMD_LIST->IASetIndexBuffer(&_mesh->GetIndexBuffer()->_indexBufferView);
 
-	TransformData ctransformbuffer;
+	/*TransformData ctransformbuffer;
 	ctransformbuffer.position = GetTransform()->GetPosition();
 	ctransformbuffer.pad = 1.f;
 	ctransformbuffer.world = GetTransform()->GetWorldMatrix();
@@ -261,15 +251,15 @@ void MeshRenderer::RenderInstancing(shared_ptr<class InstancingBuffer>& buffer)
 	ctransformbuffer.worldViewProj = ctransformbuffer.world * ctransformbuffer.matView * ctransformbuffer.matProjection;
 	ctransformbuffer.ViewProj = ctransformbuffer.matView * ctransformbuffer.matProjection;
 
-	D3D12_CPU_DESCRIPTOR_HANDLE handle = GRAPHICS->GetConstantBuffer(CBV_REGISTER::b1)->PushData(&ctransformbuffer, sizeof(ctransformbuffer));
-	GRAPHICS->GetTableDescHeap()->SetConstantBuffer(handle, CBV_REGISTER::b1);
+	D3D12_CPU_DESCRIPTOR_HANDLE handle = GRAPHICS->GetConstantBuffer(CBV_REGISTER::b2)->PushData(&ctransformbuffer, sizeof(ctransformbuffer));
+	GRAPHICS->GetTableDescHeap()->SetConstantBuffer(handle, CBV_REGISTER::b2);*/
 
 
-	MaterialDesc pushDesc;
+	//MaterialDesc pushDesc;
 
-	_shader->Update();
+	
 
-	if (material)
+	/*if (material)
 	{
 		pushDesc.ambient = material->GetAmbient();
 		pushDesc.diffuse = material->GetDiffuse();
@@ -291,16 +281,16 @@ void MeshRenderer::RenderInstancing(shared_ptr<class InstancingBuffer>& buffer)
 	if (_textureArr)
 	{
 		GRAPHICS->GetTableDescHeap()->SetShaderResourceView(_textureArr->GetCpuHandle(), SRV_REGISTER::t0);
-	}
+	}*/
 
 
-	D3D12_CPU_DESCRIPTOR_HANDLE transformhandle = GRAPHICS->GetConstantBuffer(CBV_REGISTER::b2)->PushData(&cbuffer, sizeof(cbuffer));
-	GRAPHICS->GetTableDescHeap()->SetConstantBuffer(transformhandle, CBV_REGISTER::b2);
+	/*D3D12_CPU_DESCRIPTOR_HANDLE transformhandle = GRAPHICS->GetConstantBuffer(CBV_REGISTER::b1)->PushData(&cbuffer, sizeof(cbuffer));
+	GRAPHICS->GetTableDescHeap()->SetConstantBuffer(transformhandle, CBV_REGISTER::b1);
 
 
 
 
-	GRAPHICS->GetTableDescHeap()->CommitTable();
+	GRAPHICS->GetTableDescHeap()->CommitTable();*/
 	CMD_LIST->DrawIndexedInstanced(_mesh->GetIndexBuffer()->_count, buffer->GetCount(), 0, 0, 0);
 }
 
