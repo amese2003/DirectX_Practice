@@ -20,6 +20,8 @@ public:
 	void CreateUAVTexture(UINT64 byteSize);
 	void CreateCopyTexture(UINT64 byteSize);
 
+	ComPtr<ID3D12DescriptorHeap> GetDsvHeap() { return _dsvHeap; }
+
 public:
 	void CreateTexture(DXGI_FORMAT format, uint32 width, uint32 height, const D3D12_HEAP_PROPERTIES& heapProperty, D3D12_HEAP_FLAGS heapFlags, D3D12_RESOURCE_FLAGS resFlags, Vec4 clearColor = Vec4());
 	void CreateFromTexture(ComPtr<ID3D12Resource> tex2D);

@@ -88,7 +88,7 @@ void Mesh::CreateCylinder()
 	_indexBuffer->CreateBuffer(_geometry->GetIndices());
 }
 
-void Mesh::CreateMesh(const wstring& path)
+void Mesh::CreateSkull()
 {
 	std::ifstream fin("../Resources/Models/skull.txt");
 

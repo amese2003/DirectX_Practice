@@ -6,6 +6,8 @@ class Shader;
 class Texture;
 class Mesh;
 class Material;
+class TextureMultiple;
+class FrameResource;
 
 class ResourceManager
 {
@@ -29,6 +31,10 @@ public:
 
 private:
 	void CreateDefaultMesh();
+	void CreateDefaultTexture();
+	void LoadMeshs();
+	void CreateDefaultMaterials();
+	void BuildFrameResources();
 
 private:
 	wstring _resourcePath;
@@ -36,6 +42,10 @@ private:
 private:
 	using KeyObjMap = map<wstring/*key*/, shared_ptr<ResourceBase>>;
 	array<KeyObjMap, RESOURCE_TYPE_COUNT> _resources;
+
+private:
+	int _numframeResouces = 3;
+	vector<unique_ptr<FrameResource>> _frameResources;
 };
 
 template<typename T>
@@ -94,6 +104,8 @@ ResourceType ResourceManager::GetResourceType()
 		return ResourceType::Material;
 	if (std::is_same_v<T, Shader>)
 		return ResourceType::Shader;
+	if (std::is_same_v<T, TextureMultiple>)
+		return ResourceType::TextureMultiple;
 
 	assert(false);
 	return ResourceType::None;

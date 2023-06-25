@@ -3,9 +3,10 @@
 class SwapChain
 {
 public:
-	void Init(HWND hWnd, ComPtr<ID3D12Device> device, ComPtr<IDXGIFactory> dxgi, ComPtr<ID3D12CommandQueue> cmdQueue);
+	void Init(HWND hWnd, ComPtr<ID3D12Device> device, ComPtr<IDXGIFactory4> dxgi, ComPtr<ID3D12CommandQueue> cmdQueue);
 	void Present();
 	void SwapIndex();
+	void OnResize();
 
 	ComPtr<IDXGISwapChain> GetSwapChain() { return _swapChain; }
 	ComPtr<ID3D12Resource> GetRenderTarget(int32 index) { return _rtvBuffer[index]; }
@@ -14,7 +15,7 @@ public:
 	D3D12_CPU_DESCRIPTOR_HANDLE GetBackRTV() { return _rtvHandle[_backBufferIndex]; }
 
 private:
-	void CreateSwapChain(HWND hWnd, ComPtr<IDXGIFactory> dxgi, ComPtr<ID3D12CommandQueue> cmdQueue);
+	void CreateSwapChain(HWND hWnd, ComPtr<IDXGIFactory4> dxgi, ComPtr<ID3D12CommandQueue> cmdQueue);
 	void CreateRenderTargetView(ComPtr<ID3D12Device> device);
 
 private:

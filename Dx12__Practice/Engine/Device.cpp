@@ -9,7 +9,9 @@ void Device::Init()
 	// - ppDevice : 생성된 장치가 매개변수에 설정
 #ifdef _DEBUG
 	::D3D12GetDebugInterface(IID_PPV_ARGS(&_debugController));
+	_debugController->QueryInterface(IID_PPV_ARGS(&_debugControllerinterface));
 	_debugController->EnableDebugLayer();
+	_debugControllerinterface->SetEnableGPUBasedValidation(true);
 #endif
 
 	// DXGI(DirectX Graphics Infrastructure)
@@ -19,7 +21,7 @@ void Device::Init()
 	// CreateDXGIFactory
 	// - riid : 디바이스의 COM ID
 	// - ppDevice : 생성된 장치가 매개변수에 설정
-	::CreateDXGIFactory(IID_PPV_ARGS(&_dxgi));
+	::CreateDXGIFactory1(IID_PPV_ARGS(&_dxgi));
 
 	// CreateDevice
 	// - 디스플레이 어댑터(그래픽 카드)를 나타내는 객체
@@ -28,4 +30,17 @@ void Device::Init()
 	// - riid : 디바이스의 COM ID
 	// - ppDevice : 생성된 장치가 매개변수에 설정
 	::D3D12CreateDevice(nullptr, D3D_FEATURE_LEVEL_11_0, IID_PPV_ARGS(&_device));
+
+
+
+	// MSAA
+	D3D12_FEATURE_DATA_MULTISAMPLE_QUALITY_LEVELS qualityLevel;
+	qualityLevel.Format = GRAPHICS->GetBackBufferFormat();
+	qualityLevel.SampleCount = 4;
+	qualityLevel.Flags = D3D12_MULTISAMPLE_QUALITY_LEVELS_FLAG_NONE;
+	qualityLevel.NumQualityLevels = 0;
+	_device->CheckFeatureSupport(D3D12_FEATURE_MULTISAMPLE_QUALITY_LEVELS, &qualityLevel, sizeof(qualityLevel));
+
+	GRAPHICS->Set4xMsaaLevel(qualityLevel.NumQualityLevels);
+	CHECK(GRAPHICS->Get4xMsaaLevel() > 0 && "Unexpected MSAA quality level.");
 }

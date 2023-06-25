@@ -19,49 +19,62 @@ class Graphics
 public:
 	void Init(HWND hwnd);
 
-	void RenderBegin();
+	void RenderBegin();;
 	void RenderEnd();
 
+
+	shared_ptr<Device> GetDevice() { return _device; }
+	shared_ptr<SwapChain> GetSwapChain() { return _swapChain; }
+	shared_ptr<CommandQueue> GetCmdQueue() { return _cmdQueue; }
+	shared_ptr<RootSignature> GetRootsignature() { return _rootSignature; }
+
+	
+
+
 public:
-	shared_ptr<Device>					GetDevice() { return _device; }
-	shared_ptr<CommandQueue>			GetCommandQueue() { return _cmdQueue; }
-	shared_ptr<ComputeCommandQueue>		GetComputeQueue() { return _computecmdQueue; }
-	shared_ptr<SwapChain>				GetSwapChain() { return _swapChain; }
-	shared_ptr<RootSignature>			GetRootsignature() { return _rootSignature; }
-	shared_ptr<TableDescriptionHeap>	GetTableDescHeap() { return _tableDescHeap; }
-	shared_ptr<ComputeDescriptorHeap>	GetComputeDescHeap() { return _computeDescHeap; }
-	shared_ptr<ConstantBuffer>			GetConstantBuffer(CBV_REGISTER reg) { return _constantBuffer[static_cast<uint8>(reg)]; }
-	shared_ptr<ConstantBuffer>			GetComputeConstantBuffer(CBV_REGISTER reg) { return _computeConstantBuffer[static_cast<uint8>(reg)]; }
-	shared_ptr<DepthStencilBuffer>		GetDepthStencilBuffer() { return _depthStencilBuffer; }
-	shared_ptr<BlurFilter>				GetBlurFilter() { return _blurfilter; }
-	D3D12_VIEWPORT& GetViewport() { return _viewport; }
-
-
-	shared_ptr<GameObject> _test;
-
 	HWND& GetWindow() { return _hwnd; }
-private:
 
+	bool Get4xMsaaState() { return _4xMsaaState; }
+	void Set4xMsaaState(bool state) { _4xMsaaState = state; }
+
+	UINT Get4xMsaaLevel() { return _4xMsaaQuality; }
+	void Set4xMsaaLevel(UINT level) { _4xMsaaQuality = level; }
+
+	DXGI_FORMAT& GetBackBufferFormat() { return _backBufferFormat; }
+	DXGI_FORMAT& GetDepthStencilFormat() { return _depthstencilFormat; }
+
+	D3D12_VIEWPORT& GetViewport() { return _viewport; }
 	void SetViewport();
+
+	UINT GetDescSize() { return _cbvsrvdescSize; }
+
+private:
+	void LogAdapters();
+	void LogAdapterOutputs(ComPtr<IDXGIAdapter> adapter);
+	void LogOutputDisplayModes(ComPtr<IDXGIOutput> output, DXGI_FORMAT format);
+
+private:
+	shared_ptr<Device> _device;
+	shared_ptr<SwapChain> _swapChain;
+	shared_ptr<CommandQueue> _cmdQueue;
+	shared_ptr<DepthStencilBuffer> _depthStencil;
+	shared_ptr<RootSignature> _rootSignature;
+
+
 
 private:
 	HWND _hwnd = {};
 
+	// Set true to use 4X MSAA (?.1.8).  The default is false.
+	bool      _4xMsaaState = false;    // 4X MSAA enabled
+	UINT      _4xMsaaQuality = 0;      // quality level of 4X MSAA
 
-	shared_ptr<Device>							_device;
-	shared_ptr<CommandQueue>					_cmdQueue;
-	shared_ptr<ComputeCommandQueue>				_computecmdQueue;
+	std::wstring _mainCaption = L"d3d App";
+	D3D_DRIVER_TYPE _driverType = D3D_DRIVER_TYPE_HARDWARE;
+	DXGI_FORMAT _backBufferFormat =  DXGI_FORMAT_R8G8B8A8_UNORM;
+	DXGI_FORMAT _depthstencilFormat = DXGI_FORMAT_D24_UNORM_S8_UINT;
 
-	shared_ptr<SwapChain>						_swapChain;
-	shared_ptr<RootSignature>					_rootSignature;
-	shared_ptr<TableDescriptionHeap>			_tableDescHeap;
-	shared_ptr<ComputeDescriptorHeap>			_computeDescHeap;
-
-	vector<shared_ptr<ConstantBuffer>>			_constantBuffer;
-	vector<shared_ptr<ConstantBuffer>>			_computeConstantBuffer;
-	shared_ptr<DepthStencilBuffer>				_depthStencilBuffer;
-
-	shared_ptr<BlurFilter>						_blurfilter;
+	UINT _cbvsrvdescSize = 0;
 
 	D3D12_VIEWPORT _viewport = { 0 };
 	D3D12_RECT		_scissorRect = {};

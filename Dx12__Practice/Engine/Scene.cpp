@@ -13,7 +13,7 @@ void Scene::Start()
 
 void Scene::Update()
 {
-	PushLightData();
+	//PushLightData();
 
 	unordered_set<shared_ptr<GameObject>> objects = _objects;
 
@@ -133,5 +133,5 @@ void Scene::PushLightData()
 	//cbParams.gFogStart = 2.0f;
 	//cbParams.gFogRange = 40.0f;
 
-	GRAPHICS->GetConstantBuffer(CBV_REGISTER::b0)->SetGlobalData(&cbParams, sizeof(cbParams));
+	//GRAPHICS->GetConstantBuffer(CBV_REGISTER::b0)->SetGlobalData(&cbParams, sizeof(cbParams));
 }

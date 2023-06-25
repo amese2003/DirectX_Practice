@@ -95,14 +95,14 @@ void ConstantBuffer::SetGlobalData(void* buffer, uint32 size)
 {
 	assert(_elementSize == ((size + 255) & ~255));
 	::memcpy(&_mappedBuffer[0], buffer, size);
-	CMD_LIST->SetGraphicsRootConstantBufferView(0, GetGpuVirtualAddress(0));
+	//CMD_LIST->SetGraphicsRootConstantBufferView(0, GetGpuVirtualAddress(0));
 }
 
 void ConstantBuffer::SetMaterialData(void* buffer, uint32 size)
 {
 	assert(_elementSize == ((size + 255) & ~255));
 	::memcpy(&_mappedBuffer[0], buffer, size);
-	CMD_LIST->SetGraphicsRootConstantBufferView(0, GetGpuVirtualAddress(1));
+	//CMD_LIST->SetGraphicsRootConstantBufferView(0, GetGpuVirtualAddress(1));
 }
 
 D3D12_GPU_VIRTUAL_ADDRESS ConstantBuffer::GetGpuVirtualAddress(uint32 index)

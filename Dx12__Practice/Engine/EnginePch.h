@@ -43,11 +43,15 @@ using namespace Microsoft::WRL;
 #include <DirectXTex/DirectXTex.h>
 #include <DirectXTex/DirectXTex.inl>
 
+
+#include <dxgi1_4.h>
+
 // °¢Á¾ lib
-#pragma comment(lib, "d3d12")
-#pragma comment(lib, "dxgi")
 #pragma comment(lib, "dxguid")
-#pragma comment(lib, "d3dcompiler")
+
+#pragma comment(lib,"d3dcompiler.lib")
+#pragma comment(lib, "D3D12.lib")
+#pragma comment(lib, "dxgi.lib")
 
 #ifdef _DEBUG
 #pragma comment(lib, "DirectXTex\\DirectXTex_debug.lib")
@@ -128,9 +132,9 @@ struct WindowInfo
 #define GAME					GET_SINGLE(Game)		
 #define GRAPHICS				GET_SINGLE(Graphics)
 #define DEVICE					GRAPHICS->GetDevice()->GetDevice()
-#define CMD_LIST				GRAPHICS->GetCommandQueue()->GetCmdList()
-#define RESOURCE_CMD_LIST		GRAPHICS->GetCommandQueue()->GetResourceCmdList()
-#define COMPUTE_CMD_LIST		GRAPHICS->GetComputeQueue()->GetCmdList()
+#define CMD_LIST				GRAPHICS->GetCmdQueue()->GetCmdList()
+#define RESOURCE_CMD_LIST		GRAPHICS->GetCmdQueue()->GetResourceCmdList()
+#define COMPUTE_CMD_LIST		GRAPHICS->GetCmdQueue()->GetCmdList()
 
 #define ROOT_SIGNATURE			GRAPHICS->GetRootsignature()->GetSignature()
 #define COMPUTE_ROOT_SIGNATURE	GRAPHICS->GetRootsignature()->GetComputeSignature()
@@ -161,6 +165,7 @@ struct WindowInfo
 #include "VertexBuffer.h"
 #include "IndexBuffer.h"
 #include "ConstantBuffer.h"
+#include "UploadBuffer.h"
 #include "Shader.h"
 #include "Texture.h"
 //#include "IExecute.h"

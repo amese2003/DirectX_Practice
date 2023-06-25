@@ -10,6 +10,8 @@ private:
 	void CreateRootSignature();
 	void CreateComputeSignature();
 
+	array<const CD3DX12_STATIC_SAMPLER_DESC, 6> GetStaticSamplers();
+
 private:
 	ComPtr<ID3D12RootSignature>	_signature;
 	ComPtr<ID3D12RootSignature>	_computeSignature;

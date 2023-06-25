@@ -26,7 +26,7 @@ void Shader::Init(const wstring& path, ShaderInfo info, ShaderArg args)
 
 void Shader::Update()
 {
-	CMD_LIST->SetPipelineState(_pipelineState.Get());
+	//CMD_LIST->SetPipelineState(_pipelineState.Get());
 }
 
 void Shader::CreateGraphicShader(const wstring& path)
@@ -53,11 +53,11 @@ void Shader::CreateGraphicShader(const wstring& path)
 		{ "COLOR", 0, DXGI_FORMAT_R32G32B32A32_FLOAT,	0, 44, D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA, 0 },
 		{ "SIZE", 0, DXGI_FORMAT_R32G32_FLOAT,			0, 60, D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA, 0},
 
-		{ "WORLD", 0, DXGI_FORMAT_R32G32B32A32_FLOAT, 1, 0,  D3D12_INPUT_CLASSIFICATION_PER_INSTANCE_DATA, 1},
-		{ "WORLD", 1, DXGI_FORMAT_R32G32B32A32_FLOAT, 1, 16, D3D12_INPUT_CLASSIFICATION_PER_INSTANCE_DATA, 1},
-		{ "WORLD", 2, DXGI_FORMAT_R32G32B32A32_FLOAT, 1, 32, D3D12_INPUT_CLASSIFICATION_PER_INSTANCE_DATA, 1},
-		{ "WORLD", 3, DXGI_FORMAT_R32G32B32A32_FLOAT, 1, 48, D3D12_INPUT_CLASSIFICATION_PER_INSTANCE_DATA, 1},
-		{ "WCOLOR", 0, DXGI_FORMAT_R32G32B32A32_FLOAT, 1, 64, D3D12_INPUT_CLASSIFICATION_PER_INSTANCE_DATA, 1},
+		//{ "WORLD", 0, DXGI_FORMAT_R32G32B32A32_FLOAT, 1, 0,  D3D12_INPUT_CLASSIFICATION_PER_INSTANCE_DATA, 1},
+		//{ "WORLD", 1, DXGI_FORMAT_R32G32B32A32_FLOAT, 1, 16, D3D12_INPUT_CLASSIFICATION_PER_INSTANCE_DATA, 1},
+		//{ "WORLD", 2, DXGI_FORMAT_R32G32B32A32_FLOAT, 1, 32, D3D12_INPUT_CLASSIFICATION_PER_INSTANCE_DATA, 1},
+		//{ "WORLD", 3, DXGI_FORMAT_R32G32B32A32_FLOAT, 1, 48, D3D12_INPUT_CLASSIFICATION_PER_INSTANCE_DATA, 1},
+		//{ "WCOLOR", 0, DXGI_FORMAT_R32G32B32A32_FLOAT, 1, 64, D3D12_INPUT_CLASSIFICATION_PER_INSTANCE_DATA, 1},
 	};
 
 	//_pipelineDesc.InputLayout = { desc, _countof(desc)};
@@ -77,186 +77,199 @@ void Shader::CreateGraphicShader(const wstring& path)
 	//_pipelineDesc.SampleDesc.Quality = 0;
 	//_pipelineDesc.DSVFormat = DXGI_FORMAT_D24_UNORM_S8_UINT;
 
+	//_pipelineDesc.RasterizerState = CD3DX12_RASTERIZER_DESC(D3D12_DEFAULT);
+	//_pipelineDesc.BlendState = CD3DX12_BLEND_DESC(D3D12_DEFAULT);
+	//_pipelineDesc.DepthStencilState = CD3DX12_DEPTH_STENCIL_DESC(D3D12_DEFAULT);
+
+
+	//_pipelineDesc.SampleMask = UINT_MAX;
+
+	//switch (_info.topologyType)
+	//{
+	//case TOPOLOGY_TYPE::POINT:
+	//	_pipelineDesc.PrimitiveTopologyType = D3D12_PRIMITIVE_TOPOLOGY_TYPE_POINT;
+	//	_topology = D3D_PRIMITIVE_TOPOLOGY_POINTLIST;
+	//	break;
+
+	//case TOPOLOGY_TYPE::PATCH:
+	//	_pipelineDesc.PrimitiveTopologyType = D3D12_PRIMITIVE_TOPOLOGY_TYPE_PATCH;
+	//	_topology = D3D_PRIMITIVE_TOPOLOGY_4_CONTROL_POINT_PATCHLIST;
+	//	break;
+	//case TOPOLOGY_TYPE::TRIANGLE:
+	//case TOPOLOGY_TYPE::DEFAULT:
+	//default:
+	//	_pipelineDesc.PrimitiveTopologyType = D3D12_PRIMITIVE_TOPOLOGY_TYPE_TRIANGLE;
+	//	_topology = D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST;
+	//	break;
+	//}
+
+
+
+	//_pipelineDesc.NumRenderTargets = 1;
+	//_pipelineDesc.RTVFormats[0] = DXGI_FORMAT_R8G8B8A8_UNORM;
+	//_pipelineDesc.SampleDesc.Count = 1;
+	//_pipelineDesc.DSVFormat = GRAPHICS->GetDepthStencilBuffer()->GetDSVFormat();
+
+
+	//switch (_info.blendType)
+	//{
+	//case BLEND_TYPE::AlphaToCoverageBS:
+	//	_pipelineDesc.BlendState.AlphaToCoverageEnable = true;
+	//	_pipelineDesc.BlendState.IndependentBlendEnable = false;
+	//	_pipelineDesc.BlendState.RenderTarget[0].BlendEnable = false;
+	//	_pipelineDesc.BlendState.RenderTarget[0].RenderTargetWriteMask = D3D12_COLOR_WRITE_ENABLE_ALL;
+	//	break;
+
+	//case BLEND_TYPE::NoRenderTargetWritesBS:
+	//	_pipelineDesc.BlendState.AlphaToCoverageEnable = false;
+	//	_pipelineDesc.BlendState.IndependentBlendEnable = false;
+
+	//	_pipelineDesc.BlendState.RenderTarget[0].BlendEnable = true;
+	//	_pipelineDesc.BlendState.RenderTarget[0].SrcBlend = D3D12_BLEND_SRC_ALPHA;
+	//	_pipelineDesc.BlendState.RenderTarget[0].DestBlend = D3D12_BLEND_INV_SRC_ALPHA;
+	//	_pipelineDesc.BlendState.RenderTarget[0].BlendOp = D3D12_BLEND_OP_ADD;
+	//	_pipelineDesc.BlendState.RenderTarget[0].SrcBlendAlpha = D3D12_BLEND_ONE;
+	//	_pipelineDesc.BlendState.RenderTarget[0].DestBlendAlpha = D3D12_BLEND_ZERO;
+	//	_pipelineDesc.BlendState.RenderTarget[0].BlendOpAlpha = D3D12_BLEND_OP_ADD;
+	//	_pipelineDesc.BlendState.RenderTarget[0].RenderTargetWriteMask = D3D12_COLOR_WRITE_ENABLE_ALL;
+	//	break;
+
+	//case BLEND_TYPE::TransparentBS:
+	//	_pipelineDesc.BlendState.AlphaToCoverageEnable = false;
+	//	_pipelineDesc.BlendState.IndependentBlendEnable = false;
+
+	//	_pipelineDesc.BlendState.RenderTarget[0].BlendEnable = false;
+	//	_pipelineDesc.BlendState.RenderTarget[0].SrcBlend = D3D12_BLEND_ONE;
+	//	_pipelineDesc.BlendState.RenderTarget[0].DestBlend = D3D12_BLEND_ZERO;
+	//	_pipelineDesc.BlendState.RenderTarget[0].BlendOp = D3D12_BLEND_OP_ADD;
+	//	_pipelineDesc.BlendState.RenderTarget[0].SrcBlendAlpha = D3D12_BLEND_ONE;
+	//	_pipelineDesc.BlendState.RenderTarget[0].DestBlendAlpha = D3D12_BLEND_ZERO;
+	//	_pipelineDesc.BlendState.RenderTarget[0].BlendOpAlpha = D3D12_BLEND_OP_ADD;
+	//	_pipelineDesc.BlendState.RenderTarget[0].RenderTargetWriteMask = 0;
+	//	break;
+
+	//case BLEND_TYPE::TranseparencyBS:
+	//	_pipelineDesc.BlendState.RenderTarget[0].BlendEnable = true;
+	//	_pipelineDesc.BlendState.RenderTarget[0].LogicOpEnable = false;
+	//	_pipelineDesc.BlendState.RenderTarget[0].SrcBlend = D3D12_BLEND_SRC_ALPHA;
+	//	_pipelineDesc.BlendState.RenderTarget[0].DestBlend = D3D12_BLEND_INV_SRC_ALPHA;
+	//	_pipelineDesc.BlendState.RenderTarget[0].BlendOp = D3D12_BLEND_OP_ADD;
+	//	_pipelineDesc.BlendState.RenderTarget[0].SrcBlendAlpha = D3D12_BLEND_ONE;
+	//	_pipelineDesc.BlendState.RenderTarget[0].DestBlendAlpha = D3D12_BLEND_ZERO;
+	//	_pipelineDesc.BlendState.RenderTarget[0].BlendOpAlpha = D3D12_BLEND_OP_ADD;
+	//	_pipelineDesc.BlendState.RenderTarget[0].LogicOp = D3D12_LOGIC_OP_NOOP;
+	//	_pipelineDesc.BlendState.RenderTarget[0].RenderTargetWriteMask = D3D12_COLOR_WRITE_ENABLE_ALL;
+	//	break;
+	//default:
+	//	break;
+	//}
+
+	//switch (_info.rasterizerType)
+	//{
+	//case RASTERIZER_TYPE::WireframeRS:
+	//	_pipelineDesc.RasterizerState.FillMode = D3D12_FILL_MODE_WIREFRAME;
+	//	_pipelineDesc.RasterizerState.CullMode = D3D12_CULL_MODE_BACK;
+	//	_pipelineDesc.RasterizerState.FrontCounterClockwise = false;
+	//	_pipelineDesc.RasterizerState.DepthClipEnable = true;
+	//	break;
+	//case RASTERIZER_TYPE::NoCullRS:
+	//	_pipelineDesc.RasterizerState.FillMode = D3D12_FILL_MODE_SOLID;
+	//	_pipelineDesc.RasterizerState.CullMode = D3D12_CULL_MODE_NONE;
+	//	_pipelineDesc.RasterizerState.FrontCounterClockwise = false;
+	//	_pipelineDesc.RasterizerState.DepthClipEnable = true;
+	//	break;
+	//case RASTERIZER_TYPE::CullClockwiseRS:
+	//	_pipelineDesc.RasterizerState.FillMode = D3D12_FILL_MODE_SOLID;
+	//	_pipelineDesc.RasterizerState.CullMode = D3D12_CULL_MODE_BACK;
+	//	_pipelineDesc.RasterizerState.FrontCounterClockwise = true;
+	//	_pipelineDesc.RasterizerState.DepthClipEnable = true;
+	//	break;
+	//case RASTERIZER_TYPE::CULL_NONE:
+	//	_pipelineDesc.RasterizerState.CullMode = D3D12_CULL_MODE_NONE;
+	//	break;
+	//case RASTERIZER_TYPE::WireframeOnly:
+	//	_pipelineDesc.RasterizerState.FillMode = D3D12_FILL_MODE_WIREFRAME;
+	//default:
+	//	break;
+	//}
+
+	//switch (_info.depthStencilType)
+	//{
+	//case DEPTH_STENCIL_TYPE::MarkMirrorDSS:
+	//	_pipelineDesc.DepthStencilState.DepthEnable = true;
+	//	_pipelineDesc.DepthStencilState.DepthWriteMask = D3D12_DEPTH_WRITE_MASK_ZERO;
+	//	_pipelineDesc.DepthStencilState.DepthFunc = D3D12_COMPARISON_FUNC_LESS;
+	//	_pipelineDesc.DepthStencilState.StencilEnable = true;
+	//	_pipelineDesc.DepthStencilState.StencilReadMask = 0xff;
+	//	_pipelineDesc.DepthStencilState.StencilWriteMask = 0xff;
+
+	//	_pipelineDesc.DepthStencilState.FrontFace.StencilFailOp = D3D12_STENCIL_OP_KEEP;
+	//	_pipelineDesc.DepthStencilState.FrontFace.StencilDepthFailOp = D3D12_STENCIL_OP_KEEP;
+	//	_pipelineDesc.DepthStencilState.FrontFace.StencilPassOp = D3D12_STENCIL_OP_REPLACE;
+	//	_pipelineDesc.DepthStencilState.FrontFace.StencilFunc = D3D12_COMPARISON_FUNC_ALWAYS;
+
+	//	// We are not rendering backfacing polygons, so these settings do not matter.
+	//	_pipelineDesc.DepthStencilState.BackFace.StencilFailOp = D3D12_STENCIL_OP_KEEP;
+	//	_pipelineDesc.DepthStencilState.BackFace.StencilDepthFailOp = D3D12_STENCIL_OP_KEEP;
+	//	_pipelineDesc.DepthStencilState.BackFace.StencilPassOp = D3D12_STENCIL_OP_REPLACE;
+	//	_pipelineDesc.DepthStencilState.BackFace.StencilFunc = D3D12_COMPARISON_FUNC_ALWAYS;
+	//	break;
+
+	//case DEPTH_STENCIL_TYPE::DrawReflectionDSS:
+	//	_pipelineDesc.DepthStencilState.DepthEnable = true;
+	//	_pipelineDesc.DepthStencilState.DepthWriteMask = D3D12_DEPTH_WRITE_MASK_ALL;
+	//	_pipelineDesc.DepthStencilState.DepthFunc = D3D12_COMPARISON_FUNC_LESS;
+	//	_pipelineDesc.DepthStencilState.StencilEnable = true;
+	//	_pipelineDesc.DepthStencilState.StencilReadMask = 0xff;
+	//	_pipelineDesc.DepthStencilState.StencilWriteMask = 0xff;
+
+	//	_pipelineDesc.DepthStencilState.FrontFace.StencilFailOp = D3D12_STENCIL_OP_KEEP;
+	//	_pipelineDesc.DepthStencilState.FrontFace.StencilDepthFailOp = D3D12_STENCIL_OP_KEEP;
+	//	_pipelineDesc.DepthStencilState.FrontFace.StencilPassOp = D3D12_STENCIL_OP_KEEP;
+	//	_pipelineDesc.DepthStencilState.FrontFace.StencilFunc = D3D12_COMPARISON_FUNC_EQUAL;
+
+	//	// We are not rendering backfacing polygons, so these settings do not matter.
+	//	_pipelineDesc.DepthStencilState.BackFace.StencilFailOp = D3D12_STENCIL_OP_KEEP;
+	//	_pipelineDesc.DepthStencilState.BackFace.StencilDepthFailOp = D3D12_STENCIL_OP_KEEP;
+	//	_pipelineDesc.DepthStencilState.BackFace.StencilPassOp = D3D12_STENCIL_OP_KEEP;
+	//	_pipelineDesc.DepthStencilState.BackFace.StencilFunc = D3D12_COMPARISON_FUNC_EQUAL;
+	//	break;
+
+	//case DEPTH_STENCIL_TYPE::NoDoubleBlendDSS:
+	//	_pipelineDesc.DepthStencilState.DepthEnable = true;
+	//	_pipelineDesc.DepthStencilState.DepthWriteMask = D3D12_DEPTH_WRITE_MASK_ALL;
+	//	_pipelineDesc.DepthStencilState.DepthFunc = D3D12_COMPARISON_FUNC_LESS;
+	//	_pipelineDesc.DepthStencilState.StencilEnable = true;
+	//	_pipelineDesc.DepthStencilState.StencilReadMask = 0xff;
+	//	_pipelineDesc.DepthStencilState.StencilWriteMask = 0xff;
+
+	//	_pipelineDesc.DepthStencilState.FrontFace.StencilFailOp = D3D12_STENCIL_OP_KEEP;
+	//	_pipelineDesc.DepthStencilState.FrontFace.StencilDepthFailOp = D3D12_STENCIL_OP_KEEP;
+	//	_pipelineDesc.DepthStencilState.FrontFace.StencilPassOp = D3D12_STENCIL_OP_INCR;
+	//	_pipelineDesc.DepthStencilState.FrontFace.StencilFunc = D3D12_COMPARISON_FUNC_EQUAL;
+
+	//	// We are not rendering backfacing polygons, so these settings do not matter.
+	//	_pipelineDesc.DepthStencilState.BackFace.StencilFailOp = D3D12_STENCIL_OP_KEEP;
+	//	_pipelineDesc.DepthStencilState.BackFace.StencilDepthFailOp = D3D12_STENCIL_OP_KEEP;
+	//	_pipelineDesc.DepthStencilState.BackFace.StencilPassOp = D3D12_STENCIL_OP_INCR;
+	//	_pipelineDesc.DepthStencilState.BackFace.StencilFunc = D3D12_COMPARISON_FUNC_EQUAL;
+	//	break;
+	//default:
+	//	break;
+	//}
+
+
+
 	_pipelineDesc.RasterizerState = CD3DX12_RASTERIZER_DESC(D3D12_DEFAULT);
 	_pipelineDesc.BlendState = CD3DX12_BLEND_DESC(D3D12_DEFAULT);
-	_pipelineDesc.DepthStencilState = CD3DX12_DEPTH_STENCIL_DESC(D3D12_DEFAULT);
-
-
+	//_pipelineDesc.DepthStencilState = CD3DX12_DEPTH_STENCIL_DESC(D3D12_DEFAULT);
 	_pipelineDesc.SampleMask = UINT_MAX;
-
-	switch (_info.topologyType)
-	{
-	case TOPOLOGY_TYPE::POINT:
-		_pipelineDesc.PrimitiveTopologyType = D3D12_PRIMITIVE_TOPOLOGY_TYPE_POINT;
-		_topology = D3D_PRIMITIVE_TOPOLOGY_POINTLIST;
-		break;
-
-	case TOPOLOGY_TYPE::PATCH:
-		_pipelineDesc.PrimitiveTopologyType = D3D12_PRIMITIVE_TOPOLOGY_TYPE_PATCH;
-		_topology = D3D_PRIMITIVE_TOPOLOGY_4_CONTROL_POINT_PATCHLIST;
-		break;
-	case TOPOLOGY_TYPE::TRIANGLE:
-	case TOPOLOGY_TYPE::DEFAULT:
-	default:
-		_pipelineDesc.PrimitiveTopologyType = D3D12_PRIMITIVE_TOPOLOGY_TYPE_TRIANGLE;
-		_topology = D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST;
-		break;
-	}
-
-
-
+	_pipelineDesc.PrimitiveTopologyType = D3D12_PRIMITIVE_TOPOLOGY_TYPE_TRIANGLE;
 	_pipelineDesc.NumRenderTargets = 1;
 	_pipelineDesc.RTVFormats[0] = DXGI_FORMAT_R8G8B8A8_UNORM;
 	_pipelineDesc.SampleDesc.Count = 1;
-	_pipelineDesc.DSVFormat = GRAPHICS->GetDepthStencilBuffer()->GetDSVFormat();
-
-
-	switch (_info.blendType)
-	{
-	case BLEND_TYPE::AlphaToCoverageBS:
-		_pipelineDesc.BlendState.AlphaToCoverageEnable = true;
-		_pipelineDesc.BlendState.IndependentBlendEnable = false;
-		_pipelineDesc.BlendState.RenderTarget[0].BlendEnable = false;
-		_pipelineDesc.BlendState.RenderTarget[0].RenderTargetWriteMask = D3D12_COLOR_WRITE_ENABLE_ALL;
-		break;
-
-	case BLEND_TYPE::NoRenderTargetWritesBS:
-		_pipelineDesc.BlendState.AlphaToCoverageEnable = false;
-		_pipelineDesc.BlendState.IndependentBlendEnable = false;
-
-		_pipelineDesc.BlendState.RenderTarget[0].BlendEnable = true;
-		_pipelineDesc.BlendState.RenderTarget[0].SrcBlend = D3D12_BLEND_SRC_ALPHA;
-		_pipelineDesc.BlendState.RenderTarget[0].DestBlend = D3D12_BLEND_INV_SRC_ALPHA;
-		_pipelineDesc.BlendState.RenderTarget[0].BlendOp = D3D12_BLEND_OP_ADD;
-		_pipelineDesc.BlendState.RenderTarget[0].SrcBlendAlpha = D3D12_BLEND_ONE;
-		_pipelineDesc.BlendState.RenderTarget[0].DestBlendAlpha = D3D12_BLEND_ZERO;
-		_pipelineDesc.BlendState.RenderTarget[0].BlendOpAlpha = D3D12_BLEND_OP_ADD;
-		_pipelineDesc.BlendState.RenderTarget[0].RenderTargetWriteMask = D3D12_COLOR_WRITE_ENABLE_ALL;
-		break;
-
-	case BLEND_TYPE::TransparentBS:
-		_pipelineDesc.BlendState.AlphaToCoverageEnable = false;
-		_pipelineDesc.BlendState.IndependentBlendEnable = false;
-
-		_pipelineDesc.BlendState.RenderTarget[0].BlendEnable = false;
-		_pipelineDesc.BlendState.RenderTarget[0].SrcBlend = D3D12_BLEND_ONE;
-		_pipelineDesc.BlendState.RenderTarget[0].DestBlend = D3D12_BLEND_ZERO;
-		_pipelineDesc.BlendState.RenderTarget[0].BlendOp = D3D12_BLEND_OP_ADD;
-		_pipelineDesc.BlendState.RenderTarget[0].SrcBlendAlpha = D3D12_BLEND_ONE;
-		_pipelineDesc.BlendState.RenderTarget[0].DestBlendAlpha = D3D12_BLEND_ZERO;
-		_pipelineDesc.BlendState.RenderTarget[0].BlendOpAlpha = D3D12_BLEND_OP_ADD;
-		_pipelineDesc.BlendState.RenderTarget[0].RenderTargetWriteMask = 0;
-		break;
-
-	case BLEND_TYPE::TranseparencyBS:
-		_pipelineDesc.BlendState.RenderTarget[0].BlendEnable = true;
-		_pipelineDesc.BlendState.RenderTarget[0].LogicOpEnable = false;
-		_pipelineDesc.BlendState.RenderTarget[0].SrcBlend = D3D12_BLEND_SRC_ALPHA;
-		_pipelineDesc.BlendState.RenderTarget[0].DestBlend = D3D12_BLEND_INV_SRC_ALPHA;
-		_pipelineDesc.BlendState.RenderTarget[0].BlendOp = D3D12_BLEND_OP_ADD;
-		_pipelineDesc.BlendState.RenderTarget[0].SrcBlendAlpha = D3D12_BLEND_ONE;
-		_pipelineDesc.BlendState.RenderTarget[0].DestBlendAlpha = D3D12_BLEND_ZERO;
-		_pipelineDesc.BlendState.RenderTarget[0].BlendOpAlpha = D3D12_BLEND_OP_ADD;
-		_pipelineDesc.BlendState.RenderTarget[0].LogicOp = D3D12_LOGIC_OP_NOOP;
-		_pipelineDesc.BlendState.RenderTarget[0].RenderTargetWriteMask = D3D12_COLOR_WRITE_ENABLE_ALL;
-		break;
-	default:
-		break;
-	}
-
-	switch (_info.rasterizerType)
-	{
-	case RASTERIZER_TYPE::WireframeRS:
-		_pipelineDesc.RasterizerState.FillMode = D3D12_FILL_MODE_WIREFRAME;
-		_pipelineDesc.RasterizerState.CullMode = D3D12_CULL_MODE_BACK;
-		_pipelineDesc.RasterizerState.FrontCounterClockwise = false;
-		_pipelineDesc.RasterizerState.DepthClipEnable = true;
-		break;
-	case RASTERIZER_TYPE::NoCullRS:
-		_pipelineDesc.RasterizerState.FillMode = D3D12_FILL_MODE_SOLID;
-		_pipelineDesc.RasterizerState.CullMode = D3D12_CULL_MODE_NONE;
-		_pipelineDesc.RasterizerState.FrontCounterClockwise = false;
-		_pipelineDesc.RasterizerState.DepthClipEnable = true;
-		break;
-	case RASTERIZER_TYPE::CullClockwiseRS:
-		_pipelineDesc.RasterizerState.FillMode = D3D12_FILL_MODE_SOLID;
-		_pipelineDesc.RasterizerState.CullMode = D3D12_CULL_MODE_BACK;
-		_pipelineDesc.RasterizerState.FrontCounterClockwise = true;
-		_pipelineDesc.RasterizerState.DepthClipEnable = true;
-		break;
-	case RASTERIZER_TYPE::CULL_NONE:
-		_pipelineDesc.RasterizerState.CullMode = D3D12_CULL_MODE_NONE;
-		break;
-	case RASTERIZER_TYPE::WireframeOnly:
-		_pipelineDesc.RasterizerState.FillMode = D3D12_FILL_MODE_WIREFRAME;
-	default:
-		break;
-	}
-
-	switch (_info.depthStencilType)
-	{
-	case DEPTH_STENCIL_TYPE::MarkMirrorDSS:
-		_pipelineDesc.DepthStencilState.DepthEnable = true;
-		_pipelineDesc.DepthStencilState.DepthWriteMask = D3D12_DEPTH_WRITE_MASK_ZERO;
-		_pipelineDesc.DepthStencilState.DepthFunc = D3D12_COMPARISON_FUNC_LESS;
-		_pipelineDesc.DepthStencilState.StencilEnable = true;
-		_pipelineDesc.DepthStencilState.StencilReadMask = 0xff;
-		_pipelineDesc.DepthStencilState.StencilWriteMask = 0xff;
-
-		_pipelineDesc.DepthStencilState.FrontFace.StencilFailOp = D3D12_STENCIL_OP_KEEP;
-		_pipelineDesc.DepthStencilState.FrontFace.StencilDepthFailOp = D3D12_STENCIL_OP_KEEP;
-		_pipelineDesc.DepthStencilState.FrontFace.StencilPassOp = D3D12_STENCIL_OP_REPLACE;
-		_pipelineDesc.DepthStencilState.FrontFace.StencilFunc = D3D12_COMPARISON_FUNC_ALWAYS;
-
-		// We are not rendering backfacing polygons, so these settings do not matter.
-		_pipelineDesc.DepthStencilState.BackFace.StencilFailOp = D3D12_STENCIL_OP_KEEP;
-		_pipelineDesc.DepthStencilState.BackFace.StencilDepthFailOp = D3D12_STENCIL_OP_KEEP;
-		_pipelineDesc.DepthStencilState.BackFace.StencilPassOp = D3D12_STENCIL_OP_REPLACE;
-		_pipelineDesc.DepthStencilState.BackFace.StencilFunc = D3D12_COMPARISON_FUNC_ALWAYS;
-		break;
-
-	case DEPTH_STENCIL_TYPE::DrawReflectionDSS:
-		_pipelineDesc.DepthStencilState.DepthEnable = true;
-		_pipelineDesc.DepthStencilState.DepthWriteMask = D3D12_DEPTH_WRITE_MASK_ALL;
-		_pipelineDesc.DepthStencilState.DepthFunc = D3D12_COMPARISON_FUNC_LESS;
-		_pipelineDesc.DepthStencilState.StencilEnable = true;
-		_pipelineDesc.DepthStencilState.StencilReadMask = 0xff;
-		_pipelineDesc.DepthStencilState.StencilWriteMask = 0xff;
-
-		_pipelineDesc.DepthStencilState.FrontFace.StencilFailOp = D3D12_STENCIL_OP_KEEP;
-		_pipelineDesc.DepthStencilState.FrontFace.StencilDepthFailOp = D3D12_STENCIL_OP_KEEP;
-		_pipelineDesc.DepthStencilState.FrontFace.StencilPassOp = D3D12_STENCIL_OP_KEEP;
-		_pipelineDesc.DepthStencilState.FrontFace.StencilFunc = D3D12_COMPARISON_FUNC_EQUAL;
-
-		// We are not rendering backfacing polygons, so these settings do not matter.
-		_pipelineDesc.DepthStencilState.BackFace.StencilFailOp = D3D12_STENCIL_OP_KEEP;
-		_pipelineDesc.DepthStencilState.BackFace.StencilDepthFailOp = D3D12_STENCIL_OP_KEEP;
-		_pipelineDesc.DepthStencilState.BackFace.StencilPassOp = D3D12_STENCIL_OP_KEEP;
-		_pipelineDesc.DepthStencilState.BackFace.StencilFunc = D3D12_COMPARISON_FUNC_EQUAL;
-		break;
-
-	case DEPTH_STENCIL_TYPE::NoDoubleBlendDSS:
-		_pipelineDesc.DepthStencilState.DepthEnable = true;
-		_pipelineDesc.DepthStencilState.DepthWriteMask = D3D12_DEPTH_WRITE_MASK_ALL;
-		_pipelineDesc.DepthStencilState.DepthFunc = D3D12_COMPARISON_FUNC_LESS;
-		_pipelineDesc.DepthStencilState.StencilEnable = true;
-		_pipelineDesc.DepthStencilState.StencilReadMask = 0xff;
-		_pipelineDesc.DepthStencilState.StencilWriteMask = 0xff;
-
-		_pipelineDesc.DepthStencilState.FrontFace.StencilFailOp = D3D12_STENCIL_OP_KEEP;
-		_pipelineDesc.DepthStencilState.FrontFace.StencilDepthFailOp = D3D12_STENCIL_OP_KEEP;
-		_pipelineDesc.DepthStencilState.FrontFace.StencilPassOp = D3D12_STENCIL_OP_INCR;
-		_pipelineDesc.DepthStencilState.FrontFace.StencilFunc = D3D12_COMPARISON_FUNC_EQUAL;
-
-		// We are not rendering backfacing polygons, so these settings do not matter.
-		_pipelineDesc.DepthStencilState.BackFace.StencilFailOp = D3D12_STENCIL_OP_KEEP;
-		_pipelineDesc.DepthStencilState.BackFace.StencilDepthFailOp = D3D12_STENCIL_OP_KEEP;
-		_pipelineDesc.DepthStencilState.BackFace.StencilPassOp = D3D12_STENCIL_OP_INCR;
-		_pipelineDesc.DepthStencilState.BackFace.StencilFunc = D3D12_COMPARISON_FUNC_EQUAL;
-		break;
-	default:
-		break;
-	}
+	_pipelineDesc.SampleDesc.Quality = 00;
+	//_pipelineDesc.DSVFormat = DXGI_FORMAT_D32_FLOAT;
 
 
 	HRESULT hr = DEVICE->CreateGraphicsPipelineState(&_pipelineDesc, IID_PPV_ARGS(&_pipelineState));
@@ -315,7 +328,7 @@ void Shader::CreatePixelShader(const wstring& path, const string& name, const st
 
 void Shader::CreateComputeShader(const wstring& path)
 {
-	_info.shaderType = SHADER_TYPE::COMPUTE;
+	/*_info.shaderType = SHADER_TYPE::COMPUTE;
 
 	_computePipelineDesc.pRootSignature = COMPUTE_ROOT_SIGNATURE.Get();
 
@@ -324,5 +337,5 @@ void Shader::CreateComputeShader(const wstring& path)
 	_computePipelineDesc.Flags = D3D12_PIPELINE_STATE_FLAG_NONE;
 
 	HRESULT hr = DEVICE->CreateComputePipelineState(&_computePipelineDesc, IID_PPV_ARGS(&_pipelineState));
-	CHECK(hr);
+	CHECK(hr);*/
 }

@@ -23,7 +23,7 @@ public:
 	void CreateGrid();
 	void CreateSphere();
 	void CreateCylinder();
-	void CreateMesh(const wstring& path);
+	void CreateSkull();
 	void CreateFloor();
 	void CreateWall();
 	void CreateMirror();

@@ -7,7 +7,7 @@ public:
 	TextureMultiple();
 	~TextureMultiple();
 
-	void Init(int Count, vector<shared_ptr<Texture>> textures);
+	void Init();
 
 	D3D12_CPU_DESCRIPTOR_HANDLE GetCpuHandle() { return _srvHandle; }
 	D3D12_GPU_DESCRIPTOR_HANDLE GetGpuHandle() { return _gpuHandle; }

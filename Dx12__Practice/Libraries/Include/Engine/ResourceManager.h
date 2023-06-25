@@ -6,6 +6,7 @@ class Shader;
 class Texture;
 class Mesh;
 class Material;
+class TextureMultiple;
 
 class ResourceManager
 {
@@ -29,6 +30,9 @@ public:
 
 private:
 	void CreateDefaultMesh();
+	void CreateDefaultTexture();
+	void LoadMeshs();
+	void CreateDefaultMaterials();
 
 private:
 	wstring _resourcePath;
@@ -94,6 +98,8 @@ ResourceType ResourceManager::GetResourceType()
 		return ResourceType::Material;
 	if (std::is_same_v<T, Shader>)
 		return ResourceType::Shader;
+	if (std::is_same_v<T, TextureMultiple>)
+		return ResourceType::TextureMultiple;
 
 	assert(false);
 	return ResourceType::None;

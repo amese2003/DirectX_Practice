@@ -1,11 +1,12 @@
 #include "pch.h"
 #include "SwapChain.h"
 
-void SwapChain::Init(HWND hWnd, ComPtr<ID3D12Device> device, ComPtr<IDXGIFactory> dxgi, ComPtr<ID3D12CommandQueue> cmdQueue)
+void SwapChain::Init(HWND hWnd, ComPtr<ID3D12Device> device, ComPtr<IDXGIFactory4> dxgi, ComPtr<ID3D12CommandQueue> cmdQueue)
 {
 	_hWnd = hWnd;
 	CreateSwapChain(hWnd, dxgi, cmdQueue);
 	CreateRenderTargetView(device);
+	OnResize();
 }
 
 void SwapChain::Present()
@@ -20,7 +21,12 @@ void SwapChain::SwapIndex()
 	_backBufferIndex = (_backBufferIndex + 1) % SWAP_CHAIN_BUFFER_COUNT;
 }
 
-void SwapChain::CreateSwapChain(HWND hWnd, ComPtr<IDXGIFactory> dxgi, ComPtr<ID3D12CommandQueue> cmdQueue)
+void SwapChain::OnResize()
+{
+	_swapChain->ResizeBuffers(SWAP_CHAIN_BUFFER_COUNT, GAME->GetGameDesc().width, GAME->GetGameDesc().height, GRAPHICS->GetBackBufferFormat(), DXGI_SWAP_CHAIN_FLAG_ALLOW_MODE_SWITCH);
+}
+
+void SwapChain::CreateSwapChain(HWND hWnd, ComPtr<IDXGIFactory4> dxgi, ComPtr<ID3D12CommandQueue> cmdQueue)
 {
 	// 이전에 만든 정보 날린다
 	_swapChain.Reset();
@@ -30,11 +36,11 @@ void SwapChain::CreateSwapChain(HWND hWnd, ComPtr<IDXGIFactory> dxgi, ComPtr<ID3
 	sd.BufferDesc.Height = static_cast<uint32>(GAME->GetGameDesc().height); // 버퍼의 해상도 높이
 	sd.BufferDesc.RefreshRate.Numerator = 60; // 화면 갱신 비율
 	sd.BufferDesc.RefreshRate.Denominator = 1; // 화면 갱신 비율
-	sd.BufferDesc.Format = DXGI_FORMAT_R8G8B8A8_UNORM; // 버퍼의 디스플레이 형식
+	sd.BufferDesc.Format = GRAPHICS->GetBackBufferFormat(); // 버퍼의 디스플레이 형식
 	sd.BufferDesc.ScanlineOrdering = DXGI_MODE_SCANLINE_ORDER_UNSPECIFIED;
 	sd.BufferDesc.Scaling = DXGI_MODE_SCALING_UNSPECIFIED;
-	sd.SampleDesc.Count = 1; // 멀티 샘플링 OFF
-	sd.SampleDesc.Quality = 0;
+	sd.SampleDesc.Count = (GRAPHICS->Get4xMsaaState()) ? 4 : 1; // 멀티 샘플링 OFF
+	sd.SampleDesc.Quality = (GRAPHICS->Get4xMsaaState()) ? (GRAPHICS->Get4xMsaaLevel() - 1) : 0;
 	sd.BufferUsage = DXGI_USAGE_RENDER_TARGET_OUTPUT; // 후면 버퍼에 렌더링할 것 
 	sd.BufferCount = SWAP_CHAIN_BUFFER_COUNT; // 전면+후면 버퍼
 	sd.OutputWindow = hWnd;
@@ -43,6 +49,8 @@ void SwapChain::CreateSwapChain(HWND hWnd, ComPtr<IDXGIFactory> dxgi, ComPtr<ID3
 	sd.Flags = DXGI_SWAP_CHAIN_FLAG_ALLOW_MODE_SWITCH;
 
 	dxgi->CreateSwapChain(cmdQueue.Get(), &sd, &_swapChain);
+
+
 
 	for (int32 i = 0; i < SWAP_CHAIN_BUFFER_COUNT; i++)
 		_swapChain->GetBuffer(i, IID_PPV_ARGS(&_rtvBuffer[i]));

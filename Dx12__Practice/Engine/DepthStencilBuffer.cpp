@@ -1,33 +1,27 @@
 #include "pch.h"
 #include "DepthStencilBuffer.h"
 
-void DepthStencilBuffer::Init(DXGI_FORMAT dsvFormat)
+DepthStencilBuffer::DepthStencilBuffer()
 {
-	_dsvFormat = dsvFormat;
+}
 
-	D3D12_HEAP_PROPERTIES heapProperty = CD3DX12_HEAP_PROPERTIES(D3D12_HEAP_TYPE_DEFAULT);
+DepthStencilBuffer::~DepthStencilBuffer()
+{
+}
 
-	D3D12_RESOURCE_DESC desc = CD3DX12_RESOURCE_DESC::Tex2D(_dsvFormat, GRAPHICS->GetViewport().Width, GRAPHICS->GetViewport().Height);
-	desc.Flags = D3D12_RESOURCE_FLAG_ALLOW_DEPTH_STENCIL;
+void DepthStencilBuffer::Init()
+{
+	GRAPHICS->GetCmdQueue()->WaitSync();
+	GRAPHICS->GetCmdQueue()->GetCmdList()->Reset(GRAPHICS->GetCmdQueue()->GetAlloc().Get(), nullptr);
 
-	D3D12_CLEAR_VALUE optimizedClearValue = CD3DX12_CLEAR_VALUE(_dsvFormat, 1.0f, 0);
 
+	_texture = make_shared<Texture>();
+	_texture->CreateTexture(GRAPHICS->GetBackBufferFormat(), GRAPHICS->GetViewport().Width, GRAPHICS->GetViewport().Height, CD3DX12_HEAP_PROPERTIES(D3D12_HEAP_TYPE_DEFAULT), D3D12_HEAP_FLAG_NONE, D3D12_RESOURCE_FLAG_ALLOW_DEPTH_STENCIL);
+	RESOURCES->Add(L"depthStencil", _texture);
 
-	DEVICE->CreateCommittedResource(
-		&heapProperty,
-		D3D12_HEAP_FLAG_NONE,
-		&desc,
-		D3D12_RESOURCE_STATE_DEPTH_WRITE,
-		&optimizedClearValue,
-		IID_PPV_ARGS(&_dsvBuffer));
+	auto barrier = CD3DX12_RESOURCE_BARRIER::Transition(_texture->GetComPtr().Get(),
+		D3D12_RESOURCE_STATE_COMMON, D3D12_RESOURCE_STATE_DEPTH_WRITE);
 
-	D3D12_DESCRIPTOR_HEAP_DESC heapDesc = {};
-	heapDesc.NumDescriptors = 1;
-	heapDesc.Flags = D3D12_DESCRIPTOR_HEAP_FLAG_NONE;
-	heapDesc.Type = D3D12_DESCRIPTOR_HEAP_TYPE_DSV;
-
-	DEVICE->CreateDescriptorHeap(&heapDesc, IID_PPV_ARGS(&_dsvHeap));
-
-	_dsvHandle = _dsvHeap->GetCPUDescriptorHandleForHeapStart();
-	DEVICE->CreateDepthStencilView(_dsvBuffer.Get(), nullptr, _dsvHandle);
+	GRAPHICS->GetCmdQueue()->GetCmdList()->ResourceBarrier(1, &barrier);
+	GRAPHICS->GetCmdQueue()->ExecuteCommandList();
 }

@@ -2,32 +2,18 @@ d:\project\directx_practice\dx12__practice\intermediate\debug\client.pch
 d:\project\directx_practice\dx12__practice\intermediate\debug\vc143.pdb
 d:\project\directx_practice\dx12__practice\intermediate\debug\vc143.idb
 d:\project\directx_practice\dx12__practice\intermediate\debug\pch.obj
-d:\project\directx_practice\dx12__practice\intermediate\debug\gameobjectdemo.obj
-d:\project\directx_practice\dx12__practice\intermediate\debug\computetest.obj
-d:\project\directx_practice\dx12__practice\intermediate\debug\camerascript.obj
-d:\project\directx_practice\dx12__practice\intermediate\debug\17. basictessellation.obj
-d:\project\directx_practice\dx12__practice\intermediate\debug\16. blurdemo.obj
-d:\project\directx_practice\dx12__practice\intermediate\debug\15. vecadddemo.obj
-d:\project\directx_practice\dx12__practice\intermediate\debug\14. treebillboarddemo.obj
-d:\project\directx_practice\dx12__practice\intermediate\debug\13. mirrordemo.obj
-d:\project\directx_practice\dx12__practice\intermediate\debug\12. blenddemo.obj
-d:\project\directx_practice\dx12__practice\intermediate\debug\11. texturedhillsandwavesdemo.obj
-d:\project\directx_practice\dx12__practice\intermediate\debug\10. cratedemo.obj
-d:\project\directx_practice\dx12__practice\intermediate\debug\09. skulldemo.obj
-d:\project\directx_practice\dx12__practice\intermediate\debug\08. lightingdemo.obj
-d:\project\directx_practice\dx12__practice\intermediate\debug\07. wavesdemo.obj
-d:\project\directx_practice\dx12__practice\intermediate\debug\06. shapesdemo.obj
-d:\project\directx_practice\dx12__practice\intermediate\debug\05. hillsdemo.obj
-d:\project\directx_practice\dx12__practice\intermediate\debug\04. texturedemo.obj
-d:\project\directx_practice\dx12__practice\intermediate\debug\03. camerademo.obj
-d:\project\directx_practice\dx12__practice\intermediate\debug\02. constantbufferdemo.obj
-d:\project\directx_practice\dx12__practice\intermediate\debug\01. rectangledemo.obj
 d:\project\directx_practice\dx12__practice\intermediate\debug\skullscript.obj
 d:\project\directx_practice\dx12__practice\intermediate\debug\main.obj
+d:\project\directx_practice\dx12__practice\intermediate\debug\gameobjectdemo.obj
+d:\project\directx_practice\dx12__practice\intermediate\debug\camerascript.obj
+d:\project\directx_practice\dx12__practice\intermediate\debug\20. instancingandcullingdemo.obj
 d:\project\directx_practice\dx12__practice\binaries\02. constantbuffer.cso
 d:\project\directx_practice\dx12__practice\binaries\01. rectangle.cso
 d:\project\directx_practice\dx12__practice\binaries\13. vecadd.cso
 d:\project\directx_practice\dx12__practice\binaries\14. blur.cso
+d:\project\directx_practice\dx12__practice\binaries\15. basictessellation.cso
+d:\project\directx_practice\dx12__practice\binaries\16. tritessellation.cso
+d:\project\directx_practice\dx12__practice\binaries\17. beziertessellation.cso
 d:\project\directx_practice\dx12__practice\binaries\00. common.cso
 d:\project\directx_practice\dx12__practice\binaries\00. lighthelper.cso
 d:\project\directx_practice\dx12__practice\binaries\03. world.cso
@@ -37,7 +23,7 @@ d:\project\directx_practice\dx12__practice\binaries\06. lighting.cso
 d:\project\directx_practice\dx12__practice\binaries\07. basic.cso
 d:\project\directx_practice\dx12__practice\binaries\08. basic.cso
 d:\project\directx_practice\dx12__practice\binaries\12. treesprite.cso
-d:\project\directx_practice\dx12__practice\binaries\15. basictessellation.cso
+d:\project\directx_practice\dx12__practice\binaries\19. instancedbasic.cso
 d:\project\directx_practice\dx12__practice\intermediate\debug\client.ilk
 d:\project\directx_practice\dx12__practice\binaries\client.exe
 d:\project\directx_practice\dx12__practice\binaries\client.pdb
@@ -61,6 +47,8 @@ d:\project\directx_practice\dx12__practice\intermediate\debug\graphics.obj
 d:\project\directx_practice\dx12__practice\intermediate\debug\iexecute.obj
 d:\project\directx_practice\dx12__practice\intermediate\debug\indexbuffer.obj
 d:\project\directx_practice\dx12__practice\intermediate\debug\inputmanager.obj
+d:\project\directx_practice\dx12__practice\intermediate\debug\instancingbuffer.obj
+d:\project\directx_practice\dx12__practice\intermediate\debug\instancingmanager.obj
 d:\project\directx_practice\dx12__practice\intermediate\debug\light.obj
 d:\project\directx_practice\dx12__practice\intermediate\debug\material.obj
 d:\project\directx_practice\dx12__practice\intermediate\debug\mathhelper.obj
@@ -75,9 +63,11 @@ d:\project\directx_practice\dx12__practice\intermediate\debug\scene.obj
 d:\project\directx_practice\dx12__practice\intermediate\debug\scenemanager.obj
 d:\project\directx_practice\dx12__practice\intermediate\debug\shader.obj
 d:\project\directx_practice\dx12__practice\intermediate\debug\simplemath.obj
+d:\project\directx_practice\dx12__practice\intermediate\debug\structuredbuffer.obj
 d:\project\directx_practice\dx12__practice\intermediate\debug\swapchain.obj
 d:\project\directx_practice\dx12__practice\intermediate\debug\tabledescriptionheap.obj
 d:\project\directx_practice\dx12__practice\intermediate\debug\texture.obj
+d:\project\directx_practice\dx12__practice\intermediate\debug\texturemultiple.obj
 d:\project\directx_practice\dx12__practice\intermediate\debug\timemanager.obj
 d:\project\directx_practice\dx12__practice\intermediate\debug\tinyxml2.obj
 d:\project\directx_practice\dx12__practice\intermediate\debug\transform.obj

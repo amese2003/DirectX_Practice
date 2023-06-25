@@ -195,6 +195,12 @@
     <ClInclude Include="StructuredBuffer.h">
       <Filter>01. Graphics\Buffer</Filter>
     </ClInclude>
+    <ClInclude Include="FrameResource.h">
+      <Filter>03. Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="UploadBuffer.h">
+      <Filter>01. Graphics\Buffer</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine.cpp">
@@ -339,6 +345,12 @@
       <Filter>03. Resources</Filter>
     </ClCompile>
     <ClCompile Include="StructuredBuffer.cpp">
+      <Filter>01. Graphics\Buffer</Filter>
+    </ClCompile>
+    <ClCompile Include="FrameResource.cpp">
+      <Filter>03. Resources</Filter>
+    </ClCompile>
+    <ClCompile Include="UploadBuffer.cpp">
       <Filter>01. Graphics\Buffer</Filter>
     </ClCompile>
   </ItemGroup>

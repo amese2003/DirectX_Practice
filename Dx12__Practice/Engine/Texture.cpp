@@ -28,6 +28,7 @@ void Texture::Load(const wstring& path)
 	CHECK(hr);
 
 
+
 	hr = ::CreateTexture(DEVICE.Get(), _image.GetMetadata(), &_texture2D);
 	CHECK(hr);
 
@@ -67,7 +68,7 @@ void Texture::Load(const wstring& path)
 	_size.x = md.width;
 	_size.y = md.height;
 
-	GRAPHICS->GetCommandQueue()->FlushResourceCommandQueue();
+	GRAPHICS->GetCmdQueue()->FlushResourceCommandQueue();
 	CreateFromTexture(_texture2D);
 }
 
@@ -108,7 +109,7 @@ void Texture::CreateComputeTexture(const void* data, UINT64 byteSize)
 	auto barrier = CD3DX12_RESOURCE_BARRIER::Transition(_texture2D.Get(),
 		D3D12_RESOURCE_STATE_COMMON, D3D12_RESOURCE_STATE_COPY_DEST);
 
-	COMPUTE_CMD_LIST->ResourceBarrier(1, &barrier);
+	/*COMPUTE_CMD_LIST->ResourceBarrier(1, &barrier);
 
 	::UpdateSubresources<1>(COMPUTE_CMD_LIST.Get(),
 		_texture2D.Get(),
@@ -119,7 +120,7 @@ void Texture::CreateComputeTexture(const void* data, UINT64 byteSize)
 
 	barrier = CD3DX12_RESOURCE_BARRIER::Transition(_texture2D.Get(),
 		D3D12_RESOURCE_STATE_COPY_DEST, D3D12_RESOURCE_STATE_GENERIC_READ);
-	COMPUTE_CMD_LIST->ResourceBarrier(1, &barrier);
+	COMPUTE_CMD_LIST->ResourceBarrier(1, &barrier);*/
 }
 
 void Texture::CreateUAVTexture(UINT64 byteSize)
@@ -170,8 +171,26 @@ void Texture::CreateTexture(DXGI_FORMAT format, uint32 width, uint32 height, con
 
 	if (resFlags & D3D12_RESOURCE_FLAGS::D3D12_RESOURCE_FLAG_ALLOW_DEPTH_STENCIL)
 	{
-		resourceStates = D3D12_RESOURCE_STATES::D3D12_RESOURCE_STATE_DEPTH_WRITE;
-		optimizedClearValue = CD3DX12_CLEAR_VALUE(DXGI_FORMAT_D32_FLOAT, 1.0f, 0);
+		resourceStates = D3D12_RESOURCE_STATES::D3D12_RESOURCE_STATE_COMMON;
+		//optimizedClearValue = CD3DX12_CLEAR_VALUE(DXGI_FORMAT_D32_FLOAT, 1.0f, 0);
+		optimizedClearValue.Format = GRAPHICS->GetDepthStencilFormat();
+		optimizedClearValue.DepthStencil.Depth = 1.0f;
+		optimizedClearValue.DepthStencil.Stencil = 0;
+		
+
+		desc.Dimension = D3D12_RESOURCE_DIMENSION_TEXTURE2D;
+		desc.Alignment = 0;
+		desc.Width = width;
+		desc.Height = height;
+		desc.DepthOrArraySize = 1;
+		desc.MipLevels = 1;
+		desc.Format = DXGI_FORMAT_R24G8_TYPELESS;
+		desc.SampleDesc.Count = GRAPHICS->Get4xMsaaState() ? 4 : 1;
+		desc.SampleDesc.Quality = GRAPHICS->Get4xMsaaState() ? (GRAPHICS->Get4xMsaaLevel() - 1) : 0;
+		desc.Layout = D3D12_TEXTURE_LAYOUT_UNKNOWN;
+		desc.Flags = D3D12_RESOURCE_FLAG_ALLOW_DEPTH_STENCIL;
+
+
 		pOptimizedClearValue = &optimizedClearValue;
 	}
 	else if (resFlags & D3D12_RESOURCE_FLAGS::D3D12_RESOURCE_FLAG_ALLOW_RENDER_TARGET)
@@ -181,6 +200,9 @@ void Texture::CreateTexture(DXGI_FORMAT format, uint32 width, uint32 height, con
 		optimizedClearValue = CD3DX12_CLEAR_VALUE(format, arrFloat);
 		pOptimizedClearValue = &optimizedClearValue;
 	}
+
+
+	
 
 	// Create Texture2D
 	HRESULT hr = DEVICE->CreateCommittedResource(
@@ -192,7 +214,7 @@ void Texture::CreateTexture(DXGI_FORMAT format, uint32 width, uint32 height, con
 		IID_PPV_ARGS(&_texture2D));
 
 	assert(SUCCEEDED(hr));
-
+	CreateFromTexture(_texture2D);
 }
 
 void Texture::CreateFromTexture(ComPtr<ID3D12Resource> tex2D)
@@ -216,7 +238,14 @@ void Texture::CreateFromTexture(ComPtr<ID3D12Resource> tex2D)
 		DEVICE->CreateDescriptorHeap(&heapDesc, IID_PPV_ARGS(&_dsvHeap));
 
 		D3D12_CPU_DESCRIPTOR_HANDLE hDSVHandle = _dsvHeap->GetCPUDescriptorHandleForHeapStart();
-		DEVICE->CreateDepthStencilView(_texture2D.Get(), nullptr, hDSVHandle);
+
+		D3D12_DEPTH_STENCIL_VIEW_DESC dsvDesc;
+		dsvDesc.Flags = D3D12_DSV_FLAG_NONE;
+		dsvDesc.ViewDimension = D3D12_DSV_DIMENSION_TEXTURE2D;
+		dsvDesc.Format = GRAPHICS->GetDepthStencilFormat();
+		dsvDesc.Texture2D.MipSlice = 0;
+
+		DEVICE->CreateDepthStencilView(_texture2D.Get(), &dsvDesc, hDSVHandle);
 	}
 	else
 	{

@@ -44,11 +44,11 @@ void ComputeDescriptorHeap::SetUAV(D3D12_CPU_DESCRIPTOR_HANDLE srcHandle, UAV_RE
 
 void ComputeDescriptorHeap::CommitTable()
 {
-	ID3D12DescriptorHeap* descHeap = _descHeap.Get();
-	COMPUTE_CMD_LIST->SetDescriptorHeaps(1, &descHeap);
+	//ID3D12DescriptorHeap* descHeap = _descHeap.Get();
+	//COMPUTE_CMD_LIST->SetDescriptorHeaps(1, &descHeap);
 
-	D3D12_GPU_DESCRIPTOR_HANDLE handle = descHeap->GetGPUDescriptorHandleForHeapStart();
-	COMPUTE_CMD_LIST->SetComputeRootDescriptorTable(0, handle);
+	//D3D12_GPU_DESCRIPTOR_HANDLE handle = descHeap->GetGPUDescriptorHandleForHeapStart();
+	//COMPUTE_CMD_LIST->SetComputeRootDescriptorTable(0, handle);
 }
 
 D3D12_CPU_DESCRIPTOR_HANDLE ComputeDescriptorHeap::GetCPUHandle(CBV_REGISTER reg)
