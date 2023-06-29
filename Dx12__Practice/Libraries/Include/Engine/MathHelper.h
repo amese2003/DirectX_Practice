@@ -4,6 +4,8 @@
 //#include <xnamath.h>
 #include <DirectXMath.h>
 
+
+
 class MathHelper
 {
 public:

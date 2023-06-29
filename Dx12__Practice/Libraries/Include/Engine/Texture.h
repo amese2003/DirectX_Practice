@@ -13,6 +13,7 @@ public:
 	D3D12_GPU_DESCRIPTOR_HANDLE GetGpuHandle() { return _gpuHandle; }
 
 	D3D12_CPU_DESCRIPTOR_HANDLE GetUavCpuHandle() { return _uavHandle; }
+	D3D12_CPU_DESCRIPTOR_HANDLE GetDsvHandle() { return _dsvHandle; }
 	D3D12_GPU_DESCRIPTOR_HANDLE GetUavGpuHandle() { return _uavgpuHandle; }
 	
 	virtual void Load(const wstring& path) override;
@@ -49,6 +50,7 @@ private:
 
 
 	D3D12_CPU_DESCRIPTOR_HANDLE		_srvHandle = {};
+	D3D12_CPU_DESCRIPTOR_HANDLE		_dsvHandle = {};
 	D3D12_GPU_DESCRIPTOR_HANDLE		_gpuHandle = {};
 
 	D3D12_CPU_DESCRIPTOR_HANDLE		_uavHandle = {};

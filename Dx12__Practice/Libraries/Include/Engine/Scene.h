@@ -1,6 +1,7 @@
 #pragma once
 
 class GameObject;
+class RenderObject;
 
 class Scene
 {
@@ -23,11 +24,17 @@ public:
 
 	void PushLightData();
 
+public:
+	void BuildRenderItem();
+
 private:
 	unordered_set<shared_ptr<GameObject>> _objects;
 	unordered_set<shared_ptr<GameObject>> _cameras;
 	unordered_set<shared_ptr<GameObject>> _lights;
 
 	vector<shared_ptr<GameObject>> _gameObjects;
+
+private:
+	vector<shared_ptr<RenderObject>> _renderObjects;
 };
 

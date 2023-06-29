@@ -1,62 +1,38 @@
-#pragma once
-#include "ResourceBase.h"
-
-class Shader;
-
-class Material : public ResourceBase
+struct MaterialConstants
 {
-	using Super = ResourceBase;
+    DirectX::XMFLOAT4 DiffuseAlbedo = { 1.0f, 1.0f, 1.0f, 1.0f };
+    DirectX::XMFLOAT3 FresnelR0 = { 0.01f, 0.01f, 0.01f };
+    float Roughness = 0.25f;
 
-public:
-	Material();
-	virtual ~Material();
-
-	void Init();
-
-	void SetAmbient(Vec4 vec) { _ambient = vec; }
-	void SetDiffuse(Vec4 vec) { _diffuse = vec; }
-	void SetSpecular(Vec4 vec) { _specular = vec; }
-
-	Vec4 GetAmbient() { return _ambient; }
-	Vec4 GetDiffuse() { return _diffuse; }
-	Vec4 GetSpecular() { return _specular; }
-
-
-	void SetColor(Color color) { _color = color; }
-	Color& GetColor() { return _color; }
-
-public:
-	void SetName(string name) { _name = name; }
-	string GetName() { return _name; }
-
-	void Setindex(int idx) { _cbindex = idx; }
-	int GetIndex() { return _cbindex; }
-
-	void SetSrvindex(int idx) { _srvheapIndex = idx; }
-	int GetSrvindex() { return _srvheapIndex; }
-
-	void SetDiffuseAlbedo(Color color) { _diffuseAlbedo = color; }
-	Color GetdiffuseAlbedo() { return _diffuseAlbedo; }
-
-	void Setfresnel(Vec3 vec) { _fresnelR0 = vec; }
-	Vec3 Getfresnel() { return _fresnelR0; }
-
-	void SetRoughness(float roughness) { _roughness = roughness; }
-	float GetRoughness() { return _roughness; }
-
-private:
-	Color _color = { 0, 0, 0 ,1 };
-
-	Vec4 _ambient = { 1,1,1,1 };
-	Vec4 _diffuse = { 1,1,1,1 };
-	Vec4 _specular = { 1, 1, 1, 1 };
-
-private:
-	string _name = "";
-	int _cbindex = 0;
-	int _srvheapIndex = 0;
-	Color _diffuseAlbedo = Color(1.f, 1.f, 1.f, 1.f);
-	Vec3 _fresnelR0 = Vec3(0.2f, 0.2f, 0.2f);
-	float _roughness = 0.1f;
+    // Used in texture mapping.
+    DirectX::XMFLOAT4X4 MatTransform = MathHelper::Identity4x4();
 };
 
+// Simple struct to represent a material for our demos.  A production 3D engine
+// would likely create a class hierarchy of Materials.
+struct Material
+{
+    // Unique material name for lookup.
+    std::string Name;
+
+    // Index into constant buffer corresponding to this material.
+    int MatCBIndex = -1;
+
+    // Index into SRV heap for diffuse texture.
+    int DiffuseSrvHeapIndex = -1;
+
+    // Index into SRV heap for normal texture.
+    int NormalSrvHeapIndex = -1;
+
+    // Dirty flag indicating the material has changed and we need to update the constant buffer.
+    // Because we have a material constant buffer for each FrameResource, we have to apply the
+    // update to each FrameResource.  Thus, when we modify a material we should set 
+    // NumFramesDirty = gNumFrameResources so that each frame resource gets the update.
+    int NumFramesDirty = gNumFrameResources;
+
+    // Material constant buffer data used for shading.
+    DirectX::XMFLOAT4 DiffuseAlbedo = { 1.0f, 1.0f, 1.0f, 1.0f };
+    DirectX::XMFLOAT3 FresnelR0 = { 0.01f, 0.01f, 0.01f };
+    float Roughness = .25f;
+    DirectX::XMFLOAT4X4 MatTransform = MathHelper::Identity4x4();
+};

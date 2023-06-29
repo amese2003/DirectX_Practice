@@ -35,6 +35,7 @@ namespace fs = std::filesystem;
 #include <DirectXMath.h>
 #include <DirectXPackedVector.h>
 #include <DirectXColors.h>
+#include <WindowsX.h>
 using namespace DirectX;
 using namespace DirectX::PackedVector;
 using namespace Microsoft::WRL;
@@ -118,15 +119,9 @@ struct WindowInfo
 };
 
 // Managers
-#include "Game.h"
-#include "Graphics.h"
-#include "VertexData.h"
-#include "Geometry.h"
-#include "InputManager.h"
+#include "GameApp.h"
 #include "TimeManager.h"
-#include "SceneManager.h"
-#include "ResourceManager.h"
-#include "InstancingManager.h"
+
 
 #define CHECK(p)				assert(SUCCEEDED(p))
 #define GAME					GET_SINGLE(Game)		
@@ -149,37 +144,16 @@ struct WindowInfo
 #define INSTANCING				GET_SINGLE(InstancingManager)
 
 // Engine
-#include "Device.h"
-#include "SwapChain.h"
-#include "RootSignature.h"
-#include "CommandQueue.h"
-#include "ComputeCommandQueue.h"
-#include "TableDescriptionHeap.h"
-#include "ComputeDescriptorHeap.h"
-#include "DepthStencilBuffer.h"
+
 #include "BindShaderDesc.h"
 
-
-#include "ResourceBase.h"
-#include "Material.h"
-#include "VertexBuffer.h"
-#include "IndexBuffer.h"
-#include "ConstantBuffer.h"
-#include "UploadBuffer.h"
-#include "Shader.h"
-#include "Texture.h"
 //#include "IExecute.h"
 //
 
-#include "Component.h"
-#include "MeshRenderer.h"
-#include "MonoBehaviour.h"
-#include "GameObject.h"
-#include "Transform.h"
-#include "Mesh.h"
 #include "Camera.h"
-#include "Light.h"
-#include "BlurFilter.h"
 //#include "Texture.h"
 
-
+#include "d3dUtil.h"
+#include "MathHelper.h"
+#include "UploadBuffer.h"
+#include "FrameResource.h"

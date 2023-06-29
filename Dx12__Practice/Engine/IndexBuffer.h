@@ -10,7 +10,7 @@ public:
 	uint32 GetCount() { return _count; }
 
 	template<typename T>
-	void CreateBuffer(const vector<T>& vertices)
+	void CreateBuffer(ComPtr<ID3D12Device> device, const vector<T>& vertices)
 	{
 		_count = static_cast<uint32>(vertices.size());
 		uint32 bufferSize = _count * sizeof(uint32);
@@ -18,7 +18,7 @@ public:
 		D3D12_HEAP_PROPERTIES heapProperty = CD3DX12_HEAP_PROPERTIES(D3D12_HEAP_TYPE_UPLOAD);
 		D3D12_RESOURCE_DESC desc = CD3DX12_RESOURCE_DESC::Buffer(bufferSize);
 
-		DEVICE->CreateCommittedResource(
+		device->CreateCommittedResource(
 			&heapProperty,
 			D3D12_HEAP_FLAG_NONE,
 			&desc,
@@ -38,7 +38,6 @@ public:
 	}
 
 private:
-	friend class MeshRenderer;
 	ComPtr<ID3D12Resource> _indexBuffer;
 	D3D12_INDEX_BUFFER_VIEW _indexBufferView = {};
 

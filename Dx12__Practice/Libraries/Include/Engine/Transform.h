@@ -2,9 +2,8 @@
 
 
 
-class Transform : public Component
+class Transform
 {
-	using Super = Component;
 public:
 	Transform();
 	~Transform();

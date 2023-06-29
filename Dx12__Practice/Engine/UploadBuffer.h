@@ -30,6 +30,24 @@ public:
 		CHECK(_uploadBuffer->Map(0, nullptr, reinterpret_cast<void**>(&_mappedData)));
 	}
 
+	~UploadBuffer()
+	{
+		if (_uploadBuffer != nullptr)
+			_uploadBuffer->Unmap(0, nullptr);
+
+		_mappedData = nullptr;
+	}
+
+	ID3D12Resource* Resource()const
+	{
+		return _uploadBuffer.Get();
+	}
+
+	void CopyData(int elementIndex, const T& data)
+	{
+		memcpy(&_mappedData[elementIndex * _elementByteSize], &data, sizeof(T));
+	}
+
 private:
 	ComPtr<ID3D12Resource> _uploadBuffer;
 	BYTE* _mappedData = nullptr;

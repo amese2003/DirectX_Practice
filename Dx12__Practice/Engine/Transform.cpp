@@ -1,8 +1,6 @@
 #include "pch.h"
 #include "Transform.h"
 #include "Mesh.h"
-#include "MeshRenderer.h"
-#include "Waves.h"
 #include "Material.h"
 #include "MathHelper.h"
 

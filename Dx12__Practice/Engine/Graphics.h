@@ -11,6 +11,7 @@ class DepthStencilBuffer;
 class ComputeCommandQueue;
 class BlurFilter;
 class GameObject;
+class FrameResource;
 
 class Graphics
 {
@@ -47,6 +48,9 @@ public:
 	void SetViewport();
 
 	UINT GetDescSize() { return _cbvsrvdescSize; }
+	int GetFrameResourceIdx() { return _frameResourceIndex; }
+
+	shared_ptr<FrameResource> GetFrameResources() { return _frameResource; }
 
 private:
 	void LogAdapters();
@@ -78,5 +82,8 @@ private:
 
 	D3D12_VIEWPORT _viewport = { 0 };
 	D3D12_RECT		_scissorRect = {};
+
+	shared_ptr<FrameResource> _frameResource;
+	int _frameResourceIndex = 0;
 };
 

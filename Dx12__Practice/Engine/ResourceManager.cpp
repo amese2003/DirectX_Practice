@@ -12,6 +12,8 @@ void ResourceManager::Init()
 	//CreateDefaultMesh();
 	CreateDefaultTexture();
 	LoadMeshs();
+	
+	BuildFrameResources();
 	CreateDefaultMaterials();
 }
 
@@ -120,7 +122,7 @@ void ResourceManager::CreateDefaultMaterials()
 	bricks0->SetDiffuseAlbedo(Color(1.f, 1.f, 1.f, 1.f));
 	bricks0->Setfresnel(Vec3(0.02f, 0.02f, 0.02f));
 	bricks0->SetRoughness(0.1f);
-	RESOURCES->Add<Material>(L"bricks0", bricks0);
+	Add<Material>(L"bricks0", bricks0);
 
 	auto stone0 = make_shared<Material>();
 	stone0->SetName("stone0");
@@ -129,7 +131,7 @@ void ResourceManager::CreateDefaultMaterials()
 	stone0->SetDiffuseAlbedo(Color(1.f, 1.f, 1.f, 1.f));
 	stone0->Setfresnel(Vec3(0.05f, 0.05f, 0.05f));
 	stone0->SetRoughness(0.1f);
-	RESOURCES->Add<Material>(L"stone0", stone0);
+	Add<Material>(L"stone0", stone0);
 
 	auto tile0 = make_shared<Material>();
 	tile0->SetName("tile0");
@@ -138,7 +140,7 @@ void ResourceManager::CreateDefaultMaterials()
 	tile0->SetDiffuseAlbedo(Color(1.f, 1.f, 1.f, 1.f));
 	tile0->Setfresnel(Vec3(0.02f, 0.02f, 0.02f));
 	tile0->SetRoughness(0.3f);
-	RESOURCES->Add<Material>(L"tile0", tile0);
+	Add<Material>(L"tile0", tile0);
 
 	auto crate0 = make_shared<Material>();
 	crate0->SetName("crate0");
@@ -147,7 +149,7 @@ void ResourceManager::CreateDefaultMaterials()
 	crate0->SetDiffuseAlbedo(Color(1.f, 1.f, 1.f, 1.f));
 	crate0->Setfresnel(Vec3(0.05f, 0.05f, 0.05f));
 	crate0->SetRoughness(0.2f);
-	RESOURCES->Add<Material>(L"crate0", crate0);
+	Add<Material>(L"crate0", crate0);
 
 	auto ice0 = make_shared<Material>();
 	ice0->SetName("ice0");
@@ -156,7 +158,7 @@ void ResourceManager::CreateDefaultMaterials()
 	ice0->SetDiffuseAlbedo(Color(1.f, 1.f, 1.f, 1.f));
 	ice0->Setfresnel(Vec3(0.1f, 0.1f, 0.1f));
 	ice0->SetRoughness(0.0f);
-	RESOURCES->Add<Material>(L"ice0", ice0);
+	Add<Material>(L"ice0", ice0);
 
 	auto grass0 = make_shared<Material>();
 	grass0->SetName("grass0");
@@ -165,7 +167,7 @@ void ResourceManager::CreateDefaultMaterials()
 	grass0->SetDiffuseAlbedo(Color(1.f, 1.f, 1.f, 1.f));
 	grass0->Setfresnel(Vec3(0.05f, 0.05f, 0.05f));
 	grass0->SetRoughness(0.2f);
-	RESOURCES->Add<Material>(L"grass0", grass0);
+	Add<Material>(L"grass0", grass0);
 
 	auto skullMat = make_shared<Material>();
 	skullMat->SetName("skullMat");
@@ -174,13 +176,16 @@ void ResourceManager::CreateDefaultMaterials()
 	skullMat->SetDiffuseAlbedo(Color(1.f, 1.f, 1.f, 1.f));
 	skullMat->Setfresnel(Vec3(0.05f, 0.05f, 0.05f));
 	skullMat->SetRoughness(0.5f);
-	RESOURCES->Add<Material>(L"skullMat", skullMat);
+	Add<Material>(L"skullMat", skullMat);
 }
 
 void ResourceManager::BuildFrameResources()
 {
 	for (int i = 0; i < _numframeResouces; ++i)
 	{
-		auto  resource = make_unique<FrameResource>();
+		auto resource = make_shared<FrameResource>();
+		resource->Init(DEVICE.Get(), 1);
+		resource->InitMaterialData(ResourceSize<Material>());
+		_frameResources.push_back(resource);
 	}
 }

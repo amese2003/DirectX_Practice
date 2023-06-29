@@ -7,55 +7,7 @@
   </ProjectOutputs>
   <ContentFiles>
     <ContentFile>
-      <FullPath>D:\Project\DirectX_Practice\Dx12__Practice\Binaries\00. Common.cso</FullPath>
-    </ContentFile>
-    <ContentFile>
-      <FullPath>D:\Project\DirectX_Practice\Dx12__Practice\Binaries\00. LightHelper.cso</FullPath>
-    </ContentFile>
-    <ContentFile>
-      <FullPath>D:\Project\DirectX_Practice\Dx12__Practice\Binaries\02. ConstantBuffer.cso</FullPath>
-    </ContentFile>
-    <ContentFile>
-      <FullPath>D:\Project\DirectX_Practice\Dx12__Practice\Binaries\01. Rectangle.cso</FullPath>
-    </ContentFile>
-    <ContentFile>
-      <FullPath>D:\Project\DirectX_Practice\Dx12__Practice\Binaries\03. World.cso</FullPath>
-    </ContentFile>
-    <ContentFile>
-      <FullPath>D:\Project\DirectX_Practice\Dx12__Practice\Binaries\04. Texture.cso</FullPath>
-    </ContentFile>
-    <ContentFile>
-      <FullPath>D:\Project\DirectX_Practice\Dx12__Practice\Binaries\05. Color.cso</FullPath>
-    </ContentFile>
-    <ContentFile>
-      <FullPath>D:\Project\DirectX_Practice\Dx12__Practice\Binaries\06. Lighting.cso</FullPath>
-    </ContentFile>
-    <ContentFile>
-      <FullPath>D:\Project\DirectX_Practice\Dx12__Practice\Binaries\07. Basic.cso</FullPath>
-    </ContentFile>
-    <ContentFile>
-      <FullPath>D:\Project\DirectX_Practice\Dx12__Practice\Binaries\08. Basic.cso</FullPath>
-    </ContentFile>
-    <ContentFile>
-      <FullPath>D:\Project\DirectX_Practice\Dx12__Practice\Binaries\12. TreeSprite.cso</FullPath>
-    </ContentFile>
-    <ContentFile>
-      <FullPath>D:\Project\DirectX_Practice\Dx12__Practice\Binaries\13. VecAdd.cso</FullPath>
-    </ContentFile>
-    <ContentFile>
-      <FullPath>D:\Project\DirectX_Practice\Dx12__Practice\Binaries\14. Blur.cso</FullPath>
-    </ContentFile>
-    <ContentFile>
-      <FullPath>D:\Project\DirectX_Practice\Dx12__Practice\Binaries\15. BasicTessellation.cso</FullPath>
-    </ContentFile>
-    <ContentFile>
-      <FullPath>D:\Project\DirectX_Practice\Dx12__Practice\Binaries\16. TriTessellation.cso</FullPath>
-    </ContentFile>
-    <ContentFile>
-      <FullPath>D:\Project\DirectX_Practice\Dx12__Practice\Binaries\17. BezierTessellation.cso</FullPath>
-    </ContentFile>
-    <ContentFile>
-      <FullPath>D:\Project\DirectX_Practice\Dx12__Practice\Binaries\19. InstancedBasic.cso</FullPath>
+      <FullPath>D:\Project\DirectX_Practice\Dx12__Practice\Binaries\LightingUtil.cso</FullPath>
     </ContentFile>
   </ContentFiles>
   <SatelliteDlls />

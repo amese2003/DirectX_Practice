@@ -24,8 +24,6 @@ void InstancingBuffer::PushData()
 	const int32 dataCount = GetCount();
 	if (dataCount > _maxCount)
 		CreateBuffer(dataCount);
-
-	_instanceBuffer->PushData(_data);
 }
 
 void InstancingBuffer::CreateBuffer(uint32 maxCount)
@@ -33,8 +31,7 @@ void InstancingBuffer::CreateBuffer(uint32 maxCount)
 	_maxCount = maxCount;
 
 
-	_instanceBuffer = make_shared<VertexBuffer>();
+	//_instanceBuffer = make_shared<VertexBuffer>();
 
 	vector<InstancingData> temp(maxCount);
-	_instanceBuffer->CreateBuffer(temp);
 }

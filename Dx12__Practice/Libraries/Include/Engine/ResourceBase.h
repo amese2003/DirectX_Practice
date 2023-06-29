@@ -11,6 +11,7 @@ enum class ResourceType : uint8
 	Waves,
 	TextureMultiple,
 	FrameResources,
+	PipelineStates,
 
 	End
 };

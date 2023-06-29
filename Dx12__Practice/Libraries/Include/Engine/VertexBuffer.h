@@ -9,7 +9,7 @@ public:
 	D3D12_VERTEX_BUFFER_VIEW& GetVertexBufferView() { return _vertexBufferView; }
 
 	template<typename T>
-	void CreateBuffer(const vector<T>& vertices)
+	void CreateBuffer(ComPtr<ID3D12Device> device, const vector<T>& vertices)
 	{
 		_count = static_cast<uint32>(vertices.size());
 		_stride = sizeof(T);
@@ -20,7 +20,7 @@ public:
 		ZeroMemory(&desc, sizeof(D3D12_RESOURCE_DESC));
 
 		desc = CD3DX12_RESOURCE_DESC::Buffer(bufferSize);
-		DEVICE->CreateCommittedResource(
+		device->CreateCommittedResource(
 			&heapProperty,
 			D3D12_HEAP_FLAG_NONE,
 			&desc,
@@ -30,7 +30,7 @@ public:
 
 		PushData(vertices);
 
-		
+
 		// Initialize the vertex buffer view.
 		_vertexBufferView.BufferLocation = _vertexBuffer->GetGPUVirtualAddress();
 		_vertexBufferView.StrideInBytes = _stride; // 정점 1개 크기
@@ -54,7 +54,6 @@ public:
 
 
 private:
-	friend class MeshRenderer;
 	ComPtr<ID3D12Resource>	_vertexBuffer;
 	D3D12_VERTEX_BUFFER_VIEW	_vertexBufferView = {};
 

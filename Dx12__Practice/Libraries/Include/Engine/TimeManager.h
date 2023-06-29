@@ -31,7 +31,7 @@ private:
 
 public:
 	uint32 GetFps() { return _fps; }
-	void CalculateFrameStats();
+	//void CalculateFrameStats();
 	//float GetDeltaTime() { return _deltaTime; }
 
 private:

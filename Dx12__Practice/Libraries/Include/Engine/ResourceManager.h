@@ -7,6 +7,7 @@ class Texture;
 class Mesh;
 class Material;
 class TextureMultiple;
+class FrameResource;
 
 class ResourceManager
 {
@@ -23,16 +24,23 @@ public:
 	template<typename T>
 	shared_ptr<T> Get(const wstring& key);
 
+	template<typename T>
+	int ResourceSize();
+
 	shared_ptr<Texture> GetOrAddTexture(const wstring& key, const wstring& path);
 
 	template<typename T>
 	ResourceType GetResourceType();
+
+	int GetnumframeResource() { return _numframeResouces; };
+	shared_ptr<FrameResource> GetFrameResources(int num) { return _frameResources[num]; }
 
 private:
 	void CreateDefaultMesh();
 	void CreateDefaultTexture();
 	void LoadMeshs();
 	void CreateDefaultMaterials();
+	void BuildFrameResources();
 
 private:
 	wstring _resourcePath;
@@ -40,6 +48,11 @@ private:
 private:
 	using KeyObjMap = map<wstring/*key*/, shared_ptr<ResourceBase>>;
 	array<KeyObjMap, RESOURCE_TYPE_COUNT> _resources;
+
+private:
+	int _numframeResouces = 3;
+	vector<shared_ptr<FrameResource>> _frameResources;
+
 };
 
 template<typename T>
@@ -52,6 +65,7 @@ ResourceManager::Load(const wstring& key, const wstring& path)
 	auto findIt = keyObjMap.find(key);
 	if (findIt != keyObjMap.end())
 		return static_pointer_cast<T>(findIt->second);
+
 
 	shared_ptr<T> object = make_shared<T>();
 	object->Load(path);
@@ -105,3 +119,9 @@ ResourceType ResourceManager::GetResourceType()
 	return ResourceType::None;
 }
 
+template<typename T>
+inline int ResourceManager::ResourceSize()
+{
+	ResourceType resourceType = GetResourceType<T>();
+	return  _resources[static_cast<uint8>(resourceType)].size();
+}

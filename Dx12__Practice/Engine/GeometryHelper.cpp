@@ -329,36 +329,36 @@ void GeometryHelper::CreateCube(shared_ptr<Geometry<VertexTextureNormalData>> ge
 
 	vector<VertexTextureNormalData> vtx(24);
 
-	// ¾Õ¸é
-	vtx[0] = VertexTextureNormalData(Vec3(-w2, -h2, -d2), Vec3(0.0f, 0.0f, -1.0f), Vec2(0.0f, 1.0f));
-	vtx[1] = VertexTextureNormalData(Vec3(-w2, +h2, -d2), Vec3(0.0f, 0.0f, -1.0f), Vec2(0.0f, 0.0f));
-	vtx[2] = VertexTextureNormalData(Vec3(+w2, +h2, -d2), Vec3(0.0f, 0.0f, -1.0f), Vec2(1.0f, 0.0f));
-	vtx[3] = VertexTextureNormalData(Vec3(+w2, -h2, -d2), Vec3(0.0f, 0.0f, -1.0f), Vec2(1.0f, 1.0f));
-	// µÞ¸é
-	vtx[4] = VertexTextureNormalData(Vec3(-w2, -h2, +d2), Vec3(0.0f, 0.0f, 1.0f), Vec2(1.0f, 1.0f));
-	vtx[5] = VertexTextureNormalData(Vec3(+w2, -h2, +d2), Vec3(0.0f, 0.0f, 1.0f), Vec2(0.0f, 1.0f));
-	vtx[6] = VertexTextureNormalData(Vec3(+w2, +h2, +d2), Vec3(0.0f, 0.0f, 1.0f), Vec2(0.0f, 0.0f));
-	vtx[7] = VertexTextureNormalData(Vec3(-w2, +h2, +d2), Vec3(0.0f, 0.0f, 1.0f), Vec2(1.0f, 0.0f));
-	// À­¸é
-	vtx[8] = VertexTextureNormalData(Vec3(-w2, +h2, -d2),  Vec3(0.0f, 1.0f, 0.0f), Vec2(0.0f, 1.0f));
-	vtx[9] = VertexTextureNormalData(Vec3(-w2, +h2, +d2),  Vec3(0.0f, 1.0f, 0.0f), Vec2(0.0f, 0.0f));
-	vtx[10] = VertexTextureNormalData(Vec3(+w2, +h2, +d2), Vec3(0.0f, 1.0f, 0.0f), Vec2(1.0f, 0.0f));
-	vtx[11] = VertexTextureNormalData(Vec3(+w2, +h2, -d2), Vec3(0.0f, 1.0f, 0.0f), Vec2(1.0f, 1.0f));
-	// ¾Æ·§¸é
-	vtx[12] = VertexTextureNormalData(Vec3(-w2, -h2, -d2), Vec3(0.0f, -1.0f, 0.0f), Vec2(1.0f, 1.0f));
-	vtx[13] = VertexTextureNormalData(Vec3(+w2, -h2, -d2), Vec3(0.0f, -1.0f, 0.0f), Vec2(0.0f, 1.0f));
-	vtx[14] = VertexTextureNormalData(Vec3(+w2, -h2, +d2), Vec3(0.0f, -1.0f, 0.0f), Vec2(0.0f, 0.0f));
-	vtx[15] = VertexTextureNormalData(Vec3(-w2, -h2, +d2), Vec3(0.0f, -1.0f, 0.0f), Vec2(1.0f, 0.0f));
-	// ¿ÞÂÊ¸é
-	vtx[16] = VertexTextureNormalData(Vec3(-w2, -h2, +d2), Vec3(-1.0f, 0.0f, 0.0f), Vec2(0.0f, 1.0f));
-	vtx[17] = VertexTextureNormalData(Vec3(-w2, +h2, +d2), Vec3(-1.0f, 0.0f, 0.0f), Vec2(0.0f, 0.0f));
-	vtx[18] = VertexTextureNormalData(Vec3(-w2, +h2, -d2), Vec3(-1.0f, 0.0f, 0.0f), Vec2(1.0f, 0.0f));
-	vtx[19] = VertexTextureNormalData(Vec3(-w2, -h2, -d2), Vec3(-1.0f, 0.0f, 0.0f), Vec2(1.0f, 1.0f));
-	// ¿À¸¥ÂÊ¸é
-	vtx[20] = VertexTextureNormalData(Vec3(+w2, -h2, -d2), Vec3(1.0f, 0.0f, 0.0f), Vec2(0.0f, 1.0f));
-	vtx[21] = VertexTextureNormalData(Vec3(+w2, +h2, -d2), Vec3(1.0f, 0.0f, 0.0f), Vec2(0.0f, 0.0f));
-	vtx[22] = VertexTextureNormalData(Vec3(+w2, +h2, +d2), Vec3(1.0f, 0.0f, 0.0f), Vec2(1.0f, 0.0f));
-	vtx[23] = VertexTextureNormalData(Vec3(+w2, -h2, +d2), Vec3(1.0f, 0.0f, 0.0f), Vec2(1.0f, 1.0f));
+	//// ¾Õ¸é
+	//vtx[0] = VertexTextureNormalData(Vec3(-w2, -h2, -d2), Vec3(0.0f, 0.0f, -1.0f), Vec2(0.0f, 1.0f));
+	//vtx[1] = VertexTextureNormalData(Vec3(-w2, +h2, -d2), Vec3(0.0f, 0.0f, -1.0f), Vec2(0.0f, 0.0f));
+	//vtx[2] = VertexTextureNormalData(Vec3(+w2, +h2, -d2), Vec3(0.0f, 0.0f, -1.0f), Vec2(1.0f, 0.0f));
+	//vtx[3] = VertexTextureNormalData(Vec3(+w2, -h2, -d2), Vec3(0.0f, 0.0f, -1.0f), Vec2(1.0f, 1.0f));
+	//// µÞ¸é
+	//vtx[4] = VertexTextureNormalData(Vec3(-w2, -h2, +d2), Vec3(0.0f, 0.0f, 1.0f), Vec2(1.0f, 1.0f));
+	//vtx[5] = VertexTextureNormalData(Vec3(+w2, -h2, +d2), Vec3(0.0f, 0.0f, 1.0f), Vec2(0.0f, 1.0f));
+	//vtx[6] = VertexTextureNormalData(Vec3(+w2, +h2, +d2), Vec3(0.0f, 0.0f, 1.0f), Vec2(0.0f, 0.0f));
+	//vtx[7] = VertexTextureNormalData(Vec3(-w2, +h2, +d2), Vec3(0.0f, 0.0f, 1.0f), Vec2(1.0f, 0.0f));
+	//// À­¸é
+	//vtx[8] = VertexTextureNormalData(Vec3(-w2, +h2, -d2),  Vec3(0.0f, 1.0f, 0.0f), Vec2(0.0f, 1.0f));
+	//vtx[9] = VertexTextureNormalData(Vec3(-w2, +h2, +d2),  Vec3(0.0f, 1.0f, 0.0f), Vec2(0.0f, 0.0f));
+	//vtx[10] = VertexTextureNormalData(Vec3(+w2, +h2, +d2), Vec3(0.0f, 1.0f, 0.0f), Vec2(1.0f, 0.0f));
+	//vtx[11] = VertexTextureNormalData(Vec3(+w2, +h2, -d2), Vec3(0.0f, 1.0f, 0.0f), Vec2(1.0f, 1.0f));
+	//// ¾Æ·§¸é
+	//vtx[12] = VertexTextureNormalData(Vec3(-w2, -h2, -d2), Vec3(0.0f, -1.0f, 0.0f), Vec2(1.0f, 1.0f));
+	//vtx[13] = VertexTextureNormalData(Vec3(+w2, -h2, -d2), Vec3(0.0f, -1.0f, 0.0f), Vec2(0.0f, 1.0f));
+	//vtx[14] = VertexTextureNormalData(Vec3(+w2, -h2, +d2), Vec3(0.0f, -1.0f, 0.0f), Vec2(0.0f, 0.0f));
+	//vtx[15] = VertexTextureNormalData(Vec3(-w2, -h2, +d2), Vec3(0.0f, -1.0f, 0.0f), Vec2(1.0f, 0.0f));
+	//// ¿ÞÂÊ¸é
+	//vtx[16] = VertexTextureNormalData(Vec3(-w2, -h2, +d2), Vec3(-1.0f, 0.0f, 0.0f), Vec2(0.0f, 1.0f));
+	//vtx[17] = VertexTextureNormalData(Vec3(-w2, +h2, +d2), Vec3(-1.0f, 0.0f, 0.0f), Vec2(0.0f, 0.0f));
+	//vtx[18] = VertexTextureNormalData(Vec3(-w2, +h2, -d2), Vec3(-1.0f, 0.0f, 0.0f), Vec2(1.0f, 0.0f));
+	//vtx[19] = VertexTextureNormalData(Vec3(-w2, -h2, -d2), Vec3(-1.0f, 0.0f, 0.0f), Vec2(1.0f, 1.0f));
+	//// ¿À¸¥ÂÊ¸é
+	//vtx[20] = VertexTextureNormalData(Vec3(+w2, -h2, -d2), Vec3(1.0f, 0.0f, 0.0f), Vec2(0.0f, 1.0f));
+	//vtx[21] = VertexTextureNormalData(Vec3(+w2, +h2, -d2), Vec3(1.0f, 0.0f, 0.0f), Vec2(0.0f, 0.0f));
+	//vtx[22] = VertexTextureNormalData(Vec3(+w2, +h2, +d2), Vec3(1.0f, 0.0f, 0.0f), Vec2(1.0f, 0.0f));
+	//vtx[23] = VertexTextureNormalData(Vec3(+w2, -h2, +d2), Vec3(1.0f, 0.0f, 0.0f), Vec2(1.0f, 1.0f));
 
 	geometry->SetVertices(vtx);
 

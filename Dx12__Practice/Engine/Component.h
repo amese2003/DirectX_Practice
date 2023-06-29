@@ -1,7 +1,7 @@
 #pragma once
 
 class GameObject;
-class Transform;
+//class Transform;
 
 enum class ComponentType : uint8
 {
@@ -36,8 +36,8 @@ public:
 public:
 	ComponentType GetType() { return _type; }
 
-	shared_ptr<GameObject> GetGameObject();
-	shared_ptr<Transform> GetTransform();
+	//shared_ptr<GameObject> GetGameObject();
+	//shared_ptr<Transform> GetTransform();
 
 private:
 	friend class GameObject;

@@ -1,10 +1,9 @@
 #include "pch.h"
 #include "Mesh.h"
-#include "Graphics.h"
 #include "GeometryHelper.h"
 #include <fstream>
 
-Mesh::Mesh() : Super(ResourceType::Mesh)
+Mesh::Mesh()
 {
 }
 
@@ -14,78 +13,78 @@ Mesh::~Mesh()
 
 void Mesh::Init()
 {
-	_device = DEVICE;
+	//_device = DEVICE;
 
-	_geometry = make_shared<Geometry<VertexTextureNormalTangentData>>();
-	_vertexBuffer = make_shared<VertexBuffer>();
-	_indexBuffer = make_shared<IndexBuffer>();
+	//_geometry = make_shared<Geometry<VertexTextureNormalTangentData>>();
+	//_vertexBuffer = make_shared<VertexBuffer>();
+	//_indexBuffer = make_shared<IndexBuffer>();
 }
 
 void Mesh::CreateRectangle()
 {
-	GeometryHelper::CreateQuad(_geometry);
+	//GeometryHelper::CreateQuad(_geometry);
 
 
-	_vertexBuffer->CreateBuffer(_geometry->GetVertices());
-	_indexBuffer->CreateBuffer(_geometry->GetIndices());
+	//_vertexBuffer->CreateBuffer(_geometry->GetVertices());
+	//_indexBuffer->CreateBuffer(_geometry->GetIndices());
 }
 
 void Mesh::CreateQuad()
 {
-	GeometryHelper::CreateQuadWave(_geometry);
+	//GeometryHelper::CreateQuadWave(_geometry);
 
 
-	_vertexBuffer->CreateBuffer(_geometry->GetVertices());
-	_indexBuffer->CreateBuffer(_geometry->GetIndices());
+	//_vertexBuffer->CreateBuffer(_geometry->GetVertices());
+	//_indexBuffer->CreateBuffer(_geometry->GetIndices());
 }
 
 void Mesh::CreateTriangle()
 {
-	GeometryHelper::CreateTriangle(_geometry);
+	//GeometryHelper::CreateTriangle(_geometry);
 
 
-	_vertexBuffer->CreateBuffer(_geometry->GetVertices());
-	_indexBuffer->CreateBuffer(_geometry->GetIndices());
+	//_vertexBuffer->CreateBuffer(_geometry->GetVertices());
+	//->CreateBuffer(_geometry->GetIndices());
 }
 
 
 void Mesh::CreateCube()
 {
-	GeometryHelper::CreateCube(_geometry);
+	//GeometryHelper::CreateCube(_geometry);
 
-	_vertexBuffer->CreateBuffer(_geometry->GetVertices());
-	_indexBuffer->CreateBuffer(_geometry->GetIndices());
+	//_vertexBuffer->CreateBuffer(_geometry->GetVertices());
+	//_indexBuffer->CreateBuffer(_geometry->GetIndices());
 }
 
 void Mesh::CreateHillDemo()
 {
-	GeometryHelper::CreateGrid(_geometry, 160.0f, 160.0f, 50, 50, true);
-	_vertexBuffer->CreateBuffer(_geometry->GetVertices());
-	_indexBuffer->CreateBuffer(_geometry->GetIndices());
+	//GeometryHelper::CreateGrid(_geometry, 160.0f, 160.0f, 50, 50, true);
+	//_vertexBuffer->CreateBuffer(_geometry->GetVertices());
+	//_indexBuffer->CreateBuffer(_geometry->GetIndices());
 }
 
 void Mesh::CreateGrid()
 {
 	//GeometryHelper::CreateGrid(_geometry, 160.0f, 160.0f, 50, 50);
-	 GeometryHelper::CreateGrid(_geometry, 20.f, 30.f, 60, 40);
-	_vertexBuffer->CreateBuffer(_geometry->GetVertices());
-	_indexBuffer->CreateBuffer(_geometry->GetIndices());
+	// GeometryHelper::CreateGrid(_geometry, 20.f, 30.f, 60, 40);
+	//_vertexBuffer->CreateBuffer(_geometry->GetVertices());
+	//_indexBuffer->CreateBuffer(_geometry->GetIndices());
 }
 
 void Mesh::CreateSphere()
 {
-	GeometryHelper::CreateSphere(_geometry);
+	//GeometryHelper::CreateSphere(_geometry);
 
-	_vertexBuffer->CreateBuffer(_geometry->GetVertices());
-	_indexBuffer->CreateBuffer(_geometry->GetIndices());
+	//_vertexBuffer->CreateBuffer(_geometry->GetVertices());
+	//_indexBuffer->CreateBuffer(_geometry->GetIndices());
 }
 
 void Mesh::CreateCylinder()
 {
-	GeometryHelper::CreateCylinder(_geometry, 0.5f, 0.3f, 3.0f, 20, 20);
+	//GeometryHelper::CreateCylinder(_geometry, 0.5f, 0.3f, 3.0f, 20, 20);
 
-	_vertexBuffer->CreateBuffer(_geometry->GetVertices());
-	_indexBuffer->CreateBuffer(_geometry->GetIndices());
+	//_vertexBuffer->CreateBuffer(_geometry->GetVertices());
+	//_indexBuffer->CreateBuffer(_geometry->GetIndices());
 }
 
 void Mesh::CreateSkull()
@@ -134,38 +133,38 @@ void Mesh::CreateSkull()
 
 	fin.close();
 
-	_geometry->SetVertices(vertices);
-	_geometry->SetIndices(indices);
+	//_geometry->SetVertices(vertices);
+	//_geometry->SetIndices(indices);
 
-	_vertexBuffer->CreateBuffer(vertices);
-	_indexBuffer->CreateBuffer(indices);
+	//_vertexBuffer->CreateBuffer(vertices);
+	//_indexBuffer->CreateBuffer(indices);
 }
 
 void Mesh::CreateFloor()
 {
-	GeometryHelper::CreateFloor(_geometry);
+	//GeometryHelper::CreateFloor(_geometry);
 
-	_vertexBuffer->CreateBuffer(_geometry->GetVertices());
+	//_vertexBuffer->CreateBuffer(_geometry->GetVertices());
 }
 
 void Mesh::CreateWall()
 {
-	GeometryHelper::CreateWall(_geometry);
+	//GeometryHelper::CreateWall(_geometry);
 
-	_vertexBuffer->CreateBuffer(_geometry->GetVertices());
+	//_vertexBuffer->CreateBuffer(_geometry->GetVertices());
 }
 
 void Mesh::CreateMirror()
 {
-	GeometryHelper::CreateRoomMirror(_geometry);
+	//GeometryHelper::CreateRoomMirror(_geometry);
 
-	_vertexBuffer->CreateBuffer(_geometry->GetVertices());
+	//_vertexBuffer->CreateBuffer(_geometry->GetVertices());
 }
 
 void Mesh::CreateTreeSprites()
 {
-	GeometryHelper::CreateTreeSprites(_geometry);
+	//GeometryHelper::CreateTreeSprites(_geometry);
 
-	_vertexBuffer->CreateBuffer(_geometry->GetVertices());
-	_indexBuffer->CreateBuffer(_geometry->GetIndices());
+	//_vertexBuffer->CreateBuffer(_geometry->GetVertices());
+	//_indexBuffer->CreateBuffer(_geometry->GetIndices());
 }

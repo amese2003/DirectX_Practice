@@ -4,31 +4,6 @@
 
 void Graphics::Init(HWND hwnd)
 {
-	_hwnd = hwnd;
-	SetViewport();
-
-	_device = make_shared<Device>();
-	_cmdQueue = make_shared<CommandQueue>();
-	_swapChain = make_shared<SwapChain>();
-	_depthStencil = make_shared<DepthStencilBuffer>();
-	_rootSignature = make_shared<RootSignature>();
-
-
-
-	_device->Init();
-	_cmdQueue->Init();
-	_swapChain->Init(_hwnd, _device->GetDevice(), _device->GetDXGI(), _cmdQueue->GetCmdQueue());
-
-#ifdef _DEBUG
-	LogAdapters();
-#endif
-
-	_cbvsrvdescSize = DEVICE->GetDescriptorHandleIncrementSize(D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV);
-
-	_depthStencil->Init();
-	RESOURCES->Init();
-	
-	_rootSignature->Init();
 
 
 	
@@ -36,10 +11,12 @@ void Graphics::Init(HWND hwnd)
 
 void Graphics::RenderBegin()
 {
+
 }
 
 void Graphics::RenderEnd()
 {
+
 }
 
 
