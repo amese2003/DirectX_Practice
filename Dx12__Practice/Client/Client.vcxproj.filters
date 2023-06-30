@@ -40,6 +40,9 @@
     <ClInclude Include="20. InstancingAndCullingDemo.h">
       <Filter>Game</Filter>
     </ClInclude>
+    <ClInclude Include="21. PickingDemo.h">
+      <Filter>Game</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Client.rc">
@@ -64,9 +67,18 @@
     <ClCompile Include="20. InstancingAndCullingDemo.cpp">
       <Filter>Game</Filter>
     </ClCompile>
+    <ClCompile Include="21. PickingDemo.cpp">
+      <Filter>Game</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="..\Shaders\LightingUtil.fx">
+      <Filter>Shader</Filter>
+    </FxCompile>
+    <FxCompile Include="..\Shaders\20. Picking.fx">
+      <Filter>Shader</Filter>
+    </FxCompile>
+    <FxCompile Include="..\Shaders\19. InstancedBasic.fx">
       <Filter>Shader</Filter>
     </FxCompile>
   </ItemGroup>

@@ -11,6 +11,16 @@ struct InstanceData
     UINT InstancePad2;
 };
 
+struct ObjectConstants
+{
+    DirectX::XMFLOAT4X4 World = MathHelper::Identity4x4();
+    DirectX::XMFLOAT4X4 TexTransform = MathHelper::Identity4x4();
+    UINT     MaterialIndex;
+    UINT     ObjPad0;
+    UINT     ObjPad1;
+    UINT     ObjPad2;
+};
+
 struct PassConstants
 {
     DirectX::XMFLOAT4X4 View = MathHelper::Identity4x4();
@@ -61,14 +71,14 @@ struct Vertex
 
 // Stores the resources needed for the CPU to build the command lists
 // for a frame.  
-struct FrameResource
+struct InstanceResource
 {
 public:
 
-    FrameResource(ID3D12Device* device, UINT passCount, UINT maxInstanceCount, UINT materialCount);
-    FrameResource(const FrameResource& rhs) = delete;
-    FrameResource& operator=(const FrameResource& rhs) = delete;
-    ~FrameResource();
+    InstanceResource(ID3D12Device* device, UINT passCount, UINT maxInstanceCount, UINT materialCount);
+    InstanceResource(const InstanceResource& rhs) = delete;
+    InstanceResource& operator=(const InstanceResource& rhs) = delete;
+    ~InstanceResource();
 
     // We cannot reset the allocator until the GPU is done processing the commands.
     // So each frame needs their own allocator.
@@ -89,6 +99,33 @@ public:
     // we would create a constant buffer with enough room for a 1000 objects.  With instancing, we would just
     // create a structured buffer large enough to store the instance data for 1000 instances.  
     std::unique_ptr<UploadBuffer<InstanceData>> InstanceBuffer = nullptr;
+
+    // Fence value to mark commands up to this fence point.  This lets us
+    // check if these frame resources are still in use by the GPU.
+    UINT64 Fence = 0;
+};
+
+// Stores the resources needed for the CPU to build the command lists
+// for a frame.  
+struct FrameResource
+{
+public:
+
+    FrameResource(ID3D12Device* device, UINT passCount, UINT objectCount, UINT materialCount);
+    FrameResource(const FrameResource& rhs) = delete;
+    FrameResource& operator=(const FrameResource& rhs) = delete;
+    ~FrameResource();
+
+    // We cannot reset the allocator until the GPU is done processing the commands.
+    // So each frame needs their own allocator.
+    Microsoft::WRL::ComPtr<ID3D12CommandAllocator> CmdListAlloc;
+
+    // We cannot update a cbuffer until the GPU is done processing the commands
+    // that reference it.  So each frame needs their own cbuffers.
+    std::shared_ptr<UploadBuffer<PassConstants>> PassCB = nullptr;
+    std::shared_ptr<UploadBuffer<ObjectConstants>> ObjectCB = nullptr;
+
+    std::shared_ptr<UploadBuffer<MaterialData>> MaterialBuffer = nullptr;
 
     // Fence value to mark commands up to this fence point.  This lets us
     // check if these frame resources are still in use by the GPU.

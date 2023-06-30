@@ -46,8 +46,8 @@ protected:
 
 private:
 
-    std::vector<std::shared_ptr<FrameResource>> _frameResources;
-    shared_ptr<FrameResource> _currFrameResource = nullptr;
+    std::vector<std::shared_ptr<InstanceResource>> _frameResources;
+    shared_ptr<InstanceResource> _currFrameResource = nullptr;
     int _currFrameResourceIndex = 0;
 
     UINT _cbvSrvDescriptorSize = 0;

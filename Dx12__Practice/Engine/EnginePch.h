@@ -157,3 +157,4 @@ struct WindowInfo
 #include "MathHelper.h"
 #include "UploadBuffer.h"
 #include "FrameResource.h"
+#include "RenderObject.h"

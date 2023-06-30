@@ -746,7 +746,7 @@ void InstancingAndCullingDemo::BuildFrameResources()
 {
 	for (int i = 0; i < gNumFrameResources; i++)
 	{
-		shared_ptr<FrameResource> resources = make_shared<FrameResource>(_device.Get(), 1, _instanceCount, (UINT)_material.size());
+		shared_ptr<InstanceResource> resources = make_shared<InstanceResource>(_device.Get(), 1, _instanceCount, (UINT)_material.size());
 		_frameResources.push_back(resources);
 	}
 }

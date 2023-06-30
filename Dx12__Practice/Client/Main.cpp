@@ -2,6 +2,7 @@
 #include "Main.h"
 
 #include "20. InstancingAndCullingDemo.h"
+#include "21. PickingDemo.h"
 
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nShowCmd)
 {
@@ -18,7 +19,8 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	//GAME->Run(desc);
 
 
-	InstancingAndCullingDemo app(hInstance);
+	//InstancingAndCullingDemo app(hInstance);
+	PickingDemo app(hInstance);
 
 	if (!app.Init())
 		return 0;

@@ -3,6 +3,15 @@
 class MeshGeometry;
 struct Material;
 
+
+enum class RenderLayer : int
+{
+	Opaque = 0,
+	Highlight,
+	Count
+};
+
+
 class RenderObject
 {
 public:
@@ -27,21 +36,34 @@ public:
 	void SetInstanceCount(int idx) { _instanceCount = idx; }
 	void SetInstanceSize(int idx) { Instances.resize(idx); }
 	void SetInstanceData(int idx, InstanceData data) { Instances[idx] = data; }
+	void SetVisible(bool visible) { _visible = visible; }
 
 	Matrix GetTexMatrix() { return _texMatrix; }
 	Matrix GetWorldMatrix() { return _worldMatrix; }
 
-	InstanceData GetInstanceData(int num) { return Instances[num]; }
-	vector<InstanceData> GetInstanceData() { return Instances; }
+	int& GetnumframedIrty() { return _numframesDirty; }
+	UINT& GetConstantIndex() { return _objCbIndex; }
+
+	shared_ptr<Material> GetMaterial() { return _mat; }
 	shared_ptr<MeshGeometry> GetGeometry() { return _geo; }
 
 	D3D12_PRIMITIVE_TOPOLOGY& GetPrimitiveType() { return _primitiveType; }
+
+	BoundingBox& GetBoundingBox() { return Bounds; }
+
+	InstanceData GetInstanceData(int num) { return Instances[num]; }
+	vector<InstanceData> GetInstanceData() { return Instances; }
+	
+	bool GetVisible() { return _visible; }
+	
 
 	UINT GetIndexCount() { return _indexCount; }
 	UINT GetInstanceCount() { return _instanceCount; }
 	UINT GetStartIndexLocation() { return _startIndexLocation; }
 	int GetBaseVertexLocation() { return _baseVertexLocation; }
-	BoundingBox& GetBoundingBox() { return Bounds; }
+	
+	
+
 
 private:
 	Matrix _worldMatrix = MathHelper::Identity4x4();
@@ -57,6 +79,8 @@ private:
 
 	BoundingBox Bounds;
 	std::vector<InstanceData> Instances;
+
+	bool _visible = true;
 
 	// DrawIndexedInstanced parameters.
 	UINT _indexCount = 0;
