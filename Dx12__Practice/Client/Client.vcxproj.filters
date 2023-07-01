@@ -43,6 +43,9 @@
     <ClInclude Include="21. PickingDemo.h">
       <Filter>Game</Filter>
     </ClInclude>
+    <ClInclude Include="22. CubeMapDemo.h">
+      <Filter>Game</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Client.rc">
@@ -70,6 +73,9 @@
     <ClCompile Include="21. PickingDemo.cpp">
       <Filter>Game</Filter>
     </ClCompile>
+    <ClCompile Include="22. CubeMapDemo.cpp">
+      <Filter>Game</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="..\Shaders\LightingUtil.fx">
@@ -79,6 +85,15 @@
       <Filter>Shader</Filter>
     </FxCompile>
     <FxCompile Include="..\Shaders\19. InstancedBasic.fx">
+      <Filter>Shader</Filter>
+    </FxCompile>
+    <FxCompile Include="..\Shaders\SkyCube.fx">
+      <Filter>Shader</Filter>
+    </FxCompile>
+    <FxCompile Include="..\Shaders\Common.fx">
+      <Filter>Shader</Filter>
+    </FxCompile>
+    <FxCompile Include="..\Shaders\21. Cubemap.fx">
       <Filter>Shader</Filter>
     </FxCompile>
   </ItemGroup>

@@ -1,9 +1,5 @@
 #pragma once
 
-struct VetextData
-{
-	Vec3 position = { 0, 0, 0 };
-};
 
 struct VertexTextureData
 {
@@ -26,8 +22,9 @@ struct VertexTextureNormalData
 	Vec3 position = { 0, 0, 0 };
 	Vec3 normal = { 0, 0, 0 };
 	Vec2 uv = { 0, 0 };
-	
 };
+
+
 
 struct VertexTextureNormalTangentData
 {
@@ -38,3 +35,6 @@ struct VertexTextureNormalTangentData
 	Color Color = { 1, 1, 1, 1 };
 	Vec2 sizeW = { 0, 0 };
 };
+
+
+

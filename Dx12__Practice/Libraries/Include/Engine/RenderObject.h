@@ -8,6 +8,7 @@ enum class RenderLayer : int
 {
 	Opaque = 0,
 	Highlight,
+	Sky,
 	Count
 };
 

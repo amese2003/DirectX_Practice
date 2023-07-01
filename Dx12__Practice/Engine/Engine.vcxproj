@@ -179,6 +179,7 @@ xcopy /Y "$(SolutionDir)Engine\*.inl" "$(SolutionDir)Libraries\Include\Engine"</
     <ClInclude Include="framework.h" />
     <ClInclude Include="GameApp.h" />
     <ClInclude Include="Geometry.h" />
+    <ClInclude Include="GeometryGenerator.h" />
     <ClInclude Include="GeometryHelper.h" />
     <ClInclude Include="IndexBuffer.h" />
     <ClInclude Include="InputManager.h" />
@@ -213,6 +214,7 @@ xcopy /Y "$(SolutionDir)Engine\*.inl" "$(SolutionDir)Libraries\Include\Engine"</
     <ClCompile Include="FrameResource.cpp" />
     <ClCompile Include="GameApp.cpp" />
     <ClCompile Include="Geometry.cpp" />
+    <ClCompile Include="GeometryGenerator.cpp" />
     <ClCompile Include="GeometryHelper.cpp" />
     <ClCompile Include="IndexBuffer.cpp" />
     <ClCompile Include="InputManager.cpp" />

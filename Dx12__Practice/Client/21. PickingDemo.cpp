@@ -40,6 +40,11 @@ bool PickingDemo::Init()
 	// Wait until initialization is complete.
 	WaitAsync();
 
+	std::wostringstream outs;
+	outs.precision(6);
+	outs << L"Picking Demo ";
+	_mainCaption = outs.str();
+
 	return true;
 }
 
