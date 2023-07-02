@@ -156,6 +156,7 @@
     <ClInclude Include="20. InstancingAndCullingDemo.h" />
     <ClInclude Include="21. PickingDemo.h" />
     <ClInclude Include="22. CubeMapDemo.h" />
+    <ClInclude Include="23. DynamicCubeDemo.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="Main.h" />
     <ClInclude Include="pch.h" />
@@ -166,6 +167,7 @@
     <ClCompile Include="20. InstancingAndCullingDemo.cpp" />
     <ClCompile Include="21. PickingDemo.cpp" />
     <ClCompile Include="22. CubeMapDemo.cpp" />
+    <ClCompile Include="23. DynamicCubeDemo.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>

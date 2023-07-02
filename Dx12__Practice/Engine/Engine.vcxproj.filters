@@ -129,6 +129,9 @@
     <ClInclude Include="GeometryGenerator.h">
       <Filter>01. Graphics\Pipeline\00. Geometry</Filter>
     </ClInclude>
+    <ClInclude Include="CubeRenderTarget.h">
+      <Filter>00. Engine</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine.cpp">
@@ -208,6 +211,9 @@
     </ClCompile>
     <ClCompile Include="GeometryGenerator.cpp">
       <Filter>01. Graphics\Pipeline\00. Geometry</Filter>
+    </ClCompile>
+    <ClCompile Include="CubeRenderTarget.cpp">
+      <Filter>00. Engine</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
