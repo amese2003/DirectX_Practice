@@ -10,6 +10,8 @@ enum class CubeMapFace : int
 	NegativeZ = 5
 };
 
+const UINT CubeMapSize = 512;
+
 class CubeRenderTarget
 {
 public:

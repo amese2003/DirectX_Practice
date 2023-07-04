@@ -49,6 +49,9 @@
     <ClInclude Include="23. DynamicCubeDemo.h">
       <Filter>Game</Filter>
     </ClInclude>
+    <ClInclude Include="24. NormalMapDemo.h">
+      <Filter>Game</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Client.rc">
@@ -82,6 +85,9 @@
     <ClCompile Include="23. DynamicCubeDemo.cpp">
       <Filter>Game</Filter>
     </ClCompile>
+    <ClCompile Include="24. NormalMapDemo.cpp">
+      <Filter>Game</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="..\Shaders\LightingUtil.fx">
@@ -100,6 +106,9 @@
       <Filter>Shader</Filter>
     </FxCompile>
     <FxCompile Include="..\Shaders\21. Cubemap.fx">
+      <Filter>Shader</Filter>
+    </FxCompile>
+    <FxCompile Include="..\Shaders\22. CubeMapNormal.fx">
       <Filter>Shader</Filter>
     </FxCompile>
   </ItemGroup>

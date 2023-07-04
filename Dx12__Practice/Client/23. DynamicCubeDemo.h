@@ -6,7 +6,6 @@ class GameObject;
 class RenderObject;
 class Material;
 
-const UINT CubeMapSize = 512;
 
 class DynamicCubeDemo : public GameApp
 {

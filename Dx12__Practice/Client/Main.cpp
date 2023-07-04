@@ -5,6 +5,7 @@
 #include "21. PickingDemo.h"
 #include "22. CubeMapDemo.h"
 #include "23. DynamicCubeDemo.h"
+#include "24. NormalMapDemo.h"
 
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nShowCmd)
 {
@@ -24,7 +25,8 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	//InstancingAndCullingDemo app(hInstance);
 	//PickingDemo app(hInstance);
 	//CubeMapDemo app(hInstance);
-	DynamicCubeDemo app(hInstance);
+	//DynamicCubeDemo app(hInstance);
+	NormalMapDemo app(hInstance);
 
 	if (!app.Init())
 		return 0;
